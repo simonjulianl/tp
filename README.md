@@ -1,4 +1,4 @@
-[![CI Status](https://github.com/AY2122S1-CS2103T-T15-1/tp/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
+[![CI Status](https://github.com/AY2122S1-CS2103T-T15-1/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2122S1-CS2103T-T15-1/tp/actions)
 
 # About GoMedic
 GoMedic is a desktop application designed for doctors and medical residents to manage contacts and patient details.
