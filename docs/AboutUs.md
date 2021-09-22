@@ -9,19 +9,20 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Simon Julian Lauw
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/developers/simonjulianlauw.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](https://simonjulianl.github.io)]
+[[github](https://github.com/simonjulianl)]
+[[portfolio](team/simonjulianlauw.md)]
 
-* Role: Project Advisor
+* Role: Team Lead 
+* Responsibilities: Deliverables and deadlines  
 
 ### Radian Krisno
 
-<img src="images/radiankrisno.png" width="200px">
+<img src="images/developers/radiankrisno.png" width="200px">
 
 [[github](http://github.com/radiankrisno)]
 [[portfolio](team/radiankrisno.md)]
@@ -31,7 +32,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Johnny Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/developers/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
 
@@ -40,7 +41,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Jean Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/developers/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
 [[portfolio](team/johndoe.md)]
@@ -50,7 +51,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### James Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/developers/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
 [[portfolio](team/johndoe.md)]
