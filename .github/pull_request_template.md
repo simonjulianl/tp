@@ -1,5 +1,7 @@
 ### Summary
 
+_resolve the linked issue using **resolves #<issue_number>**_
+
 _provide of an overview about this PR_
 
 ### Detail
