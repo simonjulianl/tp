@@ -11,7 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Simon Julian Lauw
 
-<img src="images/developers/simonjulianlauw.png" width="200px">
+<img src="images/developers/simonjulianl.png" width="200px">
 
 [[homepage](https://simonjulianl.github.io)]
 [[github](https://github.com/simonjulianl)]
