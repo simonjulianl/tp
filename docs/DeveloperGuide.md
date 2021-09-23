@@ -383,17 +383,33 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Use cases
 
-(For all use cases below, the **System** is the `GoMedic` and the **Actor** is the `user`, unless specified
-otherwise)
+(For all use cases below, the **System** is the `GoMedic` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use Case: [UC1] - Adding a new Patient Record **
+**Use Case: [UC1] - Adding a new patient record**
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person
+1. User requests to add a new patient record.
+2. GoMedic shows confirmation about the new patient record being added, and displays the patient's full details.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. Incomplete patient details are given by users
+
+    * 1a1. GoMedic shows a feedback to the user about the missing data.
+
+      Use Case ends.
+
+**Use Case: [UC2] - Delete an existing patient record**
+
+**MSS**
+
+1. User requests to list all patients.
+2. GoMedic shows a list of patients.
+3. User requests to delete a specific person in the list.
+4. GoMedic deletes the person.
 
    Use case ends.
 
@@ -405,33 +421,35 @@ otherwise)
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. GoMedic shows a feedback to the user about invalid index.
 
-      Use case resumes at step 2.
+      Use case ends.
 
-**Use Case: [UC1] - Delete a person**
+**Use Case: [UC3] - Command Suggestions**
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person
+1. User types in a certain command such as creating <u>new patient record (UC1)</u> and <u>deleting an existing patient record (UC2)</u> with typo.
+2. GoMedic shows a list of suggested commands. 
+3. User retypes the command and requests GoMedic to perform certain action.
+4. GoMedic performs the specified action. 
 
    Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. Command is valid.
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 2a. User decides not to retype the commands.
 
-    * 3a1. AddressBook shows an error message.
+  Use case ends.
 
-      Use case resumes at step 2.
-    * 
+* 3a. User input an invalid command. 
+
+  Use case resumes at step 1.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
