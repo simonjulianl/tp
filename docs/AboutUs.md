@@ -39,7 +39,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Code quality
 
-### Jean Doe
+### Ng Seng Leng
 
 <img src="images/developers/ngsengleng.png" width="200px">
 
