@@ -1,5 +1,6 @@
 ---
-layout: page title: Developer Guide
+layout: page
+title: Developer Guide
 ---
 
 * Table of Contents {:toc}
@@ -429,10 +430,11 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **MSS**
 
-1. User types in a certain command such as creating <u>new patient record (UC1)</u> and <u>deleting an existing patient record (UC2)</u> with typo.
-2. GoMedic shows a list of suggested commands. 
+1. User types in a certain command such as creating <u>new patient record (UC1)</u> and <u>deleting an existing patient
+   record (UC2)</u> with typo.
+2. GoMedic shows a list of suggested commands.
 3. User retypes the command and requests GoMedic to perform certain action.
-4. GoMedic performs the specified action. 
+4. GoMedic performs the specified action.
 
    Use case ends.
 
@@ -446,7 +448,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
   Use case ends.
 
-* 3a. User input an invalid command. 
+* 3a. User input an invalid command.
 
   Use case resumes at step 1.
 
@@ -455,31 +457,42 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. Should be able to be run without any installation required as long as the user has Java `11` installed. 
-3. Should be able to hold up to 1000 patients and colleagues without a noticeable delay (less than 2 seconds) in performance for typical usage.
-4. Should be able to hold up to 200 future activities and future appointments, and be retrieved without a noticeable delay (less than 2 seconds) for typical searches. 
-5. Should be only used by a single user and do not require other users to make changes to the app such as making appointment or sharing activities. 
+2. Should be able to be run without any installation required as long as the user has Java `11` installed.
+3. Should be able to hold up to 1000 patients and colleagues without a noticeable delay (less than 2 seconds) in
+   performance for typical usage.
+4. Should be able to hold up to 200 future activities and future appointments, and be retrieved without a noticeable
+   delay (less than 2 seconds) for typical searches.
+5. Should be only used by a single user and do not require other users to make changes to the app such as making
+   appointment or sharing activities.
 6. The data should not be stored using a _DBMS_.
 7. The data should be stored _locally_ and should be in a human _editable_ and easily modified text file.
-8. The project is expected to adhere to a _biweekly version release_ using breadth-first incremental technique. 
-9. Should be less than **100 MB** in size for the software, and less than **15 MB** per file for each document. 
-10. The developer guide and user guide must be pdf-friendly (meaning no embedded video, animations, embedded PowerPoint, etc.).
-11. Should be delivered to the user using a single JAR file. 
-12. Graphical User Interface (GUI) should work reasonable well for standard screen resolution of 1920 x 1080 and higher with screen scales 100% and 125%, and also usable for screen resolutions 1280 x 720 and higher with screen scales 150%.
-13. Should be written mainly using Object-oriented paradigm. 
-14. The app is not required to be able to interact with external pieces of hardware such as printer. 
-15. The data stored within the app should be encrypted for security purposes (to prevent the raw data being read by external parties). 
-16. The app is mainly used for users based in Singapore, and therefore some local terms are tolerable, and the app is not expected to operate in other languages except English.
+8. The project is expected to adhere to a _biweekly version release_ using breadth-first incremental technique.
+9. Should be less than **100 MB** in size for the software, and less than **15 MB** per file for each document.
+10. The developer guide and user guide must be pdf-friendly (meaning no embedded video, animations, embedded PowerPoint,
+    etc.).
+11. Should be delivered to the user using a single JAR file.
+12. Graphical User Interface (GUI) should work reasonable well for standard screen resolution of 1920 x 1080 and higher
+    with screen scales 100% and 125%, and also usable for screen resolutions 1280 x 720 and higher with screen scales
+    150%.
+13. Should be written mainly using Object-oriented paradigm.
+14. The app is not required to be able to interact with external pieces of hardware such as printer.
+15. The data stored within the app should be encrypted for security purposes (to prevent the raw data being read by
+    external parties).
+16. The app is mainly used for users based in Singapore, and therefore some local terms are tolerable, and the app is
+    not expected to operate in other languages except English.
 
 *{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.
-* **DBMS** : Database Management System such as MySQL, Oracle, PSQL, MongoDB, etc. 
-* **JAR** : Java Archive file format, which is typically used to aggregate many Java class files and associated metadata into one file for distribution.
-* **typical usage/searches** : Finding by keyword, name, medical histories, and any combination of the field manually. 
-* **Object-Oriented Paradigm** : programming paradigm that organizes software design around objects rather than functions and logic. For complete list of Features that OO design should have, please [visit this wikipedia page](https://en.wikipedia.org/wiki/Object-oriented_programming)
+* **DBMS** : Database Management System such as MySQL, Oracle, PSQL, MongoDB, etc.
+* **JAR** : Java Archive file format, which is typically used to aggregate many Java class files and associated metadata
+  into one file for distribution.
+* **typical usage/searches** : Finding by keyword, name, medical histories, and any combination of the field manually.
+* **Object-Oriented Paradigm** : programming paradigm that organizes software design around objects rather than
+  functions and logic. For complete list of Features that OO design should have,
+  please [visit this wikipedia page](https://en.wikipedia.org/wiki/Object-oriented_programming)
 
 --------------------------------------------------------------------------------------------------------------------
 
