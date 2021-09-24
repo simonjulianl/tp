@@ -3,7 +3,9 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to manage contacts and patient details**.
+We aim GoMedic to be used by someone who can type fast and take advantage of the optimized features for
+Command Line Interface.
 
 * Table of Contents
 {:toc}
@@ -14,7 +16,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `gomedic.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
@@ -47,6 +49,9 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
+* Words in `LOWER_CASE` are required flags to be written together with the command. <br> 
+  e.g. in `add t/activity`, `t/activity` is a flag that must be written as it is and should not be changed or treated as a parameter.
+
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
@@ -62,15 +67,63 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* There are fixed multiple valid date and time formats (GMT+8 24-Hour Time format):
+  1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00)
+  2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00)
+  3. yyyy-MM-dd-HH-mm (e.g. 2022-09-15-13-00)
 </div>
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
 Format: `help`
+
+### Adding a new activity: `add t/activity`
+
+Adds a new activity into your GoMedic scheduler. 
+
+Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
+* `START_TIME` and `END_TIME` must follow one of the formats specified. 
+* `START_TIME` is strictly less than `END_TIME`.
+* Clashing activity (including partial overlap with other activities or appointments) would be considered as invalid activity (i.e. not to be added).
+* `TITLE` ideally should be very short so that it can be displayed in the list without being truncated.
+
+**Tip:** Try to pack as many keywords as possible inside the description while keep it concise so that you can search it later. 
+
+Examples:
+* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
+* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
+
+### Deleting an existing activity: `delete t/activity`
+
+Delete a certain existing activity 
+
+Format: `delete t/activity i/ACTIVITY_ID`
+* Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time frame. 
+* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees 1 `delete t/activity` command will not delete 2 activities at once).
+* Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
+
+Examples: 
+* `delete t/activity A123`
+
+### List all activities: `list t/activity`
+
+List all existing (past, present and future) activities that exist in GoMedic. 
+
+Format: `list t/activity`
+* Activities would be displayed in ascending `START_TIME` (The past activities would be at the top if any and Future activities at the bottom).
+* The summary or description that are too long would be truncated. 
+* The `START_TIME` and `END_TIME` would be displayed in `dd-MM-yyyy HH:mm` GMT+8 24-Hour format.
+
+<div markdown="span" class="alert alert-primary">
+:bulb: **Tip:** There are other upcoming `list` commands that can list future activities only and past activities only.
+</div>
+
+Examples:
+* `list t/activity`
 
 
 ### Adding a person: `add`
