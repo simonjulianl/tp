@@ -1,14 +1,12 @@
 ---
-layout: page
-title: User Guide
+layout: page title: User Guide
 ---
 
-GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to manage contacts and patient details**.
-We aim GoMedic to be used by someone who can type fast and take advantage of the optimized features for
-Command Line Interface.
+GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to
+manage contacts and patient details**. We aim GoMedic to be used by someone who can type fast and take advantage of the
+optimized features for Command Line Interface.
 
-* Table of Contents
-{:toc}
+* Table of Contents {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -20,21 +18,24 @@ Command Line Interface.
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app
+   contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
+   open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+    * **`list`** : Lists all contacts.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+    * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
+      named `John Doe` to the Address Book.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+    * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
 
-   * **`clear`** : Deletes all contacts.
+    * **`clear`** : Deletes all contacts.
 
-   * **`exit`** : Exits the app.
+    * **`exit`** : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -49,8 +50,9 @@ Command Line Interface.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-* Words in `LOWER_CASE` are required flags to be written together with the command. <br> 
-  e.g. in `add t/activity`, `t/activity` is a flag that must be written as it is and should not be changed or treated as a parameter.
+* Words in `LOWER_CASE` are required flags to be written together with the command. <br>
+  e.g. in `add t/activity`, `t/activity` is a flag that must be written as it is and should not be changed or treated as
+  a parameter.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -61,16 +63,19 @@ Command Line Interface.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of
+  the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be
+  ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * There are fixed multiple valid date and time formats (GMT+8 24-Hour Time format):
-  1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00)
-  2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00)
-  3. yyyy-MM-dd-HH-mm (e.g. 2022-09-15-13-00)
+    1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00)
+    2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00)
+    3. yyyy-MM-dd-HH-mm (e.g. 2022-09-15-13-00)
+
 </div>
 
 ### Viewing help : `help`
@@ -83,48 +88,56 @@ Format: `help`
 
 ### Adding a new activity: `add t/activity`
 
-Adds a new activity into your GoMedic scheduler. 
+Adds a new activity into your GoMedic scheduler.
 
 Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
-* `START_TIME` and `END_TIME` must follow one of the formats specified. 
+
+* `START_TIME` and `END_TIME` must follow one of the formats specified.
 * `START_TIME` is strictly less than `END_TIME`.
-* Clashing activity (including partial overlap with other activities or appointments) would be considered as invalid activity (i.e. not to be added).
+* Clashing activity (including partial overlap with other activities or appointments) would be considered as invalid
+  activity (i.e. not to be added).
 * `TITLE` ideally should be very short so that it can be displayed in the list without being truncated.
 
-**Tip:** Try to pack as many keywords as possible inside the description while keep it concise so that you can search it later. 
+**Tip:** Try to pack as many keywords as possible inside the description while keep it concise so that you can search it
+later.
 
 Examples:
+
 * `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
 * `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
 
 ### Deleting an existing activity: `delete t/activity`
 
-Delete a certain existing activity 
+Delete a certain existing activity
 
 Format: `delete t/activity i/ACTIVITY_ID`
-* Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time frame. 
-* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees 1 `delete t/activity` command will not delete 2 activities at once).
+
+* Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time
+  frame.
+* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
+  1 `delete t/activity` command will not delete 2 activities at once).
 * Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
 
-Examples: 
+Examples:
+
 * `delete t/activity A123`
 
 ### List all activities: `list t/activity`
 
-List all existing (past, present and future) activities that exist in GoMedic. 
+List all existing (past, present and future) activities that exist in GoMedic.
 
 Format: `list t/activity`
-* Activities would be displayed in ascending `START_TIME` (The past activities would be at the top if any and Future activities at the bottom).
-* The summary or description that are too long would be truncated. 
+
+* Activities would be displayed in ascending `START_TIME` (The past activities would be at the top if any and Future
+  activities at the bottom).
+* The summary or description that are too long would be truncated.
 * The `START_TIME` and `END_TIME` would be displayed in `dd-MM-yyyy HH:mm` GMT+8 24-Hour format.
 
-<div markdown="span" class="alert alert-primary">
 :bulb: **Tip:** There are other upcoming `list` commands that can list future activities only and past activities only.
-</div>
 
 Examples:
-* `list t/activity`
 
+* `list t/activity`
 
 ### Adding a person: `add`
 
@@ -137,6 +150,7 @@ A person can have any number of tags (including 0)
 </div>
 
 Examples:
+
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
@@ -152,16 +166,18 @@ Edits an existing person in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+  The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567`
+  and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Locating persons by name: `find`
 
@@ -173,10 +189,11 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`
+  , `Bo Yang`
 
 Examples:
+
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
@@ -192,6 +209,7 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
+
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
@@ -209,11 +227,13 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to
+save manually.
 
 ### Editing the data file
 
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to
+update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
@@ -228,7 +248,8 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
+the data of your previous AddressBook home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -236,10 +257,15 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+**
+Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br>
+e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**
+Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br>
+e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
