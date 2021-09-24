@@ -1,5 +1,6 @@
 ---
-layout: page title: User Guide
+layout: page 
+title: User Guide
 ---
 
 GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to
