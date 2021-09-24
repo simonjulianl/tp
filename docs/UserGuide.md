@@ -113,15 +113,15 @@ Delete a certain existing activity
 
 Format: `delete t/activity i/ACTIVITY_ID`
 
-* Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time
+* Activity ID can be obtained by listing all the activities or a search for certain activities within a certain time
   frame.
 * Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
   1 `delete t/activity` command will not delete 2 activities at once).
-* Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
+* Invalid Activity IDs supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
 
 Examples:
 
-* `delete t/activity A123`
+* `delete t/activity i/A123`
 
 ### List all activities: `list t/activity`
 
@@ -139,6 +139,67 @@ Format: `list t/activity`
 Examples:
 
 * `list t/activity`
+
+### Tagging an activity: `tag t/activity`
+
+Tags a specific activity with the tags specified in the command.
+
+Format: `tag t/activity i/ACTIVITY_ID [ta/TAG_DESCRIPTION]...`
+
+* Activity ID can be obtained by listing all the activities or a search for certain activities within a certain time
+  frame.
+* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
+  1 `tag t/activity` command will not tag 2 activities at once).
+* Invalid Activity IDs supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
+
+_Tagging for doctors and patients coming soon..._
+
+Examples:
+
+* `tag t/activity i/A420 ta/important ta/NUS ta/schoolwork`
+* `tag t/activity i/A421 ta/important`
+
+### Find results that contain keyword: `find [OPTIONAL_FLAG/]KEYWORD...`
+
+Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
+If more than 1 keyword is specified, results that contain at least 1 of the keywords will be returned (i.e. `OR` search)
+E.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+Users can specify additional optional flags to limit the keyword matching to the fields that is associated with
+each flag. Flags will only match results that contain the associated field (E.g. n/Hans will not return any `activities` 
+since `activities` do not have a `name` field.)
+
+The flags are:
+* `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
+* `c/CONTACT_NUMBER`: Matches the contact number field (Valid for: `Patients`, `Doctors`)
+* `a/AGE`: Matches the age field (Valid for: `Patients`)
+* `g/GENDER`: Matches the gender field; The only valid keywords for this field are `M/F/O` (Valid for: `Patients`)
+* `h/HEIGHT`: Matches the height field (Valid for: `Patients`)
+* `w/WEIGHT`: Matches the weight field (Valid for: `Patients`)
+* `b/BLOOD_TYPE`: Matches the blood type field; The only valid keywords for this field are `A/B/AB/O` 
+(Valid for: `Patients`)
+* `m/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid for: `Patients`)
+* `s/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
+* `ti/TITLE`: Matches the title field (Valid for: `Activities`)
+* `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`, 
+_Tagging for `Doctors` and `Patients` coming soon_)
+
+Format: `find [OPTIONAL_FLAG/]KEYWORD...`
+
+* Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the 
+patient's condition as “Diabetes”)
+* Flags can be repeated (e.g. `find n/Hans n/Bo` will return both `Hans Gruber` and `Bo Yang`)
+* If the optional flag is not specified, the keyword will match any fields.
+E.g. `find dia` will return:
+    1. Doctor Claudia, whose name matches `dia`
+    2. Patient Jaryl, whose medical condition, `diabetes`, matches `dia`
+    3. Doctor Tom, whose specialty, `Pediatrics`, matches `dia`
+    4. Patient Lydia, whose name matches `dia`
+
+Examples:
+* `find m/diabetes a/42 n/Jaryl`
+* `find ta/important ti/tutorial`
+* `find dia`
 
 ### Adding a person: `add`
 
