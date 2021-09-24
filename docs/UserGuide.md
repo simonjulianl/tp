@@ -166,8 +166,8 @@ If more than 1 keyword is specified, results that contain at least 1 of the keyw
 E.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Users can specify additional optional flags to limit the keyword matching to the fields that is associated with
-each flag. Flags will only match results that contain the associated field (e.g. n/Hans will not return any `activities` 
-since `activities` do not have a `name` field.
+each flag. Flags will only match results that contain the associated field (E.g. n/Hans will not return any `activities` 
+since `activities` do not have a `name` field.)
 
 The flags are:
 * `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
@@ -187,7 +187,7 @@ _Tagging for `Doctors` and `Patients` coming soon_)
 Format: `find [OPTIONAL_FLAG/]KEYWORD...`
 
 * Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the 
-patient's condition as “Diabetes”). 
+patient's condition as “Diabetes”)
 * Flags can be repeated (e.g. `find n/Hans n/Bo` will return both `Hans Gruber` and `Bo Yang`)
 * If the optional flag is not specified, the keyword will match any fields.
 E.g. `find dia` will return:
