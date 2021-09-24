@@ -87,6 +87,118 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+### Adding a new patient's details: `add p/patient`
+
+Adds a new patient into the GoMedic application.
+
+Format: `add p/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE c/CONTACT_NUMBER o/[OPTIONAL...]`
+
+* `NAME` indicates the full name of the patient, first name and last name are separated by `-`.
+* `AGE` is greater than or equal to 0.
+* `GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
+* `HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
+* `WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
+* `BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
+* `CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `OPTIONAL` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
+words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+
+Examples:
+
+* `add p/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure/diabetes`
+* `add p/patient n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234`
+
+### Deleting an existing patient: `delete p/patient`
+
+Deletes a patient from the GoMedic application.
+
+Format: `delete p/patient i/PATIENT_ID`
+
+* Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
+* Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
+  1 `delete p/patient` command will not delete 2 patients at once).
+* Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
+
+Examples:
+
+* `delete p/patient i/P001`
+
+### Updating an existing patient: `update p/patient`
+
+Updates a patient's details from the GoMedic application.
+
+Format: 
+`update p/patient i/PATIENT_ID n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE c/CONTACT_NUMBER
+o/[OPTIONAL...] do/[OPTIONAL_TO_DELETE...]`
+
+* `NAME` indicates the full name of the patient, first name and last name are separated by `-`.
+* `AGE` is greater than or equal to 0.
+* `GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
+* `HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
+* `WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
+* `BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
+* `CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `OPTIONAL` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
+  words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+* `OPTIONAL_TO_DELETE` is the list of patient's past/pre-existing medical conditions to delete. For medical condition 
+  that has multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+* Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
+* Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
+  1 `delete p/patient` command will not delete 2 patients at once).
+* Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
+* Invalid `OPTIONAL_TO_DELETE` conditions supplied would be flagged by GoMedic, and do not cause changes to the
+existing patient.
+
+Examples:
+
+* `update p/patient i/P123 n/John-Doe a/30 g/M`
+* `update p/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
+
+### Adding a new doctor's details: `add d/doctor`
+
+Adds a new doctor into the GoMedic application.
+
+Format: `add d/doctor n/NAME c/CONTACT_NUMBER s/DEPARTMENT`
+
+* `NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+* `CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `DEPARTMENT` is the name of the department where the doctor serves in String.
+
+Examples:
+
+* `add d/doctor n/Timmy-Tom c/98765432 s/neurology`
+* `add d/doctor n/John-White c/12312312 s/cardiology`
+
+### Deleting an existing doctor: `delete d/doctor`
+
+Deletes a doctor from the GoMedic application.
+
+Format: `delete d/doctor i/DOCTOR_ID`
+
+* Doctor ID can be obtained by listing all the doctors or search for a certain doctors with available filters.
+* Doctor ID is **unique** (i.e. every doctor will be assigned to a unique ID, hence this guarantees
+  1 `delete d/doctor` command will not delete 2 doctors at once).
+* Invalid Doctor ID being supplied would be flagged by GoMedic, and do not cause changes to any existing doctors.
+
+Examples:
+
+* `delete d/doctor i/D001`
+
+### Updating an existing doctor: `update d/doctor`
+
+Updates a doctor's details from the GoMedic application.
+
+Format: `update d/doctor n/NAME c/CONTACT_NUMBER s/DEPARTMENT`
+
+* `NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+* `CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `DEPARTMENT` is the name of the department where the doctor serves in String.
+
+Examples:
+
+* `add d/doctor i/D123 c/11112222`
+* `add d/doctor i/D101 s/orthopaedics`
+
 ### Adding a new activity: `add t/activity`
 
 Adds a new activity into your GoMedic scheduler.
@@ -121,7 +233,7 @@ Format: `delete t/activity i/ACTIVITY_ID`
 
 Examples:
 
-* `delete t/activity A123`
+* `delete t/activity i/A123`
 
 ### List all activities: `list t/activity`
 
@@ -139,80 +251,6 @@ Format: `list t/activity`
 Examples:
 
 * `list t/activity`
-
-### Adding a person: `add`
-
-Adds a person to the address book.
-
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-### Listing all persons : `list`
-
-Shows a list of all persons in the address book.
-
-Format: `list`
-
-### Editing a person : `edit`
-
-Edits an existing person in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
-  The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567`
-  and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-### Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`
-  , `Bo Yang`
-
-Examples:
-
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-
-### Deleting a person : `delete`
-
-Deletes the specified person from the address book.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
