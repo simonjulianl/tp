@@ -123,7 +123,7 @@ Examples:
 
 * `delete t/activity i/A123`
 
-### List all activities: `tag t/activity`
+### List all activities: `list t/activity`
 
 List all existing (past, present and future) activities that exist in GoMedic.
 
