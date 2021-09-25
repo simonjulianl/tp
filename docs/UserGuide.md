@@ -130,6 +130,7 @@ Updates a patient's details from the GoMedic application.
 Format: 
 `update t/patient i/PATIENT_ID [OPTIONAL_FLAG]/INPUT...`
 
+The flags are:
 * `n/NAME` indicates the full name of the patient, first name and last name are separated by `-`.
 * `a/AGE` is greater than or equal to 0.
 * `g/GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
@@ -189,6 +190,7 @@ Updates a doctor's details from the GoMedic application.
 
 Format: `update t/doctor [OPTIONAL_FLAG/]INPUT...`
 
+The flags are:
 * `n/NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
 * `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
 * `d/DEPARTMENT` is the name of the department where the doctor serves in String.
