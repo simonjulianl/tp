@@ -87,58 +87,119 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-### Adding a new activity: `add t/activity`
+### Adding a new patient's details: `add t/patient`
 
-Adds a new activity into your GoMedic scheduler.
+Adds a new patient into the GoMedic application.
 
-Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
+Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE c/CONTACT_NUMBER o/[OPTIONAL...]`
 
-* `START_TIME` and `END_TIME` must follow one of the formats specified.
-* `START_TIME` is strictly less than `END_TIME`.
-* Clashing activity (including partial overlap with other activities or appointments) would be considered as invalid
-  activity (i.e. not to be added).
-* `TITLE` ideally should be very short so that it can be displayed in the list without being truncated.
-
-**Tip:** Try to pack as many keywords as possible inside the description while keep it concise so that you can search it
-later.
-
-Examples:
-
-* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
-* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
-
-### Deleting an existing activity: `delete t/activity`
-
-Delete a certain existing activity
-
-Format: `delete t/activity i/ACTIVITY_ID`
-
-* Activity ID can be obtained by listing all the activities or a search for certain activities within a certain time
-  frame.
-* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
-  1 `delete t/activity` command will not delete 2 activities at once).
-* Invalid Activity IDs supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
+* `NAME` indicates the full name of the patient, first name and last name are separated by `-`.
+* `AGE` is greater than or equal to 0.
+* `GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
+* `HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
+* `WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
+* `BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
+* `CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `OPTIONAL` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
+words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
 
 Examples:
 
-* `delete t/activity i/A123`
+* `add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure/diabetes`
+* `add t/patient n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234`
 
-### List all activities: `list t/activity`
+### Deleting an existing patient: `delete t/patient`
 
-List all existing (past, present and future) activities that exist in GoMedic.
+Deletes a patient from the GoMedic application.
 
-Format: `list t/activity`
+Format: `delete t/patient i/PATIENT_ID`
 
-* Activities would be displayed in ascending `START_TIME` (The past activities would be at the top if any and Future
-  activities at the bottom).
-* The summary or description that are too long would be truncated.
-* The `START_TIME` and `END_TIME` would be displayed in `dd-MM-yyyy HH:mm` GMT+8 24-Hour format.
-
-:bulb: **Tip:** There are other upcoming `list` commands that can list future activities only and past activities only.
+<<<<<<< HEAD
+* Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
+* Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
+  1 `delete t/patient` command will not delete 2 patients at once).
+* Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
 
 Examples:
 
-* `list t/activity`
+* `delete t/patient i/P001`
+
+### Updating an existing patient: `update t/patient`
+
+Updates a patient's details from the GoMedic application.
+
+Format: 
+`update t/patient i/PATIENT_ID [OPTIONAL_PARAMETER]...`
+
+The flags are:
+* `n/NAME` indicates the full name of the patient, first name and last name are separated by `-`.
+* `a/AGE` is greater than or equal to 0.
+* `g/GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
+* `h/HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
+* `w/WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
+* `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
+* `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `o/[OPTIONAL...]` is the list of patient's past/pre-existing medical conditions. For medical condition that has
+  multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+* `do/[OPTIONAL_TO_DELETE...]` is the list of patient's past/pre-existing medical conditions to delete. For medical
+  condition that has multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+* Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
+* Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
+  1 `delete t/patient` command will not delete 2 patients at once).
+* Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
+* Invalid `OPTIONAL_TO_DELETE` conditions supplied would be flagged by GoMedic, and do not cause changes to the
+existing patient.
+
+Examples:
+
+* `update t/patient i/P123 n/John-Doe a/30 g/M`
+* `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
+
+### Adding a new doctor's details: `add t/doctor`
+
+Adds a new doctor into the GoMedic application.
+
+Format: `add t/doctor n/NAME c/CONTACT_NUMBER s/DEPARTMENT`
+
+* `NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+* `CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `DEPARTMENT` is the name of the department where the doctor serves in String.
+
+Examples:
+
+* `add t/doctor n/Timmy-Tom c/98765432 s/neurology`
+* `add t/doctor n/John-White c/12312312 s/cardiology`
+
+### Deleting an existing doctor: `delete t/doctor`
+
+Deletes a doctor from the GoMedic application.
+
+Format: `delete t/doctor i/DOCTOR_ID`
+
+* Doctor ID can be obtained by listing all the doctors or search for a certain doctors with available filters.
+* Doctor ID is **unique** (i.e. every doctor will be assigned to a unique ID, hence this guarantees
+  1 `delete t/doctor` command will not delete 2 doctors at once).
+* Invalid Doctor ID being supplied would be flagged by GoMedic, and do not cause changes to any existing doctors.
+
+Examples:
+
+* `delete t/doctor i/D001`
+
+### Updating an existing doctor: `update t/doctor`
+
+Updates a doctor's details from the GoMedic application.
+
+Format: `update t/doctor [OPTIONAL_PARAMETER]...`
+
+The flags are:
+* `n/NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+* `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `d/DEPARTMENT` is the name of the department where the doctor serves in String.
+
+Examples:
+
+* `add t/doctor i/D123 c/11112222`
+* `add t/doctor i/D101 s/orthopaedics`
 
 ### Tagging an activity: `tag t/activity`
 
@@ -201,79 +262,58 @@ Examples:
 * `find ta/important ti/tutorial`
 * `find dia`
 
-### Adding a person: `add`
+### Adding a new activity: `add t/activity`
 
-Adds a person to the address book.
+Adds a new activity into your GoMedic scheduler.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+* `START_TIME` and `END_TIME` must follow one of the formats specified.
+* `START_TIME` is strictly less than `END_TIME`.
+* Clashing activity (including partial overlap with other activities or appointments) would be considered as invalid
+  activity (i.e. not to be added).
+* `TITLE` ideally should be very short so that it can be displayed in the list without being truncated.
 
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-### Listing all persons : `list`
-
-Shows a list of all persons in the address book.
-
-Format: `list`
-
-### Editing a person : `edit`
-
-Edits an existing person in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
-  The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
+**Tip:** Try to pack as many keywords as possible inside the description while keep it concise so that you can search it
+later.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567`
-  and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
+* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
 
-### Locating persons by name: `find`
+### Deleting an existing activity: `delete t/activity`
 
-Finds persons whose names contain any of the given keywords.
+Delete a certain existing activity
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `delete t/activity i/ACTIVITY_ID`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`
-  , `Bo Yang`
+* Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time
+  frame.
+* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
+  1 `delete t/activity` command will not delete 2 activities at once).
+* Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
 
 Examples:
 
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `delete t/activity i/A123`
 
-### Deleting a person : `delete`
+### List all activities: `list t/activity`
 
-Deletes the specified person from the address book.
+List all existing (past, present and future) activities that exist in GoMedic.
 
-Format: `delete INDEX`
+Format: `list t/activity`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Activities would be displayed in ascending `START_TIME` (The past activities would be at the top if any and Future
+  activities at the bottom).
+* The summary or description that are too long would be truncated.
+* The `START_TIME` and `END_TIME` would be displayed in `dd-MM-yyyy HH:mm` GMT+8 24-Hour format.
+
+:bulb: **Tip:** There are other upcoming `list` commands that can list future activities only and past activities only.
 
 Examples:
 
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list t/activity`
 
 ### Clearing all entries : `clear`
 
