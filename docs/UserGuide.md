@@ -87,11 +87,11 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-### Adding a new patient's details: `add p/patient`
+### Adding a new patient's details: `add t/patient`
 
 Adds a new patient into the GoMedic application.
 
-Format: `add p/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE c/CONTACT_NUMBER o/[OPTIONAL...]`
+Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE c/CONTACT_NUMBER o/[OPTIONAL...]`
 
 * `NAME` indicates the full name of the patient, first name and last name are separated by `-`.
 * `AGE` is greater than or equal to 0.
@@ -105,60 +105,59 @@ words, use `-` to combine the words, e.g. `heart-failure`. To separate between c
 
 Examples:
 
-* `add p/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure/diabetes`
-* `add p/patient n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234`
+* `add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure/diabetes`
+* `add t/patient n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234`
 
-### Deleting an existing patient: `delete p/patient`
+### Deleting an existing patient: `delete t/patient`
 
 Deletes a patient from the GoMedic application.
 
-Format: `delete p/patient i/PATIENT_ID`
+Format: `delete t/patient i/PATIENT_ID`
 
 * Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
 * Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
-  1 `delete p/patient` command will not delete 2 patients at once).
+  1 `delete t/patient` command will not delete 2 patients at once).
 * Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
 
 Examples:
 
-* `delete p/patient i/P001`
+* `delete t/patient i/P001`
 
-### Updating an existing patient: `update p/patient`
+### Updating an existing patient: `update t/patient`
 
 Updates a patient's details from the GoMedic application.
 
 Format: 
-`update p/patient i/PATIENT_ID n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE c/CONTACT_NUMBER
-o/[OPTIONAL...] do/[OPTIONAL_TO_DELETE...]`
+`update t/patient i/PATIENT_ID [OPTIONAL_FLAG]/INPUT...`
 
-* `NAME` indicates the full name of the patient, first name and last name are separated by `-`.
-* `AGE` is greater than or equal to 0.
-* `GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
-* `HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
-* `WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
-* `BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
-* `CONTACT_NUMBER` must be 8-digit Singapore phone number.
-* `OPTIONAL` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
-  words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
-* `OPTIONAL_TO_DELETE` is the list of patient's past/pre-existing medical conditions to delete. For medical condition 
-  that has multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+* `n/NAME` indicates the full name of the patient, first name and last name are separated by `-`.
+* `a/AGE` is greater than or equal to 0.
+* `g/GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
+* `h/HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
+* `w/WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
+* `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
+* `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `o/[OPTIONAL...]` is the list of patient's past/pre-existing medical conditions. For medical condition that has
+  multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+* `do/[OPTIONAL_TO_DELETE...]` is the list of patient's past/pre-existing medical conditions to delete. For medical
+  condition that has multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
 * Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
 * Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
-  1 `delete p/patient` command will not delete 2 patients at once).
+  1 `delete t/patient` command will not delete 2 patients at once).
 * Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
 * Invalid `OPTIONAL_TO_DELETE` conditions supplied would be flagged by GoMedic, and do not cause changes to the
 existing patient.
 
 Examples:
 
-* `update p/patient i/P123 n/John-Doe a/30 g/M`
-* `update p/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
+* `update t/patient i/P123 n/John-Doe a/30 g/M`
+* `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
 
-### Adding a new doctor's details: `add d/doctor`
+### Adding a new doctor's details: `add t/doctor`
 
 Adds a new doctor into the GoMedic application.
 
-Format: `add d/doctor n/NAME c/CONTACT_NUMBER s/DEPARTMENT`
+Format: `add t/doctor n/NAME c/CONTACT_NUMBER s/DEPARTMENT`
 
 * `NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
 * `CONTACT_NUMBER` must be 8-digit Singapore phone number.
@@ -166,38 +165,38 @@ Format: `add d/doctor n/NAME c/CONTACT_NUMBER s/DEPARTMENT`
 
 Examples:
 
-* `add d/doctor n/Timmy-Tom c/98765432 s/neurology`
-* `add d/doctor n/John-White c/12312312 s/cardiology`
+* `add t/doctor n/Timmy-Tom c/98765432 s/neurology`
+* `add t/doctor n/John-White c/12312312 s/cardiology`
 
-### Deleting an existing doctor: `delete d/doctor`
+### Deleting an existing doctor: `delete t/doctor`
 
 Deletes a doctor from the GoMedic application.
 
-Format: `delete d/doctor i/DOCTOR_ID`
+Format: `delete t/doctor i/DOCTOR_ID`
 
 * Doctor ID can be obtained by listing all the doctors or search for a certain doctors with available filters.
 * Doctor ID is **unique** (i.e. every doctor will be assigned to a unique ID, hence this guarantees
-  1 `delete d/doctor` command will not delete 2 doctors at once).
+  1 `delete t/doctor` command will not delete 2 doctors at once).
 * Invalid Doctor ID being supplied would be flagged by GoMedic, and do not cause changes to any existing doctors.
 
 Examples:
 
-* `delete d/doctor i/D001`
+* `delete t/doctor i/D001`
 
-### Updating an existing doctor: `update d/doctor`
+### Updating an existing doctor: `update t/doctor`
 
 Updates a doctor's details from the GoMedic application.
 
-Format: `update d/doctor n/NAME c/CONTACT_NUMBER s/DEPARTMENT`
+Format: `update t/doctor [OPTIONAL_FLAG/]INPUT...`
 
-* `NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
-* `CONTACT_NUMBER` must be 8-digit Singapore phone number.
-* `DEPARTMENT` is the name of the department where the doctor serves in String.
+* `n/NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+* `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `d/DEPARTMENT` is the name of the department where the doctor serves in String.
 
 Examples:
 
-* `add d/doctor i/D123 c/11112222`
-* `add d/doctor i/D101 s/orthopaedics`
+* `add t/doctor i/D123 c/11112222`
+* `add t/doctor i/D101 s/orthopaedics`
 
 ### Adding a new activity: `add t/activity`
 
