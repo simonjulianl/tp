@@ -128,7 +128,7 @@ Examples:
 Updates a patient's details from the GoMedic application.
 
 Format: 
-`update t/patient i/PATIENT_ID [OPTIONAL_FLAG]/INPUT...`
+`update t/patient i/PATIENT_ID [OPTIONAL_FLAG]...`
 
 The flags are:
 * `n/NAME` indicates the full name of the patient, first name and last name are separated by `-`.
@@ -188,7 +188,7 @@ Examples:
 
 Updates a doctor's details from the GoMedic application.
 
-Format: `update t/doctor [OPTIONAL_FLAG/]INPUT...`
+Format: `update t/doctor [OPTIONAL_FLAG]...`
 
 The flags are:
 * `n/NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
