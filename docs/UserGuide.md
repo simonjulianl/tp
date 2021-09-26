@@ -113,6 +113,17 @@ Examples:
 * `add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure/diabetes`
 * `add t/patient n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234`
 
+### Display full details of a patient: `view p/NAME`
+
+Displays the full details of a doctor
+
+Format: `view p/NAME`
+
+* `NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+
+Examples:
+* `view p/John-Doe`
+
 ### Deleting an existing patient: `delete t/patient`
 
 Deletes a patient from the GoMedic application.
