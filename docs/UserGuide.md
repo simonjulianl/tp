@@ -87,6 +87,11 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+### Suggestions
+
+GoMedic will suggest the closest command to be 
+executed if you make a typo and send an invalid command.
+
 ### Adding a new patient's details: `add t/patient`
 
 Adds a new patient into the GoMedic application.
@@ -114,7 +119,6 @@ Deletes a patient from the GoMedic application.
 
 Format: `delete t/patient i/PATIENT_ID`
 
-<<<<<<< HEAD
 * Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
 * Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
   1 `delete t/patient` command will not delete 2 patients at once).
@@ -279,7 +283,7 @@ later.
 
 Examples:
 
-* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
+ * `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
 * `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
 
 ### Deleting an existing activity: `delete t/activity`
@@ -359,15 +363,10 @@ the data of your previous AddressBook home folder.
 
 Action | Format, Examples
 --------|------------------
-
-**
-Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br>
-e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**
-Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br>
-e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...​`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Clear** | `clear`<br>
+**Delete** | `delete INDEX`<br> e.g., `delete 3`<br>
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br>e.g.,`edit 2 n/James Lee e/jameslee@example.com`<br>
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`<br>
+**List** | `list`<br>
+**Help** | `help`<br>
