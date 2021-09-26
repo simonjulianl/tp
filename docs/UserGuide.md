@@ -174,6 +174,17 @@ Examples:
 * `add t/doctor n/Timmy-Tom c/98765432 s/neurology`
 * `add t/doctor n/John-White c/12312312 s/cardiology`
 
+### Display full details of a doctor: `view d/NAME`
+
+Displays the full details of a doctor
+
+Format: `view d/NAME`
+
+* `NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+
+Examples:
+* `view d/Timmy-Tom`
+
 ### Deleting an existing doctor: `delete t/doctor`
 
 Deletes a doctor from the GoMedic application.
