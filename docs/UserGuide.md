@@ -163,22 +163,13 @@ Examples:
 * `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
 
 
-### Viewing the list of patients `list -p -a -g -h -w -b -c`
-List all existing patients’ previews in the GoMedic application with optional flags.
+### Viewing the list of patients `list -p`
+List all existing patients’ previews in the GoMedic application. 
 
-Format: `list -p -a -g -h -w -b -c`
-
-Optional flags:
-* `-a`: shows the age of the patients in the preview.
-* `-g` : shows the gender of the patients in the preview.
-* `-h` : shows the height of the patients in the preview.
-* `-w` : shows the weight of the patients in the preview.
-* `-b` : shows the blood type of the patients in the preview.
-* `-c` : shows the contact number of the patients in the preview.
+Format: `list -p`
 
 Examples:
-* `list -p -a -g`
-* `list -p -w -b`
+* `list -p`
 
 
 ### Adding a new doctor's details: `add t/doctor`
@@ -227,19 +218,14 @@ Examples:
 * `add t/doctor i/D123 c/11112222`
 * `add t/doctor i/D101 s/orthopaedics`
 
-### Viewing the list of doctors `list -d -c -s`
+### Viewing the list of doctors `list -d`
 
-Format: `list -d -c -s`
+Format: `list -d`
 
 List all existing patients’ previews in the GoMedic application.
 
-Optional flags:
-* `-c` : shows the contact number of the doctors in the preview.
-* `-s` : shows the specialty of the doctors in the preview.
-
 Examples:
-* `list -d -c`
-* `list -d -c -s`
+* `list -d`
 
 ### Tagging an activity: `tag t/activity`
 
