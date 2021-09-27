@@ -163,13 +163,13 @@ Examples:
 * `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
 
 
-### Viewing the list of patients `list -p`
+### Viewing the list of patients `list t/patient`
 List all existing patients’ previews in the GoMedic application. 
 
-Format: `list -p`
+Format: `list t/patient`
 
 Examples:
-* `list -p`
+* `list t/patient`
 
 
 ### Adding a new doctor's details: `add t/doctor`
@@ -218,14 +218,14 @@ Examples:
 * `add t/doctor i/D123 c/11112222`
 * `add t/doctor i/D101 s/orthopaedics`
 
-### Viewing the list of doctors `list -d`
+### Viewing the list of doctors `list t/doctor`
 
-Format: `list -d`
+Format: `list t/doctor`
 
 List all existing patients’ previews in the GoMedic application.
 
 Examples:
-* `list -d`
+* `list t/doctor`
 
 ### Tagging an activity: `tag t/activity`
 
