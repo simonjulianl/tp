@@ -113,6 +113,9 @@ Examples:
 * `add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure/diabetes`
 * `add t/patient n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234`
 
+
+
+
 ### Deleting an existing patient: `delete t/patient`
 
 Deletes a patient from the GoMedic application.
@@ -159,6 +162,16 @@ Examples:
 * `update t/patient i/P123 n/John-Doe a/30 g/M`
 * `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
 
+
+### Viewing the list of patients `list t/patient`
+List all existing patients’ previews in the GoMedic application. 
+
+Format: `list t/patient`
+
+Examples:
+* `list t/patient`
+
+
 ### Adding a new doctor's details: `add t/doctor`
 
 Adds a new doctor into the GoMedic application.
@@ -204,6 +217,15 @@ Examples:
 
 * `add t/doctor i/D123 c/11112222`
 * `add t/doctor i/D101 s/orthopaedics`
+
+### Viewing the list of doctors `list t/doctor`
+
+Format: `list t/doctor`
+
+List all existing patients’ previews in the GoMedic application.
+
+Examples:
+* `list t/doctor`
 
 ### Tagging an activity: `tag t/activity`
 
