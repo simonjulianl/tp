@@ -1,8 +1,8 @@
 package gomedic.logic.parser;
 
+import static gomedic.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static gomedic.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,13 +19,13 @@ import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.ListCommand;
+import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.NameContainsKeywordsPredicate;
 import gomedic.model.person.Person;
-import gomedic.testutil.TypicalIndexes;
-import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.testutil.EditPersonDescriptorBuilder;
 import gomedic.testutil.PersonBuilder;
 import gomedic.testutil.PersonUtil;
+import gomedic.testutil.TypicalIndexes;
 
 public class AddressBookParserTest {
 
@@ -56,7 +56,8 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased()
+                + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor), command);
     }
 
@@ -88,12 +89,15 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class,
+                String.format(
+                        Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                        HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, Messages.MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class,
+                Messages.MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 }

@@ -2,7 +2,6 @@ package gomedic.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static gomedic.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -11,11 +10,11 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import gomedic.commons.exceptions.DataConversionException;
 import gomedic.model.AddressBook;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalPersons;
-import gomedic.commons.exceptions.DataConversionException;
 
 public class JsonAddressBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
@@ -55,7 +54,8 @@ public class JsonAddressBookStorageTest {
 
     @Test
     public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+        Assert.assertThrows(
+                DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
     }
 
     @Test

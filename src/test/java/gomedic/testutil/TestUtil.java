@@ -5,9 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import gomedic.commons.core.index.Index;
 import gomedic.model.Model;
 import gomedic.model.person.Person;
-import gomedic.commons.core.index.Index;
 
 /**
  * A utility class for test cases.

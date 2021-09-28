@@ -1,6 +1,5 @@
 package gomedic.logic.commands;
 
-import static gomedic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;

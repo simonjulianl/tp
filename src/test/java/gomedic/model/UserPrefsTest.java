@@ -1,7 +1,5 @@
 package gomedic.model;
 
-import static gomedic.testutil.Assert.assertThrows;
-
 import org.junit.jupiter.api.Test;
 
 import gomedic.testutil.Assert;

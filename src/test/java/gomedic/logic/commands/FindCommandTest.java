@@ -1,13 +1,13 @@
 package gomedic.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static gomedic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static gomedic.testutil.TypicalPersons.CARL;
 import static gomedic.testutil.TypicalPersons.ELLE;
 import static gomedic.testutil.TypicalPersons.FIONA;
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

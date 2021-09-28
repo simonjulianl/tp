@@ -1,9 +1,9 @@
 package gomedic.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static gomedic.testutil.Assert.assertThrows;
 import static gomedic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,12 +12,12 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.Address;
 import gomedic.model.person.Email;
 import gomedic.model.person.Name;
 import gomedic.model.person.Phone;
 import gomedic.model.tag.Tag;
-import gomedic.logic.parser.exceptions.ParseException;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -42,8 +42,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class,
+                ParserUtil.MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(
+                        Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test

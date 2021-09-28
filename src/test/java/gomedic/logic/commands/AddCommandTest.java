@@ -1,10 +1,10 @@
 package gomedic.logic.commands;
 
+import static gomedic.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static gomedic.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,14 +14,14 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.GuiSettings;
+import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.ReadOnlyUserPrefs;
 import gomedic.model.person.Person;
-import javafx.collections.ObservableList;
-import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.testutil.PersonBuilder;
+import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 
@@ -79,12 +79,12 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 

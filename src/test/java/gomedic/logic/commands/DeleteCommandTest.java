@@ -1,20 +1,19 @@
 package gomedic.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static gomedic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static gomedic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static gomedic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
+import gomedic.commons.core.index.Index;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
 import gomedic.model.person.Person;
-import gomedic.commons.core.index.Index;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for

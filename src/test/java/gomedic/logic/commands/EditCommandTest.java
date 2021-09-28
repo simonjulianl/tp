@@ -1,7 +1,5 @@
 package gomedic.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static gomedic.logic.commands.CommandTestUtil.DESC_AMY;
 import static gomedic.logic.commands.CommandTestUtil.DESC_BOB;
 import static gomedic.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -13,16 +11,18 @@ import static gomedic.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static gomedic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static gomedic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
+import gomedic.commons.core.index.Index;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
 import gomedic.model.person.Person;
-import gomedic.commons.core.index.Index;
 import gomedic.testutil.EditPersonDescriptorBuilder;
 import gomedic.testutil.PersonBuilder;
 
@@ -121,7 +121,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+                .build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

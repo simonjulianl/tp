@@ -1,9 +1,8 @@
 package gomedic.commons.util;
 
+import static gomedic.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static gomedic.commons.util.CollectionUtil.requireAllNonNull;
-import static gomedic.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collection;

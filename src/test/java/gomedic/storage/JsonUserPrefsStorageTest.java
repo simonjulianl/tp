@@ -2,7 +2,6 @@ package gomedic.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static gomedic.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,9 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import gomedic.commons.core.GuiSettings;
+import gomedic.commons.exceptions.DataConversionException;
 import gomedic.model.UserPrefs;
 import gomedic.testutil.Assert;
-import gomedic.commons.exceptions.DataConversionException;
 
 public class JsonUserPrefsStorageTest {
 

@@ -1,18 +1,17 @@
 package gomedic.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static gomedic.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
+import gomedic.commons.exceptions.IllegalValueException;
 import gomedic.commons.util.JsonUtil;
 import gomedic.model.AddressBook;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalPersons;
-import gomedic.commons.exceptions.IllegalValueException;
 
 public class JsonSerializableAddressBookTest {
 
