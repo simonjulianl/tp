@@ -113,16 +113,16 @@ Examples:
 * `add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure/diabetes`
 * `add t/patient n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234`
 
-### Display full details of a patient: `view p/NAME`
+### Display full details of a patient: `view p/ID`
 
 Displays the full details of a doctor
 
-Format: `view p/NAME`
+Format: `view p/ID`
 
-* `NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+* `ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
 
 Examples:
-* `view p/John-Doe`
+* `view p/0001`
 
 ### Deleting an existing patient: `delete t/patient`
 
@@ -185,16 +185,16 @@ Examples:
 * `add t/doctor n/Timmy-Tom c/98765432 s/neurology`
 * `add t/doctor n/John-White c/12312312 s/cardiology`
 
-### Display full details of a doctor: `view d/NAME`
+### Display full details of a doctor: `view d/ID`
 
 Displays the full details of a doctor
 
-Format: `view d/NAME`
+Format: `view d/ID`
 
-* `NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+* `ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
 
 Examples:
-* `view d/Timmy-Tom`
+* `view d/001`
 
 ### Deleting an existing doctor: `delete t/doctor`
 
