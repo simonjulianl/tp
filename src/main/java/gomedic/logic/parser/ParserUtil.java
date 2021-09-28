@@ -6,14 +6,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import gomedic.commons.core.index.Index;
+import gomedic.commons.util.StringUtil;
+import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.Address;
 import gomedic.model.person.Email;
 import gomedic.model.person.Name;
 import gomedic.model.person.Phone;
 import gomedic.model.tag.Tag;
-import gomedic.commons.core.index.Index;
-import gomedic.commons.util.StringUtil;
-import gomedic.logic.parser.exceptions.ParseException;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -25,6 +25,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {

@@ -5,10 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import gomedic.commons.core.Messages;
-import gomedic.model.person.Person;
 import gomedic.commons.core.index.Index;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
+import gomedic.model.person.Person;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.

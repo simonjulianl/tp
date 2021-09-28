@@ -17,7 +17,7 @@ import gomedic.model.tag.Tag;
  */
 public class EditPersonDescriptorBuilder {
 
-    private EditCommand.EditPersonDescriptor descriptor;
+    private final EditCommand.EditPersonDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
         descriptor = new EditCommand.EditPersonDescriptor();

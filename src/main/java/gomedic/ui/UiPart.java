@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.net.URL;
 
-import javafx.fxml.FXMLLoader;
 import gomedic.MainApp;
+import javafx.fxml.FXMLLoader;
 
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
@@ -29,6 +29,7 @@ public abstract class UiPart<T> {
 
     /**
      * Constructs a UiPart using the specified FXML file within {@link #FXML_FILE_FOLDER}.
+     *
      * @see #UiPart(URL)
      */
     public UiPart(String fxmlFileName) {
@@ -45,10 +46,21 @@ public abstract class UiPart<T> {
 
     /**
      * Constructs a UiPart with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
+     *
      * @see #UiPart(URL, T)
      */
     public UiPart(String fxmlFileName, T root) {
         this(getFxmlFileUrl(fxmlFileName), root);
+    }
+
+    /**
+     * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
+     */
+    private static URL getFxmlFileUrl(String fxmlFileName) {
+        requireNonNull(fxmlFileName);
+        String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
+        URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
+        return requireNonNull(fxmlFileUrl);
     }
 
     /**
@@ -60,6 +72,7 @@ public abstract class UiPart<T> {
 
     /**
      * Loads the object hierarchy from a FXML document.
+     *
      * @param location Location of the FXML document.
      * @param root Specifies the root of the object hierarchy.
      */
@@ -73,16 +86,6 @@ public abstract class UiPart<T> {
         } catch (IOException e) {
             throw new AssertionError(e);
         }
-    }
-
-    /**
-     * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
-     */
-    private static URL getFxmlFileUrl(String fxmlFileName) {
-        requireNonNull(fxmlFileName);
-        String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
-        URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
-        return requireNonNull(fxmlFileUrl);
     }
 
 }

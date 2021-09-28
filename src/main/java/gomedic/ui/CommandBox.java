@@ -2,12 +2,12 @@ package gomedic.ui;
 
 import gomedic.logic.Logic;
 import gomedic.logic.commands.CommandResult;
+import gomedic.logic.commands.exceptions.CommandException;
+import gomedic.logic.parser.exceptions.ParseException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import gomedic.logic.commands.exceptions.CommandException;
-import gomedic.logic.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

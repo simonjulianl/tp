@@ -4,12 +4,12 @@ import java.nio.file.Path;
 
 import gomedic.commons.core.GuiSettings;
 import gomedic.logic.commands.CommandResult;
+import gomedic.logic.commands.exceptions.CommandException;
+import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.person.Person;
 import javafx.collections.ObservableList;
-import gomedic.logic.commands.exceptions.CommandException;
-import gomedic.logic.parser.exceptions.ParseException;
 
 /**
  * API of the Logic component
@@ -17,6 +17,7 @@ import gomedic.logic.parser.exceptions.ParseException;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.

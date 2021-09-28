@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import gomedic.commons.util.JsonUtil;
 import gomedic.commons.exceptions.DataConversionException;
+import gomedic.commons.util.JsonUtil;
 import gomedic.model.ReadOnlyUserPrefs;
 import gomedic.model.UserPrefs;
 
@@ -14,7 +14,7 @@ import gomedic.model.UserPrefs;
  */
 public class JsonUserPrefsStorage implements UserPrefsStorage {
 
-    private Path filePath;
+    private final Path filePath;
 
     public JsonUserPrefsStorage(Path filePath) {
         this.filePath = filePath;
@@ -32,6 +32,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     /**
      * Similar to {@link #readUserPrefs()}
+     *
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */

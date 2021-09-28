@@ -8,7 +8,9 @@ import java.util.logging.Logger;
 import gomedic.commons.core.Config;
 import gomedic.commons.core.LogsCenter;
 import gomedic.commons.core.Version;
+import gomedic.commons.exceptions.DataConversionException;
 import gomedic.commons.util.ConfigUtil;
+import gomedic.commons.util.StringUtil;
 import gomedic.logic.Logic;
 import gomedic.logic.LogicManager;
 import gomedic.model.AddressBook;
@@ -28,8 +30,6 @@ import gomedic.ui.Ui;
 import gomedic.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import gomedic.commons.exceptions.DataConversionException;
-import gomedic.commons.util.StringUtil;
 
 /**
  * Runs the application.

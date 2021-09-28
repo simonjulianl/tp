@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import gomedic.commons.exceptions.IllegalValueException;
 import gomedic.model.person.Address;
 import gomedic.model.person.Email;
 import gomedic.model.person.Name;
 import gomedic.model.person.Person;
 import gomedic.model.person.Phone;
 import gomedic.model.tag.Tag;
-import gomedic.commons.exceptions.IllegalValueException;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -35,8 +35,8 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;

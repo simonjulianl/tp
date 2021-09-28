@@ -3,8 +3,8 @@ package gomedic.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import gomedic.commons.core.Messages;
-import gomedic.model.person.NameContainsKeywordsPredicate;
 import gomedic.model.Model;
+import gomedic.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.

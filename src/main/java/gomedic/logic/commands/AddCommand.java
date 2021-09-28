@@ -1,15 +1,15 @@
 package gomedic.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static gomedic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static gomedic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static gomedic.logic.parser.CliSyntax.PREFIX_TAG;
+import static java.util.Objects.requireNonNull;
 
-import gomedic.model.person.Person;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
+import gomedic.model.person.Person;
 
 /**
  * Adds a person to the address book.

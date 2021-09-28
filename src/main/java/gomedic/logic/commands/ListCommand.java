@@ -1,7 +1,7 @@
 package gomedic.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static gomedic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static java.util.Objects.requireNonNull;
 
 import gomedic.model.Model;
 

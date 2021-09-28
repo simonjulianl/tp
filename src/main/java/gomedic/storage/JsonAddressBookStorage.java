@@ -8,10 +8,10 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import gomedic.commons.core.LogsCenter;
-import gomedic.commons.util.FileUtil;
-import gomedic.commons.util.JsonUtil;
 import gomedic.commons.exceptions.DataConversionException;
 import gomedic.commons.exceptions.IllegalValueException;
+import gomedic.commons.util.FileUtil;
+import gomedic.commons.util.JsonUtil;
 import gomedic.model.ReadOnlyAddressBook;
 
 /**
@@ -21,7 +21,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
 
-    private Path filePath;
+    private final Path filePath;
 
     public JsonAddressBookStorage(Path filePath) {
         this.filePath = filePath;

@@ -1,16 +1,15 @@
 package gomedic.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static gomedic.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import gomedic.commons.util.CollectionUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import gomedic.model.person.exceptions.DuplicatePersonException;
 import gomedic.model.person.exceptions.PersonNotFoundException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -18,7 +17,7 @@ import gomedic.model.person.exceptions.PersonNotFoundException;
  * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
  * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Person#isSamePerson(Person)
@@ -114,7 +113,7 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                && internalList.equals(((UniquePersonList) other).internalList));
     }
 
     @Override

@@ -3,8 +3,8 @@ package gomedic.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import gomedic.model.tag.Tag;
 import gomedic.commons.exceptions.IllegalValueException;
+import gomedic.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.

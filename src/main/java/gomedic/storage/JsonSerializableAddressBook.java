@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import gomedic.model.person.Person;
 import gomedic.commons.exceptions.IllegalValueException;
 import gomedic.model.AddressBook;
 import gomedic.model.ReadOnlyAddressBook;
+import gomedic.model.person.Person;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

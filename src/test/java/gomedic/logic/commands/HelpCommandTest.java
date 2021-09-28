@@ -8,8 +8,8 @@ import gomedic.model.Model;
 import gomedic.model.ModelManager;
 
 public class HelpCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private final Model model = new ModelManager();
+    private final Model expectedModel = new ModelManager();
 
     @Test
     public void execute_help_success() {

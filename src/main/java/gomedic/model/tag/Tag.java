@@ -1,7 +1,6 @@
 package gomedic.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static gomedic.commons.util.AppUtil.checkArgument;
 
 import gomedic.commons.util.AppUtil;
 

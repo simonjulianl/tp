@@ -8,10 +8,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.EditCommand;
-import gomedic.model.tag.Tag;
 import gomedic.commons.core.index.Index;
+import gomedic.logic.commands.EditCommand;
 import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -21,19 +21,26 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_EMAIL, CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args,
+                        CliSyntax.PREFIX_NAME,
+                        CliSyntax.PREFIX_PHONE,
+                        CliSyntax.PREFIX_EMAIL,
+                        CliSyntax.PREFIX_ADDRESS,
+                        CliSyntax.PREFIX_TAG);
 
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
         EditCommand.EditPersonDescriptor editPersonDescriptor = new EditCommand.EditPersonDescriptor();
@@ -47,7 +54,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).get()));
+            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(CliSyntax.PREFIX_ADDRESS)
+                    .get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

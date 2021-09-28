@@ -8,14 +8,14 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.LogsCenter;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
+import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.AddressBookParser;
+import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.person.Person;
 import gomedic.storage.Storage;
 import javafx.collections.ObservableList;
-import gomedic.logic.commands.exceptions.CommandException;
-import gomedic.logic.parser.exceptions.ParseException;
 
 /**
  * The main LogicManager of the app.

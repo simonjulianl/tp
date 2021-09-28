@@ -6,6 +6,8 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.LogsCenter;
 import gomedic.logic.Logic;
 import gomedic.logic.commands.CommandResult;
+import gomedic.logic.commands.exceptions.CommandException;
+import gomedic.logic.parser.exceptions.ParseException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -14,8 +16,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import gomedic.logic.commands.exceptions.CommandException;
-import gomedic.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -27,14 +27,12 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
-    private Logic logic;
-
+    private final Stage primaryStage;
+    private final Logic logic;
+    private final HelpWindow helpWindow;
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
-
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -78,6 +76,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
