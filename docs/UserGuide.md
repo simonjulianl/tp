@@ -15,7 +15,7 @@ optimized features for Command Line Interface.
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `gomedic.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `gomedic.jar` from [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
@@ -24,11 +24,8 @@ optimized features for Command Line Interface.
    ![Ui](images/Ui.png)
    ![Ui-doctor](images/Ui-doctor.png)
    ![Ui-one-patient](images/Ui-one-patient.png)
-   ![Ui-one-doctor](images/Ui-one-doctor.png)
-
-
-
-
+   ![Ui-one-doctor](images/Ui-one-doctor.png)   
+   ![Ui-activity](images/Ui-activity.png)
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
    Some example commands you can try:
@@ -119,6 +116,17 @@ Examples:
 * `add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure/diabetes`
 * `add t/patient n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234`
 
+### Display full details of a patient: `view t/patient`
+
+Displays the full details of a doctor
+
+Format: `view t/patient i/PATIENT_ID`
+
+* `ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
+
+Examples:
+* `view t/patient i/P001`
+
 ### Deleting an existing patient: `delete t/patient`
 
 Deletes a patient from the GoMedic application.
@@ -165,6 +173,16 @@ Examples:
 * `update t/patient i/P123 n/John-Doe a/30 g/M`
 * `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
 
+
+### Viewing the list of patients `list t/patient`
+List all existing patients’ previews in the GoMedic application. 
+
+Format: `list t/patient`
+
+Examples:
+* `list t/patient`
+
+
 ### Adding a new doctor's details: `add t/doctor`
 
 Adds a new doctor into the GoMedic application.
@@ -179,6 +197,17 @@ Examples:
 
 * `add t/doctor n/Timmy-Tom c/98765432 s/neurology`
 * `add t/doctor n/John-White c/12312312 s/cardiology`
+
+### Display full details of a doctor: `view t/doctor`
+
+Displays the full details of a doctor
+
+Format: `view t/doctor i/DOCTOR_ID`
+
+* `ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
+
+Examples:
+* `view t/doctor i/D001`
 
 ### Deleting an existing doctor: `delete t/doctor`
 
@@ -210,6 +239,15 @@ Examples:
 
 * `add t/doctor i/D123 c/11112222`
 * `add t/doctor i/D101 s/orthopaedics`
+
+### Viewing the list of doctors `list t/doctor`
+
+Format: `list t/doctor`
+
+List all existing patients’ previews in the GoMedic application.
+
+Examples:
+* `list t/doctor`
 
 ### Tagging an activity: `tag t/activity`
 
