@@ -7,6 +7,9 @@ GoMedic is a **cross-platform desktop application written in Java and designed f
 manage contacts and patient details**. We aim GoMedic to be used by someone who can type fast and take advantage of the
 optimized features for Command Line Interface.
 
+GoMedic is bootstrapped using SE-EDU Address Book 3 and inherits some of its features such as `clear`, parameter
+formatting, etc.
+
 * Table of Contents {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -17,12 +20,12 @@ optimized features for Command Line Interface.
 
 1. Download the latest `gomedic.jar` from [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your GoMedic.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app
    contains some sample data.<br>
    ![Ui](images/Ui.png)
-   
+
    ![Ui-activity](images/Ui-activity.png)
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
@@ -90,8 +93,7 @@ Format: `help`
 
 ### Suggestions
 
-GoMedic will suggest the closest command to be 
-executed if you make a typo and send an invalid command.
+GoMedic will suggest up to the 5 closest command to be executed if you make a typo and send an invalid command.
 
 ### Adding a new patient's details: `add t/patient`
 
@@ -107,7 +109,7 @@ Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE c/CO
 * `BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
 * `CONTACT_NUMBER` must be 8-digit Singapore phone number.
 * `OPTIONAL` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
-words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+  words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
 
 Examples:
 
@@ -123,6 +125,7 @@ Format: `view t/patient i/PATIENT_ID`
 * `ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
 
 Examples:
+
 * `view t/patient i/P001`
 
 ### Deleting an existing patient: `delete t/patient`
@@ -144,10 +147,11 @@ Examples:
 
 Updates a patient's details from the GoMedic application.
 
-Format: 
+Format:
 `update t/patient i/PATIENT_ID [OPTIONAL_PARAMETER]...`
 
 The flags are:
+
 * `n/NAME` indicates the full name of the patient, first name and last name are separated by `-`.
 * `a/AGE` is greater than or equal to 0.
 * `g/GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
@@ -158,28 +162,29 @@ The flags are:
 * `o/[OPTIONAL...]` is the list of patient's past/pre-existing medical conditions. For medical condition that has
   multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
 * `do/[OPTIONAL_TO_DELETE...]` is the list of patient's past/pre-existing medical conditions to delete. For medical
-  condition that has multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+  condition that has multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions,
+  use `/`.
 * Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
 * Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
   1 `delete t/patient` command will not delete 2 patients at once).
 * Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
-* Invalid `OPTIONAL_TO_DELETE` conditions supplied would be flagged by GoMedic, and do not cause changes to the
-existing patient.
+* Invalid `OPTIONAL_TO_DELETE` conditions supplied would be flagged by GoMedic, and do not cause changes to the existing
+  patient.
 
 Examples:
 
 * `update t/patient i/P123 n/John-Doe a/30 g/M`
 * `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
 
-
 ### Viewing the list of patients `list t/patient`
-List all existing patients’ previews in the GoMedic application. 
+
+List all existing patients’ previews in the GoMedic application.
 
 Format: `list t/patient`
 
 Examples:
-* `list t/patient`
 
+* `list t/patient`
 
 ### Adding a new doctor's details: `add t/doctor`
 
@@ -205,6 +210,7 @@ Format: `view t/doctor i/DOCTOR_ID`
 * `ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
 
 Examples:
+
 * `view t/doctor i/D001`
 
 ### Deleting an existing doctor: `delete t/doctor`
@@ -214,8 +220,8 @@ Deletes a doctor from the GoMedic application.
 Format: `delete t/doctor i/DOCTOR_ID`
 
 * Doctor ID can be obtained by listing all the doctors or search for a certain doctors with available filters.
-* Doctor ID is **unique** (i.e. every doctor will be assigned to a unique ID, hence this guarantees
-  1 `delete t/doctor` command will not delete 2 doctors at once).
+* Doctor ID is **unique** (i.e. every doctor will be assigned to a unique ID, hence this guarantees 1 `delete t/doctor`
+  command will not delete 2 doctors at once).
 * Invalid Doctor ID being supplied would be flagged by GoMedic, and do not cause changes to any existing doctors.
 
 Examples:
@@ -229,6 +235,7 @@ Updates a doctor's details from the GoMedic application.
 Format: `update t/doctor [OPTIONAL_PARAMETER]...`
 
 The flags are:
+
 * `n/NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
 * `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
 * `d/DEPARTMENT` is the name of the department where the doctor serves in String.
@@ -245,6 +252,7 @@ Format: `list t/doctor`
 List all existing patients’ previews in the GoMedic application.
 
 Examples:
+
 * `list t/doctor`
 
 ### Tagging an activity: `tag t/activity`
@@ -272,38 +280,40 @@ Searches for doctors, patients and activities that contain the specified keyword
 If more than 1 keyword is specified, results that contain at least 1 of the keywords will be returned (i.e. `OR` search)
 E.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Users can specify additional optional flags to limit the keyword matching to the fields that is associated with
-each flag. Flags will only match results that contain the associated field (E.g. n/Hans will not return any `activities` 
+Users can specify additional optional flags to limit the keyword matching to the fields that is associated with each
+flag. Flags will only match results that contain the associated field (E.g. n/Hans will not return any `activities`
 since `activities` do not have a `name` field.)
 
 The flags are:
+
 * `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
 * `c/CONTACT_NUMBER`: Matches the contact number field (Valid for: `Patients`, `Doctors`)
 * `a/AGE`: Matches the age field (Valid for: `Patients`)
 * `g/GENDER`: Matches the gender field; The only valid keywords for this field are `M/F/O` (Valid for: `Patients`)
 * `h/HEIGHT`: Matches the height field (Valid for: `Patients`)
 * `w/WEIGHT`: Matches the weight field (Valid for: `Patients`)
-* `b/BLOOD_TYPE`: Matches the blood type field; The only valid keywords for this field are `A/B/AB/O` 
-(Valid for: `Patients`)
-* `m/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid for: `Patients`)
+* `b/BLOOD_TYPE`: Matches the blood type field; The only valid keywords for this field are `A/B/AB/O`
+  (Valid for: `Patients`)
+* `m/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
+  for: `Patients`)
 * `s/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
 * `ti/TITLE`: Matches the title field (Valid for: `Activities`)
-* `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`, 
-_Tagging for `Doctors` and `Patients` coming soon_)
+* `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`,
+  _Tagging for `Doctors` and `Patients` coming soon_)
 
 Format: `find [OPTIONAL_FLAG/]KEYWORD...`
 
-* Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the 
-patient's condition as “Diabetes”)
+* Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
+  condition as “Diabetes”)
 * Flags can be repeated (e.g. `find n/Hans n/Bo` will return both `Hans Gruber` and `Bo Yang`)
-* If the optional flag is not specified, the keyword will match any fields.
-E.g. `find dia` will return:
+* If the optional flag is not specified, the keyword will match any fields. E.g. `find dia` will return:
     1. Doctor Claudia, whose name matches `dia`
     2. Patient Jaryl, whose medical condition, `diabetes`, matches `dia`
     3. Doctor Tom, whose specialty, `Pediatrics`, matches `dia`
     4. Patient Lydia, whose name matches `dia`
 
 Examples:
+
 * `find m/diabetes a/42 n/Jaryl`
 * `find ta/important ti/tutorial`
 * `find dia`
@@ -325,7 +335,7 @@ later.
 
 Examples:
 
- * `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
+* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
 * `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
 
 ### Deleting an existing activity: `delete t/activity`
@@ -375,21 +385,20 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to
-save manually.
+GoMedic data are saved in the hard disk automatically after any command that changes the data. There is no need to save
+manually.
 
 ### Editing the data file
 
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to
-update data directly by editing that data file.
+Currently, all the data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome
+to update data directly by editing that data file.
+
+In the subsequent releases, the patient data can be found at `[JAR file location]/data/patients.json`, doctors data
+at `[JAR file location]/data/doctors.json`, and finally all activities at `[JAR file location]/data/activities.json`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
+If your changes to the data file makes its format invalid, GoMedic will discard all data and start with an empty data file at the next run.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -397,15 +406,15 @@ _Details coming soon ..._
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous AddressBook home folder.
+the data of your previous GoMedic home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...​`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+Action  | Format, Examples |
+--------|------------------ |
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...​`<br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`<br>
 **Delete** | `delete INDEX`<br> e.g., `delete 3`<br>
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br>e.g.,`edit 2 n/James Lee e/jameslee@example.com`<br>
