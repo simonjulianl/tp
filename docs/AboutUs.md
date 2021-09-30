@@ -51,7 +51,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Rama Venkatesh
 
-<img src="images/ramavenkatesh.png" width="200px">
+<img src="images/ramaven.png" width="200px">
 
 [[github](http://github.com/ramaven)]
 [[portfolio](team/ramavenkatesh.md)]
