@@ -331,7 +331,7 @@ The parameters are:
 * `w/WEIGHT`: Matches the weight field (Valid for: `Patients`)
 * `b/BLOOD_TYPE`: Matches the blood type field; The only valid keywords for this field are `A/B/AB/O`
   (Valid for: `Patients`)
-* `m/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
+* `o/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
   for: `Patients`)
 * `s/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
 * `ti/TITLE`: Matches the title field (Valid for: `Activities`)
