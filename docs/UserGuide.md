@@ -26,8 +26,11 @@ formatting, etc.
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app
    contains some sample data.<br>
    ![Ui](images/Ui.png)
-
+   ![Ui-doctor](images/Ui-doctor.png)
+   ![Ui-one-patient](images/Ui-one-patient.png)
+   ![Ui-one-doctor](images/Ui-one-doctor.png)   
    ![Ui-activity](images/Ui-activity.png)
+   
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
    Some example commands you can try:
@@ -188,6 +191,7 @@ Examples:
 
 * `update t/patient i/P123 n/John-Doe a/30 g/M`
 * `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
+* `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 o/fever o/headache do/diabetes do/heart-feailure`
 
 ### Viewing the list of patients `list t/patient`
 
