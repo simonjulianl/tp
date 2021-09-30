@@ -350,7 +350,7 @@ Note:
 
 Examples:
 
-* `find m/diabetes a/42 n/Jaryl`
+* `find o/diabetes a/42 n/Jaryl`
 * `find ta/important ti/tutorial`
 * `find dia`
 
