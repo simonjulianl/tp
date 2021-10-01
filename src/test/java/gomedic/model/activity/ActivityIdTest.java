@@ -1,6 +1,7 @@
 package gomedic.model.activity;
 
 import static gomedic.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,6 +18,11 @@ public class ActivityIdTest {
     @Test
     public void constructor_invalidNumber_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new ActivityId(1000));
+    }
+
+    @Test
+    public void toString_validActivityId_testPassed() {
+        assertEquals(new ActivityId(100).toString(), "A100");
     }
 
     @Test
