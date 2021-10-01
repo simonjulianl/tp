@@ -1,9 +1,10 @@
-package gomedic.model.person;
+package gomedic.model.util;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import gomedic.commons.util.StringUtil;
+import gomedic.model.person.Person;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.

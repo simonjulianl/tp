@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.GuiSettings;
-import gomedic.model.person.NameContainsKeywordsPredicate;
+import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.AddressBookBuilder;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalPersons;

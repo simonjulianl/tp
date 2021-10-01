@@ -3,11 +3,11 @@ package gomedic.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import gomedic.model.person.Address;
-import gomedic.model.person.Email;
-import gomedic.model.person.Name;
+import gomedic.model.commonfield.Address;
+import gomedic.model.commonfield.Email;
+import gomedic.model.commonfield.Name;
+import gomedic.model.commonfield.Phone;
 import gomedic.model.person.Person;
-import gomedic.model.person.Phone;
 import gomedic.model.tag.Tag;
 import gomedic.model.util.SampleDataUtil;
 

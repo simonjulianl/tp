@@ -6,6 +6,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import gomedic.commons.util.CollectionUtil;
+import gomedic.model.commonfield.Address;
+import gomedic.model.commonfield.Email;
+import gomedic.model.commonfield.Name;
+import gomedic.model.commonfield.Phone;
 import gomedic.model.tag.Tag;
 
 /**

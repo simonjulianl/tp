@@ -5,7 +5,7 @@ import java.util.Arrays;
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.parser.exceptions.ParseException;
-import gomedic.model.person.NameContainsKeywordsPredicate;
+import gomedic.model.util.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

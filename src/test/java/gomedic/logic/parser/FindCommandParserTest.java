@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.FindCommand;
-import gomedic.model.person.NameContainsKeywordsPredicate;
+import gomedic.model.util.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 

@@ -1,4 +1,4 @@
-package gomedic.model.person;
+package gomedic.model.commonfield;
 
 import static gomedic.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
