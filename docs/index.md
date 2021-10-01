@@ -1,6 +1,6 @@
 ---
-layout: page
-title: AddressBook Level-3
+layout: page 
+title: GoMedic
 ---
 
 [![CI Status](https://github.com/AY2122S1-CS2103T-T15-1/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2122S1-CS2103T-T15-1/tp/actions/workflows/gradle.yml)
@@ -8,12 +8,16 @@ title: AddressBook Level-3
 
 ![Ui](images/Ui.png)
 
-**AddressBook is a desktop application for managing your contact details.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+**GoMedic is a desktop application for managing your contact details.** While it has a GUI, most of the user
+interactions happen using a CLI (Command Line Interface).
 
-* If you are interested in using AddressBook, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested about developing AddressBook, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
-
+* If you are interested in using GoMedic, head over to the [_Quick Start_ section of the **User
+  Guide**](UserGuide.html#quick-start).
+* If you are interested about developing GoMedic, the [**Developer Guide**](DeveloperGuide.html) is a good place to
+  start.
 
 **Acknowledgements**
 
-* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
+* Project bootstrapped from: [SE-EDU Address Book 3](https://se-education.org/addressbook-level3/)
+* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson)
+  , [JUnit5](https://github.com/junit-team/junit5)
