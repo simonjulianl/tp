@@ -7,9 +7,9 @@ import gomedic.commons.util.CollectionUtil;
  * Represents a general id owned by a model.
  * Guarantees: immutable; is valid as declared in {@link #isValidId(Integer, Character)}
  */
-abstract class Id {
+public abstract class Id {
     public static final String MESSAGE_CONSTRAINTS =
-            "Id should only contain from 0-999, Prefix should be A-Z (capitalized)";
+            "Id should only contain from 1 to 999, Prefix should be A-Z (capitalized)";
     private final String value;
 
     /**
@@ -29,12 +29,12 @@ abstract class Id {
      * Returns true if a given stringId is a valid id.
      * Valid if integer is 3 digit, from 1 to 999, prefix is A - Z.
      *
-     * @param id Integer string.
+     * @param id Integer number.
      * @param prefix Character prefix.
      * @return true if valid, else false.
      */
     public static boolean isValidId(Integer id, Character prefix) {
-        boolean isValidNumber = id >= 1 && id <= 999;
+        boolean isValidNumber = id > 0 && id <= 999;
         boolean isValidPrefix = prefix >= 'A' && prefix <= 'Z';
 
         return isValidNumber && isValidPrefix;

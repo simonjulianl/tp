@@ -10,12 +10,18 @@ public class IdTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new testId(null, null));
+        assertThrows(NullPointerException.class, () -> new TestId(null, null));
     }
 
     @Test
     public void constructor_invalidId_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> new testId(1000, 'Z'));
+        assertThrows(IllegalArgumentException.class, () -> new TestId(1000, 'Z'));
+    }
+
+    @Test
+    public void constructor_invalidPrefix_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new TestId(150, 'a'));
+        assertThrows(IllegalArgumentException.class, () -> new TestId(150, '!'));
     }
 
     @Test
@@ -39,7 +45,7 @@ public class IdTest {
     /**
      * Mock id class to be tested.
      */
-    private static class testId extends Id {
+    public static class TestId extends Id {
 
         /**
          * Constructs a {@code Id}.
@@ -47,7 +53,7 @@ public class IdTest {
          * @param id Integer from 0-999.
          * @param prefix Char from A-Z only.
          */
-        public testId(Integer id, Character prefix) {
+        public TestId(Integer id, Character prefix) {
             super(id, prefix);
         }
     }
