@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.exceptions.IllegalValueException;
-import gomedic.model.person.Address;
-import gomedic.model.person.Email;
-import gomedic.model.person.Name;
-import gomedic.model.person.Phone;
+import gomedic.model.commonfield.Address;
+import gomedic.model.commonfield.Email;
+import gomedic.model.commonfield.Name;
+import gomedic.model.commonfield.Phone;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalPersons;
 

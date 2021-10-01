@@ -18,7 +18,7 @@ import gomedic.commons.core.Messages;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
-import gomedic.model.person.NameContainsKeywordsPredicate;
+import gomedic.model.util.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

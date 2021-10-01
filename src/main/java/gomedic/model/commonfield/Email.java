@@ -1,4 +1,4 @@
-package gomedic.model.person;
+package gomedic.model.commonfield;
 
 import static java.util.Objects.requireNonNull;
 

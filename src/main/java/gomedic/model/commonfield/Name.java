@@ -1,11 +1,11 @@
-package gomedic.model.person;
+package gomedic.model.commonfield;
 
 import static java.util.Objects.requireNonNull;
 
 import gomedic.commons.util.AppUtil;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

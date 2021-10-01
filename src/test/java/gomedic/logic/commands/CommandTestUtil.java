@@ -13,8 +13,8 @@ import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
-import gomedic.model.person.NameContainsKeywordsPredicate;
 import gomedic.model.person.Person;
+import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.EditPersonDescriptorBuilder;
 
 /**

@@ -15,7 +15,7 @@ public class AppUtil {
      */
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);
-        return new Image(MainApp.class.getResourceAsStream(imagePath));
+        return new Image(requireNonNull(MainApp.class.getResourceAsStream(imagePath)));
     }
 
     /**
