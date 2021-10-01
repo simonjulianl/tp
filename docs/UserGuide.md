@@ -24,11 +24,7 @@ formatting, etc.
 3. Copy the file to the folder you want to use as the _home folder_ for your GoMedic.
 
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app
-   contains some sample data.<br>
-   ![Ui](images/Ui.png)
-   ![Ui-doctor](images/Ui-doctor.png)
-   ![Ui-one-patient](images/Ui-one-patient.png)
-   ![Ui-one-doctor](images/Ui-one-doctor.png)   
+   contains some sample data.<br> 
    ![Ui-activity](images/Ui-activity.png)
    
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
