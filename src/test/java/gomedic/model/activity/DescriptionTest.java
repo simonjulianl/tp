@@ -3,6 +3,7 @@ package gomedic.model.activity;
 import static gomedic.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,12 @@ class DescriptionTest {
     @Test
     void equals_inputs_testsPassed() {
         String text = "test";
+        Description d = new Description(text.repeat(2));
+
+        assertEquals(d, d);
         assertEquals(new Description(text), new Description(text));
+        assertNotEquals(d, new Description(text));
+
     }
 
     @Test
