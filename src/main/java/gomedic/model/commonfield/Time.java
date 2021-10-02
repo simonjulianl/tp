@@ -44,7 +44,7 @@ public class Time {
      */
     @Override
     public String toString() {
-        return toDateString() + " " + toTimeString();
+        return toDateString() + ", " + toTimeString();
     }
 
     /**

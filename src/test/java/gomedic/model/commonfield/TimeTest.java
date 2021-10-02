@@ -50,7 +50,7 @@ class TimeTest {
     @Test
     public void toString_manualInput_testPassed() {
         Time time = new Time(5, 10, 2020, 5, 50);
-        assertEquals("5 October 2020 05:50", time.toString());
+        assertEquals("5 October 2020, 05:50", time.toString());
         assertEquals("5 October 2020", time.toDateString());
         assertEquals("05:50", time.toTimeString());
     }
@@ -58,7 +58,7 @@ class TimeTest {
     @Test
     public void toString_localDateTime_testPassed() {
         Time time = new Time(LocalDateTime.of(2020, 10, 5, 5, 50));
-        assertEquals("5 October 2020 05:50", time.toString());
+        assertEquals("5 October 2020, 05:50", time.toString());
         assertEquals("5 October 2020", time.toDateString());
         assertEquals("05:50", time.toTimeString());
     }
