@@ -1,7 +1,9 @@
 package gomedic.model.commonfield;
 
 import static gomedic.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,38 @@ public class IdTest {
     public void constructor_invalidPrefix_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new TestId(150, 'a'));
         assertThrows(IllegalArgumentException.class, () -> new TestId(150, '!'));
+    }
+
+    @Test
+    public void equals_validInput_testsPassed() {
+        // equals
+        assertEquals(new TestId(100, 'Z'), new TestId(100, 'Z'));
+
+        // not equals
+        assertNotEquals(new TestId(100, 'Z'), new TestId(10, 'Z'));
+        assertNotEquals(new TestId(100, 'A'), new TestId(10, 'Z'));
+        assertNotEquals(null, new TestId(10, 'Z'));
+    }
+
+    @Test
+    public void hash_validInput_correctHash() {
+        // equals
+        assertEquals(new TestId(100, 'Z').hashCode(), "Z100".hashCode());
+
+        // not equals
+        for (char c = 'A'; c < 'Z'; c++) {
+            assertNotEquals(new TestId(100, 'Z').hashCode(), (c + "100").hashCode());
+        }
+    }
+
+    @Test
+    public void toString_validInput_correctString() {
+        // equals
+        assertEquals(new TestId(100, 'Z').toString(), "Z100");
+        assertEquals(new TestId(1, 'A').hashCode(), "A001".hashCode());
+
+        // not equals
+        assertNotEquals(new TestId(1, 'A').hashCode(), "A010".hashCode());
     }
 
     @Test

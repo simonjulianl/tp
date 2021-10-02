@@ -103,7 +103,7 @@ Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE c/CO
 
 The parameters are : 
 
-* `n/NAME` indicates the full name of the patient, first name and last name are separated by `-`.
+* `n/NAME` indicates the full name of the patient, first name and last name are separated by `space`.
 * `a/AGE` is greater than or equal to 0.
 * `g/GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
 * `h/HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
@@ -111,12 +111,12 @@ The parameters are :
 * `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
 * `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
 * `o/MEDICAL_CONDITION` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
-  words, use `-` to combine the words, e.g. `heart-failure`. 
+  words, use `space` to combine the words, e.g. `heart failure`. 
 
 Examples:
 
-* `add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure o/diabetes`
-* `add t/patient n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234`
+* `add t/patient n/John Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart failure o/diabetes`
+* `add t/patient n/Tom Doe a/20 g/M h/167 w/61 b/AB c/12341234`
 
 ### Display full details of a patient: `view t/patient`
 
@@ -171,9 +171,9 @@ The parameters are:
 
 The optional parameters are: 
 * `o/description` is the list of patient's past/pre-existing medical conditions to be **added**. For medical condition that has
-  multiple words, use `-` to combine the words, e.g. `heart-failure`. To separate between conditions, use `/`.
+  multiple words, use `space` to combine the words, e.g. `heart failure`. To separate between conditions, use more tags `o/`.
 * `do/description` is the list of patient's past/pre-existing medical conditions to be **deleted**. For medical
-  condition that has multiple words, use `-` to combine the words, e.g. `heart-failure`. 
+  condition that has multiple words, use `space` to combine the words, e.g. `heart failure`. 
 
 Notes: 
 * Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
@@ -185,9 +185,9 @@ Notes:
 
 Examples:
 
-* `update t/patient i/P123 n/John-Doe a/30 g/M`
-* `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
-* `update t/patient i/P003 n/Tom-Doe a/20 g/M h/167 w/61 b/AB c/12341234 o/fever o/headache do/diabetes do/heart-feailure`
+* `update t/patient i/P123 n/John Doe a/30 g/M`
+* `update t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
+* `update t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB c/12341234 o/fever o/headache do/diabetes do/heart feailure`
 
 ### Viewing the list of patients `list t/patient`
 
@@ -207,14 +207,14 @@ Format: `add t/doctor n/NAME c/CONTACT_NUMBER s/DEPARTMENT`
 
 The parameters are: 
 
-* `n/NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
+* `n/NAME` indicates the full name of the doctor, first name and last name are separated by `space`.
 * `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
 * `s/DEPARTMENT` is the name of the department where the doctor serves in String.
 
 Examples:
 
-* `add t/doctor n/Timmy-Tom c/98765432 s/neurology`
-* `add t/doctor n/John-White c/12312312 s/cardiology`
+* `add t/doctor n/Timmy Tom c/98765432 s/neurology`
+* `add t/doctor n/John White c/12312312 s/cardiology`
 
 ### Display full details of a doctor: `view t/doctor`
 
@@ -363,8 +363,8 @@ Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
 The parameters are:
 * `s/START_TIME` the starting time of the activity, must be one of the accepted date time format. 
 * `e/END_TIME` the ending time of the activity, must be one of the accepted date time format.
-* `ti/TITLE` the title of the activity, enclosed with `"` and the title should not contain any `"`. 
-* `d/DESCRIPTION` the description of the activity, enclosed with `"`. The Description should not contain any `"` character
+* `ti/TITLE` the title of the activity.
+* `d/DESCRIPTION` the description of the activity.
 
 Note: 
 * `START_TIME` and `END_TIME` must follow one of the formats specified.
@@ -375,8 +375,8 @@ Note:
 
 Examples:
 
-* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/"Meeting with Mr. X" d/"about a certain paper"`
-* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/"Meeting with Mr. Y"`
+* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
+* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
 
 ### Deleting an existing activity: `delete t/activity`
 
@@ -460,9 +460,9 @@ the data of your previous GoMedic home folder.
 
 Action        | Format, Examples |
 --------------|------------------ |
-**Add**       | `add {type} {PARAMETERS}`<br> e.g., `add t/doctor n/Timmy-Tom c/98765432 s/neurology`
+**Add**       | `add {type} {PARAMETERS}`<br> e.g., `add t/doctor n/Timmy Tom c/98765432 s/neurology`
 **Delete**    | `delete {type} i/{type}_ID` <br> e.g., `delete t/patient i/P003`<br>
-**Update**    | `update {type} i/{type}_ID [OPTIONAL PARAMETER]...`<br>e.g.,`update t/patient i/P123 n/John-Doe a/30 g/M`<br>
+**Update**    | `update {type} i/{type}_ID [OPTIONAL PARAMETER]...`<br>e.g.,`update t/patient i/P123 n/John Doe a/30 g/M`<br>
 **Find**      | `find [OPTIONAL_PARAMATERS]...`<br> e.g., `find ta/important ti/tutorial`<br>
 **View**      | `view t/doctor i/DOCTOR_ID`, `view t/patient i/PATIENT_ID`<br> e.g., `view t/patient i/P003`
 **Tag**       | `tag t/activity  i/ACTIVITY_ID [ta/TAG_DESCRIPTION]...` <br> e.g., `tag t/activity i/A420 ta/important ta/NUS ta/schoolwork`
