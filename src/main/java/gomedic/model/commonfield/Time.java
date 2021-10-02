@@ -52,7 +52,7 @@ public class Time {
      * @return String representation of just the date field.
      */
     public String toDateString() {
-        return DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(time.toLocalDate());
+        return DateTimeFormatter.ofPattern("d MMMM y").format(time.toLocalDate());
     }
 
     /**
