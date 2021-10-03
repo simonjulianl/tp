@@ -3,7 +3,10 @@ package gomedic.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
+import gomedic.model.activity.Activity;
+import gomedic.model.activity.UniqueActivityList;
 import gomedic.model.person.Person;
 import gomedic.model.person.UniquePersonList;
 import javafx.collections.ObservableList;
@@ -15,6 +18,7 @@ import javafx.collections.ObservableList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueActivityList activities;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     {
         persons = new UniquePersonList();
+        activities = new UniqueActivityList();
     }
 
     public AddressBook() {
@@ -50,12 +55,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the person list with {@code activities}.
+     * {@code persons} must not contain duplicate and conflicting activities.
+     */
+    public void setActivities(List<Activity> activities) {
+        this.activities.setActivities(activities);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setActivities(newData.getActivityList());
     }
 
     //// person-level operations
@@ -69,11 +83,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if an activity with the same id as {@code activities} exists in the address book.
+     */
+    public boolean hasActivity(Activity activity) {
+        requireNonNull(activity);
+        return activities.contains(activity);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Adds an activity to the address book.
+     * The activity must not be duplicate and conflicting.
+     */
+    public void addActivity(Activity a) {
+        activities.add(a);
     }
 
     /**
@@ -95,11 +125,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Remove the activity based on the id.
+     * Therefore, regardless whether the activity has different titles/fields,
+     * as long as the id is the same, it would be treated as equal.
+     */
+    public void removeActivity(Activity activity) {
+        activities.remove(activity);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons; "
+                + activities.asUnmodifiableObservableList().size() + " activities";
         // TODO: refine later
     }
 
@@ -109,14 +149,25 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Activity> getActivityList() {
+        return activities.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Activity> getActivityListSortedStartTime() {
+        return activities.asUnmodifiableSortedList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && activities.equals(((AddressBook) other).activities));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return Objects.hash(persons, activities);
     }
 }

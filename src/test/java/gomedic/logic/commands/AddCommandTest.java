@@ -20,7 +20,7 @@ import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.ReadOnlyUserPrefs;
 import gomedic.model.person.Person;
-import gomedic.testutil.PersonBuilder;
+import gomedic.testutil.modelbuilder.PersonBuilder;
 import javafx.collections.ObservableList;
 
 public class AddCommandTest {
@@ -99,12 +99,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getAddressBookPersonFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setAddressBookPersonFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

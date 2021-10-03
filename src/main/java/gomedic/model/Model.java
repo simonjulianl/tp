@@ -37,12 +37,12 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getAddressBookPersonFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setAddressBookPersonFilePath(Path addressBookFilePath);
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();

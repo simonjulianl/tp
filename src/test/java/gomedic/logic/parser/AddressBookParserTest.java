@@ -23,9 +23,9 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.Person;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.EditPersonDescriptorBuilder;
-import gomedic.testutil.PersonBuilder;
 import gomedic.testutil.PersonUtil;
 import gomedic.testutil.TypicalIndexes;
+import gomedic.testutil.modelbuilder.PersonBuilder;
 
 public class AddressBookParserTest {
 
