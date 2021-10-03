@@ -38,4 +38,11 @@ public class ActivityIdTest {
         assertTrue(ActivityId.isValidActivityId(new ActivityId(100))); // activity id
         assertTrue(ActivityId.isValidActivityId(new IdTest.TestId(50, 'A'))); // other id with same prefix
     }
+
+    @SuppressWarnings("AssertBetweenInconvertibleTypes")
+    @Test
+    void equals_inputs_testsPassed() {
+        assertEquals(new ActivityId(100), new ActivityId(100));
+        assertEquals(new ActivityId(100), new IdTest.TestId(100, 'A'));
+    }
 }
