@@ -33,7 +33,7 @@ formatting, etc.
 
     * **`list t/patient`** : Lists all patients.
 
-    * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart-failure o/diabetes`** : Adds a contact
+    * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O p/12345678 o/heart-failure o/diabetes`** : Adds a contact
       named `John Doe` to the Address Book.
 
     * **`delete t/patient i/P001`** : Deletes the patient whose id is P001.
@@ -99,7 +99,7 @@ GoMedic will suggest up to the 5 closest command to be executed if you make a ty
 
 Adds a new patient into the GoMedic application.
 
-Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE c/CONTACT_NUMBER [o/MEDICAL_CONDITION]...`
+Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE p/PHONE_NUMBER [o/MEDICAL_CONDITION]...`
 
 The parameters are : 
 
@@ -109,14 +109,14 @@ The parameters are :
 * `h/HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
 * `w/WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
 * `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
-* `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
 * `o/MEDICAL_CONDITION` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
   words, use `space` to combine the words, e.g. `heart failure`. 
 
 Examples:
 
-* `add t/patient n/John Doe a/30 g/M h/174 w/72 b/O c/12345678 o/heart failure o/diabetes`
-* `add t/patient n/Tom Doe a/20 g/M h/167 w/61 b/AB c/12341234`
+* `add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 o/heart failure o/diabetes`
+* `add t/patient n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234`
 
 ### Display full details of a patient: `view t/patient`
 
@@ -167,7 +167,7 @@ The parameters are:
 * `h/HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
 * `w/WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
 * `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
-* `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
 
 The optional parameters are: 
 * `o/description` is the list of patient's past/pre-existing medical conditions to be **added**. For medical condition that has
@@ -186,8 +186,8 @@ Notes:
 Examples:
 
 * `update t/patient i/P123 n/John Doe a/30 g/M`
-* `update t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB c/12341234 do/diabetes`
-* `update t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB c/12341234 o/fever o/headache do/diabetes do/heart feailure`
+* `update t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234 do/diabetes`
+* `update t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234 o/fever o/headache do/diabetes do/heart feailure`
 
 ### Viewing the list of patients `list t/patient`
 
@@ -203,18 +203,18 @@ Examples:
 
 Adds a new doctor into the GoMedic application.
 
-Format: `add t/doctor n/NAME c/CONTACT_NUMBER s/DEPARTMENT`
+Format: `add t/doctor n/NAME p/PHONE_NUMBER s/DEPARTMENT`
 
 The parameters are: 
 
 * `n/NAME` indicates the full name of the doctor, first name and last name are separated by `space`.
-* `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
 * `s/DEPARTMENT` is the name of the department where the doctor serves in String.
 
 Examples:
 
-* `add t/doctor n/Timmy Tom c/98765432 s/neurology`
-* `add t/doctor n/John White c/12312312 s/cardiology`
+* `add t/doctor n/Timmy Tom p/98765432 s/neurology`
+* `add t/doctor n/John White p/12312312 s/cardiology`
 
 ### Display full details of a doctor: `view t/doctor`
 
@@ -263,12 +263,12 @@ The parameters are:
 The parameters are:
 
 * `n/NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
-* `c/CONTACT_NUMBER` must be 8-digit Singapore phone number.
+* `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
 * `d/DEPARTMENT` is the name of the department where the doctor serves in String.
 
 Examples:
 
-* `add t/doctor i/D123 c/11112222`
+* `add t/doctor i/D123 p/11112222`
 * `add t/doctor i/D101 s/orthopaedics`
 
 ### Viewing the list of doctors `list t/doctor`
@@ -324,7 +324,7 @@ Format: `find [OPTIONAL_PARAMETERS]...`
 The parameters are:
 
 * `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
-* `c/CONTACT_NUMBER`: Matches the contact number field (Valid for: `Patients`, `Doctors`)
+* `p/PHONE_NUMBER`: Matches the phone number field (Valid for: `Patients`, `Doctors`)
 * `a/AGE`: Matches the age field (Valid for: `Patients`)
 * `g/GENDER`: Matches the gender field; The only valid keywords for this field are `M/F/O` (Valid for: `Patients`)
 * `h/HEIGHT`: Matches the height field (Valid for: `Patients`)
@@ -460,7 +460,7 @@ the data of your previous GoMedic home folder.
 
 Action        | Format, Examples |
 --------------|------------------ |
-**Add**       | `add {type} {PARAMETERS}`<br> e.g., `add t/doctor n/Timmy Tom c/98765432 s/neurology`
+**Add**       | `add {type} {PARAMETERS}`<br> e.g., `add t/doctor n/Timmy Tom p/98765432 s/neurology`
 **Delete**    | `delete {type} i/{type}_ID` <br> e.g., `delete t/patient i/P003`<br>
 **Update**    | `update {type} i/{type}_ID [OPTIONAL PARAMETER]...`<br>e.g.,`update t/patient i/P123 n/John Doe a/30 g/M`<br>
 **Find**      | `find [OPTIONAL_PARAMATERS]...`<br> e.g., `find ta/important ti/tutorial`<br>
