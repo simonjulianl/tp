@@ -1,11 +1,11 @@
 package gomedic.model.person.doctor;
 
+import java.util.Objects;
+
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.AbstractPerson;
-
-import java.util.Objects;
 
 /**
  * Represents a Doctor in the address book.
@@ -16,6 +16,9 @@ public class Doctor extends AbstractPerson {
     // data fields
     private final Department department;
 
+    /**
+     * Every field must be present and not null.
+     */
     public Doctor(Name name, Phone phone, Department department) {
         super(name, phone);
         CollectionUtil.requireAllNonNull(name, phone, department);
