@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import gomedic.model.person.exceptions.DuplicatePersonException;
 import gomedic.model.person.exceptions.PersonNotFoundException;
-import gomedic.testutil.PersonBuilder;
+import gomedic.testutil.modelbuilder.PersonBuilder;
 
 public class UniquePersonListTest {
 

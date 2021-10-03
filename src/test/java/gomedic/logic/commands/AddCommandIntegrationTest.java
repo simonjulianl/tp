@@ -9,7 +9,7 @@ import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
 import gomedic.model.person.Person;
-import gomedic.testutil.PersonBuilder;
+import gomedic.testutil.modelbuilder.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

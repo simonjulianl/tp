@@ -20,7 +20,7 @@ import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.ReadOnlyUserPrefs;
 import gomedic.model.person.Person;
-import gomedic.testutil.PersonBuilder;
+import gomedic.testutil.modelbuilder.PersonBuilder;
 import javafx.collections.ObservableList;
 
 public class AddCommandTest {

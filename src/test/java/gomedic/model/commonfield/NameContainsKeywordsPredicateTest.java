@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import gomedic.model.util.NameContainsKeywordsPredicate;
-import gomedic.testutil.PersonBuilder;
+import gomedic.testutil.modelbuilder.PersonBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 
