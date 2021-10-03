@@ -86,6 +86,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public String toString() {
+        // TODO : Integrate Activity file path
         return "Gui Settings : " + guiSettings
                 + "\nLocal data file location : " + addressBookPersonFilePath;
     }

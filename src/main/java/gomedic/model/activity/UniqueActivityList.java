@@ -122,9 +122,12 @@ public class UniqueActivityList implements Iterable<Activity> {
      */
     public ObservableList<Activity> asUnmodifiableSortedList() {
         return internalUnmodifiableList
-                .sorted((activity, otherAct) -> activity
-                        .getStartTime()
-                        .isBefore(otherAct.getStartTime()) ? 0 : 1);
+                .sorted((activity, otherAct) ->
+                        activity.getStartTime() == otherAct.getStartTime()
+                                ? 0
+                                : activity
+                                .getStartTime()
+                                .isBefore(otherAct.getStartTime()) ? -1 : 1);
     }
 
     /**
