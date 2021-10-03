@@ -68,10 +68,6 @@ public class TypicalPersons {
             ab.addPerson(person);
         }
 
-        for (Activity activity : getTypicalActivities()) {
-            ab.addActivity(activity);
-        }
-
         return ab;
     }
 
