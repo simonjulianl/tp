@@ -98,6 +98,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class,
-                Messages.MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+                Messages.getSuggestions("unknownCommand"), () -> parser
+                        .parseCommand("unknownCommand"));
     }
 }
