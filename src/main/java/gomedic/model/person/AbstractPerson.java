@@ -3,6 +3,7 @@ package gomedic.model.person;
 import java.util.Objects;
 
 import gomedic.commons.util.CollectionUtil;
+import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 
@@ -14,14 +15,16 @@ public abstract class AbstractPerson {
     // Identity fields
     private final Name name;
     private final Phone phone;
+    private final Id id;
 
     /**
      * Every field must be present and not null.
      */
-    public AbstractPerson(Name name, Phone phone) {
+    public AbstractPerson(Name name, Phone phone, Id id) {
         CollectionUtil.requireAllNonNull(name, phone);
         this.name = name;
         this.phone = phone;
+        this.id = id;
     }
     public Name getName() {
         return name;
@@ -31,8 +34,13 @@ public abstract class AbstractPerson {
         return phone;
     }
 
+    public Id getId() {
+        return id;
+    }
+
     /**
-     * Returns true if both persons have the same name.
+     * Returns true if both persons have the same name and phone number.
+     * We compare phone numbers as well as multiple people can share the same name.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(AbstractPerson otherPerson) {
@@ -41,7 +49,8 @@ public abstract class AbstractPerson {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getName().equals(getName())
+                && otherPerson.getPhone().equals(getPhone());
     }
 
     /**
@@ -59,8 +68,8 @@ public abstract class AbstractPerson {
         }
 
         AbstractPerson otherPerson = (AbstractPerson) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone());
+        return isSamePerson(otherPerson)
+                && otherPerson.getId().equals(getId());
     }
 
     @Override

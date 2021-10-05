@@ -19,9 +19,9 @@ public class Doctor extends AbstractPerson {
     /**
      * Every field must be present and not null.
      */
-    public Doctor(Name name, Phone phone, Department department) {
-        super(name, phone);
-        CollectionUtil.requireAllNonNull(name, phone, department);
+    public Doctor(Name name, Phone phone, DoctorId id, Department department) {
+        super(name, phone, id);
+        CollectionUtil.requireAllNonNull(name, phone, id, department);
         this.department = department;
 
     }
@@ -36,7 +36,7 @@ public class Doctor extends AbstractPerson {
      */
     @Override
     public boolean isSamePerson(AbstractPerson otherPerson) {
-        return super.isSamePerson(otherPerson) && otherPerson instanceof Doctor;
+        return  otherPerson instanceof Doctor && super.isSamePerson(otherPerson);
     }
 
     /**
@@ -54,6 +54,7 @@ public class Doctor extends AbstractPerson {
         }
 
         Doctor otherPerson = (Doctor) other;
+        // Check identity fields through super::equals call, and data fields in doctor
         return super.equals(otherPerson) && department.equals(otherPerson.department);
     }
 
