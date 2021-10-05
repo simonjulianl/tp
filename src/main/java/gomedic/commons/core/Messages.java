@@ -31,10 +31,9 @@ public class Messages {
                 "clear", "find", "list", "exit", "help");
         LevenshteinDistance stringChecker = new LevenshteinDistance();
         List<Pair<Integer, String>> closestStrings = listOfCommands.stream()
-                .map(x -> new Pair<>(stringChecker.apply(x, command), x))
+                .map(x -> new Pair<>(stringChecker.apply(x, command), x)).sorted(Comparator.comparingInt(Pair::getKey))
                 .collect(Collectors.toList());
 
-        closestStrings.sort(Comparator.comparingInt(Pair::getKey));
         String reply = String.format("Sorry, %s is an invalid command. "
                 + "You can choose from these commands instead: \n", command);
         Iterator<Pair<Integer, String>> iterator = closestStrings.subList(0, 5).iterator();
