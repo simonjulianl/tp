@@ -36,7 +36,7 @@ public class Doctor extends AbstractPerson {
      */
     @Override
     public boolean isSamePerson(AbstractPerson otherPerson) {
-        return  otherPerson instanceof Doctor && super.isSamePerson(otherPerson);
+        return otherPerson instanceof Doctor && super.isSamePerson(otherPerson);
     }
 
     /**

@@ -7,7 +7,7 @@ import gomedic.model.commonfield.Id;
  * Represents a general id owned by a doctor.
  * Guarantees: immutable; is valid as declared in {@link #isValidDoctorId(Id)})}
  */
-public class DoctorId extends Id{
+public class DoctorId extends Id {
     public static final String MESSAGE_CONSTRAINTS =
             "Id should only contain from 1 to 999, Prefix should be D";
     private static final Character ACTIVITY_PREFIX = 'D';
