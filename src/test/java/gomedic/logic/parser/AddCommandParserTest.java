@@ -11,8 +11,8 @@ import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.Person;
 import gomedic.model.tag.Tag;
-import gomedic.testutil.PersonBuilder;
 import gomedic.testutil.TypicalPersons;
+import gomedic.testutil.modelbuilder.PersonBuilder;
 
 public class AddCommandParserTest {
     private final AddCommandParser parser = new AddCommandParser();

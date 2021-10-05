@@ -24,7 +24,7 @@ import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
 import gomedic.model.person.Person;
 import gomedic.testutil.EditPersonDescriptorBuilder;
-import gomedic.testutil.PersonBuilder;
+import gomedic.testutil.modelbuilder.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.

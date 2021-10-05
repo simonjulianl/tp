@@ -1,4 +1,4 @@
-package gomedic.testutil;
+package gomedic.testutil.modelbuilder;
 
 import java.util.HashSet;
 import java.util.Set;

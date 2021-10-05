@@ -25,8 +25,8 @@ import gomedic.storage.JsonAddressBookStorage;
 import gomedic.storage.JsonUserPrefsStorage;
 import gomedic.storage.StorageManager;
 import gomedic.testutil.Assert;
-import gomedic.testutil.PersonBuilder;
 import gomedic.testutil.TypicalPersons;
+import gomedic.testutil.modelbuilder.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
