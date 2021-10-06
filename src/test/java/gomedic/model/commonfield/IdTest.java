@@ -80,11 +80,11 @@ public class IdTest {
     public void isValidIdFormat() {
         // valid Id format
         assertTrue(Id.isValidIdFormat("Z999"));
-        assertTrue(Id.isValidIdFormat("a100"));
 
         // invalid id format
         assertFalse(Id.isValidIdFormat("test"));
         assertFalse(Id.isValidIdFormat("A1"));
+        assertFalse(Id.isValidIdFormat("a100"));
     }
 
     /**
