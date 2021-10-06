@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import gomedic.commons.exceptions.IllegalValueException;
 import gomedic.model.AddressBook;
 import gomedic.model.ReadOnlyAddressBook;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 
 /**
@@ -20,15 +21,19 @@ import gomedic.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_ACTIVITY = "Activities list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedActivity> activities = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given persons and activities.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("activities") List<JsonAdaptedActivity> activities) {
         this.persons.addAll(persons);
+        this.activities.addAll(activities);
     }
 
     /**
@@ -38,6 +43,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        activities.addAll(source.getActivityList().stream().map(JsonAdaptedActivity::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,7 +60,16 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
+        for (JsonAdaptedActivity jsonAdaptedActivity : activities) {
+            Activity activity = jsonAdaptedActivity.toModelType();
+
+            if (addressBook.hasActivity(activity)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_ACTIVITY);
+            }
+            addressBook.addActivity(activity);
+        }
+
         return addressBook;
     }
-
 }

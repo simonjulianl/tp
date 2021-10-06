@@ -1,5 +1,6 @@
 package gomedic.model.activity;
 
+import static gomedic.model.activity.Description.isValidDescription;
 import static gomedic.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -52,5 +53,11 @@ class DescriptionTest {
         // upper case and lower case
         assertTrue(d.contains("TESTING", "STRINGS"));
         assertTrue(d.contains("testing", "lmao"));
+    }
+
+    @Test
+    void isValidDescription_testsPassed() {
+        assertTrue(isValidDescription("a".repeat(100)));
+        assertFalse(isValidDescription("a".repeat(1000)));
     }
 }

@@ -24,7 +24,7 @@ public class Title extends Description {
     /**
      * @return true for text that has less than max_char
      */
-    private boolean isValidTitle(String text) {
+    public static boolean isValidTitle(String text) {
         return text.length() <= MAX_CHAR;
     }
 }

@@ -1,0 +1,20 @@
+{
+  "persons": [],
+  "activities": [
+    {
+      "id": "A001",
+      "title": "testing activity",
+      "description": "meeting someone at Jurong east",
+      "startTime": "XXX",
+      "endTime": "XXX"
+    },
+    {
+      "id": "A001",
+      "title": "another activity",
+      "description": "meeting someone at Jurong east",
+      "startTime": "XXX",
+      "endTime": "XXX"
+    }
+  ]
+}
+// TODO : Update the data

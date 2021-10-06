@@ -9,6 +9,7 @@ import gomedic.model.activity.Activity;
 import gomedic.testutil.modelbuilder.ActivityBuilder;
 
 public class TypicalActivities {
+    // TODO : use the parser to convert string into local date time
     public static final Activity MEETING = new ActivityBuilder().withTitle("Meeting me")
             .withDescription("today at somewhere")
             .withStartTime(LocalDateTime.now())
