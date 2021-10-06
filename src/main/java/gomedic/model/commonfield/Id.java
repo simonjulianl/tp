@@ -41,7 +41,7 @@ public abstract class Id {
     }
 
     /**
-     * Returns true id is made of 1 char followed by 3 digits.
+     * Returns true id is made of 1 upper case alphabet followed by 3 digits.
      *
      * @param id String
      * @return true if valid, else false.
@@ -49,7 +49,7 @@ public abstract class Id {
     public static boolean isValidIdFormat(String id) {
         boolean isValidNumber = isNumeric(id.substring(1)) && id.substring(1).length() == 3;
         char prefix = id.charAt(0);
-        boolean isValidPrefix = ('a' <= prefix && prefix <= 'z') || ('A' <= prefix && prefix <= 'Z');
+        boolean isValidPrefix =  'A' <= prefix && prefix <= 'Z';
 
         return isValidNumber && isValidPrefix;
     }
