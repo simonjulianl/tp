@@ -40,7 +40,7 @@ public class Doctor extends AbstractPerson {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both persons have all the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
     @Override
@@ -54,14 +54,14 @@ public class Doctor extends AbstractPerson {
         }
 
         Doctor otherPerson = (Doctor) other;
-        // Check identity fields through super::equals call, and data fields in doctor
-        return super.equals(otherPerson) && department.equals(otherPerson.department);
+        return super.equals(otherPerson) // Check identity fields using super::equals call
+                && department.equals(otherPerson.department); // Check individual data fields in doctor
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(super.hashCode(), department);
+        return Objects.hash(getName(), getPhone(), getId(), department);
     }
 
     /**
