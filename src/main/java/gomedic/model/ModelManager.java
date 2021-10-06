@@ -23,6 +23,10 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
+    public ModelManager() {
+        this(new AddressBook(), new UserPrefs());
+    }
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -35,10 +39,6 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-    }
-
-    public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,14 +66,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookPersonFilePath() {
+    public Path getAddressBookDataRootFilePath() {
+        return userPrefs.getAddressBookRootFilePath();
+    }
+
+    @Override
+    public void setAddressBookDataRootFilePath(Path addressBookDataRootFilePath) {
+        requireNonNull(addressBookDataRootFilePath);
+        userPrefs.setAddressBookDataFileRootPath(addressBookDataRootFilePath);
+    }
+
+    @Override
+    public Path getAddressBookPersonsFilePath() {
         return userPrefs.getAddressBookPersonFilePath();
     }
 
     @Override
-    public void setAddressBookPersonFilePath(Path addressBookPersonFilePath) {
-        requireNonNull(addressBookPersonFilePath);
-        userPrefs.setAddressBookPersonFilePath(addressBookPersonFilePath);
+    public Path getAddressBookActivitiesFilePath() {
+        return userPrefs.getAddressBookActivityFilePath();
     }
 
     //=========== AddressBook ================================================================================
@@ -106,13 +116,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         CollectionUtil.requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
     }
-
-    //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -121,12 +137,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
     }
 
     @Override

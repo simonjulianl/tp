@@ -13,15 +13,16 @@ import gomedic.commons.core.GuiSettings;
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
 
-    private final Path addressBookActivityFilePath = Paths.get("data", "activities.json");
-    private Path addressBookPersonFilePath = Paths.get("data", "persons.json");
+    public static final String ROOT_FOLDER = "data";
+    private Path addressBookDataFileRootPath = Paths.get(ROOT_FOLDER);
+    private final Path addressBookPersonsFilePath = Paths.get(
+            getAddressBookRootFilePath().toString(),
+            "persons.json");
+    private final Path addressBookActivityFilePath = Paths.get(
+            getAddressBookRootFilePath().toString(),
+            "activities.json");
     private GuiSettings guiSettings = new GuiSettings();
 
-    /**
-     * Creates a {@code UserPrefs} with default values.
-     */
-    public UserPrefs() {
-    }
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -32,12 +33,23 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     /**
+     * Creates a {@code UserPrefs} with default values.
+     */
+    public UserPrefs() {
+    }
+
+    /**
      * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.
      */
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookPersonFilePath(newUserPrefs.getAddressBookPersonFilePath());
+        setAddressBookDataFileRootPath(newUserPrefs.getAddressBookPersonFilePath());
+    }
+
+    public void setAddressBookDataFileRootPath(Path addressBookDataFileRootPath) {
+        requireNonNull(addressBookDataFileRootPath);
+        this.addressBookDataFileRootPath = addressBookDataFileRootPath;
     }
 
     public GuiSettings getGuiSettings() {
@@ -51,17 +63,17 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public Path getAddressBookPersonFilePath() {
-        return addressBookPersonFilePath;
-    }
-
-    public void setAddressBookPersonFilePath(Path addressBookPersonFilePath) {
-        requireNonNull(addressBookPersonFilePath);
-        this.addressBookPersonFilePath = addressBookPersonFilePath;
+        return addressBookPersonsFilePath;
     }
 
     @Override
     public Path getAddressBookActivityFilePath() {
         return addressBookActivityFilePath;
+    }
+
+    @Override
+    public Path getAddressBookRootFilePath() {
+        return addressBookDataFileRootPath;
     }
 
     @Override
@@ -76,18 +88,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookPersonFilePath.equals(o.addressBookPersonFilePath);
+                && addressBookDataFileRootPath.equals(o.addressBookDataFileRootPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookPersonFilePath);
+        return Objects.hash(guiSettings, addressBookDataFileRootPath);
     }
 
     @Override
     public String toString() {
         // TODO : Integrate Activity file path
         return "Gui Settings : " + guiSettings
-                + "\nLocal data file location : " + addressBookPersonFilePath;
+                + "\nLocal data file location : " + addressBookDataFileRootPath;
     }
 }

@@ -50,7 +50,7 @@ public class ActivityIdTest {
     void isValidActivityId_stringInput_testsPassed() {
         // invalid activity id
         assertFalse(ActivityId.isValidActivityId("test")); // no integer
-        assertFalse(ActivityId.isValidActivityId("A100")); // wrong prefix
+        assertFalse(ActivityId.isValidActivityId("B100")); // wrong prefix
 
         // valid activity id
         assertTrue(ActivityId.isValidActivityId(new ActivityId(100))); // activity id

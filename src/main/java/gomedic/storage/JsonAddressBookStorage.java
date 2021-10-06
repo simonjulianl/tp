@@ -21,19 +21,19 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
 
-    private final Path filePath;
+    private final Path personFilePath;
 
-    public JsonAddressBookStorage(Path filePath) {
-        this.filePath = filePath;
+    public JsonAddressBookStorage(Path personFilePath) {
+        this.personFilePath = personFilePath;
     }
 
     public Path getAddressBookPersonsFilePath() {
-        return filePath;
+        return personFilePath;
     }
 
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+        return readAddressBook(personFilePath);
     }
 
     /**
@@ -61,7 +61,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+        saveAddressBook(addressBook, personFilePath);
     }
 
     /**
@@ -76,5 +76,4 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
-
 }

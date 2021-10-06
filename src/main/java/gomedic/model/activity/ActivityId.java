@@ -53,6 +53,10 @@ public class ActivityId extends Id {
      * @return true if valid, else false.
      */
     public static boolean isValidActivityId(String aid) {
+        if (!isValidIdFormat(aid)) {
+            return false;
+        }
+
         int number = Integer.parseInt(aid.substring(1));
         Character prefix = aid.charAt(0);
         boolean isValidPrefix = prefix.equals(ACTIVITY_PREFIX);

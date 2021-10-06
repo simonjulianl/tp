@@ -37,12 +37,22 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookPersonFilePath();
+    Path getAddressBookDataRootFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookPersonFilePath(Path addressBookFilePath);
+    void setAddressBookDataRootFilePath(Path addressBookDataRootFilePath);
+
+    /**
+     * Returns the path to persons.json.
+     */
+    Path getAddressBookPersonsFilePath();
+
+    /**
+     * Returns the path to activities.json.
+     */
+    Path getAddressBookActivitiesFilePath();
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();

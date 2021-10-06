@@ -55,7 +55,8 @@ public class JsonAdaptedActivity {
      */
     public Activity toModelType() throws IllegalValueException {
         if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ActivityId.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, ActivityId.class.getSimpleName()));
         }
         if (!ActivityId.isValidActivityId(id)) {
             throw new IllegalValueException(ActivityId.MESSAGE_CONSTRAINTS);
@@ -64,7 +65,8 @@ public class JsonAdaptedActivity {
         final ActivityId modelId = new ActivityId(id);
 
         if (title == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
         if (!Title.isValidTitle(title)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
@@ -73,7 +75,8 @@ public class JsonAdaptedActivity {
         final Title modelTitle = new Title(title);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(title)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -90,6 +93,4 @@ public class JsonAdaptedActivity {
 
         return new Activity(modelId, modelStartTime, modelEndTime, modelTitle, modelDescription);
     }
-
-
 }
