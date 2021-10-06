@@ -27,7 +27,7 @@ public class ActivityId extends Id {
     /**
      * {@inheritDoc}
      *
-     * @param id Integer from 1 to 999
+     * @param id a string of format "PDDD", where "P" is an alphabetic character and "D" is a decimal number
      */
     public ActivityId(String id) {
         super(Integer.parseInt(id.substring(1)), ACTIVITY_PREFIX);
