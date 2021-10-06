@@ -25,6 +25,16 @@ public class ActivityId extends Id {
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @param id Integer from 1 to 999
+     */
+    public ActivityId(String id) {
+        super(Integer.parseInt(id.substring(1)), ACTIVITY_PREFIX);
+        AppUtil.checkArgument(isValidActivityId(this), MESSAGE_CONSTRAINTS);
+    }
+
+    /**
      * Returns true if a given stringId is a valid activity valid id.
      * Valid if integer is 3 digit, from 1 to 999, prefix is A.
      *
@@ -32,8 +42,19 @@ public class ActivityId extends Id {
      * @return true if valid, else false.
      */
     public static boolean isValidActivityId(Id id) {
-        int number = Integer.parseInt(id.toString().substring(1));
-        Character prefix = id.toString().charAt(0);
+        return isValidActivityId(id.toString());
+    }
+
+    /**
+     * Returns true if a given stringId is a valid activity valid id.
+     * Valid if integer is 3 digit, from 1 to 999, prefix is A.
+     *
+     * @param aid String.
+     * @return true if valid, else false.
+     */
+    public static boolean isValidActivityId(String aid) {
+        int number = Integer.parseInt(aid.substring(1));
+        Character prefix = aid.charAt(0);
         boolean isValidPrefix = prefix.equals(ACTIVITY_PREFIX);
 
         return isValidId(number, prefix) && isValidPrefix;

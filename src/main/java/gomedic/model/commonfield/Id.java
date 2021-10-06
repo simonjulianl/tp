@@ -40,6 +40,29 @@ public abstract class Id {
         return isValidNumber && isValidPrefix;
     }
 
+    /**
+     * Returns true id is made of 1 char followed by 3 digits.
+     *
+     * @param id String
+     * @return true if valid, else false.
+     */
+    public static boolean isValidIdFormat(String id) {
+        boolean isValidNumber = isNumeric(id.substring(1)) && id.substring(1).length() == 3;
+        char prefix = id.charAt(0);
+        boolean isValidPrefix = ('a' <= prefix && prefix <= 'z') || ('A' <= prefix && prefix <= 'Z');
+
+        return isValidNumber && isValidPrefix;
+    }
+
+    private static boolean isNumeric(String string) {
+        try {
+            Integer.parseInt(string);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     @Override
     public int hashCode() {
         return value.hashCode();

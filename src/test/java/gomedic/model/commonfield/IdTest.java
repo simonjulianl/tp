@@ -76,6 +76,17 @@ public class IdTest {
         assertTrue(Id.isValidId(50, 'K')); // common case prefix and id
     }
 
+    @Test
+    public void isValidIdFormat() {
+        // valid Id format
+        assertTrue(Id.isValidIdFormat("Z999"));
+        assertTrue(Id.isValidIdFormat("a100"));
+
+        // invalid id format
+        assertFalse(Id.isValidIdFormat("test"));
+        assertFalse(Id.isValidIdFormat("A1"));
+    }
+
     /**
      * Mock id class to be tested.
      */
