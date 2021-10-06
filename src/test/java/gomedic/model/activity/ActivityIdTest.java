@@ -13,6 +13,7 @@ public class ActivityIdTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new ActivityId((Integer) null));
+        assertThrows(NullPointerException.class, () -> new ActivityId((String) null));
     }
 
     @Test
