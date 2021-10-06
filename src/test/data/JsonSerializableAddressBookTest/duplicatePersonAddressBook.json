@@ -10,5 +10,28 @@
     "phone": "94351253",
     "email": "pauline@example.com",
     "address": "4th street"
-  } ]
+  } ],
+  "activities": [
+    {
+      "id": "A001",
+      "title": "Meeting me",
+      "description": "today at somewhere",
+      "startTime": "XXX",
+      "endTime": "XXX"
+    },
+    {
+      "id": "A003",
+      "title": "Paper Review",
+      "description": "someone is attending this",
+      "startTime": "XXX",
+      "endTime": "XXX"
+    },
+    {
+      "id": "A004",
+      "title": "playing games",
+      "description": "at someone house",
+      "startTime": "XXX",
+      "endTime": "XXX"
+    }
+  ]
 }

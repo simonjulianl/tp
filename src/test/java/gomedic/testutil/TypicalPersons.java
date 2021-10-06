@@ -1,11 +1,14 @@
 package gomedic.testutil;
 
+import static gomedic.testutil.TypicalActivities.getTypicalActivities;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.model.AddressBook;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.testutil.modelbuilder.PersonBuilder;
 
@@ -63,6 +66,10 @@ public class TypicalPersons {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
+        }
+
+        for (Activity activity : getTypicalActivities()) {
+            ab.addActivity(activity);
         }
 
         return ab;

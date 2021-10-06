@@ -76,16 +76,6 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookDataFileRootPath(addressBookDataRootFilePath);
     }
 
-    @Override
-    public Path getAddressBookPersonsFilePath() {
-        return userPrefs.getAddressBookPersonFilePath();
-    }
-
-    @Override
-    public Path getAddressBookActivitiesFilePath() {
-        return userPrefs.getAddressBookActivityFilePath();
-    }
-
     //=========== AddressBook ================================================================================
 
     @Override

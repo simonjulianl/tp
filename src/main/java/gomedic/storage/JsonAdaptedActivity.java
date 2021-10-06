@@ -88,8 +88,10 @@ public class JsonAdaptedActivity {
         // for now, lets use some dummy stuff
         // TODO : use the real date time parser
 
-        Time modelStartTime = new Time(LocalDateTime.now());
-        Time modelEndTime = new Time(LocalDateTime.now().plusHours(1));
+        LocalDateTime stub = LocalDateTime.now().plusDays((int) (Math.random() * 10000));
+
+        Time modelStartTime = new Time(stub);
+        Time modelEndTime = new Time(stub.plusHours(1));
 
         return new Activity(modelId, modelStartTime, modelEndTime, modelTitle, modelDescription);
     }

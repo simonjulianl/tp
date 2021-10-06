@@ -14,15 +14,8 @@ import gomedic.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     public static final String ROOT_FOLDER = "data";
-    private Path addressBookDataFileRootPath = Paths.get(ROOT_FOLDER);
-    private final Path addressBookPersonsFilePath = Paths.get(
-            getAddressBookRootFilePath().toString(),
-            "persons.json");
-    private final Path addressBookActivityFilePath = Paths.get(
-            getAddressBookRootFilePath().toString(),
-            "activities.json");
+    private Path addressBookDataFileRootPath = Paths.get(ROOT_FOLDER, "addressbook.json");
     private GuiSettings guiSettings = new GuiSettings();
-
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -44,7 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookDataFileRootPath(newUserPrefs.getAddressBookPersonFilePath());
+        setAddressBookDataFileRootPath(newUserPrefs.getAddressBookRootFilePath());
     }
 
     public void setAddressBookDataFileRootPath(Path addressBookDataFileRootPath) {
@@ -59,16 +52,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
-    }
-
-    @Override
-    public Path getAddressBookPersonFilePath() {
-        return addressBookPersonsFilePath;
-    }
-
-    @Override
-    public Path getAddressBookActivityFilePath() {
-        return addressBookActivityFilePath;
     }
 
     @Override
@@ -98,7 +81,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public String toString() {
-        // TODO : Integrate Activity file path
         return "Gui Settings : " + guiSettings
                 + "\nLocal data file location : " + addressBookDataFileRootPath;
     }

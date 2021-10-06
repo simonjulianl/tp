@@ -1,0 +1,25 @@
+{
+  "persons": [ {
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "email": "pauline@example.com",
+    "address": "4th street"
+  } ],
+  "activities": [
+    {
+      "id": "A001",
+      "title": "testing activity",
+      "description": "meeting someone at Jurong east",
+      "startTime": "XXX",
+      "endTime": "XXX"
+    },
+    {
+      "id": "A002",
+      "title": "another activity",
+      "description": "meeting someone at Jurong east",
+      "startTime": "XXX",
+      "endTime": "XXX"
+    }
+  ]
+}
+// TODO : Update the data

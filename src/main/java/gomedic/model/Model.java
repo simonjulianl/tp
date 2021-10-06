@@ -44,16 +44,6 @@ public interface Model {
      */
     void setAddressBookDataRootFilePath(Path addressBookDataRootFilePath);
 
-    /**
-     * Returns the path to persons.json.
-     */
-    Path getAddressBookPersonsFilePath();
-
-    /**
-     * Returns the path to activities.json.
-     */
-    Path getAddressBookActivitiesFilePath();
-
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 

@@ -50,10 +50,16 @@ class UniqueActivityListTest {
 
     @Test
     void containsConflicting_variousMeeting_testPassed() {
+        assertFalse(uniqueActivityList.containsConflicting(MEETING));
+
         uniqueActivityList.add(MEETING);
         assertTrue(uniqueActivityList.contains(MEETING));
         assertTrue(uniqueActivityList.containsConflicting(CONFLICTING_MEETING));
         assertFalse(uniqueActivityList.containsConflicting(PAST_ACTIVITY));
+        assertFalse(uniqueActivityList.containsConflicting(PAPER_REVIEW));
+
+        uniqueActivityList.add(PAST_ACTIVITY);
+        assertFalse(uniqueActivityList.containsConflicting(PAPER_REVIEW));
     }
 
     @Test
