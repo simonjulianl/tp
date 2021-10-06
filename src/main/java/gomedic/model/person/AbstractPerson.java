@@ -21,7 +21,7 @@ public abstract class AbstractPerson {
      * Every field must be present and not null.
      */
     public AbstractPerson(Name name, Phone phone, Id id) {
-        CollectionUtil.requireAllNonNull(name, phone);
+        CollectionUtil.requireAllNonNull(name, phone, id);
         this.name = name;
         this.phone = phone;
         this.id = id;
