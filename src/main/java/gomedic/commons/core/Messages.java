@@ -1,9 +1,6 @@
 package gomedic.commons.core;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
@@ -35,15 +32,21 @@ public class Messages {
                 .sorted(Comparator.comparingInt(Pair::getKey))
                 .collect(Collectors.toList());
 
-        String reply = String.format("Sorry, %s is an invalid command. "
-                + "You can choose from these commands instead: \n", command);
+        String reply = String.format("Sorry, %s is an invalid command.", command);
         for (Pair<Integer, String> s : closestStrings) {
             System.out.println(s);
         }
-        Iterator<Pair<Integer, String>> iterator = closestStrings.subList(0, 5).iterator();
-        while (iterator.hasNext()) {
-            reply += iterator.next().getValue() + "\n";
+        Iterator<Pair<Integer, String>> iterator = closestStrings.stream()
+                .filter(x -> x.getKey() <= Math.ceil(x.getValue().length() / 2))
+                .iterator();
+        if (iterator.hasNext()) {
+            String additionalReply = " You can choose from these commands instead: \n";
+            while (iterator.hasNext()) {
+                additionalReply += iterator.next().getValue() + "\n";
+            }
+            reply += additionalReply;
         }
+
         return reply;
 
     }
