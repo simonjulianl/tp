@@ -187,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
 
             return commandResult;
         } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
+            logger.info("Invalid command: " + e.getMessage());
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

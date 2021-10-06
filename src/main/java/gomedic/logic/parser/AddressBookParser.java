@@ -67,8 +67,7 @@ public class AddressBookParser {
             return new HelpCommand();
 
         default:
-            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(Messages.getSuggestions(commandWord));
         }
     }
-
 }
