@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -27,7 +27,6 @@
                      <Label fx:id="helpMessage1" alignment="CENTER" contentDisplay="CENTER" text="Label" />
                 <Button fx:id="copyButton" alignment="CENTER" mnemonicParsing="false" onAction="#copyUrl" prefWidth="101.0" text="Copy URL" />
                   </children>
-
                </HBox>
             </children>
          </VBox>
