@@ -6,8 +6,6 @@ import gomedic.model.person.doctor.Department;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 
-import javax.print.Doc;
-
 public class DoctorBuilder {
     /**
      * A utility class to help with building Doctor objects.

@@ -73,34 +73,32 @@ public class DoctorTest {
     }
 
     @Test
-    void isSamePerson_differentId_returnsTrue() {
+    void isSamePerson_differentId_returnsFalse() {
         DoctorId diffId = new DoctorId(420);
         Doctor doctorDiffId = new Doctor(name, phone, diffId, department);
 
-        // Test if doctors with the same name and phone number but different ids are the same,
-        // since isSamePerson is a weak equality comparison; We take the name and phone number of a person
+        // Test if doctors different ids are different people.
+        // isSamePerson is a weak equality comparison; We take the id
         // to assert this weaker equality (similar to the Javascript concept of abstract equality)
-        assertTrue(doctor.isSamePerson(doctorDiffId));
+        assertFalse(doctor.isSamePerson(doctorDiffId));
     }
 
     @Test
-    void isSamePerson_differentName_returnsFalse() {
+    void isSamePerson_differentName_returnsTrue() {
         Name diffName = new Name("Dohn Joe version 1");
         Doctor doctorDiffName = new Doctor(diffName, phone, id, department);
 
-        // Doctors with the different name, with the same remaining fields are different people
-        assertFalse(doctor.isSamePerson(doctorDiffName));
+        // Doctors with the same id are considered the same person
+        assertTrue(doctor.isSamePerson(doctorDiffName));
     }
 
     @Test
-    void isSamePerson_differentPhone_returnsFalse() {
+    void isSamePerson_differentPhone_returnsTrue() {
         Phone diffPhone = new Phone("99999999");
         Doctor doctorDiffPhone = new Doctor(name, diffPhone, id, department);
 
-        // Doctors with the different phone, with the same remaining fields are different people
-        // This is because multiple people can share the same name, so we use their phone numbers
-        // to uniquely identify them as well
-        assertFalse(doctor.isSamePerson(doctorDiffPhone));
+        // Doctors with the same id are considered the same person
+        assertTrue(doctor.isSamePerson(doctorDiffPhone));
     }
 
     @Test

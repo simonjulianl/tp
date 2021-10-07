@@ -60,34 +60,30 @@ class AbstractPersonTest {
     }
 
     @Test
-    void isSamePerson_differentId_returnsTrue() {
+    void isSamePerson_differentId_returnsFalse() {
         Id diffId = new IdTest.TestId(10, 'Z');
         AbstractPerson personDiffId = new ArbitraryPerson(name, phone, diffId);
 
-        // Test if 2 people with the same name and phone number but different ids are the same,
-        // since isSamePerson is a weak equality comparison; We take the name and phone number of a person
-        // to assert this weaker equality (similar to the Javascript concept of abstract equality)
-        assertTrue(person.isSamePerson(personDiffId));
+        // Persons with the different id are different people
+        assertFalse(person.isSamePerson(personDiffId));
     }
 
     @Test
-    void isSamePerson_differentName_returnsFalse() {
+    void isSamePerson_differentName_returnsTrue() {
         Name diffName = new Name("John Smith");
         AbstractPerson personDiffName = new ArbitraryPerson(diffName, phone, id);
 
-        // People with the different name, with the same remaining fields are different people
-        assertFalse(person.isSamePerson(personDiffName));
+        // People with the same id are the same person, even with different names
+        assertTrue(person.isSamePerson(personDiffName));
     }
 
     @Test
-    void isSamePerson_differentPhone_returnsFalse() {
+    void isSamePerson_differentPhone_returnsTrue() {
         Phone diffPhone = new Phone("99999999");
         AbstractPerson personDiffPhone = new ArbitraryPerson(name, diffPhone, id);
 
-        // People with the different phone, with the same remaining fields are different people
-        // This is because multiple people can share the same name, so we use their phone numbers
-        // to uniquely identify them as well
-        assertFalse(person.isSamePerson(personDiffPhone));
+        // People with the same id are the same person, even with different phone numbers
+        assertTrue(person.isSamePerson(personDiffPhone));
     }
 
     @Test

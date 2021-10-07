@@ -7,17 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import gomedic.model.person.doctor.Doctor;
-import gomedic.testutil.modelbuilder.DoctorBuilder;
-import gomedic.testutil.modelbuilder.PersonBuilder;
-import org.junit.jupiter.api.Test;
-
-import gomedic.model.person.exceptions.DuplicatePersonException;
-import gomedic.model.person.exceptions.PersonNotFoundException;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.exceptions.DuplicatePersonException;
+import gomedic.model.person.exceptions.PersonNotFoundException;
+import gomedic.testutil.modelbuilder.DoctorBuilder;
 
 class UniqueAbstractPersonListTest {
     private final UniqueAbstractPersonList uniqueAbstractPersonList = new UniqueAbstractPersonList();
@@ -133,8 +132,8 @@ class UniqueAbstractPersonListTest {
 
     @Test
     public void setPersons_nullUniqueAbstractPersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> uniqueAbstractPersonList.setPersons((UniqueAbstractPersonList) null));
+        assertThrows(
+                NullPointerException.class, () -> uniqueAbstractPersonList.setPersons((UniqueAbstractPersonList) null));
     }
 
     @Test
@@ -148,8 +147,8 @@ class UniqueAbstractPersonListTest {
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> uniqueAbstractPersonList.setPersons((List<AbstractPerson>) null));
+        assertThrows(
+                NullPointerException.class, () -> uniqueAbstractPersonList.setPersons((List<AbstractPerson>) null));
     }
 
     @Test
@@ -165,15 +164,15 @@ class UniqueAbstractPersonListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<AbstractPerson> listWithDuplicatePersons = Arrays.asList(MAIN_DOCTOR, MAIN_DOCTOR);
-        assertThrows(DuplicatePersonException.class,
-                () -> uniqueAbstractPersonList.setPersons(listWithDuplicatePersons));
+        assertThrows(
+                DuplicatePersonException.class, () -> uniqueAbstractPersonList.setPersons(listWithDuplicatePersons));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> uniqueAbstractPersonList.asUnmodifiableObservableList().remove(0)
+                UnsupportedOperationException.class, () ->
+                        uniqueAbstractPersonList.asUnmodifiableObservableList().remove(0)
         );
     }
 }
