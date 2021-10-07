@@ -21,7 +21,7 @@ public abstract class AbstractPerson {
      * Every field must be present and not null.
      */
     public AbstractPerson(Name name, Phone phone, Id id) {
-        CollectionUtil.requireAllNonNull(name, phone);
+        CollectionUtil.requireAllNonNull(name, phone, id);
         this.name = name;
         this.phone = phone;
         this.id = id;
@@ -39,22 +39,7 @@ public abstract class AbstractPerson {
     }
 
     /**
-     * Returns true if both persons have the same name and phone number.
-     * We compare phone numbers as well as multiple people can share the same name.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSamePerson(AbstractPerson otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone());
-    }
-
-    /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both persons have the same id.
      * This defines a stronger notion of equality between two persons.
      */
     @Override
@@ -68,8 +53,7 @@ public abstract class AbstractPerson {
         }
 
         AbstractPerson otherPerson = (AbstractPerson) other;
-        return isSamePerson(otherPerson)
-                && otherPerson.getId().equals(getId());
+        return otherPerson.getId().equals(id);
     }
 
     @Override

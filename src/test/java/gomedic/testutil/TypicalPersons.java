@@ -10,13 +10,26 @@ import gomedic.logic.commands.CommandTestUtil;
 import gomedic.model.AddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
+import gomedic.testutil.modelbuilder.DoctorBuilder;
 import gomedic.testutil.modelbuilder.PersonBuilder;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalPersons {
+    /**
+     * GoMedic doctors
+     */
+    public static final Doctor MAIN_DOCTOR = new DoctorBuilder().build();
+    public static final Doctor OTHER_DOCTOR =
+            new DoctorBuilder().withName("Smith John").withPhone("77777777").withDepartment("ENT").build();
 
+
+    /**
+     * AB3 person implementation
+     * To be removed during refactoring
+     */
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
