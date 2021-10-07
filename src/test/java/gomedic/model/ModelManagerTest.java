@@ -36,14 +36,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookPersonFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setAddressBookDataFileRootPath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookPersonFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setAddressBookDataFileRootPath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,14 +61,14 @@ public class ModelManagerTest {
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setAddressBookPersonFilePath(null));
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.setAddressBookDataRootFilePath(null));
     }
 
     @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookPersonFilePath(path);
-        assertEquals(path, modelManager.getAddressBookPersonFilePath());
+        modelManager.setAddressBookDataRootFilePath(path);
+        assertEquals(path, modelManager.getAddressBookDataRootFilePath());
     }
 
     @Test
@@ -126,7 +126,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookPersonFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setAddressBookDataFileRootPath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
 }
