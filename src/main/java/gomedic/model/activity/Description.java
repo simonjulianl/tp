@@ -31,7 +31,7 @@ public class Description {
     /**
      * @return true for text that has less than max_char
      */
-    public boolean isValidDescription(String text) {
+    public static boolean isValidDescription(String text) {
         return text.length() <= MAX_CHAR;
     }
 

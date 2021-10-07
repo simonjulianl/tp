@@ -1,0 +1,26 @@
+{
+  "persons": [
+    {
+      "name": "Hans Muster",
+      "phone": "9482424",
+      "email": "invalid@email!3e",
+      "address": "4th street"
+    }
+  ],
+  "activities": [
+    {
+      "id": "A001",
+      "title": "Very very long title that would exceed 60 character for sure, again Very very long title that would exceed 60 character for sure",
+      "description": "meeting someone at Jurong east",
+      "startTime": "XXX",
+      "endTime": "XXX"
+    },
+    {
+      "id": "B002",
+      "title": "Invalid id, supposed to start with A",
+      "description": "meeting someone at Jurong east",
+      "startTime": "XXX",
+      "endTime": "XXX"
+    }
+  ]
+}

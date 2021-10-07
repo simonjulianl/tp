@@ -75,7 +75,7 @@ public abstract class AbstractPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone);
+        return Objects.hash(name, phone, id);
     }
 
     @Override
@@ -83,8 +83,7 @@ public abstract class AbstractPerson {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append("; Phone: ")
-                .append(getPhone())
-                .append("; Email: ");
+                .append(getPhone());
 
         return builder.toString();
     }

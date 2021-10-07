@@ -12,7 +12,8 @@ import gomedic.model.commonfield.IdTest;
 public class ActivityIdTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ActivityId(null));
+        assertThrows(NullPointerException.class, () -> new ActivityId((Integer) null));
+        assertThrows(NullPointerException.class, () -> new ActivityId((String) null));
     }
 
     @Test
@@ -26,9 +27,9 @@ public class ActivityIdTest {
     }
 
     @Test
-    void isValidId_validInput_testsPassed() {
+    void isValidId_validInputId_testsPassed() {
         // null activity id
-        assertThrows(NullPointerException.class, () -> new ActivityId(null));
+        assertThrows(NullPointerException.class, () -> new ActivityId((Integer) null));
 
         // invalid activity id
         assertFalse(ActivityId.isValidActivityId(new IdTest.TestId(999, 'C'))); // wrong prefix
@@ -44,5 +45,16 @@ public class ActivityIdTest {
     void equals_inputs_testsPassed() {
         assertEquals(new ActivityId(100), new ActivityId(100));
         assertEquals(new ActivityId(100), new IdTest.TestId(100, 'A'));
+    }
+
+    @Test
+    void isValidActivityId_stringInput_testsPassed() {
+        // invalid activity id
+        assertFalse(ActivityId.isValidActivityId("test")); // no integer
+        assertFalse(ActivityId.isValidActivityId("B100")); // wrong prefix
+
+        // valid activity id
+        assertTrue(ActivityId.isValidActivityId(new ActivityId(100))); // activity id
+        assertTrue(ActivityId.isValidActivityId(new IdTest.TestId(50, 'A'))); // other id with same prefix
     }
 }
