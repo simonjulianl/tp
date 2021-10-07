@@ -39,8 +39,7 @@ public abstract class AbstractPerson {
     }
 
     /**
-     * Returns true if both persons have the same name and phone number.
-     * We compare phone numbers as well as multiple people can share the same name.
+     * Returns true if both persons have the same id.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(AbstractPerson otherPerson) {
@@ -49,8 +48,7 @@ public abstract class AbstractPerson {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone());
+                && otherPerson.getId().equals(id);
     }
 
     /**
@@ -69,7 +67,8 @@ public abstract class AbstractPerson {
 
         AbstractPerson otherPerson = (AbstractPerson) other;
         return isSamePerson(otherPerson)
-                && otherPerson.getId().equals(getId());
+                && otherPerson.getName().equals(name)
+                && otherPerson.getPhone().equals(phone);
     }
 
     @Override
