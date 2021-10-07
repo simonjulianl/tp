@@ -18,7 +18,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-
+    public static final String MESSAGE_HELP_COMMANDS = generateHelpText();
     /**
      * Returns the 5 most similar commands calculated using Levenshtein Distance Algorithm.
      *
@@ -55,7 +55,7 @@ public class Messages {
      *
      * @return a string of command descriptions.
      */
-    public static String generateHelpText() {
+    private static String generateHelpText() {
         String addDescription = "add:\n   Adds a patient, doctor or activity to the address book.\n";
         String clearDescription = "clear:\n  Empties all data in GoMedic.\n";
         String deleteDescription = "delete:\n    Deletes the patient, doctor or activity identified "

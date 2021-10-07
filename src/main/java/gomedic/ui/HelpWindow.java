@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay2122s1-cs2103t-t15-1.github.io/tp/UserGuide.html#quick-start";
-    // public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
-
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
@@ -38,7 +36,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(Messages.generateHelpText());
+        helpMessage.setText(Messages.MESSAGE_HELP_COMMANDS);
         helpMessage1.setText(String.format("For more information, refer to %s        ", USERGUIDE_URL));
     }
 
