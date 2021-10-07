@@ -13,15 +13,15 @@ import javafx.collections.ObservableList;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code AbstractPerson#isSamePerson(AbstractPerson)}. As such,
- * adding and updating of persons uses AbstractPerson#isSamePerson(AbstractPerson) for equality so as to ensure that
- * the person being added or updated is unique in terms of identity in the UniqueAbstractPersonList. However, the
- * removal of a person uses AbstractPerson#equals(Object) so as to ensure that the person with exactly the same
+ * A person is considered unique by comparing using {@code AbstractPerson#equals(AbstractPerson)}. As such,
+ * adding and updating of persons uses AbstractPerson#equals(AbstractPerson) for equality so as to ensure that
+ * the person being added or updated is unique in terms of identity in the UniqueAbstractPersonList. Removal of a
+ * person uses AbstractPerson#equals(Object) so as to ensure that the person with exactly the same
  * fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see AbstractPerson#isSamePerson(AbstractPerson)
+ * @see AbstractPerson#equals(Object)
  */
 public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
 
@@ -34,7 +34,7 @@ public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
      */
     public boolean contains(AbstractPerson toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -62,7 +62,7 @@ public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!target.equals(editedPerson) && contains(editedPerson)) {
             throw new DuplicatePersonException();
         }
 
@@ -128,7 +128,7 @@ public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
     private boolean personsAreUnique(List<AbstractPerson> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+                if (persons.get(i).equals(persons.get(j))) {
                     return false;
                 }
             }

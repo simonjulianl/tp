@@ -34,8 +34,8 @@ public class DoctorIdTest {
         assertFalse(DoctorId.isValidDoctorId(new IdTest.TestId(999, 'C'))); // wrong prefix
         assertFalse(DoctorId.isValidDoctorId(new IdTest.TestId(10, 'A'))); // wrong prefix
 
-        // valid activity id
-        assertTrue(DoctorId.isValidDoctorId(new DoctorId(100))); // activity id
+        // valid doctor id
+        assertTrue(DoctorId.isValidDoctorId(new DoctorId(100))); // doctor id
         assertTrue(DoctorId.isValidDoctorId(new IdTest.TestId(50, 'D'))); // other id with same prefix
     }
 

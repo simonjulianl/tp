@@ -31,17 +31,7 @@ public class Doctor extends AbstractPerson {
     }
 
     /**
-     * Returns true if both persons have the same name and are doctors.
-     * This defines a weaker notion of equality between two persons.
-     */
-    @Override
-    public boolean isSamePerson(AbstractPerson otherPerson) {
-        return otherPerson instanceof Doctor && super.isSamePerson(otherPerson);
-    }
-
-    /**
-     * Returns true if both persons have all the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both doctors have the same id.
      */
     @Override
     public boolean equals(Object other) {
@@ -53,9 +43,8 @@ public class Doctor extends AbstractPerson {
             return false;
         }
 
-        Doctor otherPerson = (Doctor) other;
-        return super.equals(otherPerson) // Check identity fields using super::equals call
-                && department.equals(otherPerson.department); // Check individual data fields in doctor
+        Doctor otherDoctor = (Doctor) other;
+        return super.equals(otherDoctor);
     }
 
     @Override
