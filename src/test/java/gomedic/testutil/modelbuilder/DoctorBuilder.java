@@ -6,11 +6,10 @@ import gomedic.model.person.doctor.Department;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 
+/**
+ * A utility class to help with building Doctor objects.
+ */
 public class DoctorBuilder {
-    /**
-     * A utility class to help with building Doctor objects.
-     */
-
     public static final String DEFAULT_NAME = "John Doe";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_DEPARTMENT = "Pediatrics";

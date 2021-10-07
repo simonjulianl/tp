@@ -40,19 +40,6 @@ public abstract class AbstractPerson {
 
     /**
      * Returns true if both persons have the same id.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSamePerson(AbstractPerson otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                && otherPerson.getId().equals(id);
-    }
-
-    /**
-     * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
     @Override
@@ -66,9 +53,7 @@ public abstract class AbstractPerson {
         }
 
         AbstractPerson otherPerson = (AbstractPerson) other;
-        return isSamePerson(otherPerson)
-                && otherPerson.getName().equals(name)
-                && otherPerson.getPhone().equals(phone);
+        return otherPerson.getId().equals(id);
     }
 
     @Override

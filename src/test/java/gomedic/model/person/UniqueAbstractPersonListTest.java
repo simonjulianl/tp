@@ -40,9 +40,12 @@ class UniqueAbstractPersonListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueAbstractPersonList.add(MAIN_DOCTOR);
+        // Doctor is same even if name changes
+        Doctor editedMainDoctor = new DoctorBuilder(MAIN_DOCTOR).withName("Smith Joe").build();
+        assertTrue(uniqueAbstractPersonList.contains(editedMainDoctor));
 
         // Doctor is same even if department changes
-        Doctor editedMainDoctor = new DoctorBuilder(MAIN_DOCTOR).withDepartment("Cardiology").build();
+        editedMainDoctor = new DoctorBuilder(MAIN_DOCTOR).withDepartment("Cardiology").build();
         assertTrue(uniqueAbstractPersonList.contains(editedMainDoctor));
 
         // Doctor is same even if phone number changes
