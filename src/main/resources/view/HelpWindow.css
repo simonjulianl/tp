@@ -1,3 +1,14 @@
 #copyButton, #helpMessage {
     -fx-font-family: "Open Sans";
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+#helpMessage1 {
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }

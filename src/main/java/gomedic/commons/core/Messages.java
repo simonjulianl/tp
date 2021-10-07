@@ -56,27 +56,20 @@ public class Messages {
      * @return a string of command descriptions.
      */
     private static String generateHelpText() {
-        String addDescription = "add:\n   Adds a patient, doctor or activity to the address book.\n";
-
-        String clearDescription = "clear:\n  Empties all data in GoMedic.\n";
-
+        String addDescription = "add:\n   Adds a patient, doctor or activity to the address book.\n\n";
+        String clearDescription = "clear:\n  Empties all data in GoMedic.\n\n";
         String deleteDescription = "delete:\n    Deletes the patient, doctor or activity identified "
-                + "by the index number used in their respective list.\n";
-
+                + "by the index number used in their respective list.\n\n";
         String editDescription = "edit:\n    Edits the details of the patient, doctor or activity identified "
                 + "by the index number used in the displayed person list.\n"
-                + "    Existing values will be overwritten by the input values.\n";
-
-        String exitDescription = "exit:\n    Exits GoMedic and closes the window.\n";
-
+                + "    Existing values will be overwritten by the input values.\n\n";
+        String exitDescription = "exit:\n    Exits GoMedic and closes the window.\n\n";
         String findDescription = "find:\n    Finds entries that contain the given keyword as substring "
-                + "in their entry attributes.\n";
-
+                + "in their entry attributes.\n\n";
         String listDescription = "list:\n    List all patients, doctors or activities "
-                + "as specified by the user.\n";
-
+                + "as specified by the user.\n\n";
         String helpDescription = "help:\n    Returns a list of commands and a "
-                + "brief description on what they do.\n";
+                + "brief description on what they do.\n\n";
 
         return addDescription + clearDescription + deleteDescription + editDescription + exitDescription
                 + findDescription + listDescription + helpDescription;
