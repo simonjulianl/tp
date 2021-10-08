@@ -7,6 +7,12 @@
       "phone": "99999999",
       "id": "D001",
       "department": "Cardiology"
+    },
+    {
+      "name": "a valid name",
+      "phone": "99999999",
+      "id": "D002",
+      "department": "Cardiology"
     }
   ]
 }
