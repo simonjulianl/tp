@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.AddCommand;
 import gomedic.logic.commands.ClearCommand;
 import gomedic.logic.commands.DeleteCommand;
 import gomedic.logic.commands.EditCommand;
@@ -19,6 +18,7 @@ import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.ListCommand;
+import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.Person;
 import gomedic.model.util.NameContainsKeywordsPredicate;
@@ -34,8 +34,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        AddPersonCommand command = (AddPersonCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
+        assertEquals(new AddPersonCommand(person), command);
     }
 
     @Test

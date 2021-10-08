@@ -1,17 +1,11 @@
 {
-  "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
-  } ],
-  "activities": [
+  "persons": [
     {
-      "id": "A001",
-      "title": "another activity",
-      "description": "meeting someone at Jurong east",
-      "startTime": "XXX",
-      "endTime": "XXX"
+      "name": "Hans Muster",
+      "phone": "9482424",
+      "email": "invalid@email!3e",
+      "address": "4th street"
     }
-  ]
+  ],
+  "activities": []
 }

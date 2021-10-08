@@ -2,8 +2,8 @@ package gomedic.testutil;
 
 import java.util.Set;
 
-import gomedic.logic.commands.AddCommand;
 import gomedic.logic.commands.EditCommand;
+import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.person.Person;
 import gomedic.model.tag.Tag;
@@ -17,7 +17,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return AddPersonCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**

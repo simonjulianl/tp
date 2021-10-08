@@ -1,7 +1,5 @@
 package gomedic.testutil.modelbuilder;
 
-import java.time.LocalDateTime;
-
 import gomedic.model.activity.Activity;
 import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
@@ -13,8 +11,8 @@ import gomedic.model.commonfield.Time;
  */
 public class ActivityBuilder {
 
-    public static final LocalDateTime DEFAULT_START_TIME = LocalDateTime.of(2020, 10, 10, 5, 5, 5);
-    public static final LocalDateTime DEFAULT_END_TIME = DEFAULT_START_TIME.plusDays(1);
+    public static final String DEFAULT_START_TIME = "15/09/2022 13:00";
+    public static final String DEFAULT_END_TIME = "15/09/2022 14:00";
     public static final String DEFAULT_TITLE = "Meeting";
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
     private static Integer id = 1;
@@ -48,7 +46,7 @@ public class ActivityBuilder {
     /**
      * Sets the {@code StartTime} of the {@code Activity} that we are building.
      */
-    public ActivityBuilder withStartTime(LocalDateTime startTime) {
+    public ActivityBuilder withStartTime(String startTime) {
         this.startTime = new Time(startTime);
         return this;
     }
@@ -56,7 +54,7 @@ public class ActivityBuilder {
     /**
      * Sets the {@code withEndTime} of the {@code Activity} that we are building.
      */
-    public ActivityBuilder withEndTime(LocalDateTime endTime) {
+    public ActivityBuilder withEndTime(String endTime) {
         this.endTime = new Time(endTime);
         return this;
     }
