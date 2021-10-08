@@ -3,6 +3,7 @@ package gomedic.ui;
 import java.util.logging.Logger;
 
 import gomedic.commons.core.LogsCenter;
+import gomedic.commons.core.Messages;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,9 +16,7 @@ import javafx.stage.Stage;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://ay2122s1-cs2103t-t15-1.github.io/tp/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
-
+    public static final String USERGUIDE_URL = "https://ay2122s1-cs2103t-t15-1.github.io/tp/UserGuide.html#quick-start";
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
@@ -27,6 +26,9 @@ public class HelpWindow extends UiPart<Stage> {
     @FXML
     private Label helpMessage;
 
+    @FXML
+    private Label helpMessage1;
+
     /**
      * Creates a new HelpWindow.
      *
@@ -34,7 +36,8 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        helpMessage.setText(Messages.MESSAGE_HELP_COMMANDS);
+        helpMessage1.setText(String.format("For more information, refer to %s        ", USERGUIDE_URL));
     }
 
     /**
