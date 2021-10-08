@@ -28,7 +28,7 @@ public class AddressBookParser {
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TYPED_COMMAND_FORMAT =
-            Pattern.compile("(?<commandWord>\\S+ t/\\S+)(?<arguments>.*)");
+            Pattern.compile("(?<commandWord>\\S+\\st/\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.

@@ -91,7 +91,6 @@ public class JsonAdaptedActivity {
         }
 
         if (!Time.isValidTime(startTime)) {
-            System.out.println(startTime);
             throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
         }
 
