@@ -21,9 +21,8 @@ public class DateTimeParser {
     static Logger logger = Logger.getLogger(DateTimeParser.class.getName());
 
     /**
-     * Checks if input String is a valid time and
-     * follows the time format that GoMedic allows:
-     * 13:00
+     * Checks if input String is a valid datetime and
+     * follows the time format that GoMedic allows
      */
     private static boolean isValidDateTime(String dateTime) throws ParseException {
 
