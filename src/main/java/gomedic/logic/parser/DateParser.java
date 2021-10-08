@@ -1,7 +1,8 @@
 package gomedic.logic.parser;
-import java.time.format.DateTimeParseException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 /**
@@ -19,7 +20,7 @@ public class DateParser {
      * 13:00
      * 13-00
      */
-    public static boolean isValidTime(String time){
+    public static boolean isValidTime(String time) {
 
         String[] timeArr;
 
@@ -35,8 +36,8 @@ public class DateParser {
         int minute;
 
         try {
-             hour = Integer.parseInt(timeArr[0]);
-             minute = Integer.parseInt(timeArr[1]);
+            hour = Integer.parseInt(timeArr[0]);
+            minute = Integer.parseInt(timeArr[1]);
         } catch (NumberFormatException e) {
             System.out.println("Invalid time");
             return false;
@@ -60,7 +61,7 @@ public class DateParser {
      */
     public static LocalDateTime formatDate(String dateLiteral) {
         DateTimeFormatter format;
-        if (dateLiteral.charAt(2) == '/'){
+        if (dateLiteral.charAt(2) == '/') {
             format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         } else if (dateLiteral.charAt(2) == '-') {
             format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
