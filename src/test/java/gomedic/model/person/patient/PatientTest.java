@@ -18,7 +18,7 @@ public class PatientTest {
     private static Name name;
     private static Phone phone;
     private static Age age;
-    private static BloodType bloodtype;
+    private static BloodType bloodType;
     private static Gender gender;
     private static Height height;
     private static Weight weight;
@@ -29,12 +29,12 @@ public class PatientTest {
         name = new Name("John Doe");
         phone = new Phone("12345678");
         age = new Age("31");
-        bloodtype = new BloodType("A");
+        bloodType = new BloodType("A");
         gender = new Gender("M");
         height = new Height("175");
         weight = new Weight("70");
 
-        patient = new Patient(name, phone, id, age, bloodtype, gender, height, weight);
+        patient = new Patient(name, phone, id, age, bloodType, gender, height, weight);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class PatientTest {
 
     @Test
     void getBloodType() {
-        assertEquals(bloodtype, patient.getBloodType());
+        assertEquals(bloodType, patient.getBloodType());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class PatientTest {
 
     @Test
     void testHashCode() {
-        int hash = Objects.hash(name, phone, id, age, bloodtype, gender, height, weight);
+        int hash = Objects.hash(name, phone, id, age, bloodType, gender, height, weight);
         assertEquals(hash, patient.hashCode());
     }
 
@@ -100,12 +100,12 @@ public class PatientTest {
         Height diffHeight = new Height("176");
         Weight diffWeight = new Weight("85");
 
-        Patient patientDiffId = new Patient(name, phone, diffId, age, bloodtype, gender, height, weight);
-        Patient patientDiffName = new Patient(diffName, phone, id, age, bloodtype, gender, height, weight);
-        Patient patientDiffPhone = new Patient(name, diffPhone, id, age, bloodtype, gender, height, weight);
+        Patient patientDiffId = new Patient(name, phone, diffId, age, bloodType, gender, height, weight);
+        Patient patientDiffName = new Patient(diffName, phone, id, age, bloodType, gender, height, weight);
+        Patient patientDiffPhone = new Patient(name, diffPhone, id, age, bloodType, gender, height, weight);
         Patient patientDiffOthers = new Patient(name, phone, id, age, diffBloodtype, diffGender,
             diffHeight, diffWeight);
-        Patient patientAllSameFields = new Patient(name, phone, id, age, bloodtype, gender, height, weight);
+        Patient patientAllSameFields = new Patient(name, phone, id, age, bloodType, gender, height, weight);
 
         assertNotEquals(patient, patientDiffId); // Patients are different if their ids are different
         assertEquals(patient, patientDiffName); // Patients with different names are the same as long as id is same

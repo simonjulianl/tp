@@ -26,7 +26,7 @@ public class PatientBuilder {
     private Name name;
     private Phone phone;
     private Age age;
-    private BloodType bloodtype;
+    private BloodType bloodType;
     private Gender gender;
     private Height height;
     private Weight weight;
@@ -39,7 +39,7 @@ public class PatientBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         age = new Age(DEFAULT_AGE);
-        bloodtype = new BloodType(DEFAULT_BLOODTYPE);
+        bloodType = new BloodType(DEFAULT_BLOODTYPE);
         gender = new Gender(DEFAULT_GENDER);
         height = new Height(DEFAULT_HEIGHT);
         weight = new Weight(DEFAULT_WEIGHT);
@@ -53,7 +53,7 @@ public class PatientBuilder {
         name = patientToCopy.getName();
         phone = patientToCopy.getPhone();
         age = patientToCopy.getAge();
-        bloodtype = patientToCopy.getBloodType();
+        bloodType = patientToCopy.getBloodType();
         gender = patientToCopy.getGender();
         weight = patientToCopy.getWeight();
         height = patientToCopy.getHeight();
@@ -88,8 +88,8 @@ public class PatientBuilder {
     /**
      * Sets the {@code BloodType} of the {@code Patient} that we are building.
      */
-    public PatientBuilder withBloodType(String bloodtype) {
-        this.bloodtype = new BloodType(bloodtype);
+    public PatientBuilder withBloodType(String bloodType) {
+        this.bloodType = new BloodType(bloodType);
         return this;
     }
 
@@ -126,7 +126,7 @@ public class PatientBuilder {
     }
 
     public Patient build() {
-        return new Patient(name, phone, pid, age, bloodtype, gender, height, weight);
+        return new Patient(name, phone, pid, age, bloodType, gender, height, weight);
     }
 
 }

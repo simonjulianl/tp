@@ -15,7 +15,7 @@ public class Patient extends AbstractPerson {
 
     //data fields
     private final Age age;
-    private final BloodType bloodtype;
+    private final BloodType bloodType;
     private final Gender gender;
     private final Height height;
     private final Weight weight;
@@ -27,17 +27,17 @@ public class Patient extends AbstractPerson {
      * @param phone Phone number of the patient.
      * @param id Id of the patient.
      * @param age Age of the patient.
-     * @param bloodtype BloodType of the patient.
+     * @param bloodType BloodType of the patient.
      * @param gender Gender of the patient.
      * @param height Height of the patient in cm.
      * @param weight Weight of the patient in kg.
      */
-    public Patient(Name name, Phone phone, PatientId id, Age age, BloodType bloodtype, Gender gender,
+    public Patient(Name name, Phone phone, PatientId id, Age age, BloodType bloodType, Gender gender,
                    Height height, Weight weight) {
         super(name, phone, id);
-        CollectionUtil.requireAllNonNull(name, phone, id, age, bloodtype, gender, height, weight);
+        CollectionUtil.requireAllNonNull(name, phone, id, age, bloodType, gender, height, weight);
         this.age = age;
-        this.bloodtype = bloodtype;
+        this.bloodType = bloodType;
         this.gender = gender;
         this.height = height;
         this.weight = weight;
@@ -58,7 +58,7 @@ public class Patient extends AbstractPerson {
      * @return BloodType of the patient.
      */
     public BloodType getBloodType() {
-        return bloodtype;
+        return bloodType;
     }
 
     /**
@@ -108,7 +108,7 @@ public class Patient extends AbstractPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(getName(), getPhone(), getId(), age, bloodtype, gender, height, weight);
+        return Objects.hash(getName(), getPhone(), getId(), age, bloodType, gender, height, weight);
     }
 
     /**
