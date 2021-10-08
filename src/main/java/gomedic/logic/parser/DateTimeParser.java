@@ -147,7 +147,7 @@ public class DateTimeParser {
             LocalDateTime dateFormatted = LocalDateTime.parse(dateLiteral, format);
             return new Time(dateFormatted);
         } catch (DateTimeParseException e) {
-            System.out.println("Incorrect date format");
+            logger.warning("Invalid datetime format");
         }
         throw new ParseException("Invalid Date format");
     }
