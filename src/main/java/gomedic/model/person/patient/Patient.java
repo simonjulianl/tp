@@ -1,11 +1,15 @@
 package gomedic.model.person.patient;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.AbstractPerson;
+import gomedic.model.tag.Tag;
 
 /**
  * Represents a Patient in the address book.
@@ -19,6 +23,7 @@ public class Patient extends AbstractPerson {
     private final Gender gender;
     private final Height height;
     private final Weight weight;
+    private final Set<Tag> medicalConditions = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -31,9 +36,10 @@ public class Patient extends AbstractPerson {
      * @param gender Gender of the patient.
      * @param height Height of the patient in cm.
      * @param weight Weight of the patient in kg.
+     * @param medicalConditions Set of medical conditions of the patient.
      */
     public Patient(Name name, Phone phone, PatientId id, Age age, BloodType bloodType, Gender gender,
-                   Height height, Weight weight) {
+                   Height height, Weight weight, Set<Tag> medicalConditions) {
         super(name, phone, id);
         CollectionUtil.requireAllNonNull(name, phone, id, age, bloodType, gender, height, weight);
         this.age = age;
@@ -41,6 +47,7 @@ public class Patient extends AbstractPerson {
         this.gender = gender;
         this.height = height;
         this.weight = weight;
+        this.medicalConditions.addAll(medicalConditions);
     }
 
     /**
@@ -89,6 +96,14 @@ public class Patient extends AbstractPerson {
     }
 
     /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getMedicalConditions() {
+        return Collections.unmodifiableSet(medicalConditions);
+    }
+
+    /**
      * Returns true if both patients have the same id.
      */
     @Override
@@ -108,12 +123,12 @@ public class Patient extends AbstractPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(getName(), getPhone(), getId(), age, bloodType, gender, height, weight);
+        return Objects.hash(getName(), getPhone(), getId(), age, bloodType, gender, height, weight, medicalConditions);
     }
 
     /**
      * Returns a String representation of a {@code Patient}, using identity fields of its super class, as well as
-     * the patient's Age, BloodType, Gender, Height, and Weight field.
+     * the patient's Age, BloodType, Gender, Height, Weight, and Medical conditions field.
      *
      * @return a String representation of a {@code Patient}.
      */
@@ -131,6 +146,12 @@ public class Patient extends AbstractPerson {
                 .append(getHeight())
                 .append("; Weight: ")
                 .append(getWeight());
+
+        Set<Tag> medicalConditions = getMedicalConditions();
+        if (!medicalConditions.isEmpty()) {
+            builder.append("; Medical conditions: ");
+            medicalConditions.forEach(builder::append);
+        }
 
         return builder.toString();
     }
