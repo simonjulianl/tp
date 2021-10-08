@@ -36,8 +36,8 @@ public class DateTimeParser {
 
         String[] dateTimeArr = dateTime.split(" ");
 
-        if (dateTimeArr.length == 1) {
-            logger.warning("Missing date or time");
+        if (dateTimeArr.length != 2) {
+            logger.warning("Invalid date or time");
             return false;
         }
 
@@ -46,7 +46,7 @@ public class DateTimeParser {
 
         // Check if valid time
         String[] timeArr;
-        if (time.length() < 5) {
+        if (time.length() != 5) {
             logger.warning("Invalid time");
             return false;
         }
@@ -60,7 +60,7 @@ public class DateTimeParser {
         int hour;
         int minute;
 
-        if (timeArr.length < 2) {
+        if (timeArr.length != 2) {
             logger.warning("Invalid time");
             return false;
         }
@@ -78,7 +78,7 @@ public class DateTimeParser {
 
         // Check if valid date
         String[] dateArr;
-        if (date.length() < 11) {
+        if (date.length() != 10) {
             logger.warning("Invalid date");
             return false;
         }
@@ -95,7 +95,7 @@ public class DateTimeParser {
         int month;
         int year;
 
-        if (dateArr.length < 3) {
+        if (dateArr.length != 3) {
             logger.warning("Invalid date");
             return false;
         }
@@ -142,6 +142,14 @@ public class DateTimeParser {
      */
     public static Time formatDate(String dateLiteral) throws ParseException {
         DateTimeFormatter format;
+
+        boolean isValidDateTime = isValidDateTime(dateLiteral);
+
+        if (!isValidDateTime) {
+            logger.warning("Invalid datetime format");
+            throw new ParseException("Invalid Date format");
+        }
+
         if (dateLiteral.charAt(2) == '/') {
             format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         } else if (dateLiteral.charAt(2) == '-') {
@@ -150,13 +158,8 @@ public class DateTimeParser {
             format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         }
 
-        try {
-            LocalDateTime dateFormatted = LocalDateTime.parse(dateLiteral, format);
-            return new Time(dateFormatted);
-        } catch (DateTimeParseException e) {
-            logger.warning("Invalid datetime format");
-        }
-        throw new ParseException("Invalid Date format");
+        LocalDateTime dateFormatted = LocalDateTime.parse(dateLiteral, format);
+        return new Time(dateFormatted);
     }
 
 }
