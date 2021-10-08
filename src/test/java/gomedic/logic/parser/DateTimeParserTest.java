@@ -1,5 +1,5 @@
 package gomedic.logic.parser;
 
-public class DateParserTest {
+public class DateTimeParserTest {
 
 }
