@@ -16,8 +16,8 @@ import gomedic.model.commonfield.Time;
  * yyyy-MM-dd-HH-mm (e.g. 2022-09-15 03:00)
  */
 public class DateTimeParser {
-
-    private static Logger logger = Logger.getLogger(DateTimeParser.class.getName());
+    // TODO : add testing for this parser
+    private static final Logger logger = Logger.getLogger(DateTimeParser.class.getName());
 
     /**
      * Accessor method for logger
