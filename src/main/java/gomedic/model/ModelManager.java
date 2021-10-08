@@ -128,6 +128,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int getNewActivityId() {
+        return addressBook.getNewActivityId();
+    }
+
+    @Override
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
         return addressBook.hasActivity(activity);

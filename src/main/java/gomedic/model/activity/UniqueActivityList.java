@@ -28,22 +28,17 @@ public class UniqueActivityList implements Iterable<Activity> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent activity as the given argument.
+     * Returns the new activity id available in this list.
+     * If it's an empty list, return id 1.
      */
-    public boolean contains(Activity toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
-    }
-
-    /**
-     * Returns true if the list contains conflicting activity.
-     */
-    public boolean containsConflicting(Activity toCheck) {
-        requireNonNull(toCheck);
-        if (contains(toCheck)) {
-            return internalList.stream().filter(toCheck::isConflicting).count() > 1;
-        } else {
-            return internalList.stream().anyMatch(toCheck::isConflicting);
+    public int getNewActivityId() {
+        try {
+            return internalList
+                    .get(internalList.size() - 1)
+                    .getActivityId()
+                    .getIdNumber() + 1;
+        } catch (Exception e) {
+            return 1;
         }
     }
 
@@ -62,6 +57,26 @@ public class UniqueActivityList implements Iterable<Activity> {
         }
 
         internalList.add(toAdd);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent activity as the given argument.
+     */
+    public boolean contains(Activity toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
+     * Returns true if the list contains conflicting activity.
+     */
+    public boolean containsConflicting(Activity toCheck) {
+        requireNonNull(toCheck);
+        if (contains(toCheck)) {
+            return internalList.stream().filter(toCheck::isConflicting).count() > 1;
+        } else {
+            return internalList.stream().anyMatch(toCheck::isConflicting);
+        }
     }
 
     /**
@@ -95,39 +110,6 @@ public class UniqueActivityList implements Iterable<Activity> {
         }
 
         internalList.setAll(activities);
-    }
-
-    @Override
-    public Iterator<Activity> iterator() {
-        return internalList.iterator();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueActivityList // instanceof handles nulls
-                && internalList.equals(((UniqueActivityList) other).internalList));
-    }
-
-    /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
-     */
-    public ObservableList<Activity> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
-    }
-
-    /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
-     * Returned list is sorted by starting the start time.
-     */
-    public ObservableList<Activity> asUnmodifiableSortedList() {
-        return internalUnmodifiableList
-                .sorted((activity, otherAct) ->
-                        activity.getStartTime() == otherAct.getStartTime()
-                                ? 0
-                                : activity
-                                .getStartTime()
-                                .isBefore(otherAct.getStartTime()) ? -1 : 1);
     }
 
     /**
@@ -164,5 +146,38 @@ public class UniqueActivityList implements Iterable<Activity> {
         }
 
         return true;
+    }
+
+    @Override
+    public Iterator<Activity> iterator() {
+        return internalList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueActivityList // instanceof handles nulls
+                && internalList.equals(((UniqueActivityList) other).internalList));
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Activity> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     * Returned list is sorted by starting the start time.
+     */
+    public ObservableList<Activity> asUnmodifiableSortedList() {
+        return internalUnmodifiableList
+                .sorted((activity, otherAct) ->
+                        activity.getStartTime() == otherAct.getStartTime()
+                                ? 0
+                                : activity
+                                .getStartTime()
+                                .isBefore(otherAct.getStartTime()) ? -1 : 1);
     }
 }

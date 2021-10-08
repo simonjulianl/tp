@@ -87,6 +87,13 @@ public class IdTest {
         assertFalse(Id.isValidIdFormat("a100"));
     }
 
+    @Test
+    public void getIdNumber_validInput_testsPassed() {
+        assertEquals(999, new TestId(999, 'A').getIdNumber());
+        assertEquals(10, new TestId(10, 'Z').getIdNumber());
+        assertEquals(59, new TestId(59, 'Z').getIdNumber());
+    }
+
     /**
      * Mock id class to be tested.
      */

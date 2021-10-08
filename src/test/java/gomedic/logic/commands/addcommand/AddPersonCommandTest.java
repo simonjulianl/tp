@@ -1,4 +1,4 @@
-package gomedic.logic.commands;
+package gomedic.logic.commands.addcommand;
 
 import static gomedic.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.GuiSettings;
-import gomedic.logic.commands.addcommand.AddPersonCommand;
+import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
@@ -117,6 +117,11 @@ public class AddPersonCommandTest {
 
         @Override
         public void addActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getNewActivityId() {
             throw new AssertionError("This method should not be called.");
         }
 

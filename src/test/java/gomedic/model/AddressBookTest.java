@@ -163,6 +163,17 @@ public class AddressBookTest {
         assertDoesNotThrow(() -> addressBook.removeActivity(meeting));
     }
 
+    @Test
+    void getNewActivityId_emptyList_return1() {
+        assertEquals(1, addressBook.getNewActivityId());
+    }
+
+    @Test
+    void getNewActivityId_oneItemList_return2() {
+        addressBook.addActivity(MEETING);
+        assertEquals(2, addressBook.getNewActivityId());
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */

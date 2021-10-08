@@ -6,11 +6,16 @@ import static gomedic.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
+import gomedic.commons.util.CollectionUtil;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
 import gomedic.model.activity.Activity;
+import gomedic.model.activity.ActivityId;
+import gomedic.model.activity.Description;
+import gomedic.model.activity.Title;
+import gomedic.model.commonfield.Time;
 
 /**
  * Adds an activity to the address book
@@ -20,14 +25,14 @@ public class AddActivityCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an activity to the address book. "
             + "Parameters: "
-            + PREFIX_START_TIME + "NAME "
-            + PREFIX_END_TIME + "PHONE "
-            + PREFIX_TITLE + "EMAIL "
+            + PREFIX_START_TIME + "START_TIME "
+            + PREFIX_END_TIME + "END_TIME "
+            + PREFIX_TITLE + "TITLE "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_START_TIME + "15/09/2022 14:00"
-            + PREFIX_END_TIME + "15/09/2022 15:00"
-            + PREFIX_TITLE + "Meeting with Mr. Y"
+            + PREFIX_START_TIME + "15/09/2022 14:00 "
+            + PREFIX_END_TIME + "15/09/2022 15:00 "
+            + PREFIX_TITLE + "Meeting with Mr. Y "
             + PREFIX_DESCRIPTION + "Discussing the future of CS2103T-T15 Group!";
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
@@ -36,19 +41,35 @@ public class AddActivityCommand extends Command {
     public static final String MESSAGE_CONFLICTING_ACTIVITY =
             "There exists an activity that overlaps with this activity's timing of this activity.";
 
-    private final Activity toAdd;
+    private final Time startTime;
+    private final Time endTime;
+    private final Title title;
+    private final Description description;
+
 
     /**
-     * Creates an AddCommand to add the specified {@code Activity}
+     * Creates an AddCommand to add the specified {@code Activity}.
+     * Because we need id, and we can only obtain the model when we execute it,
+     * we do not pass activity as the constructor.
      */
-    public AddActivityCommand(Activity activity) {
-        requireNonNull(activity);
-        toAdd = activity;
+    public AddActivityCommand(Time startTime, Time endTime, Title title, Description description) {
+        CollectionUtil.requireAllNonNull(startTime, endTime, title, description);
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.title = title;
+        this.description = description;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        Activity toAdd = new Activity(
+                new ActivityId(model.getNewActivityId()),
+                startTime,
+                endTime,
+                title,
+                description);
 
         if (model.hasActivity(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
@@ -66,6 +87,9 @@ public class AddActivityCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddActivityCommand // instanceof handles nulls
-                && toAdd.equals(((AddActivityCommand) other).toAdd));
+                && startTime.equals(((AddActivityCommand) other).startTime)
+                && endTime.equals(((AddActivityCommand) other).endTime)
+                && title.equals(((AddActivityCommand) other).title)
+                && description.equals(((AddActivityCommand) other).description));
     }
 }

@@ -78,6 +78,11 @@ public interface Model {
     void addActivity(Activity activity);
 
     /**
+     * Get a new unique activity id which is just last id number + 1;
+     */
+    int getNewActivityId();
+
+    /**
      * Returns true if an activity with same id exists in the addressbook.
      */
     boolean hasActivity(Activity activity);
