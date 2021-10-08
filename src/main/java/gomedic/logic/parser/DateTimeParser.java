@@ -1,12 +1,12 @@
 package gomedic.logic.parser;
 
-import gomedic.logic.parser.exceptions.ParseException;
-import gomedic.model.commonfield.Time;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.logging.Logger;
+
+import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.model.commonfield.Time;
 
 
 /**
@@ -18,7 +18,15 @@ import java.util.logging.Logger;
  */
 public class DateTimeParser {
 
-    static Logger logger = Logger.getLogger(DateTimeParser.class.getName());
+    private static Logger logger = Logger.getLogger(DateTimeParser.class.getName());
+
+    /**
+     * Accessor method for logger
+     * @return Logger
+     */
+    private static Logger getLogger() {
+        return logger;
+    }
 
     /**
      * Checks if input String is a valid datetime and
@@ -75,7 +83,7 @@ public class DateTimeParser {
             return false;
         }
         if (date.charAt(2) == '/') {
-           dateArr = date.split("/");
+            dateArr = date.split("/");
         } else if (date.charAt(2) == '-' || date.charAt(4) == '-') {
             dateArr = date.split("-");
         } else {
