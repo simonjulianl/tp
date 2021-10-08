@@ -35,18 +35,7 @@ public class JsonAdaptedDoctor {
     }
 
     /**
-     * Converts a given {@code Doctor} into this class for Jackson use.
-     */
-    public JsonAdaptedDoctor(Doctor source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        id = source.getId().toString();
-        department = source.getDepartment().departmentName;
-
-    }
-
-    /**
-     * Converts a given {@code Doctor} into this class for Jackson use.
+     * Converts a given source to a JsonAdaptedDoctor.
      */
     public JsonAdaptedDoctor(AbstractPerson source) {
         name = source.getName().fullName;
