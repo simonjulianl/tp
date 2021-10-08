@@ -12,14 +12,19 @@ public class Weight {
     public static final String MESSAGE_CONSTRAINTS =
             "Weight should only contain from 0 to 700";
 
-    public final Integer weight;
+    /**
+     * Weight must only contain numeric characters.
+     */
+    public static final String VALIDATION_REGEX = "[0-9]+";
+
+    public final String weight;
 
     /**
      * Constructs a {@code Weight}.
      *
      * @param weight Integer from 0-700.
      */
-    public Weight(Integer weight) {
+    public Weight(String weight) {
         requireNonNull(weight);
         AppUtil.checkArgument(isValidWeight(weight), MESSAGE_CONSTRAINTS);
         this.weight = weight;
@@ -28,16 +33,16 @@ public class Weight {
     /**
      * Returns true if a given weight is a valid weight from 0 to 700.
      *
-     * @param weight Integer number.
+     * @param test Integer in String number.
      * @return true if valid, else false.
      */
-    public static boolean isValidWeight(Integer weight) {
-        return weight >= 0 && weight <= 700;
+    public static boolean isValidWeight(String test) {
+        return test.matches(VALIDATION_REGEX) && (Integer.parseInt(test) >= 0 && Integer.parseInt(test) <= 700);
     }
 
     @Override
     public String toString() {
-        return weight.toString();
+        return weight;
     }
 
     @Override

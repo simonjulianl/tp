@@ -6,20 +6,25 @@ import gomedic.commons.util.AppUtil;
 
 /**
  * Represents the height of a Patient in centimetre (cm).
- * Guarantees: immutable; is valid as declared in {@link #isValidHeight(Integer)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidHeight(String)}
  */
 public class Height {
     public static final String MESSAGE_CONSTRAINTS =
             "Height should only contain from 0 to 300";
 
-    public final Integer height;
+    /**
+     * Height must only contain numeric characters.
+     */
+    public static final String VALIDATION_REGEX = "[0-9]+";
+
+    public final String height;
 
     /**
      * Constructs a {@code Height}.
      *
-     * @param height Integer from 0-300.
+     * @param height Integer in String from 0-300.
      */
-    public Height(Integer height) {
+    public Height(String height) {
         requireNonNull(height);
         AppUtil.checkArgument(isValidHeight(height), MESSAGE_CONSTRAINTS);
         this.height = height;
@@ -28,16 +33,16 @@ public class Height {
     /**
      * Returns true if a given height is a valid height from 0 to 300.
      *
-     * @param height Integer number.
+     * @param test String number.
      * @return true if valid, else false.
      */
-    public static boolean isValidHeight(Integer height) {
-        return height >= 0 && height <= 300;
+    public static boolean isValidHeight(String test) {
+        return test.matches(VALIDATION_REGEX) && (Integer.parseInt(test) >= 0 && Integer.parseInt(test) <= 300);
     }
 
     @Override
     public String toString() {
-        return height.toString();
+        return height;
     }
 
     @Override
