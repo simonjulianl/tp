@@ -3,9 +3,9 @@ package gomedic.logic.parser;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.AddCommand.AddPersonCommand;
 import gomedic.logic.commands.CommandTestUtil;
-import gomedic.logic.parser.AddCommandParser.AddPersonCommandParser;
+import gomedic.logic.commands.addcommand.AddPersonCommand;
+import gomedic.logic.parser.addcommandparser.AddPersonCommandParser;
 import gomedic.model.commonfield.Address;
 import gomedic.model.commonfield.Email;
 import gomedic.model.commonfield.Name;

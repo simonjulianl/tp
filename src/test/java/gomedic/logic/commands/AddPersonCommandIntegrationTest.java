@@ -5,7 +5,7 @@ import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import gomedic.logic.commands.AddCommand.AddPersonCommand;
+import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
@@ -38,7 +38,8 @@ public class AddPersonCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
-        CommandTestUtil.assertCommandFailure(new AddPersonCommand(personInList), model, AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
+        CommandTestUtil.assertCommandFailure(
+                new AddPersonCommand(personInList), model, AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

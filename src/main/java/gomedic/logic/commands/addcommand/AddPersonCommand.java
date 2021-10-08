@@ -1,4 +1,4 @@
-package gomedic.logic.commands.AddCommand;
+package gomedic.logic.commands.addcommand;
 
 import static gomedic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static gomedic.logic.parser.CliSyntax.PREFIX_EMAIL;

@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.AddCommand.AddPersonCommand;
 import gomedic.logic.commands.ClearCommand;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.DeleteCommand;
@@ -13,7 +12,8 @@ import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.ListCommand;
-import gomedic.logic.parser.AddCommandParser.AddPersonCommandParser;
+import gomedic.logic.commands.addcommand.AddPersonCommand;
+import gomedic.logic.parser.addcommandparser.AddPersonCommandParser;
 import gomedic.logic.parser.exceptions.ParseException;
 
 /**
@@ -45,7 +45,8 @@ public class AddressBookParser {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        String commandWord, arguments;
+        String commandWord;
+        String arguments;
 
         if (specificMatcher.matches()) {
             commandWord = specificMatcher.group("commandWord");

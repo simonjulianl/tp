@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.GuiSettings;
-import gomedic.logic.commands.AddCommand.AddPersonCommand;
+import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
@@ -47,7 +47,8 @@ public class AddPersonCommandTest {
         AddPersonCommand addPersonCommand = new AddPersonCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () -> addPersonCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () -> addPersonCommand.execute(modelStub));
     }
 
     @Test

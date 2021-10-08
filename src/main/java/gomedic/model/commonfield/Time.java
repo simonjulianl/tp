@@ -111,7 +111,9 @@ public class Time {
             return false;
         }
 
-        int day, month, year;
+        int day;
+        int month;
+        int year;
 
         if (dateArr.length != 3) {
             return false;

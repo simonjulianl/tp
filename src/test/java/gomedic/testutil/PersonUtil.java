@@ -2,8 +2,8 @@ package gomedic.testutil;
 
 import java.util.Set;
 
-import gomedic.logic.commands.AddCommand.AddPersonCommand;
 import gomedic.logic.commands.EditCommand;
+import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.person.Person;
 import gomedic.model.tag.Tag;

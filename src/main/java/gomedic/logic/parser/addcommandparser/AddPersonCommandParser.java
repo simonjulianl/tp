@@ -1,10 +1,10 @@
-package gomedic.logic.parser.AddCommandParser;
+package gomedic.logic.parser.addcommandparser;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.AddCommand.AddPersonCommand;
+import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.parser.ArgumentMultimap;
 import gomedic.logic.parser.ArgumentTokenizer;
 import gomedic.logic.parser.CliSyntax;
@@ -23,14 +23,6 @@ import gomedic.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddPersonCommandParser implements Parser<AddPersonCommand> {
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -54,7 +46,11 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
                 CliSyntax.PREFIX_PHONE,
                 CliSyntax.PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(
+                            Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                            AddPersonCommand.MESSAGE_USAGE
+                    ));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
@@ -66,6 +62,14 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
         Person person = new Person(name, phone, email, address, tagList);
 
         return new AddPersonCommand(person);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
