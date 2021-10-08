@@ -1,10 +1,16 @@
-package gomedic.logic.parser;
+package gomedic.logic.parser.AddCommandParser;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.AddCommand;
+import gomedic.logic.commands.AddCommand.AddPersonCommand;
+import gomedic.logic.parser.ArgumentMultimap;
+import gomedic.logic.parser.ArgumentTokenizer;
+import gomedic.logic.parser.CliSyntax;
+import gomedic.logic.parser.Parser;
+import gomedic.logic.parser.ParserUtil;
+import gomedic.logic.parser.Prefix;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.commonfield.Address;
 import gomedic.model.commonfield.Email;
@@ -16,7 +22,7 @@ import gomedic.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddPersonCommandParser implements Parser<AddPersonCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -32,7 +38,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddPersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
                         args,
@@ -48,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 CliSyntax.PREFIX_PHONE,
                 CliSyntax.PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
@@ -59,7 +65,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Person person = new Person(name, phone, email, address, tagList);
 
-        return new AddCommand(person);
+        return new AddPersonCommand(person);
     }
 
 }

@@ -5,13 +5,18 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import gomedic.commons.util.CollectionUtil;
+import gomedic.commons.util.AppUtil;
 
 /**
  * Represents a time in the address book.
- * Guarantees: immutable; value is not null.
+ * Guarantees: immutable; value is not null; is valid as declared in {@link #isValidTime(String)}
  */
 public class Time {
+
+    public static final String MESSAGE_CONSTRAINTS = "Time should follow one of the following format: \n"
+            + "1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00) \n"
+            + "2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00) \n"
+            + "3. yyyy-MM-dd-HH-mm (e.g. 2022-09-15 13:00) \n";
 
     public final LocalDateTime time;
 
@@ -28,15 +33,113 @@ public class Time {
     /**
      * Constructs a {@code Time}.
      *
-     * @param day Date from 1-31 depending on the month.
-     * @param month Month 1-12.
-     * @param year yyyy format.
-     * @param hour 0-24.
-     * @param minute 0-60.
+     * @param time String.
      */
-    public Time(int day, int month, int year, int hour, int minute) {
-        CollectionUtil.requireAllNonNull(day, month, year, hour, minute);
-        time = LocalDateTime.of(year, month, day, hour, minute);
+    public Time(String time) {
+        requireNonNull(time);
+        AppUtil.checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
+        DateTimeFormatter format;
+
+        if (time.charAt(2) == '/') {
+            format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        } else if (time.charAt(2) == '-') {
+            format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        } else {
+            format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        }
+
+        this.time = LocalDateTime.parse(time, format);
+    }
+
+    /**
+     * Returns true if the time follows
+     */
+    public static boolean isValidTime(String time) {
+
+        String[] dateTimeArr = time.split(" ");
+
+        if (dateTimeArr.length != 2) {
+            return false;
+        }
+
+        String datePart = dateTimeArr[0];
+        String timePart = dateTimeArr[1];
+
+        return isValidTimeStringPart(timePart) && isValidDateStringPart(datePart);
+    }
+
+    private static boolean isValidTimeStringPart(String timePart) {
+        String[] timeArr;
+        if (timePart.length() != 5) {
+            return false;
+        }
+        if (timePart.charAt(2) == ':') {
+            timeArr = timePart.split(":");
+        } else {
+            return false;
+        }
+
+        int hour;
+        int minute;
+
+        if (timeArr.length != 2) {
+            return false;
+        }
+
+        try {
+            hour = Integer.parseInt(timeArr[0]);
+            minute = Integer.parseInt(timeArr[1]);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        boolean isValidHour = hour >= 0 && hour < 24;
+        boolean isValidMinute = minute >= 0 && minute < 60;
+        return isValidHour && isValidMinute;
+    }
+
+    private static Boolean isValidDateStringPart(String datePart) {
+        String[] dateArr;
+        if (datePart.length() != 10) {
+            return false;
+        }
+        if (datePart.charAt(2) == '/') {
+            dateArr = datePart.split("/");
+        } else if (datePart.charAt(2) == '-' || datePart.charAt(4) == '-') {
+            dateArr = datePart.split("-");
+        } else {
+            return false;
+        }
+
+        int day, month, year;
+
+        if (dateArr.length != 3) {
+            return false;
+        }
+
+        if (dateArr[0].length() == 2) {
+            try {
+                day = Integer.parseInt(dateArr[0]);
+                month = Integer.parseInt(dateArr[1]);
+                year = Integer.parseInt(dateArr[2]);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else {
+            try {
+                day = Integer.parseInt(dateArr[2]);
+                month = Integer.parseInt(dateArr[1]);
+                year = Integer.parseInt(dateArr[0]);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+
+        boolean isValidDay = day > 0 && day <= 31;
+        boolean isValidMonth = month > 0 && month <= 12;
+        boolean isValidYear = year > 1900 && year < 2100;
+
+        return isValidDay && isValidMonth && isValidYear;
     }
 
     /**

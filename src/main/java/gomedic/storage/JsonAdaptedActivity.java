@@ -58,6 +58,7 @@ public class JsonAdaptedActivity {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, ActivityId.class.getSimpleName()));
         }
+
         if (!ActivityId.isValidActivityId(id)) {
             throw new IllegalValueException(ActivityId.MESSAGE_CONSTRAINTS);
         }
@@ -68,6 +69,7 @@ public class JsonAdaptedActivity {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
+
         if (!Title.isValidTitle(title)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
@@ -78,15 +80,21 @@ public class JsonAdaptedActivity {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
+
         if (!Description.isValidDescription(title)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
 
         final Description modelDescription = new Description(description);
 
-        // should check for end and start time
-        // for now, lets use some dummy stuff
-        // TODO : use the real date time parser
+        if (startTime == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+        }
+
+
+
+//        final Description modelDescription = new Description(description);
 
         LocalDateTime stub = LocalDateTime.now().plusDays((int) (Math.random() * 10000));
 

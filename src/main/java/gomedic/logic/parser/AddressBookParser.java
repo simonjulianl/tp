@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.AddCommand;
+import gomedic.logic.commands.AddCommand.AddPersonCommand;
 import gomedic.logic.commands.ClearCommand;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.DeleteCommand;
@@ -13,6 +13,7 @@ import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.ListCommand;
+import gomedic.logic.parser.AddCommandParser.AddPersonCommandParser;
 import gomedic.logic.parser.exceptions.ParseException;
 
 /**
@@ -23,7 +24,11 @@ public class AddressBookParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern GENERIC_COMMAND_FORMAT =
+            Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private static final Pattern TYPED_COMMAND_FORMAT =
+            Pattern.compile("(?<commandWord>\\S+ t/\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -33,17 +38,27 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
+        final Matcher genericMatcher = GENERIC_COMMAND_FORMAT.matcher(userInput.trim());
+        final Matcher specificMatcher = TYPED_COMMAND_FORMAT.matcher(userInput.trim());
+
+        if (!genericMatcher.matches()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        String commandWord, arguments;
+
+        if (specificMatcher.matches()) {
+            commandWord = specificMatcher.group("commandWord");
+            arguments = specificMatcher.group("arguments");
+        } else {
+            commandWord = genericMatcher.group("commandWord");
+            arguments = genericMatcher.group("arguments");
+        }
+
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddPersonCommand.COMMAND_WORD:
+            return new AddPersonCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

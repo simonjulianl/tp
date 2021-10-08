@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.AddCommand;
+import gomedic.logic.commands.AddCommand.AddPersonCommand;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.ListCommand;
@@ -75,7 +75,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD
+        String addCommand = AddPersonCommand.COMMAND_WORD
                 + CommandTestUtil.NAME_DESC_AMY
                 + CommandTestUtil.PHONE_DESC_AMY
                 + CommandTestUtil.EMAIL_DESC_AMY

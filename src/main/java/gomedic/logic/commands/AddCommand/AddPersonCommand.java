@@ -1,4 +1,4 @@
-package gomedic.logic.commands;
+package gomedic.logic.commands.AddCommand;
 
 import static gomedic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static gomedic.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -7,6 +7,8 @@ import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static gomedic.logic.parser.CliSyntax.PREFIX_TAG;
 import static java.util.Objects.requireNonNull;
 
+import gomedic.logic.commands.Command;
+import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
 import gomedic.model.person.Person;
@@ -14,9 +16,9 @@ import gomedic.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddPersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add t/person";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
@@ -41,7 +43,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public AddPersonCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
@@ -61,7 +63,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddPersonCommand // instanceof handles nulls
+                && toAdd.equals(((AddPersonCommand) other).toAdd));
     }
 }
