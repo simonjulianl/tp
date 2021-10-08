@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import gomedic.model.activity.ActivityId;
 import gomedic.model.commonfield.IdTest;
 
 public class PatientIdTest {
