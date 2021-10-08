@@ -6,7 +6,7 @@ import gomedic.commons.util.AppUtil;
 
 /**
  * Represents the weight of a Patient in kilogram (kg).
- * Guarantees: immutable; is valid as declared in {@link #isValidWeight(Integer)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidWeight(String)}
  */
 public class Weight {
     public static final String MESSAGE_CONSTRAINTS =
