@@ -2,7 +2,6 @@ package gomedic.logic.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.logging.Logger;
 
 import gomedic.logic.parser.exceptions.ParseException;
