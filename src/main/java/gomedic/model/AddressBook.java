@@ -33,9 +33,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         activities = new UniqueActivityList();
     }
 
-    public AddressBook() {
-    }
-
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
@@ -44,7 +41,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    public AddressBook() {
+    }
+
     //// list overwrite operations
+
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
+    public void resetData(ReadOnlyAddressBook newData) {
+        requireNonNull(newData);
+
+        setPersons(newData.getPersonList());
+        setActivities(newData.getActivityList());
+    }
 
     /**
      * Replaces the contents of the person list with {@code persons}.
@@ -62,16 +72,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.activities.setActivities(activities);
     }
 
-    /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
-     */
-    public void resetData(ReadOnlyAddressBook newData) {
-        requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
-        setActivities(newData.getActivityList());
-    }
-
     //// person-level operations
 
     /**
@@ -83,11 +83,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if an activity with the same id as {@code activities} exists in the address book.
+     * Returns true if an activity with the same id as {@code activities}
+     * exists in the address book.
      */
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
         return activities.contains(activity);
+    }
+
+    /**
+     * Returns true if there exists another conflicting activity
+     * in terms of timing in the addressbook.
+     */
+    public boolean hasConflictingActivity(Activity activity) {
+        requireNonNull(activity);
+        return activities.containsConflicting(activity);
     }
 
     /**

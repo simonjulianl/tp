@@ -15,6 +15,7 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.AddressBookBuilder;
 import gomedic.testutil.Assert;
+import gomedic.testutil.TypicalActivities;
 import gomedic.testutil.TypicalPersons;
 
 public class ModelManagerTest {
@@ -122,11 +123,27 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_ITEMS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookDataFileRootPath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+    }
+
+    @Test
+    public void hasActivity_nullActivity_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasActivity(null));
+    }
+
+    @Test
+    public void hasActivity_activityNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasActivity(TypicalActivities.MEETING));
+    }
+
+    @Test
+    public void hasActivity_activityInAddressBook_returnsTrue() {
+        modelManager.addActivity(TypicalActivities.MEETING);
+        assertTrue(modelManager.hasActivity(TypicalActivities.MEETING));
     }
 }

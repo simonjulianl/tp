@@ -19,6 +19,7 @@ import gomedic.model.AddressBook;
 import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.ReadOnlyUserPrefs;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.testutil.modelbuilder.PersonBuilder;
 import javafx.collections.ObservableList;
@@ -115,6 +116,21 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public void addActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasConflictingActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -145,7 +161,7 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredPersonList(Predicate<? super Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.LogsCenter;
 import gomedic.commons.util.CollectionUtil;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Activity> filteredActivities;
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredActivities = new FilteredList<>(this.addressBook.getActivityList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -101,14 +104,39 @@ public class ModelManager implements Model {
 
     @Override
     public void addPerson(Person person) {
+        requireNonNull(person);
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_ITEMS);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<? super Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void addActivity(Activity activity) {
+        requireNonNull(activity);
+        addressBook.addActivity(activity);
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ITEMS);
+    }
+
+    private void updateFilteredActivityList(Predicate<? super Activity> predicate) {
+        requireNonNull(predicate);
+        filteredActivities.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasActivity(Activity activity) {
+        requireNonNull(activity);
+        return addressBook.hasActivity(activity);
+    }
+
+    @Override
+    public boolean hasConflictingActivity(Activity activity) {
+        requireNonNull(activity);
+        return addressBook.hasConflictingActivity(activity);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -145,7 +173,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredActivities.equals(other.filteredActivities);
     }
 
 }
