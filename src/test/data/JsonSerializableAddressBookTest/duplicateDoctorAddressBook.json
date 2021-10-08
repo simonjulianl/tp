@@ -1,0 +1,18 @@
+{
+  "persons": [],
+  "activities": [],
+  "doctors": [
+    {
+      "name": "John doe",
+      "phone": "99999999",
+      "id": "D001",
+      "department": "Cardiology"
+    },
+    {
+      "name": "John roe",
+      "phone": "9998888",
+      "id": "D001",
+      "department": "Pediatrics"
+    }
+  ]
+}

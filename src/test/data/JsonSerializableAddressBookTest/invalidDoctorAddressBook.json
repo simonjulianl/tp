@@ -1,0 +1,30 @@
+{
+  "persons": [],
+  "activities": [],
+  "doctors": [
+    {
+      "name": "There's a star in my name * LOL",
+      "phone": "99999999",
+      "id": "D001",
+      "department": "Cardiology"
+    },
+    {
+      "name": "Second best child",
+      "phone": "my phone number is not numeric",
+      "id": "D002",
+      "department": "Pediatrics"
+    },
+    {
+      "name": "my id is invalid",
+      "phone": "9911",
+      "id": "P003",
+      "department": "Xray centre 2"
+    },
+    {
+      "name": "son of john doe",
+      "phone": "912345",
+      "id": "D004",
+      "department": "Ca*rdiology is not spelt with a star"
+    }
+  ]
+}
