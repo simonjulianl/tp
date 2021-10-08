@@ -15,10 +15,20 @@ public class PatientId extends Id {
     /**
      * {@inheritDoc}
      *
-     * @param id Integer from 1 to 999
+     * @param id Integer from 1 to 999.
      */
     public PatientId(Integer id) {
         super(id, ACTIVITY_PREFIX);
+        AppUtil.checkArgument(isValidPatientId(this), MESSAGE_CONSTRAINTS);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param id a string of format "PDDD", where "P" is an alphabetic character and "D" is a decimal number.
+     */
+    public PatientId(String id) {
+        super(Integer.parseInt(id.substring(1)), ACTIVITY_PREFIX);
         AppUtil.checkArgument(isValidPatientId(this), MESSAGE_CONSTRAINTS);
     }
 
