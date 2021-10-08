@@ -12,17 +12,17 @@ public class BloodType {
     public static final String MESSAGE_CONSTRAINTS =
             "BloodType should only contain A, B, AB, or O, and it should not be blank";
 
-    public final String bloodtype;
+    public final String bloodType;
 
     /**
      * Constructs a {@code BloodType}.
      *
-     * @param bloodtype String A/B/AB/O.
+     * @param bloodType String A/B/AB/O.
      */
-    public BloodType(String bloodtype) {
-        requireNonNull(bloodtype);
-        AppUtil.checkArgument(isValidBloodType(bloodtype), MESSAGE_CONSTRAINTS);
-        this.bloodtype = bloodtype;
+    public BloodType(String bloodType) {
+        requireNonNull(bloodType);
+        AppUtil.checkArgument(isValidBloodType(bloodType), MESSAGE_CONSTRAINTS);
+        this.bloodType = bloodType;
     }
 
     /**
@@ -37,18 +37,18 @@ public class BloodType {
 
     @Override
     public String toString() {
-        return bloodtype;
+        return bloodType;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BloodType // instanceof handles nulls
-                && bloodtype.equals(((BloodType) other).bloodtype)); // state check
+                && bloodType.equals(((BloodType) other).bloodType)); // state check
     }
 
     @Override
     public int hashCode() {
-        return bloodtype.hashCode();
+        return bloodType.hashCode();
     }
 }

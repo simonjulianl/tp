@@ -1,5 +1,8 @@
 package gomedic.testutil.modelbuilder;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.patient.Age;
@@ -9,6 +12,7 @@ import gomedic.model.person.patient.Height;
 import gomedic.model.person.patient.Patient;
 import gomedic.model.person.patient.PatientId;
 import gomedic.model.person.patient.Weight;
+import gomedic.model.tag.Tag;
 
 /**
  * A utility class to help with building Patient objects.
@@ -21,16 +25,18 @@ public class PatientBuilder {
     public static final String DEFAULT_GENDER = "M";
     public static final String DEFAULT_HEIGHT = "176";
     public static final String DEFAULT_WEIGHT = "86";
+    public static final Set<Tag> DEFAULT_MEDICAL_CONDITIONS = new HashSet<>();
     private static int idPool = 1;
 
     private Name name;
     private Phone phone;
     private Age age;
-    private BloodType bloodtype;
+    private BloodType bloodType;
     private Gender gender;
     private Height height;
     private Weight weight;
     private PatientId pid;
+    private Set<Tag> medicalConditions;
 
     /**
      * Creates a {@code PatientBuilder} with the default details.
@@ -39,11 +45,14 @@ public class PatientBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         age = new Age(DEFAULT_AGE);
-        bloodtype = new BloodType(DEFAULT_BLOODTYPE);
+        bloodType = new BloodType(DEFAULT_BLOODTYPE);
         gender = new Gender(DEFAULT_GENDER);
         height = new Height(DEFAULT_HEIGHT);
         weight = new Weight(DEFAULT_WEIGHT);
         pid = new PatientId(idPool++);
+        medicalConditions = new HashSet<>();
+        medicalConditions.addAll(DEFAULT_MEDICAL_CONDITIONS);
+        medicalConditions.add(new Tag("heart failure"));
     }
 
     /**
@@ -53,11 +62,12 @@ public class PatientBuilder {
         name = patientToCopy.getName();
         phone = patientToCopy.getPhone();
         age = patientToCopy.getAge();
-        bloodtype = patientToCopy.getBloodType();
+        bloodType = patientToCopy.getBloodType();
         gender = patientToCopy.getGender();
         weight = patientToCopy.getWeight();
         height = patientToCopy.getHeight();
         pid = (PatientId) patientToCopy.getId();
+        medicalConditions = patientToCopy.getMedicalConditions();
     }
 
     /**
@@ -88,8 +98,8 @@ public class PatientBuilder {
     /**
      * Sets the {@code BloodType} of the {@code Patient} that we are building.
      */
-    public PatientBuilder withBloodType(String bloodtype) {
-        this.bloodtype = new BloodType(bloodtype);
+    public PatientBuilder withBloodType(String bloodType) {
+        this.bloodType = new BloodType(bloodType);
         return this;
     }
 
@@ -118,6 +128,14 @@ public class PatientBuilder {
     }
 
     /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Patient} that we are building.
+     */
+    public PatientBuilder withMedicalConditions(Set<Tag> medicalConditions) {
+        this.medicalConditions = new HashSet<>(medicalConditions);
+        return this;
+    }
+
+    /**
      * Sets the {@code PatientId} of the {@code Patient} that we are building.
      */
     public PatientBuilder withId(int id) {
@@ -126,7 +144,7 @@ public class PatientBuilder {
     }
 
     public Patient build() {
-        return new Patient(name, phone, pid, age, bloodtype, gender, height, weight);
+        return new Patient(name, phone, pid, age, bloodType, gender, height, weight, medicalConditions);
     }
 
 }
