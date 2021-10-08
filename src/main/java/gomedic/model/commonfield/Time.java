@@ -147,14 +147,14 @@ public class Time {
      */
     @Override
     public String toString() {
-        return toDateString() + ", " + toTimeString();
+        return toDateString() + " " + toTimeString();
     }
 
     /**
      * @return String representation of just the date field.
      */
     public String toDateString() {
-        return DateTimeFormatter.ofPattern("d MMMM y").format(time.toLocalDate());
+        return DateTimeFormatter.ofPattern("dd-MM-yyyy").format(time.toLocalDate());
     }
 
     /**
@@ -182,7 +182,7 @@ public class Time {
     /**
      * @return true if the date of other time is the same as this.
      */
-    public boolean equalsDate(Time other) {
+    public boolean equalsDateTime(Time other) {
         if (other == this) {
             return true;
         }

@@ -73,16 +73,16 @@ class TimeTest {
     @Test
     public void toString_manualInput_testPassed() {
         Time time = new Time("05/10/2020 05:50");
-        assertEquals("5 October 2020, 05:50", time.toString());
-        assertEquals("5 October 2020", time.toDateString());
+        assertEquals("05-10-2020 05:50", time.toString());
+        assertEquals("05-10-2020", time.toDateString());
         assertEquals("05:50", time.toTimeString());
     }
 
     @Test
     public void toString_localDateTime_testPassed() {
         Time time = new Time(LocalDateTime.of(2020, 10, 5, 5, 50));
-        assertEquals("5 October 2020, 05:50", time.toString());
-        assertEquals("5 October 2020", time.toDateString());
+        assertEquals("05-10-2020 05:50", time.toString());
+        assertEquals("05-10-2020", time.toDateString());
         assertEquals("05:50", time.toTimeString());
     }
 
@@ -96,7 +96,7 @@ class TimeTest {
     @Test
     public void equalsDate_localDateTime_testPassed() {
         Time time = new Time(LocalDateTime.of(2020, 10, 5, 5, 50));
-        assertTrue(time.equalsDate(time));
+        assertTrue(time.equalsDateTime(time));
         assertFalse(time.isAfter(time));
         assertFalse(time.isBefore(time));
     }

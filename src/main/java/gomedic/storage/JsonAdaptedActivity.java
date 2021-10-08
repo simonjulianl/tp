@@ -1,7 +1,5 @@
 package gomedic.storage;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -81,7 +79,7 @@ public class JsonAdaptedActivity {
                     MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
 
-        if (!Description.isValidDescription(title)) {
+        if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
 
@@ -92,14 +90,23 @@ public class JsonAdaptedActivity {
                     MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
         }
 
+        if (!Time.isValidTime(startTime)) {
+            System.out.println(startTime);
+            throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
+        }
 
+        final Time modelStartTime = new Time(startTime);
 
-//        final Description modelDescription = new Description(description);
+        if (endTime == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+        }
 
-        LocalDateTime stub = LocalDateTime.now().plusDays((int) (Math.random() * 10000));
+        if (!Time.isValidTime(endTime)) {
+            throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
+        }
 
-        Time modelStartTime = new Time(stub);
-        Time modelEndTime = new Time(stub.plusHours(1));
+        final Time modelEndTime = new Time(endTime);
 
         return new Activity(modelId, modelStartTime, modelEndTime, modelTitle, modelDescription);
     }

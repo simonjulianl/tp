@@ -5,16 +5,15 @@
       "id": "A001",
       "title": "testing activity",
       "description": "meeting someone at Jurong east",
-      "startTime": "XXX",
-      "endTime": "XXX"
+      "startTime": "15/09/2022 13:00",
+      "endTime": "15/09/2022 14:00"
     },
     {
       "id": "A001",
       "title": "another activity",
       "description": "meeting someone at Jurong east",
-      "startTime": "XXX",
-      "endTime": "XXX"
+      "startTime": "15/09/2022 15:00",
+      "endTime": "15/09/2022 18:00"
     }
   ]
 }
-// TODO : Update the data

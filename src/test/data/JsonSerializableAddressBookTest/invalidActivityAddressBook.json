@@ -12,15 +12,15 @@
       "id": "A001",
       "title": "Very very long title that would exceed 60 character for sure, again Very very long title that would exceed 60 character for sure",
       "description": "meeting someone at Jurong east",
-      "startTime": "XXX",
-      "endTime": "XXX"
+      "startTime": "15/09/2022 13:00",
+      "endTime": "15/09/2022 15:00"
     },
     {
       "id": "B002",
       "title": "Invalid id, supposed to start with A",
       "description": "meeting someone at Jurong east",
-      "startTime": "XXX",
-      "endTime": "XXX"
+      "startTime": "15/09/2023 13:00",
+      "endTime": "15/09/2024 13:00"
     }
   ]
 }

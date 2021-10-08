@@ -97,8 +97,8 @@ class ActivityTest {
         assertEquals("A001; "
                 + "Title: Testing title;"
                 + " Desc: Some dummy description; "
-                + "Start Time: 5 October 2021, 05:05"
-                + "; End Time: 6 October 2021, 05:05", activity.toString());
+                + "Start Time: 05-10-2021 05:05"
+                + "; End Time: 06-10-2021 05:05", activity.toString());
     }
 
     @Test
