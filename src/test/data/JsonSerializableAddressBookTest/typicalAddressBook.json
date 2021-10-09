@@ -80,5 +80,25 @@
       "startTime": "01/01/2022 13:00",
       "endTime": "01/01/2022 20:00"
     }
+  ],
+  "doctors": [
+    {
+      "name": "John doe",
+      "phone": "85355255",
+      "id": "D001",
+      "department": "Pediatrics"
+    },
+    {
+      "name": "Smith John",
+      "phone": "77777777",
+      "id": "D002",
+      "department": "ENT"
+    },
+    {
+      "name": "Joe Smith",
+      "phone": "55555555",
+      "id": "D003",
+      "department": "Xray"
+    }
   ]
 }

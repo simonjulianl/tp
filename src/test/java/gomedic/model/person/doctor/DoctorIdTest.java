@@ -12,7 +12,8 @@ import gomedic.model.commonfield.IdTest;
 public class DoctorIdTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DoctorId(null));
+        assertThrows(NullPointerException.class, () -> new DoctorId((Integer) null));
+        assertThrows(NullPointerException.class, () -> new DoctorId((String) null));
     }
 
     @Test
@@ -26,9 +27,9 @@ public class DoctorIdTest {
     }
 
     @Test
-    void isValidId_validInput_testsPassed() {
+    void isValidId_idParams() {
         // null doctor id
-        assertThrows(NullPointerException.class, () -> new DoctorId(null));
+        assertThrows(NullPointerException.class, () -> new DoctorId((Integer) null));
 
         // invalid doctor id
         assertFalse(DoctorId.isValidDoctorId(new IdTest.TestId(999, 'C'))); // wrong prefix
@@ -37,6 +38,21 @@ public class DoctorIdTest {
         // valid doctor id
         assertTrue(DoctorId.isValidDoctorId(new DoctorId(100))); // doctor id
         assertTrue(DoctorId.isValidDoctorId(new IdTest.TestId(50, 'D'))); // other id with same prefix
+    }
+
+    @Test
+    void isValidId_stringParams() {
+        // null doctor id
+        assertThrows(NullPointerException.class, () -> new DoctorId((String) null));
+
+        // invalid string literal of Doctor Id
+        assertFalse(DoctorId.isValidDoctorId("111")); // no prefix
+        assertFalse(DoctorId.isValidDoctorId("A111")); // wrong prefix
+        assertFalse(DoctorId.isValidDoctorId("D11")); // wrong format
+
+        // valid string literal for doctor id
+        assertTrue(DoctorId.isValidDoctorId("D765")); // normal doctor id
+        assertTrue(DoctorId.isValidDoctorId("D007")); // doctor id with 2 leading '0's
     }
 
     @SuppressWarnings("AssertBetweenInconvertibleTypes")

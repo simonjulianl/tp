@@ -1,0 +1,18 @@
+{
+  "persons": [],
+  "activities": [],
+  "doctors": [
+    {
+      "name": "There's a star in my name * LOL",
+      "phone": "99999999",
+      "id": "D001",
+      "department": "Cardiology"
+    },
+    {
+      "name": "a valid name",
+      "phone": "99999999",
+      "id": "D002",
+      "department": "Cardiology"
+    }
+  ]
+}
