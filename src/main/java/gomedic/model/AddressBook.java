@@ -37,9 +37,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         doctors = new UniqueAbstractPersonList<>();
     }
 
-    public AddressBook() {
-    }
-
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
@@ -48,31 +45,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    public AddressBook() {
+    }
+
     //// list overwrite operations
-
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
-
-    /**
-     * Replaces the contents of the doctor list with {@code doctors}.
-     * {@code doctors} must not contain duplicate persons.
-     */
-    public void setDoctors(List<Doctor> doctors) {
-        this.doctors.setPersons(doctors);
-    }
-
-    /**
-     * Replaces the contents of the person list with {@code activities}.
-     * {@code persons} must not contain duplicate and conflicting activities.
-     */
-    public void setActivities(List<Activity> activities) {
-        this.activities.setActivities(activities);
-    }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -85,7 +61,31 @@ public class AddressBook implements ReadOnlyAddressBook {
         setDoctors(newData.getDoctorList());
     }
 
-    //// person-level operations
+    /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setPersons(List<Person> persons) {
+        this.persons.setPersons(persons);
+    }
+
+    /**
+     * Replaces the contents of the person list with {@code activities}.
+     * {@code persons} must not contain duplicate and conflicting activities.
+     */
+    public void setActivities(List<Activity> activities) {
+        this.activities.setActivities(activities);
+    }
+
+    /**
+     * Replaces the contents of the doctor list with {@code doctors}.
+     * {@code doctors} must not contain duplicate persons.
+     */
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors.setPersons(doctors);
+    }
+
+    //// person and activity-level operations
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -112,6 +112,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if there exists another conflicting activity
+     * in terms of timing in the addressbook.
+     */
+    public boolean hasConflictingActivity(Activity activity) {
+        requireNonNull(activity);
+        return activities.containsConflicting(activity);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
@@ -133,6 +142,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addActivity(Activity a) {
         activities.add(a);
+    }
+
+    /**
+     * Returns a new activity id.
+     */
+    public int getNewActivityId() {
+        return activities.getNewActivityId();
     }
 
     /**

@@ -1,11 +1,11 @@
-package gomedic.logic.commands;
+package gomedic.logic.commands.addcommand;
 
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import gomedic.logic.commands.addcommand.AddPersonCommand;
+import gomedic.logic.commands.CommandTestUtil;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;

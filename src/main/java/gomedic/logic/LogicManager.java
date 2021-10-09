@@ -13,6 +13,7 @@ import gomedic.logic.parser.AddressBookParser;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.storage.Storage;
 import javafx.collections.ObservableList;
@@ -62,6 +63,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Activity> getFilteredActivityList() {
+        return model.getFilteredActivityList();
     }
 
     @Override

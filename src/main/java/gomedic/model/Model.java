@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import gomedic.commons.core.GuiSettings;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -12,7 +13,7 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Object> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
 
     /**
      * Returns the user prefs.
@@ -70,6 +71,28 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Adds the given activity.
+     * {@code activity} must not already exist and not conflicting
+     * with any activity in the address book.
+     */
+    void addActivity(Activity activity);
+
+    /**
+     * Get a new unique activity id which is just last id number + 1;
+     */
+    int getNewActivityId();
+
+    /**
+     * Returns true if an activity with same id exists in the addressbook.
+     */
+    boolean hasActivity(Activity activity);
+
+    /**
+     * Returns true if there is another conflicting activity.
+     */
+    boolean hasConflictingActivity(Activity activity);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -79,10 +102,13 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered activity list */
+    ObservableList<Activity> getFilteredActivityList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<? super Person> predicate);
 }

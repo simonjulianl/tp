@@ -63,6 +63,11 @@ public abstract class Id {
         }
     }
 
+    public int getIdNumber() {
+        String numberPart = value.substring(1);
+        return Integer.parseInt(numberPart);
+    }
+
     @Override
     public int hashCode() {
         return value.hashCode();

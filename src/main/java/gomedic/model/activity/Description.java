@@ -13,7 +13,7 @@ import gomedic.commons.util.AppUtil;
 public class Description {
     public static final int MAX_CHAR = 500; // max char in description
     public static final String MESSAGE_CONSTRAINTS =
-            "Description is at most" + MAX_CHAR + "chars including whitespaces";
+            "Description is at most " + MAX_CHAR + " chars including whitespaces";
 
     private final String value;
 

@@ -152,4 +152,15 @@ class UniqueActivityListTest {
                 UnsupportedOperationException.class, () -> uniqueActivityList.asUnmodifiableObservableList().remove(0)
         );
     }
+
+    @Test
+    void getLastActivityId_validInput_testsPassed() {
+        uniqueActivityList.setActivities(getTypicalActivities());
+        assertEquals(5, uniqueActivityList.getNewActivityId());
+    }
+
+    @Test
+    void getLastActivityId_emptyListInput_testsPassed() {
+        assertEquals(1, uniqueActivityList.getNewActivityId());
+    }
 }

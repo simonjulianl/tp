@@ -5,7 +5,7 @@ import static gomedic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static gomedic.logic.parser.CliSyntax.PREFIX_TAG;
-import static gomedic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
@@ -98,7 +98,7 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 

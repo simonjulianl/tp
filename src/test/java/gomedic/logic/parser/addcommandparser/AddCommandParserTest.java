@@ -1,11 +1,11 @@
-package gomedic.logic.parser;
+package gomedic.logic.parser.addcommandparser;
 
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
-import gomedic.logic.parser.addcommandparser.AddPersonCommandParser;
+import gomedic.logic.parser.CommandParserTestUtil;
 import gomedic.model.commonfield.Address;
 import gomedic.model.commonfield.Email;
 import gomedic.model.commonfield.Name;
@@ -15,7 +15,7 @@ import gomedic.model.tag.Tag;
 import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.modelbuilder.PersonBuilder;
 
-public class AddPersonCommandParserTest {
+public class AddCommandParserTest {
     private final AddPersonCommandParser parser = new AddPersonCommandParser();
 
     @Test

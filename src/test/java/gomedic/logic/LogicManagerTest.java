@@ -13,6 +13,7 @@ import gomedic.commons.core.Messages;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.ListCommand;
+import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.exceptions.ParseException;
@@ -20,12 +21,14 @@ import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.UserPrefs;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.storage.JsonAddressBookStorage;
 import gomedic.storage.JsonUserPrefsStorage;
 import gomedic.storage.StorageManager;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalPersons;
+import gomedic.testutil.modelbuilder.ActivityBuilder;
 import gomedic.testutil.modelbuilder.PersonBuilder;
 
 public class LogicManagerTest {
@@ -123,7 +126,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_storageThrowsIoException_throwsCommandException() {
+    public void executeAddPerson_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
@@ -133,7 +136,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddPersonCommand.COMMAND_WORD
+        String addPersonCommand = AddPersonCommand.COMMAND_WORD
                 + CommandTestUtil.NAME_DESC_AMY
                 + CommandTestUtil.PHONE_DESC_AMY
                 + CommandTestUtil.EMAIL_DESC_AMY
@@ -142,12 +145,40 @@ public class LogicManagerTest {
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+        assertCommandFailure(addPersonCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void executeAddActivity_storageThrowsIoException_throwsCommandException() {
+        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage);
+
+        // Execute add command
+        String addActivityCommand = AddActivityCommand.COMMAND_WORD
+                + CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION;
+        Activity expectedActivity = new ActivityBuilder().build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addActivity(expectedActivity);
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandFailure(addActivityCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredActivityList().remove(0));
     }
 
     /**

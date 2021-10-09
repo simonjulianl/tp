@@ -13,13 +13,25 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.model.activity.Description;
+import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Address;
 import gomedic.model.commonfield.Email;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
+import gomedic.model.commonfield.Time;
 import gomedic.model.tag.Tag;
 
 public class ParserUtilTest {
+    public static final String VALID_TITLE_MEETING = "MEETING";
+    public static final String VALID_START_TIME_MEETING = "15/07/2000 15:00";
+    public static final String VALID_MEETING_DESCRIPTION = "SOME LONG DESCRIPTION";
+
+    public static final String INVALID_START_TIME_MEETING = "15/07/2000-15:00";
+    public static final String INVALID_END_TIME_MEETING = "15/07/2000 16-00";
+    public static final String INVALID_TITLE_MEETING = "MEETING".repeat(100);
+    public static final String INVALID_DESCRIPTION = "SOME LONG DESCRIPTION".repeat(1000);
+
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
@@ -149,6 +161,76 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseTitle_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTitle(null));
+    }
+
+    @Test
+    public void parseTitle_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTitle(INVALID_TITLE_MEETING));
+    }
+
+    @Test
+    public void parseTitle_validValueWithoutWhitespace_returnsTitle() throws Exception {
+        Title expectedTitle = new Title(VALID_TITLE_MEETING);
+        assertEquals(expectedTitle, ParserUtil.parseTitle(VALID_TITLE_MEETING));
+    }
+
+    @Test
+    public void parseTitle_validValueWithWhitespace_returnsTrimmedTitle() throws Exception {
+        String titleWithWhitespace = WHITESPACE + VALID_TITLE_MEETING + WHITESPACE;
+        Title expectedTitle = new Title(VALID_TITLE_MEETING);
+        assertEquals(expectedTitle, ParserUtil.parseTitle(titleWithWhitespace));
+    }
+
+    @Test
+    public void parseDescription_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription(null));
+    }
+
+    @Test
+    public void parseDescription_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
+    }
+
+    @Test
+    public void parseDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
+        Description expectedDescription = new Description(VALID_MEETING_DESCRIPTION);
+        assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_MEETING_DESCRIPTION));
+    }
+
+    @Test
+    public void parseDescription_validValueWithWhitespace_returnsTrimmedTitle() throws Exception {
+        String descriptionWithWhitespace = WHITESPACE + VALID_MEETING_DESCRIPTION + WHITESPACE;
+        Description expectedDescription = new Description(VALID_MEETING_DESCRIPTION);
+        assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
+    }
+
+    @Test
+    public void parseTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTime(null));
+    }
+
+    @Test
+    public void parseTime_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTime(INVALID_START_TIME_MEETING));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTime(INVALID_END_TIME_MEETING));
+    }
+
+    @Test
+    public void parseTime_validValueWithoutWhitespace_returnsTime() throws Exception {
+        Time expectedTime = new Time(VALID_START_TIME_MEETING);
+        assertEquals(expectedTime, ParserUtil.parseTime(VALID_START_TIME_MEETING));
+    }
+
+    @Test
+    public void parseTime_validValueWithWhitespace_returnsTrimmedTime() throws Exception {
+        String timeWithWhitespace = WHITESPACE + VALID_START_TIME_MEETING + WHITESPACE;
+        Time expectedTime = new Time(VALID_START_TIME_MEETING);
+        assertEquals(expectedTime, ParserUtil.parseTime(timeWithWhitespace));
+    }
+
+    @Test
     public void parseTag_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
     }
@@ -189,7 +271,7 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<Tag> expectedTagSet = new HashSet<>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }

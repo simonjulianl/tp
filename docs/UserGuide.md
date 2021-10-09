@@ -79,7 +79,7 @@ formatting, etc.
 * There are fixed multiple valid date and time formats (GMT+8 24-Hour Time format):
     1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00)
     2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00)
-    3. yyyy-MM-dd-HH-mm (e.g. 2022-09-15 13:00)
+    3. yyyy-MM-dd HH:mm (e.g. 2022-09-15 13:00)
 
 </div>
 

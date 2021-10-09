@@ -15,7 +15,7 @@ public class ActivityBuilder {
     public static final String DEFAULT_END_TIME = "15/09/2022 14:00";
     public static final String DEFAULT_TITLE = "Meeting";
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
-    private static Integer id = 1;
+    public static final int DEFAULT_ID = 1;
 
     private ActivityId aid;
     private Time startTime;
@@ -27,7 +27,7 @@ public class ActivityBuilder {
      * Creates a {@code PersonBuilder} with the default details.
      */
     public ActivityBuilder() {
-        aid = new ActivityId(id++);
+        aid = new ActivityId(DEFAULT_ID);
         startTime = new Time(DEFAULT_START_TIME);
         endTime = new Time(DEFAULT_END_TIME);
         title = new Title(DEFAULT_TITLE);

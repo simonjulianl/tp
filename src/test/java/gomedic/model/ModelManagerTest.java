@@ -2,6 +2,7 @@ package gomedic.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -15,6 +16,7 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.AddressBookBuilder;
 import gomedic.testutil.Assert;
+import gomedic.testutil.TypicalActivities;
 import gomedic.testutil.TypicalPersons;
 
 public class ModelManagerTest {
@@ -94,39 +96,65 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(TypicalPersons.ALICE)
-                .withPerson(TypicalPersons.BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder()
+                .withPerson(TypicalPersons.ALICE)
+                .withPerson(TypicalPersons.BENSON)
+                .withActivity(TypicalActivities.MEETING)
+                .withActivity(TypicalActivities.PAPER_REVIEW)
+                .build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
         modelManager = new ModelManager(addressBook, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
+        assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
+        assertEquals(modelManager, modelManager);
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertNotEquals(null, modelManager);
 
         // different types -> returns false
-        assertFalse(modelManager.equals(5));
+        assertNotEquals(5, modelManager);
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertNotEquals(modelManager, new ModelManager(differentAddressBook, userPrefs));
 
         // different filteredList -> returns false
         String[] keywords = TypicalPersons.ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertNotEquals(modelManager, new ModelManager(addressBook, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_ITEMS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookDataFileRootPath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertNotEquals(modelManager, new ModelManager(addressBook, differentUserPrefs));
+    }
+
+    @Test
+    public void hasActivity_nullActivity_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasActivity(null));
+    }
+
+    @Test
+    public void hasActivity_activityNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasActivity(TypicalActivities.MEETING));
+    }
+
+    @Test
+    public void hasActivity_activityInAddressBook_returnsTrue() {
+        modelManager.addActivity(TypicalActivities.MEETING);
+        assertTrue(modelManager.hasActivity(TypicalActivities.MEETING));
+    }
+
+    @Test
+    public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityList()
+                .remove(0));
     }
 }
