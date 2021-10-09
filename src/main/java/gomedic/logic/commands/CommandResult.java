@@ -58,8 +58,6 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
-        System.out.println(feedbackToUser);
-        System.out.println(((CommandResult) other).feedbackToUser);
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
