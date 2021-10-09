@@ -1,6 +1,7 @@
 package gomedic.testutil;
 
 import gomedic.model.AddressBook;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 
 /**
@@ -25,6 +26,15 @@ public class AddressBookBuilder {
      */
     public AddressBookBuilder withPerson(Person person) {
         addressBook.addPerson(person);
+        return this;
+    }
+
+
+    /**
+     * Adds a new {@code Activity} to the {@code AddressBook} that we are building.
+     */
+    public AddressBookBuilder withActivity(Activity activity) {
+        addressBook.addActivity(activity);
         return this;
     }
 
