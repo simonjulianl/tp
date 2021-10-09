@@ -7,20 +7,13 @@ import org.junit.jupiter.api.Test;
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
-import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.parser.CommandParserTestUtil;
 import gomedic.model.activity.Activity;
-import gomedic.model.commonfield.Address;
-import gomedic.model.commonfield.Email;
-import gomedic.model.commonfield.Name;
-import gomedic.model.commonfield.Phone;
-import gomedic.model.person.Person;
-import gomedic.model.tag.Tag;
-import gomedic.testutil.TypicalPersons;
-import gomedic.testutil.modelbuilder.PersonBuilder;
+import gomedic.model.activity.Description;
+import gomedic.model.activity.Title;
+import gomedic.model.commonfield.Time;
 
 public class AddActivityParserTest {
-    // TODO : REMEMBER TO DO THIS
     private final AddActivityCommandParser parser = new AddActivityCommandParser();
 
     @Test
@@ -30,185 +23,128 @@ public class AddActivityParserTest {
         // whitespace only preamble
         CommandParserTestUtil.assertParseSuccess(parser,
                 CommandTestUtil.PREAMBLE_WHITESPACE
-                        + CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_FRIEND, new AddActivityCommand(
+                        + CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION, new AddActivityCommand(
                         expectedActivity.getStartTime(),
                         expectedActivity.getEndTime(),
                         expectedActivity.getTitle(),
                         expectedActivity.getDescription()));
 
-        // multiple names - last name accepted
+        // multiple start time - last of the argument will be accepted
         CommandParserTestUtil.assertParseSuccess(parser,
-                CommandTestUtil.NAME_DESC_AMY
-                        + CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_FRIEND, new AddPersonCommand(expectedActivity));
+                CommandTestUtil.VALID_DESC_START_TIME_PAPER_REVIEW
+                        + CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION, new AddActivityCommand(
+                        expectedActivity.getStartTime(),
+                        expectedActivity.getEndTime(),
+                        expectedActivity.getTitle(),
+                        expectedActivity.getDescription()));
 
-        // multiple phones - last phone accepted
+        // multiple end time
         CommandParserTestUtil.assertParseSuccess(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_AMY
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_FRIEND, new AddPersonCommand(expectedActivity));
+                CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_PAPER_REVIEW
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION, new AddActivityCommand(
+                        expectedActivity.getStartTime(),
+                        expectedActivity.getEndTime(),
+                        expectedActivity.getTitle(),
+                        expectedActivity.getDescription()));
 
-        // multiple emails - last email accepted
+        // multiple title, last title accepted
         CommandParserTestUtil.assertParseSuccess(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_AMY
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_FRIEND, new AddPersonCommand(expectedActivity));
+                CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_PAPER_REVIEW
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION, new AddActivityCommand(
+                        expectedActivity.getStartTime(),
+                        expectedActivity.getEndTime(),
+                        expectedActivity.getTitle(),
+                        expectedActivity.getDescription()));
 
-        // multiple addresses - last address accepted
+        // multiple desc, last desc accepted
         CommandParserTestUtil.assertParseSuccess(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_AMY
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_FRIEND, new AddPersonCommand(expectedActivity));
+                CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION, new AddActivityCommand(
+                        expectedActivity.getStartTime(),
+                        expectedActivity.getEndTime(),
+                        expectedActivity.getTitle(),
+                        expectedActivity.getDescription()));
 
-        // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(TypicalPersons.BOB)
-                .withTags(CommandTestUtil.VALID_TAG_FRIEND, CommandTestUtil.VALID_TAG_HUSBAND)
-                .build();
-        CommandParserTestUtil.assertParseSuccess(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_HUSBAND
-                        + CommandTestUtil.TAG_DESC_FRIEND, new AddPersonCommand(expectedPersonMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Person expectedPerson = new PersonBuilder(TypicalPersons.AMY).withTags().build();
+        Activity expectedActivity = MEETING;
+
         CommandParserTestUtil.assertParseSuccess(parser,
-                CommandTestUtil.NAME_DESC_AMY
-                        + CommandTestUtil.PHONE_DESC_AMY
-                        + CommandTestUtil.EMAIL_DESC_AMY
-                        + CommandTestUtil.ADDRESS_DESC_AMY,
-                new AddPersonCommand(expectedPerson));
+                CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING, new AddActivityCommand(
+                        expectedActivity.getStartTime(),
+                        expectedActivity.getEndTime(),
+                        expectedActivity.getTitle(),
+                        new Description("")));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(
+                Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                AddActivityCommand.MESSAGE_USAGE);
 
-        // missing name prefix
+        // missing start time
         CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.VALID_NAME_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB,
+                CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION,
                 expectedMessage);
 
-        // missing phone prefix
+        // missing end time
         CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.VALID_PHONE_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB,
+                CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION,
                 expectedMessage);
 
-        // missing email prefix
+        // missing title
         CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.VALID_EMAIL_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing address prefix
-        CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.VALID_ADDRESS_BOB,
-                expectedMessage);
-
-        // all prefixes missing
-        CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.VALID_NAME_BOB
-                        + CommandTestUtil.VALID_PHONE_BOB
-                        + CommandTestUtil.VALID_EMAIL_BOB
-                        + CommandTestUtil.VALID_ADDRESS_BOB,
+                CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid name
+        // invalid time
         CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.INVALID_NAME_DESC
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_HUSBAND
-                        + CommandTestUtil.TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+                CommandTestUtil.INVALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION, Time.MESSAGE_CONSTRAINTS);
 
-        // invalid phone
+        // invalid title
         CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.INVALID_PHONE_DESC
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_HUSBAND
-                        + CommandTestUtil.TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
+                CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.INVALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.VALID_DESC_MEETING_DESCRIPTION, Title.MESSAGE_CONSTRAINTS);
 
-        // invalid email
+        // invalid desc
         CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.INVALID_EMAIL_DESC
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_HUSBAND
-                        + CommandTestUtil.TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
-
-        // invalid address
-        CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.INVALID_ADDRESS_DESC
-                        + CommandTestUtil.TAG_DESC_HUSBAND
-                        + CommandTestUtil.TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
-
-        // invalid tag
-        CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.INVALID_TAG_DESC
-                        + CommandTestUtil.VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
-
-        // two invalid values, only first invalid value reported
-        CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.INVALID_NAME_DESC
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.INVALID_ADDRESS_DESC,
-                Name.MESSAGE_CONSTRAINTS);
-
-        // non-empty preamble
-        CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.PREAMBLE_NON_EMPTY
-                        + CommandTestUtil.NAME_DESC_BOB
-                        + CommandTestUtil.PHONE_DESC_BOB
-                        + CommandTestUtil.EMAIL_DESC_BOB
-                        + CommandTestUtil.ADDRESS_DESC_BOB
-                        + CommandTestUtil.TAG_DESC_HUSBAND
-                        + CommandTestUtil.TAG_DESC_FRIEND,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
+                CommandTestUtil.VALID_DESC_START_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_END_TIME_MEETING
+                        + CommandTestUtil.VALID_DESC_TITLE_MEETING
+                        + CommandTestUtil.INVALID_DESC_DESCRIPTION, Description.MESSAGE_CONSTRAINTS);
     }
 }

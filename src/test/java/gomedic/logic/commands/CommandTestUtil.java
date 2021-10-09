@@ -55,14 +55,14 @@ public class CommandTestUtil {
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final String VALID_DESC_TITLE_MEETING =
-            " " + CliSyntax.PREFIX_TITLE + "MEETING";
+            " " + CliSyntax.PREFIX_TITLE + "Meeting me";
     public static final String VALID_DESC_TITLE_PAPER_REVIEW =
-            " " + CliSyntax.PREFIX_TITLE + "PAPER REVIEW";
+            " " + CliSyntax.PREFIX_TITLE + "Paper Review";
 
     public static final String VALID_DESC_START_TIME_MEETING =
-            " " + CliSyntax.PREFIX_START_TIME + "15/07/2000 15:00";
+            " " + CliSyntax.PREFIX_START_TIME + "15-09-2022 13:00";
     public static final String VALID_DESC_END_TIME_MEETING =
-            " " + CliSyntax.PREFIX_END_TIME + "15/07/2000 16:00";
+            " " + CliSyntax.PREFIX_END_TIME + "15-09-2022 15:00";
 
     public static final String VALID_DESC_START_TIME_PAPER_REVIEW =
             " " + CliSyntax.PREFIX_START_TIME + "16/07/2000 15:00";
@@ -70,15 +70,20 @@ public class CommandTestUtil {
             " " + CliSyntax.PREFIX_END_TIME + "16/07/2000 16:00";
 
     public static final String VALID_DESC_MEETING_DESCRIPTION =
-            " " + CliSyntax.PREFIX_DESCRIPTION + "SOME LONG DESCRIPTION";
+            " " + CliSyntax.PREFIX_DESCRIPTION + "today at somewhere";
+
+    public static final String INVALID_DESC_START_TIME_MEETING =
+            " " + CliSyntax.PREFIX_START_TIME + "15-13-2022 13:00";
+    public static final String INVALID_DESC_END_TIME_MEETING =
+            " " + CliSyntax.PREFIX_END_TIME + "15/09/2022 15-00";
 
     public static final String INVALID_DESC_TITLE_MEETING =
             " " + CliSyntax.PREFIX_TITLE + "MEETING".repeat(100);
     public static final String INVALID_DESC_TITLE_PAPER_REVIEW =
             " " + CliSyntax.PREFIX_TITLE + "PAPER REVIEW".repeat(100);
 
-    public static final String INVALID_TITLE_DESCRIPTION =
-            " " + CliSyntax.PREFIX_TITLE + "SOME LONG DESCRIPTION".repeat(1000);
+    public static final String INVALID_DESC_DESCRIPTION =
+            " " + CliSyntax.PREFIX_DESCRIPTION + "SOME LONG DESCRIPTION".repeat(1000);
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;

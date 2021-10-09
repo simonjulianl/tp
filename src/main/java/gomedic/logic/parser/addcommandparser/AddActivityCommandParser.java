@@ -49,7 +49,11 @@ public class AddActivityCommandParser implements Parser<AddActivityCommand> {
         Time startTime = ParserUtil.parseTime(argMultimap.getValue(CliSyntax.PREFIX_START_TIME).get());
         Time endTime = ParserUtil.parseTime(argMultimap.getValue(CliSyntax.PREFIX_END_TIME).get());
         Title title = ParserUtil.parseTitle(argMultimap.getValue(CliSyntax.PREFIX_TITLE).get());
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).get());
+        Description description = ParserUtil
+                .parseDescription(
+                        argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION)
+                                .orElse("")
+                );
 
         return new AddActivityCommand(startTime, endTime, title, description);
     }

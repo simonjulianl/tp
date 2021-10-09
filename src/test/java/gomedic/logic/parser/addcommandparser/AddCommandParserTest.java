@@ -6,7 +6,6 @@ import gomedic.commons.core.Messages;
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.parser.CommandParserTestUtil;
-import gomedic.logic.parser.addcommandparser.AddPersonCommandParser;
 import gomedic.model.commonfield.Address;
 import gomedic.model.commonfield.Email;
 import gomedic.model.commonfield.Name;
