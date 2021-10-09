@@ -26,7 +26,6 @@ import gomedic.model.activity.Activity;
 import gomedic.model.activity.exceptions.ActivityNotFoundException;
 import gomedic.model.activity.exceptions.ConflictingActivityException;
 import gomedic.model.activity.exceptions.DuplicateActivityFoundException;
-import gomedic.model.person.AbstractPerson;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.exceptions.DuplicatePersonException;
@@ -160,7 +159,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateDoctors_throwsDuplicatePersonException() {
         // Two doctors with the same id
-        List<AbstractPerson> newDoctors = Arrays.asList(MAIN_DOCTOR, MAIN_DOCTOR);
+        List<Doctor> newDoctors = Arrays.asList(MAIN_DOCTOR, MAIN_DOCTOR);
         AddressBookStub newData = new AddressBookStub(getTypicalPersons(), getTypicalActivities(), newDoctors);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
@@ -239,10 +238,10 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Activity> activities = FXCollections.observableArrayList();
-        private final ObservableList<AbstractPerson> doctors = FXCollections.observableArrayList();
+        private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons, Collection<Activity> activities,
-                        Collection<AbstractPerson> doctors) {
+                        Collection<Doctor> doctors) {
             this.persons.setAll(persons);
             this.activities.setAll(activities);
             this.doctors.setAll(doctors);
@@ -254,7 +253,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<AbstractPerson> getDoctorList() {
+        public ObservableList<Doctor> getDoctorList() {
             return doctors;
         }
 

@@ -9,7 +9,6 @@ import java.util.List;
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.model.AddressBook;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.AbstractPerson;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
@@ -90,7 +89,7 @@ public class TypicalPersons {
             ab.addActivity(activity);
         }
 
-        for (AbstractPerson person : getTypicalDoctors()) {
+        for (Doctor person : getTypicalDoctors()) {
             ab.addDoctor(person);
         }
 
@@ -101,7 +100,7 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
-    public static List<AbstractPerson> getTypicalDoctors() {
+    public static List<Doctor> getTypicalDoctors() {
         return new ArrayList<>(Arrays.asList(MAIN_DOCTOR, OTHER_DOCTOR, THIRD_DOCTOR));
     }
 }

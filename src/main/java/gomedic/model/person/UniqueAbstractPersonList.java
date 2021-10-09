@@ -23,16 +23,16 @@ import javafx.collections.ObservableList;
  *
  * @see AbstractPerson#equals(Object)
  */
-public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
+public class UniqueAbstractPersonList<T extends AbstractPerson> implements Iterable<T> {
 
-    private final ObservableList<AbstractPerson> internalList = FXCollections.observableArrayList();
-    private final ObservableList<AbstractPerson> internalUnmodifiableList =
+    private final ObservableList<T> internalList = FXCollections.observableArrayList();
+    private final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(AbstractPerson toCheck) {
+    public boolean contains(T toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
     }
@@ -41,7 +41,7 @@ public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(AbstractPerson toAdd) {
+    public void add(T toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -54,7 +54,7 @@ public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setPerson(AbstractPerson target, AbstractPerson editedPerson) {
+    public void setPerson(T target, T editedPerson) {
         CollectionUtil.requireAllNonNull(target, editedPerson);
 
         int index = internalList.indexOf(target);
@@ -73,14 +73,14 @@ public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(AbstractPerson toRemove) {
+    public void remove(T toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
     }
 
-    public void setPersons(UniqueAbstractPersonList replacement) {
+    public void setPersons(UniqueAbstractPersonList<? extends T> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -89,7 +89,7 @@ public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<AbstractPerson> persons) {
+    public void setPersons(List<? extends T> persons) {
         CollectionUtil.requireAllNonNull(persons);
         if (!personsAreUnique(persons)) {
             throw new DuplicatePersonException();
@@ -101,20 +101,28 @@ public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<AbstractPerson> asUnmodifiableObservableList() {
+    public ObservableList<T> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<AbstractPerson> iterator() {
+    public Iterator<T> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueAbstractPersonList // instanceof handles nulls
-                && internalList.equals(((UniqueAbstractPersonList) other).internalList));
+        if (other == this) {
+            return true;
+        }
+
+        if (other instanceof UniqueAbstractPersonList) {
+            @SuppressWarnings("unchecked")
+            UniqueAbstractPersonList<T> otherList = (UniqueAbstractPersonList<T>) other;
+            return internalList.equals(otherList.internalList);
+        }
+
+        return false;
     }
 
     @Override
@@ -125,7 +133,7 @@ public class UniqueAbstractPersonList implements Iterable<AbstractPerson> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<AbstractPerson> persons) {
+    private boolean personsAreUnique(List<? extends T> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
                 if (persons.get(i).equals(persons.get(j))) {

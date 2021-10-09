@@ -7,10 +7,10 @@ import java.util.Objects;
 
 import gomedic.model.activity.Activity;
 import gomedic.model.activity.UniqueActivityList;
-import gomedic.model.person.AbstractPerson;
 import gomedic.model.person.Person;
 import gomedic.model.person.UniqueAbstractPersonList;
 import gomedic.model.person.UniquePersonList;
+import gomedic.model.person.doctor.Doctor;
 import javafx.collections.ObservableList;
 
 /**
@@ -21,7 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueActivityList activities;
-    private final UniqueAbstractPersonList doctors;
+    private final UniqueAbstractPersonList<Doctor> doctors;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,7 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         activities = new UniqueActivityList();
-        doctors = new UniqueAbstractPersonList();
+        doctors = new UniqueAbstractPersonList<>();
     }
 
     public AddressBook() {
@@ -62,7 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the doctor list with {@code doctors}.
      * {@code doctors} must not contain duplicate persons.
      */
-    public void setDoctors(List<AbstractPerson> doctors) {
+    public void setDoctors(List<Doctor> doctors) {
         this.doctors.setPersons(doctors);
     }
 
@@ -98,7 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
      */
-    public boolean hasDoctor(AbstractPerson doctor) {
+    public boolean hasDoctor(Doctor doctor) {
         requireNonNull(doctor);
         return doctors.contains(doctor);
     }
@@ -123,7 +123,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a doctor to the address book.
      * The doctor must not already exist in the address book.
      */
-    public void addDoctor(AbstractPerson d) {
+    public void addDoctor(Doctor d) {
         doctors.add(d);
     }
 
@@ -152,7 +152,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The doctor's id must not be the same as another existing doctor in the address book (other than the one
      * which is being replaced).
      */
-    public void setDoctor(AbstractPerson target, AbstractPerson editedPerson) {
+    public void setDoctor(Doctor target, Doctor editedPerson) {
         requireNonNull(editedPerson);
 
         doctors.setPerson(target, editedPerson);
@@ -173,7 +173,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removeDoctor(AbstractPerson key) {
+    public void removeDoctor(Doctor key) {
         doctors.remove(key);
     }
 
@@ -202,7 +202,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<AbstractPerson> getDoctorList() {
+    public ObservableList<Doctor> getDoctorList() {
         return doctors.asUnmodifiableObservableList();
     }
 
@@ -227,6 +227,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, activities);
+        return Objects.hash(persons, activities, doctors);
     }
 }

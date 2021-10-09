@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import gomedic.commons.exceptions.IllegalValueException;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
-import gomedic.model.person.AbstractPerson;
 import gomedic.model.person.doctor.Department;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
@@ -37,11 +36,11 @@ public class JsonAdaptedDoctor {
     /**
      * Converts a given source to a JsonAdaptedDoctor.
      */
-    public JsonAdaptedDoctor(AbstractPerson source) {
+    public JsonAdaptedDoctor(Doctor source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         id = source.getId().toString();
-        department = ((Doctor) source).getDepartment().departmentName;
+        department = source.getDepartment().departmentName;
     }
 
     /**
