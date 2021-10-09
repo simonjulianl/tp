@@ -24,6 +24,10 @@ public class TypicalPersons {
     public static final Doctor MAIN_DOCTOR = new DoctorBuilder().build();
     public static final Doctor OTHER_DOCTOR =
             new DoctorBuilder().withName("Smith John").withPhone("77777777").withDepartment("ENT").build();
+    public static final Doctor THIRD_DOCTOR =
+            new DoctorBuilder().withName("Joe Smith").withPhone("55555555").withDepartment("Xray").build();
+    public static final Doctor NOT_IN_TYPICAL_DOCTOR =
+            new DoctorBuilder().withName("Midnight coding lol").withPhone("11111111").withDepartment("ENT 2").build();
 
 
     /**
@@ -85,10 +89,18 @@ public class TypicalPersons {
             ab.addActivity(activity);
         }
 
+        for (Doctor person : getTypicalDoctors()) {
+            ab.addDoctor(person);
+        }
+
         return ab;
     }
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Doctor> getTypicalDoctors() {
+        return new ArrayList<>(Arrays.asList(MAIN_DOCTOR, OTHER_DOCTOR, THIRD_DOCTOR));
     }
 }

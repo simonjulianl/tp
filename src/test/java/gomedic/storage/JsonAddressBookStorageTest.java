@@ -1,5 +1,7 @@
 package gomedic.storage;
 
+import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
+import static gomedic.testutil.TypicalPersons.NOT_IN_TYPICAL_DOCTOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -58,6 +60,17 @@ public class JsonAddressBookStorageTest {
                 DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
     }
 
+    @Test
+    public void readAddressBook_invalidDoctorAddressBook_throwDataConversionException() {
+        Assert.assertThrows(DataConversionException.class, () -> readAddressBook("invalidDoctorAddressBook.json"));
+    }
+
+    @Test
+    public void readAddressBook_invalidAndValidDoctorAddressBook_throwDataConversionException() {
+        Assert.assertThrows(
+                DataConversionException.class, () -> readAddressBook("invalidAndValidDoctorAddressBook.json"));
+    }
+
     // TODO: add more tests for the activities
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
@@ -71,14 +84,14 @@ public class JsonAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(TypicalPersons.HOON);
-        original.removePerson(TypicalPersons.ALICE);
+        original.addDoctor(NOT_IN_TYPICAL_DOCTOR);
+        original.removeDoctor(MAIN_DOCTOR);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(TypicalPersons.IDA);
+        original.addDoctor(MAIN_DOCTOR);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));

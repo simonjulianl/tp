@@ -19,7 +19,7 @@ import gomedic.model.person.exceptions.PersonNotFoundException;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
 
 class UniqueAbstractPersonListTest {
-    private final UniqueAbstractPersonList uniqueAbstractPersonList = new UniqueAbstractPersonList();
+    private final UniqueAbstractPersonList<Doctor> uniqueAbstractPersonList = new UniqueAbstractPersonList<>();
 
     @Test
     public void contains_nullPerson_throwsNullPointerException() {
@@ -83,7 +83,7 @@ class UniqueAbstractPersonListTest {
     public void setPerson_editedPersonIsSamePerson_success() {
         uniqueAbstractPersonList.add(MAIN_DOCTOR);
         uniqueAbstractPersonList.setPerson(MAIN_DOCTOR, MAIN_DOCTOR);
-        UniqueAbstractPersonList expectedUniqueAbstractPersonList = new UniqueAbstractPersonList();
+        UniqueAbstractPersonList<Doctor> expectedUniqueAbstractPersonList = new UniqueAbstractPersonList<>();
         expectedUniqueAbstractPersonList.add(MAIN_DOCTOR);
         assertEquals(expectedUniqueAbstractPersonList, uniqueAbstractPersonList);
     }
@@ -93,7 +93,7 @@ class UniqueAbstractPersonListTest {
         uniqueAbstractPersonList.add(MAIN_DOCTOR);
         Doctor editedDoctor = new DoctorBuilder(MAIN_DOCTOR).withDepartment("Cardiology").build();
         uniqueAbstractPersonList.setPerson(MAIN_DOCTOR, editedDoctor);
-        UniqueAbstractPersonList expectedUniqueAbstractPersonList = new UniqueAbstractPersonList();
+        UniqueAbstractPersonList<Doctor> expectedUniqueAbstractPersonList = new UniqueAbstractPersonList<>();
         expectedUniqueAbstractPersonList.add(editedDoctor);
         assertEquals(expectedUniqueAbstractPersonList, uniqueAbstractPersonList);
     }
@@ -102,7 +102,7 @@ class UniqueAbstractPersonListTest {
     public void setPerson_editedPersonHasDifferentIdentity_success() {
         uniqueAbstractPersonList.add(MAIN_DOCTOR);
         uniqueAbstractPersonList.setPerson(MAIN_DOCTOR, OTHER_DOCTOR);
-        UniqueAbstractPersonList expectedUniqueAbstractPersonList = new UniqueAbstractPersonList();
+        UniqueAbstractPersonList<Doctor> expectedUniqueAbstractPersonList = new UniqueAbstractPersonList<>();
         expectedUniqueAbstractPersonList.add(OTHER_DOCTOR);
         assertEquals(expectedUniqueAbstractPersonList, uniqueAbstractPersonList);
     }
@@ -129,20 +129,21 @@ class UniqueAbstractPersonListTest {
     public void remove_existingPerson_removesPerson() {
         uniqueAbstractPersonList.add(MAIN_DOCTOR);
         uniqueAbstractPersonList.remove(MAIN_DOCTOR);
-        UniqueAbstractPersonList expectedUniqueAbstractPersonList = new UniqueAbstractPersonList();
+        UniqueAbstractPersonList<Doctor> expectedUniqueAbstractPersonList = new UniqueAbstractPersonList<>();
         assertEquals(expectedUniqueAbstractPersonList, uniqueAbstractPersonList);
     }
 
     @Test
     public void setPersons_nullUniqueAbstractPersonList_throwsNullPointerException() {
         assertThrows(
-                NullPointerException.class, () -> uniqueAbstractPersonList.setPersons((UniqueAbstractPersonList) null));
+                NullPointerException.class, () ->
+                        uniqueAbstractPersonList.setPersons((UniqueAbstractPersonList<Doctor>) null));
     }
 
     @Test
     public void setPersons_uniqueAbstractPersonList_replacesOwnListWithProvidedUniqueAbstractPersonList() {
         uniqueAbstractPersonList.add(MAIN_DOCTOR);
-        UniqueAbstractPersonList expectedUniqueAbstractPersonList = new UniqueAbstractPersonList();
+        UniqueAbstractPersonList<Doctor> expectedUniqueAbstractPersonList = new UniqueAbstractPersonList<Doctor>();
         expectedUniqueAbstractPersonList.add(OTHER_DOCTOR);
         uniqueAbstractPersonList.setPersons(expectedUniqueAbstractPersonList);
         assertEquals(expectedUniqueAbstractPersonList, uniqueAbstractPersonList);
@@ -151,22 +152,22 @@ class UniqueAbstractPersonListTest {
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
         assertThrows(
-                NullPointerException.class, () -> uniqueAbstractPersonList.setPersons((List<AbstractPerson>) null));
+                NullPointerException.class, () -> uniqueAbstractPersonList.setPersons((List<Doctor>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniqueAbstractPersonList.add(MAIN_DOCTOR);
-        List<AbstractPerson> personList = Collections.singletonList(OTHER_DOCTOR);
+        List<Doctor> personList = Collections.singletonList(OTHER_DOCTOR);
         uniqueAbstractPersonList.setPersons(personList);
-        UniqueAbstractPersonList expectedUniqueAbstractPersonList = new UniqueAbstractPersonList();
+        UniqueAbstractPersonList<Doctor> expectedUniqueAbstractPersonList = new UniqueAbstractPersonList<>();
         expectedUniqueAbstractPersonList.add(OTHER_DOCTOR);
         assertEquals(expectedUniqueAbstractPersonList, uniqueAbstractPersonList);
     }
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<AbstractPerson> listWithDuplicatePersons = Arrays.asList(MAIN_DOCTOR, MAIN_DOCTOR);
+        List<Doctor> listWithDuplicatePersons = Arrays.asList(MAIN_DOCTOR, MAIN_DOCTOR);
         assertThrows(
                 DuplicatePersonException.class, () -> uniqueAbstractPersonList.setPersons(listWithDuplicatePersons));
     }
