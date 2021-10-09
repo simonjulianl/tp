@@ -156,7 +156,7 @@ class UniqueActivityListTest {
     @Test
     void getLastActivityId_validInput_testsPassed() {
         uniqueActivityList.setActivities(getTypicalActivities());
-        assertEquals(5, uniqueActivityList.getNewActivityId());
+        assertEquals(2, uniqueActivityList.getNewActivityId());
     }
 
     @Test

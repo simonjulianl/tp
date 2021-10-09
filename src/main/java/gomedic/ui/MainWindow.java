@@ -8,6 +8,7 @@ import gomedic.logic.Logic;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.ui.panel.PersonListPanel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -147,6 +148,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
