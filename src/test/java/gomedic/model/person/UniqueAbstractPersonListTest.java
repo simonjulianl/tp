@@ -3,6 +3,7 @@ package gomedic.model.person;
 import static gomedic.testutil.Assert.assertThrows;
 import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
 import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
+import static gomedic.testutil.TypicalPersons.getTypicalDoctors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -178,5 +179,16 @@ class UniqueAbstractPersonListTest {
                 UnsupportedOperationException.class, () ->
                         uniqueAbstractPersonList.asUnmodifiableObservableList().remove(0)
         );
+    }
+
+    @Test
+    void getLastId_validInput_testsPassed() {
+        uniqueAbstractPersonList.setPersons(getTypicalDoctors());
+        assertEquals(4, uniqueAbstractPersonList.getNewId());
+    }
+
+    @Test
+    void getLastDoctorId_emptyListInput_testsPassed() {
+        assertEquals(1, uniqueAbstractPersonList.getNewId());
     }
 }

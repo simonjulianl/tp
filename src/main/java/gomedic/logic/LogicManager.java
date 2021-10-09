@@ -15,6 +15,7 @@ import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
 import gomedic.storage.Storage;
 import javafx.collections.ObservableList;
 
@@ -63,6 +64,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Doctor> getFilteredDoctorList() {
+        return model.getFilteredDoctorList();
     }
 
     @Override

@@ -30,6 +30,21 @@ public class UniqueAbstractPersonList<T extends AbstractPerson> implements Itera
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Returns a new available id.
+     * If it's an empty list, return id 1.
+     */
+    public int getNewId() {
+        try {
+            return internalList
+                    .get(internalList.size() - 1)
+                    .getId()
+                    .getIdNumber() + 1;
+        } catch (Exception e) {
+            return 1;
+        }
+    }
+
+    /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(T toCheck) {

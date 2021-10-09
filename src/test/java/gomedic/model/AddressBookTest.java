@@ -243,6 +243,17 @@ public class AddressBookTest {
         assertEquals(2, addressBook.getNewActivityId());
     }
 
+    @Test
+    void getNewDoctorId_emptyList_return1() {
+        assertEquals(1, addressBook.getNewDoctorId());
+    }
+
+    @Test
+    void getNewDoctorId_oneItemList_return2() {
+        addressBook.addDoctor(MAIN_DOCTOR);
+        assertEquals(2, addressBook.getNewDoctorId());
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */

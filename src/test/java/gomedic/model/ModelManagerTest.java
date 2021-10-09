@@ -101,6 +101,8 @@ public class ModelManagerTest {
                 .withPerson(TypicalPersons.BENSON)
                 .withActivity(TypicalActivities.MEETING)
                 .withActivity(TypicalActivities.PAPER_REVIEW)
+                .withDoctor(TypicalPersons.MAIN_DOCTOR)
+                .withDoctor(TypicalPersons.OTHER_DOCTOR)
                 .build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -134,6 +136,28 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookDataFileRootPath(Paths.get("differentFilePath"));
         assertNotEquals(modelManager, new ModelManager(addressBook, differentUserPrefs));
+    }
+
+    @Test
+    public void hasDoctor_nullDoctor_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasDoctor(null));
+    }
+
+    @Test
+    public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasDoctor(TypicalPersons.MAIN_DOCTOR));
+    }
+
+    @Test
+    public void hasDoctor_doctorInAddressBook_returnsTrue() {
+        modelManager.addDoctor(TypicalPersons.MAIN_DOCTOR);
+        assertTrue(modelManager.hasDoctor(TypicalPersons.MAIN_DOCTOR));
+    }
+
+    @Test
+    public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredDoctorList()
+                .remove(0));
     }
 
     @Test
