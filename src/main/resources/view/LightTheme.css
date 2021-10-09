@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#e6f6fa, 35%)
+    -fx-background-color: derive(#e6f6fa, 35%);
     background-color: #; /* Used in the default.html file */
 }
 
@@ -41,7 +41,7 @@
 
 .table-view {
     -fx-base: derive(#e6f6fa, 35%);
-    -fx-control-inner-background: derive(#e6f6fa, 35%)
+    -fx-control-inner-background: derive(#e6f6fa, 35%);
     -fx-background-color: derive(#e6f6fa, 35%);
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
@@ -325,7 +325,7 @@
     -fx-border-width: 1;
     -fx-font-family: "Open Sans Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: 26a1bf;
+    -fx-text-fill: #26a1bf;
 }
 
 #filterField, #personListPanel, #personWebpage {

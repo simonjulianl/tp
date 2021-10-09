@@ -1,9 +1,11 @@
 #copyButton, #helpMessage {
-    -fx-font-family: "Open Sans";
+    -fx-font-family: "Open Sans Light";
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+
+
 }
 
 #helpMessage1 {
