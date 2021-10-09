@@ -54,6 +54,32 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final String VALID_DESC_TITLE_MEETING =
+            " " + CliSyntax.PREFIX_TITLE + "MEETING";
+    public static final String VALID_DESC_TITLE_PAPER_REVIEW =
+            " " + CliSyntax.PREFIX_TITLE + "PAPER REVIEW";
+
+    public static final String VALID_DESC_START_TIME_MEETING =
+            " " + CliSyntax.PREFIX_START_TIME + "15/07/2000 15:00";
+    public static final String VALID_DESC_END_TIME_MEETING =
+            " " + CliSyntax.PREFIX_END_TIME + "15/07/2000 16:00";
+
+    public static final String VALID_DESC_START_TIME_PAPER_REVIEW =
+            " " + CliSyntax.PREFIX_START_TIME + "16/07/2000 15:00";
+    public static final String VALID_DESC_END_TIME_PAPER_REVIEW =
+            " " + CliSyntax.PREFIX_END_TIME + "16/07/2000 16:00";
+
+    public static final String VALID_DESC_MEETING_DESCRIPTION =
+            " " + CliSyntax.PREFIX_DESCRIPTION + "SOME LONG DESCRIPTION";
+
+    public static final String INVALID_DESC_TITLE_MEETING =
+            " " + CliSyntax.PREFIX_TITLE + "MEETING".repeat(100);
+    public static final String INVALID_DESC_TITLE_PAPER_REVIEW =
+            " " + CliSyntax.PREFIX_TITLE + "PAPER REVIEW".repeat(100);
+
+    public static final String INVALID_TITLE_DESCRIPTION =
+            " " + CliSyntax.PREFIX_TITLE + "SOME LONG DESCRIPTION".repeat(1000);
+
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
@@ -64,6 +90,16 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
     /**
@@ -80,16 +116,6 @@ public class CommandTestUtil {
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
-    }
-
-    /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
-     */
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                            Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
     /**

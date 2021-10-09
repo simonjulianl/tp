@@ -8,6 +8,7 @@ import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -34,6 +35,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of activities */
+    ObservableList<Activity> getFilteredActivityList();
 
     /**
      * Returns the user prefs' address root file path.

@@ -146,4 +146,10 @@ public class ModelManagerTest {
         modelManager.addActivity(TypicalActivities.MEETING);
         assertTrue(modelManager.hasActivity(TypicalActivities.MEETING));
     }
+
+    @Test
+    public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityList()
+                .remove(0));
+    }
 }
