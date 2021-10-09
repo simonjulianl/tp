@@ -58,6 +58,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setActivities(newData.getActivityList());
+        setDoctors(newData.getDoctorList());
     }
 
     /**
@@ -69,14 +70,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the doctor list with {@code doctors}.
-     * {@code doctors} must not contain duplicate persons.
-     */
-    public void setDoctors(List<Doctor> doctors) {
-        this.doctors.setPersons(doctors);
-    }
-
-    /**
      * Replaces the contents of the person list with {@code activities}.
      * {@code persons} must not contain duplicate and conflicting activities.
      */
@@ -85,14 +78,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Replaces the contents of the doctor list with {@code doctors}.
+     * {@code doctors} must not contain duplicate persons.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
-        requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
-        setActivities(newData.getActivityList());
-        setDoctors(newData.getDoctorList());
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors.setPersons(doctors);
     }
 
     //// person and activity-level operations
