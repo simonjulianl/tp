@@ -1,7 +1,7 @@
 package gomedic.logic.parser;
 
 import static gomedic.testutil.Assert.assertThrows;
-import static gomedic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static gomedic.testutil.TypicalIndexes.INDEX_FIRST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,6 +20,7 @@ import gomedic.model.commonfield.Email;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.commonfield.Time;
+import gomedic.model.person.doctor.Department;
 import gomedic.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -31,6 +32,10 @@ public class ParserUtilTest {
     public static final String INVALID_END_TIME_MEETING = "15/07/2000 16-00";
     public static final String INVALID_TITLE_MEETING = "MEETING".repeat(100);
     public static final String INVALID_DESCRIPTION = "SOME LONG DESCRIPTION".repeat(1000);
+
+    public static final String VALID_DEPARTMENT = "Neurology";
+
+    public static final String INVALID_DEPARTMENT = "Neuro**logy";
 
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
@@ -62,10 +67,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -158,6 +163,29 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseDepartment_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDepartment(null));
+    }
+
+    @Test
+    public void parseDepartment_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDepartment(INVALID_DEPARTMENT));
+    }
+
+    @Test
+    public void parseDepartment_validValueWithoutWhitespace_returnsDepartment() throws Exception {
+        Department expectedDepartment = new Department(VALID_DEPARTMENT);
+        assertEquals(expectedDepartment, ParserUtil.parseDepartment(VALID_DEPARTMENT));
+    }
+
+    @Test
+    public void parseDepartment_validValueWithWhitespace_returnsTrimmedDepartment() throws Exception {
+        String departmentWithWhitespace = WHITESPACE + VALID_DEPARTMENT + WHITESPACE;
+        Department expectedDepartment = new Department(VALID_DEPARTMENT);
+        assertEquals(expectedDepartment, ParserUtil.parseDepartment(departmentWithWhitespace));
     }
 
     @Test

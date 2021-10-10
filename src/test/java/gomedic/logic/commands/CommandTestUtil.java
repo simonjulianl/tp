@@ -4,18 +4,28 @@ import static gomedic.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
+import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.index.Index;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
+import gomedic.model.ReadOnlyAddressBook;
+import gomedic.model.ReadOnlyUserPrefs;
+import gomedic.model.activity.Activity;
+import gomedic.model.activity.ActivityId;
 import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.EditPersonDescriptorBuilder;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 
 /**
  * Contains helper methods for testing commands.
@@ -33,17 +43,27 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    /* valid constants declarations for name */
     public static final String NAME_DESC_AMY = " " + CliSyntax.PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + CliSyntax.PREFIX_NAME + VALID_NAME_BOB;
+
+    /* valid constants declarations for phone */
     public static final String PHONE_DESC_AMY = " " + CliSyntax.PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + CliSyntax.PREFIX_PHONE + VALID_PHONE_BOB;
+
+    /* valid constants declarations for email */
     public static final String EMAIL_DESC_AMY = " " + CliSyntax.PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + CliSyntax.PREFIX_EMAIL + VALID_EMAIL_BOB;
+
+    /* valid constants declarations for address */
     public static final String ADDRESS_DESC_AMY = " " + CliSyntax.PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + CliSyntax.PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+
+    /* valid constants declarations for tags */
     public static final String TAG_DESC_FRIEND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    /* invalid constants declarations for common fields */
     public static final String INVALID_NAME_DESC = " " + CliSyntax.PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + CliSyntax.PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + CliSyntax.PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -54,6 +74,20 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    /* valid constants declarations for doctor related fields */
+    public static final String VALID_DESC_NAME_MAIN_DOCTOR = " " + CliSyntax.PREFIX_NAME + "John Doe";
+    public static final String VALID_DESC_NAME_OTHER_DOCTOR = " " + CliSyntax.PREFIX_NAME + "Smith John";
+    public static final String VALID_DESC_PHONE_MAIN_DOCTOR = " " + CliSyntax.PREFIX_PHONE + "85355255";
+    public static final String VALID_DESC_PHONE_OTHER_DOCTOR = " " + CliSyntax.PREFIX_PHONE + "77777777";
+    public static final String VALID_DESC_DEPARTMENT_MAIN_DOCTOR = " " + CliSyntax.PREFIX_DEPARTMENT + "Pediatrics";
+    public static final String VALID_DESC_DEPARTMENT_OTHER_DOCTOR = " " + CliSyntax.PREFIX_DEPARTMENT + "ENT";
+
+    /* invalid constants declarations for doctor related fields */
+    public static final String INVALID_DESC_NAME_MAIN_DOCTOR = " " + CliSyntax.PREFIX_NAME + "John** Doe";
+    public static final String INVALID_DESC_PHONE_MAIN_DOCTOR = " " + CliSyntax.PREFIX_PHONE + "not a number";
+    public static final String INVALID_DESC_DEPARTMENT_MAIN_DOCTOR = " " + CliSyntax.PREFIX_DEPARTMENT + "Cardi**ology";
+
+    /* valid constants declarations for activity related fields */
     public static final String VALID_DESC_TITLE_MEETING =
             " " + CliSyntax.PREFIX_TITLE + "Meeting me";
     public static final String VALID_DESC_TITLE_PAPER_REVIEW =
@@ -72,6 +106,7 @@ public class CommandTestUtil {
     public static final String VALID_DESC_MEETING_DESCRIPTION =
             " " + CliSyntax.PREFIX_DESCRIPTION + "today at somewhere";
 
+    /* invalid constants declarations for activity related fields */
     public static final String INVALID_DESC_START_TIME_MEETING =
             " " + CliSyntax.PREFIX_START_TIME + "15-13-2022 13:00";
     public static final String INVALID_DESC_END_TIME_MEETING =
@@ -116,6 +151,7 @@ public class CommandTestUtil {
                                             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
+
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -149,9 +185,162 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(List.of(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the activity at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showActivityAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredActivityList().size());
+
+        Activity activity = model.getFilteredActivityList().get(targetIndex.getZeroBased());
+        final ActivityId aid = activity.getActivityId();
+        model.updateFilteredActivitiesList(activity1 -> activity1.getActivityId().equals(aid));
+
+        assertEquals(1, model.getFilteredActivityList().size());
+    }
+
+    /**
+     * A default model stub that have all the methods failing.
+     */
+    public static class ModelStub implements Model {
+        @Override
+        public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GuiSettings getGuiSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getAddressBookDataRootFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBookDataRootFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getNewActivityId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNewDoctorId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getNewDoctorId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasConflictingActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Activity> getFilteredActivityList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Doctor> getFilteredDoctorList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<? super Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableValue<Integer> getModelBeingShown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setModelBeingShown(ModelItem modelItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
 }

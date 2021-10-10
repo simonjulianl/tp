@@ -25,11 +25,15 @@ public class TypicalPersons {
      */
     public static final Doctor MAIN_DOCTOR = new DoctorBuilder().build();
     public static final Doctor OTHER_DOCTOR =
-            new DoctorBuilder().withName("Smith John").withPhone("77777777").withDepartment("ENT").build();
+            new DoctorBuilder().withName("Smith John").withPhone("77777777").withDepartment("ENT").withId(2).build();
     public static final Doctor THIRD_DOCTOR =
-            new DoctorBuilder().withName("Joe Smith").withPhone("55555555").withDepartment("Xray").build();
+            new DoctorBuilder().withName("Joe Smith").withPhone("55555555").withDepartment("Xray").withId(3).build();
     public static final Doctor NOT_IN_TYPICAL_DOCTOR =
-            new DoctorBuilder().withName("Midnight coding lol").withPhone("11111111").withDepartment("ENT 2").build();
+            new DoctorBuilder().withName("Midnight coding lol").withPhone("11111111")
+                    .withDepartment("ENT 2").withId(4).build();
+    public static final Doctor DUPLICATE_DOCTOR =
+            new DoctorBuilder().withName("Tom").withPhone("22222")
+                    .withDepartment("ENT 3").withId(1).build();
 
     /**
      * GoMedic patients

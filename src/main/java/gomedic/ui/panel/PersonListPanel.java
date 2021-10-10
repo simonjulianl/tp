@@ -1,9 +1,11 @@
-package gomedic.ui;
+package gomedic.ui.panel;
 
 import java.util.logging.Logger;
 
 import gomedic.commons.core.LogsCenter;
 import gomedic.model.person.Person;
+import gomedic.ui.UiPart;
+import gomedic.ui.card.PersonCard;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -32,7 +34,7 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    static class PersonListViewCell extends ListCell<Person> {
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);

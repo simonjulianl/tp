@@ -1,8 +1,8 @@
 package gomedic.logic.parser;
 
-import static gomedic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static gomedic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static gomedic.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static gomedic.testutil.TypicalIndexes.INDEX_FIRST;
+import static gomedic.testutil.TypicalIndexes.INDEX_SECOND;
+import static gomedic.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
 
@@ -98,7 +98,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased()
                 + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.TAG_DESC_HUSBAND
                 + CommandTestUtil.EMAIL_DESC_AMY + CommandTestUtil.ADDRESS_DESC_AMY
@@ -116,7 +116,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.EMAIL_DESC_AMY;
 
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
@@ -130,7 +130,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.NAME_DESC_AMY;
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withName(CommandTestUtil.VALID_NAME_AMY)
@@ -165,7 +165,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased()
                 + CommandTestUtil.PHONE_DESC_AMY
                 + CommandTestUtil.ADDRESS_DESC_AMY
@@ -194,7 +194,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased()
                 + CommandTestUtil.INVALID_PHONE_DESC
                 + CommandTestUtil.PHONE_DESC_BOB;
@@ -219,7 +219,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();

@@ -50,7 +50,7 @@ public class AddActivityIntegrationTest {
 
     @Test
     public void execute_conflictingActivity_throwsCommandException() {
-        Activity activityInList = model.getAddressBook().getActivityList().get(0);
+        Activity activityInList = model.getAddressBook().getActivityListSortedById().get(0);
         CommandTestUtil.assertCommandFailure(
                 new AddActivityCommand(
                         activityInList.getStartTime(),

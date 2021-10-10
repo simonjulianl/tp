@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import gomedic.commons.util.CollectionUtil;
+import gomedic.model.commonfield.Id;
+import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
 import gomedic.model.person.exceptions.DuplicatePersonException;
 import gomedic.model.person.exceptions.PersonNotFoundException;
 import javafx.collections.FXCollections;
@@ -28,6 +30,47 @@ public class UniqueAbstractPersonList<T extends AbstractPerson> implements Itera
     private final ObservableList<T> internalList = FXCollections.observableArrayList();
     private final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+
+    /**
+     * Checks if there is an available id that can be assigned to a new entry to the list.
+     *
+     * @return true if there is an available id to be assigned.
+     */
+    public boolean hasNewId() {
+        return internalList.size() < Id.MAXIMUM_ASSIGNABLE_IDS;
+    }
+
+    /**
+     * Returns a new available id.
+     * If it's an empty list, return id 1.
+     */
+    public int getNewId() {
+        if (!hasNewId()) {
+            // Ideally this exception should never be triggered; Always use this::hasNewId before calling this method
+            throw new MaxAddressBookCapacityReached();
+        }
+
+        if (internalList.size() == 0) {
+            return 1;
+        }
+
+        int counter = 1;
+        // Find first id that does not exist in the list starting from D001
+        for (Iterator<Integer> it = internalList
+                .stream()
+                .map(entry -> entry.getId().getIdNumber())
+                .sorted()
+                .iterator(); it.hasNext(); counter++) {
+            int id = it.next();
+            if (id != counter) {
+                return counter;
+            }
+        }
+
+        // If all are in order, return the next possible id
+        return counter;
+    }
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.

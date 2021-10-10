@@ -60,7 +60,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        setActivities(newData.getActivityList());
+        setActivities(newData.getActivityListSortedById());
         setDoctors(newData.getDoctorList());
         setPatients(newData.getPatientList());
     }
@@ -180,6 +180,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Checks if there is an available new doctor id for assignment.
+     */
+    public boolean hasNewDoctorId() {
+        return doctors.hasNewId();
+    }
+
+    /**
+     * Returns a new doctor id.
+     */
+    public int getNewDoctorId() {
+        return doctors.getNewId();
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -258,9 +272,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons; "
-                + activities.asUnmodifiableObservableList().size() + " activities; "
+                + activities.asUnmodifiableSortedByIdObservableList().size() + " activities; "
                 + doctors.asUnmodifiableObservableList().size() + " doctors; "
                 + patients.asUnmodifiableObservableList().size() + " patients";
+
         // TODO: refine later
     }
 
@@ -280,13 +295,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Activity> getActivityList() {
-        return activities.asUnmodifiableObservableList();
+    public ObservableList<Activity> getActivityListSortedById() {
+        return activities.asUnmodifiableSortedByIdObservableList();
     }
 
     @Override
     public ObservableList<Activity> getActivityListSortedStartTime() {
-        return activities.asUnmodifiableSortedList();
+        return activities.asUnmodifiableSortedByStartTimeList();
     }
 
     @Override

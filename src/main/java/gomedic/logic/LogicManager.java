@@ -15,7 +15,9 @@ import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
 import gomedic.storage.Storage;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -23,8 +25,9 @@ import javafx.collections.ObservableList;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
+
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
@@ -66,6 +69,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Doctor> getFilteredDoctorList() {
+        return model.getFilteredDoctorList();
+    }
+
+    @Override
     public ObservableList<Activity> getFilteredActivityList() {
         return model.getFilteredActivityList();
     }
@@ -83,5 +91,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableValue<Integer> getModelBeingShown() {
+        return model.getModelBeingShown();
     }
 }

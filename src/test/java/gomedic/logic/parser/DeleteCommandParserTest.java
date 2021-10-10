@@ -1,6 +1,6 @@
 package gomedic.logic.parser;
 
-import static gomedic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static gomedic.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        CommandParserTestUtil.assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
+        CommandParserTestUtil.assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST));
     }
 
     @Test
