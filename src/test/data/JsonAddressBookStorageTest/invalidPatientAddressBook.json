@@ -1,0 +1,17 @@
+{
+  "persons": [],
+  "activities": [],
+  "doctors": [],
+  "patients": [
+    {
+      "name": "Person with invalid phone name field",
+      "phone": "9482abc424",
+      "id": "P123",
+      "age": "35",
+      "bloodtype": "AB",
+      "gender": "M",
+      "height": "175",
+      "weight": "76"
+    }
+  ]
+}

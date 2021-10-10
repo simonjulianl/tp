@@ -100,5 +100,46 @@
       "id": "D003",
       "department": "Xray"
     }
+  ],
+  "patients": [
+    {
+      "name": "Dohn Joe",
+      "phone": "12345678",
+      "id": "P001",
+      "age": "40",
+      "blood type": "AB",
+      "gender": "M",
+      "height": "176",
+      "weight": "86",
+      "medical conditions": [
+        "heart failure"
+      ]
+    },
+    {
+      "name": "Smith John",
+      "phone": "77777777",
+      "id": "P002",
+      "age": "40",
+      "bloodtype": "AB",
+      "gender": "M",
+      "height": "176",
+      "weight": "86",
+      "medical conditions": [
+        "heart failure"
+      ]
+    },
+    {
+      "name": "Joe Smith",
+      "phone": "55555555",
+      "id": "P003",
+      "age": "35",
+      "bloodtype": "AB",
+      "gender": "M",
+      "height": "176",
+      "weight": "86",
+      "medical conditions": [
+        "heart failure"
+      ]
+    }
   ]
 }

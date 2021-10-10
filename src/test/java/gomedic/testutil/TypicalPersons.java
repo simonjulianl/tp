@@ -11,7 +11,9 @@ import gomedic.model.AddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
+import gomedic.testutil.modelbuilder.PatientBuilder;
 import gomedic.testutil.modelbuilder.PersonBuilder;
 
 /**
@@ -28,6 +30,17 @@ public class TypicalPersons {
             new DoctorBuilder().withName("Joe Smith").withPhone("55555555").withDepartment("Xray").build();
     public static final Doctor NOT_IN_TYPICAL_DOCTOR =
             new DoctorBuilder().withName("Midnight coding lol").withPhone("11111111").withDepartment("ENT 2").build();
+
+    /**
+     * GoMedic patients
+     */
+    public static final Patient MAIN_PATIENT = new PatientBuilder().build();
+    public static final Patient OTHER_PATIENT =
+        new PatientBuilder().withName("Smith John").withPhone("77777777").withAge("40").build();
+    public static final Patient THIRD_PATIENT =
+        new PatientBuilder().withName("Joe Smith").withPhone("55555555").withAge("35").build();
+    public static final Patient NOT_IN_TYPICAL_PATIENT =
+        new PatientBuilder().withName("Midnight coding lol").withPhone("11111111").withAge("28").build();
 
 
     /**
@@ -93,6 +106,10 @@ public class TypicalPersons {
             ab.addDoctor(person);
         }
 
+        for (Patient person : getTypicalPatients()) {
+            ab.addPatient(person);
+        }
+
         return ab;
     }
 
@@ -102,5 +119,9 @@ public class TypicalPersons {
 
     public static List<Doctor> getTypicalDoctors() {
         return new ArrayList<>(Arrays.asList(MAIN_DOCTOR, OTHER_DOCTOR, THIRD_DOCTOR));
+    }
+
+    public static List<Patient> getTypicalPatients() {
+        return new ArrayList<>(Arrays.asList(MAIN_PATIENT, OTHER_PATIENT, THIRD_PATIENT));
     }
 }
