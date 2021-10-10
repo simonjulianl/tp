@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import gomedic.commons.core.GuiSettings;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
 import javafx.collections.ObservableList;
 
 /**
@@ -71,6 +72,27 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Adds the given doctor.
+     * {@code doctor} must not already exist in the address book.
+     */
+    void addDoctor(Doctor doctor);
+
+    /**
+     * Checks if there is a new doctor id available for assignment.
+     */
+    boolean hasNewDoctorId();
+
+    /**
+     * Get a new available unique doctor id.
+     */
+    int getNewDoctorId();
+
+    /**
+     * Returns true if a doctor with same id exists in the addressbook.
+     */
+    boolean hasDoctor(Doctor doctor);
+
+    /**
      * Adds the given activity.
      * {@code activity} must not already exist and not conflicting
      * with any activity in the address book.
@@ -101,6 +123,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered doctor list */
+    ObservableList<Doctor> getFilteredDoctorList();
 
     /** Returns an unmodifiable view of the filtered activity list */
     ObservableList<Activity> getFilteredActivityList();

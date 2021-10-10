@@ -10,6 +10,8 @@ import gomedic.commons.util.CollectionUtil;
 public abstract class Id {
     public static final String MESSAGE_CONSTRAINTS =
             "Id should only contain from 1 to 999, Prefix should be A-Z (capitalized)";
+    public static final int MAXIMUM_ASSIGNABLE_IDS = 999;
+
     private final String value;
 
     /**
@@ -34,7 +36,7 @@ public abstract class Id {
      * @return true if valid, else false.
      */
     public static boolean isValidId(Integer id, Character prefix) {
-        boolean isValidNumber = id > 0 && id <= 999;
+        boolean isValidNumber = id > 0 && id <= MAXIMUM_ASSIGNABLE_IDS;
         boolean isValidPrefix = prefix >= 'A' && prefix <= 'Z';
 
         return isValidNumber && isValidPrefix;

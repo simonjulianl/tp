@@ -13,7 +13,7 @@ public class DoctorBuilder {
     public static final String DEFAULT_NAME = "John Doe";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_DEPARTMENT = "Pediatrics";
-    private static int idPool = 1;
+    private static final int DEFAULT_ID = 1;
 
     private Name name;
     private Phone phone;
@@ -27,7 +27,7 @@ public class DoctorBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         department = new Department(DEFAULT_DEPARTMENT);
-        did = new DoctorId(idPool++);
+        did = new DoctorId(DEFAULT_ID);
     }
 
     /**

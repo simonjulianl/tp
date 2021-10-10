@@ -10,6 +10,7 @@ import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
 import javafx.collections.ObservableList;
 
 /**
@@ -35,6 +36,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of doctors */
+    ObservableList<Doctor> getFilteredDoctorList();
 
     /** Returns an unmodifiable view of the filtered list of activities */
     ObservableList<Activity> getFilteredActivityList();
