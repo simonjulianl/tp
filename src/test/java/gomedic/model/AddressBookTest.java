@@ -9,8 +9,11 @@ import static gomedic.testutil.TypicalActivities.getTypicalActivities;
 import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
 import static gomedic.testutil.TypicalPersons.MAIN_PATIENT;
 import static gomedic.testutil.TypicalPersons.NOT_IN_TYPICAL_DOCTOR;
+import static gomedic.testutil.TypicalPersons.NOT_IN_TYPICAL_PATIENT;
 import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
+import static gomedic.testutil.TypicalPersons.OTHER_PATIENT;
 import static gomedic.testutil.TypicalPersons.THIRD_DOCTOR;
+import static gomedic.testutil.TypicalPersons.THIRD_PATIENT;
 import static gomedic.testutil.TypicalPersons.getTypicalDoctors;
 import static gomedic.testutil.TypicalPersons.getTypicalPatients;
 import static gomedic.testutil.TypicalPersons.getTypicalPersons;
@@ -366,6 +369,57 @@ public class AddressBookTest {
             addressBook.addDoctor(toAdd);
         }
         assertThrows(MaxAddressBookCapacityReached.class, addressBook::getNewDoctorId);
+    }
+
+    @Test
+    void hasNewPatientId_emptyList_returnsTrue() {
+        assertTrue(addressBook.hasNewPatientId());
+    }
+
+    @Test
+    void hasNewPatientId_oneItemInList_returnsTrue() {
+        addressBook.addPatient(MAIN_PATIENT);
+        assertTrue(addressBook.hasNewPatientId());
+    }
+
+    @Test
+    void hasNewPatientId_maxItemInList_returnsFalse() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Patient toAdd = new PatientBuilder().withId(i).build();
+            addressBook.addPatient(toAdd);
+        }
+        assertFalse(addressBook.hasNewPatientId());
+    }
+
+    @Test
+    void getNewPatientId_emptyList_returns1() {
+        assertEquals(1, addressBook.getNewPatientId());
+    }
+
+    @Test
+    void getNewPatientId_twoItemList_returns3() {
+        addressBook.addPatient(MAIN_PATIENT);
+        addressBook.addPatient(OTHER_PATIENT);
+        assertEquals(3, addressBook.getNewPatientId());
+    }
+
+    @Test
+    void getNewPatientId_fourItemListRemoveId2_returns2() {
+        addressBook.addPatient(MAIN_PATIENT);
+        addressBook.addPatient(OTHER_PATIENT);
+        addressBook.addPatient(THIRD_PATIENT);
+        addressBook.addPatient(NOT_IN_TYPICAL_PATIENT);
+        addressBook.removePatient(OTHER_PATIENT);
+        assertEquals(2, addressBook.getNewPatientId());
+    }
+
+    @Test
+    void getNewPatientId_maxListSize_throwsMaxListCapacityExceededException() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Patient toAdd = new PatientBuilder().withId(i).build();
+            addressBook.addPatient(toAdd);
+        }
+        assertThrows(MaxAddressBookCapacityReached.class, addressBook::getNewPatientId);
     }
 
     /**
