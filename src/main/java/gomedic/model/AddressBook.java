@@ -152,6 +152,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Checks if there is an available new doctor id for assignment.
+     */
+    public boolean hasNewDoctorId() {
+        return doctors.hasNewId();
+    }
+
+    /**
+     * Returns a new doctor id.
+     */
+    public int getNewDoctorId() {
+        return doctors.getNewId();
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
