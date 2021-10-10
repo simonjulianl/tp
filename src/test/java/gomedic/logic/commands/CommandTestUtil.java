@@ -185,6 +185,11 @@ public class CommandTestUtil {
         }
 
         @Override
+        public boolean hasNewDoctorId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public int getNewDoctorId() {
             throw new AssertionError("This method should not be called.");
         }

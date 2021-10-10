@@ -17,6 +17,7 @@ import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.AddressBook;
 import gomedic.model.ReadOnlyAddressBook;
+import gomedic.model.commonfield.Id;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
 
@@ -59,6 +60,21 @@ public class AddDoctorCommandTest {
 
         assertThrows(CommandException.class,
                 AddDoctorCommand.MESSAGE_DUPLICATE_DOCTOR, () -> addDoctorCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_addNewDoctorIntoFullList_throwsCommandException() {
+        Doctor validDoctor = new DoctorBuilder().build();
+        CommandTestUtil.ModelStub modelStub = new AddDoctorCommandTest.ModelStubWithFullList();
+
+        AddDoctorCommand addDoctorCommand = new AddDoctorCommand(
+                validDoctor.getName(),
+                validDoctor.getPhone(),
+                validDoctor.getDepartment()
+        );
+
+        assertThrows(CommandException.class,
+                AddDoctorCommand.MESSAGE_MAXIMUM_CAPACITY_EXCEEDED, () -> addDoctorCommand.execute(modelStub));
     }
 
     @Test
@@ -106,6 +122,11 @@ public class AddDoctorCommandTest {
         }
 
         @Override
+        public boolean hasNewDoctorId() {
+            return true;
+        }
+
+        @Override
         public int getNewDoctorId() {
             return counter++;
         }
@@ -131,8 +152,35 @@ public class AddDoctorCommandTest {
         }
 
         @Override
+        public boolean hasNewDoctorId() {
+            return doctorsAdded.size() <= Id.MAXIMUM_ASSIGNABLE_IDS;
+        }
+
+        @Override
         public int getNewDoctorId() {
             return counter++;
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+    }
+
+    /**
+     * A Model stub that always accept the doctor being added.
+     */
+    private static class ModelStubWithFullList extends CommandTestUtil.ModelStub {
+
+        // Returns false to simulate the fact that list is already filled to max
+        @Override
+        public boolean hasNewDoctorId() {
+            return false;
+        }
+
+        @Override
+        public int getNewDoctorId() {
+            return 2;
         }
 
         @Override

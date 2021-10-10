@@ -131,6 +131,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasNewDoctorId() {
+        return addressBook.hasNewDoctorId();
+    }
+
+    @Override
     public int getNewDoctorId() {
         return addressBook.getNewDoctorId();
     }

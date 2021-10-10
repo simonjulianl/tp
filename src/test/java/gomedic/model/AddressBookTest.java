@@ -7,6 +7,9 @@ import static gomedic.testutil.TypicalActivities.MEETING;
 import static gomedic.testutil.TypicalActivities.PAST_ACTIVITY;
 import static gomedic.testutil.TypicalActivities.getTypicalActivities;
 import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
+import static gomedic.testutil.TypicalPersons.NOT_IN_TYPICAL_DOCTOR;
+import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
+import static gomedic.testutil.TypicalPersons.THIRD_DOCTOR;
 import static gomedic.testutil.TypicalPersons.getTypicalDoctors;
 import static gomedic.testutil.TypicalPersons.getTypicalPersons;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -26,6 +29,8 @@ import gomedic.model.activity.Activity;
 import gomedic.model.activity.exceptions.ActivityNotFoundException;
 import gomedic.model.activity.exceptions.ConflictingActivityException;
 import gomedic.model.activity.exceptions.DuplicateActivityFoundException;
+import gomedic.model.commonfield.Id;
+import gomedic.model.commonfield.exceptions.MaxListCapacityExceededException;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.exceptions.DuplicatePersonException;
@@ -244,14 +249,54 @@ public class AddressBookTest {
     }
 
     @Test
-    void getNewDoctorId_emptyList_return1() {
+    void hasNewDoctorId_emptyList_returnsTrue() {
+        assertTrue(addressBook.hasNewDoctorId());
+    }
+
+    @Test
+    void hasNewDoctorId_oneItemInList_returnsTrue() {
+        addressBook.addDoctor(MAIN_DOCTOR);
+        assertTrue(addressBook.hasNewDoctorId());
+    }
+
+    @Test
+    void hasNewDoctorId_maxItemInList_returnsFalse() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            addressBook.addDoctor(toAdd);
+        }
+        assertFalse(addressBook.hasNewDoctorId());
+    }
+
+    @Test
+    void getNewDoctorId_emptyList_returns1() {
         assertEquals(1, addressBook.getNewDoctorId());
     }
 
     @Test
-    void getNewDoctorId_oneItemList_return2() {
+    void getNewDoctorId_twoItemList_returns3() {
         addressBook.addDoctor(MAIN_DOCTOR);
+        addressBook.addDoctor(OTHER_DOCTOR);
+        assertEquals(3, addressBook.getNewDoctorId());
+    }
+
+    @Test
+    void getNewDoctorId_fourItemListRemoveId2_returns2() {
+        addressBook.addDoctor(MAIN_DOCTOR);
+        addressBook.addDoctor(OTHER_DOCTOR);
+        addressBook.addDoctor(THIRD_DOCTOR);
+        addressBook.addDoctor(NOT_IN_TYPICAL_DOCTOR);
+        addressBook.removeDoctor(OTHER_DOCTOR);
         assertEquals(2, addressBook.getNewDoctorId());
+    }
+
+    @Test
+    void getNewDoctorId_maxListSize_throwsMaxListCapacityExceededException() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            addressBook.addDoctor(toAdd);
+        }
+        assertThrows(MaxListCapacityExceededException.class, addressBook::getNewDoctorId);
     }
 
     /**

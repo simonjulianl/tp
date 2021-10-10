@@ -13,7 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("ta/");
 
     /* Prefix definitions for a doctor */
-    public static final Prefix PREFIX_DEPARTMENT = new Prefix("s/");
+    public static final Prefix PREFIX_DEPARTMENT = new Prefix("de/");
 
     /* Prefix definitions for an activity */
     public static final Prefix PREFIX_TITLE = new Prefix("ti/");

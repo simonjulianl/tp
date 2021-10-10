@@ -203,18 +203,18 @@ Examples:
 
 Adds a new doctor into the GoMedic application.
 
-Format: `add t/doctor n/NAME p/PHONE_NUMBER s/DEPARTMENT`
+Format: `add t/doctor n/NAME p/PHONE_NUMBER de/DEPARTMENT`
 
 The parameters are: 
 
 * `n/NAME` indicates the full name of the doctor, first name and last name are separated by `space`.
 * `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
-* `s/DEPARTMENT` is the name of the department where the doctor serves in String.
+* `de/DEPARTMENT` is the name of the department where the doctor serves in String.
 
 Examples:
 
-* `add t/doctor n/Timmy Tom p/98765432 s/neurology`
-* `add t/doctor n/John White p/12312312 s/cardiology`
+* `add t/doctor n/Timmy Tom p/98765432 de/neurology`
+* `add t/doctor n/John White p/12312312 de/cardiology`
 
 ### Display full details of a doctor: `view t/doctor`
 
@@ -269,7 +269,7 @@ The parameters are:
 Examples:
 
 * `add t/doctor i/D123 p/11112222`
-* `add t/doctor i/D101 s/orthopaedics`
+* `add t/doctor i/D101 de/orthopaedics`
 
 ### Viewing the list of doctors `list t/doctor`
 
@@ -333,7 +333,7 @@ The parameters are:
   (Valid for: `Patients`)
 * `o/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
   for: `Patients`)
-* `s/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
+* `de/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
 * `ti/TITLE`: Matches the title field (Valid for: `Activities`)
 * `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`,
   _Tagging for `Doctors` and `Patients` coming soon_)
@@ -460,7 +460,7 @@ the data of your previous GoMedic home folder.
 
 Action        | Format, Examples |
 --------------|------------------ |
-**Add**       | `add {type} {PARAMETERS}`<br> e.g., `add t/doctor n/Timmy Tom p/98765432 s/neurology`
+**Add**       | `add {type} {PARAMETERS}`<br> e.g., `add t/doctor n/Timmy Tom p/98765432 de/neurology`
 **Delete**    | `delete {type} i/{type}_ID` <br> e.g., `delete t/patient i/P003`<br>
 **Update**    | `update {type} i/{type}_ID [OPTIONAL PARAMETER]...`<br>e.g.,`update t/patient i/P123 n/John Doe a/30 g/M`<br>
 **Find**      | `find [OPTIONAL_PARAMATERS]...`<br> e.g., `find ta/important ti/tutorial`<br>

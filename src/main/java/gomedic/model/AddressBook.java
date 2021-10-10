@@ -152,6 +152,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Checks if there is an available new doctor id for assignment.
+     */
+    public boolean hasNewDoctorId() {
+        return doctors.hasNewId();
+    }
+
+    /**
      * Returns a new doctor id.
      */
     public int getNewDoctorId() {

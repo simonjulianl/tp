@@ -78,7 +78,12 @@ public interface Model {
     void addDoctor(Doctor doctor);
 
     /**
-     * Get a new unique doctor id which is just last id number + 1;
+     * Checks if there is a new doctor id available for assignment.
+     */
+    boolean hasNewDoctorId();
+
+    /**
+     * Get a new available unique doctor id.
      */
     int getNewDoctorId();
 

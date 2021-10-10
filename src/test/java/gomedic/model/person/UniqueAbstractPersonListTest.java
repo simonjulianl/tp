@@ -3,7 +3,6 @@ package gomedic.model.person;
 import static gomedic.testutil.Assert.assertThrows;
 import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
 import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
-import static gomedic.testutil.TypicalPersons.getTypicalDoctors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,6 +13,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import gomedic.model.commonfield.Id;
+import gomedic.model.commonfield.exceptions.MaxListCapacityExceededException;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.exceptions.DuplicatePersonException;
 import gomedic.model.person.exceptions.PersonNotFoundException;
@@ -182,13 +183,73 @@ class UniqueAbstractPersonListTest {
     }
 
     @Test
-    void getLastId_validInput_testsPassed() {
-        uniqueAbstractPersonList.setPersons(getTypicalDoctors());
-        assertEquals(4, uniqueAbstractPersonList.getNewId());
+    void hasNewId_emptyList_returnsTrue() {
+        assertTrue(uniqueAbstractPersonList.hasNewId());
     }
 
     @Test
-    void getLastDoctorId_emptyListInput_testsPassed() {
+    void hasNewId_oneLessThanMaxCapacity_returnsTrue() {
+        for (int i = 1; i < Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            uniqueAbstractPersonList.add(toAdd);
+        }
+        assertTrue(uniqueAbstractPersonList.hasNewId());
+    }
+
+    @Test
+    void hasNewId_listAtMaxCapacity_returnsFalse() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            uniqueAbstractPersonList.add(toAdd);
+        }
+        assertFalse(uniqueAbstractPersonList.hasNewId());
+    }
+
+    @Test
+    void getNewId_emptyList_returns1() {
         assertEquals(1, uniqueAbstractPersonList.getNewId());
+    }
+
+    @Test
+    void getNewId_fourAlreadyInList_returns5() {
+        for (int i = 1; i <= 4; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            uniqueAbstractPersonList.add(toAdd);
+        }
+
+        assertEquals(5, uniqueAbstractPersonList.getNewId());
+    }
+
+    @Test
+    void getNewId_fourAlreadyInListRemoveId2_returns2() {
+        Doctor toRemove = new DoctorBuilder().withId(2).build();;
+        for (int i = 1; i <= 4; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            uniqueAbstractPersonList.add(toAdd);
+        }
+
+        uniqueAbstractPersonList.remove(toRemove);
+
+        assertEquals(2, uniqueAbstractPersonList.getNewId());
+    }
+
+    @Test
+    void getNewId_listContainsOneLessThanMax_returnsMax() {
+        for (int i = 1; i < Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            uniqueAbstractPersonList.add(toAdd);
+        }
+
+        assertEquals(Id.MAXIMUM_ASSIGNABLE_IDS, uniqueAbstractPersonList.getNewId());
+    }
+
+    @Test
+    void getNewId_listContainsMax_throwsMaxListCapacityExceededException() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            uniqueAbstractPersonList.add(toAdd);
+        }
+
+        assertThrows(MaxListCapacityExceededException.class, uniqueAbstractPersonList::getNewId);
     }
 }

@@ -36,6 +36,9 @@ public class AddDoctorCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New doctor added: %1$s";
     public static final String MESSAGE_DUPLICATE_DOCTOR =
             "This Doctor already exists in the address book, duplicate id";
+    public static final String MESSAGE_MAXIMUM_CAPACITY_EXCEEDED =
+            "The maximum capacity for the number of doctors that can be added in the address book has been reached; "
+                    + "No more doctors can be added.";
 
     private final Name name;
     private final Phone phone;
@@ -56,6 +59,9 @@ public class AddDoctorCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.hasNewDoctorId()) {
+            throw new CommandException(MESSAGE_MAXIMUM_CAPACITY_EXCEEDED);
+        }
 
         Doctor toAdd = new Doctor(name, phone, new DoctorId(model.getNewDoctorId()), department);
 
