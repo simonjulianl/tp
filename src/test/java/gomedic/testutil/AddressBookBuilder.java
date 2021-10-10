@@ -4,6 +4,7 @@ import gomedic.model.AddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -43,6 +44,14 @@ public class AddressBookBuilder {
      */
     public AddressBookBuilder withDoctor(Doctor doctor) {
         addressBook.addDoctor(doctor);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code Patient} to the {@code AddressBook} that we are building.
+     */
+    public AddressBookBuilder withPatient(Patient patient) {
+        addressBook.addPatient(patient);
         return this;
     }
 

@@ -1,7 +1,9 @@
 package gomedic.model;
 
 import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
+import static gomedic.testutil.TypicalPersons.MAIN_PATIENT;
 import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
+import static gomedic.testutil.TypicalPersons.OTHER_PATIENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -19,12 +21,14 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.AddressBookBuilder;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalActivities;
 import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
+import gomedic.testutil.modelbuilder.PatientBuilder;
 
 public class ModelManagerTest {
 
@@ -110,6 +114,8 @@ public class ModelManagerTest {
                 .withActivity(TypicalActivities.PAPER_REVIEW)
                 .withDoctor(TypicalPersons.MAIN_DOCTOR)
                 .withDoctor(TypicalPersons.OTHER_DOCTOR)
+                .withPatient(TypicalPersons.MAIN_PATIENT)
+                .withPatient(TypicalPersons.OTHER_PATIENT)
                 .build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -206,6 +212,69 @@ public class ModelManagerTest {
     public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredDoctorList()
                 .remove(0));
+    }
+
+    @Test
+    public void hasPatient_nullPatient_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasPatient(null));
+    }
+
+    @Test
+    public void hasPatient_patientNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasPatient(TypicalPersons.MAIN_PATIENT));
+    }
+
+    @Test
+    public void hasPatient_patientInAddressBook_returnsTrue() {
+        modelManager.addPatient(TypicalPersons.MAIN_PATIENT);
+        assertTrue(modelManager.hasPatient(TypicalPersons.MAIN_PATIENT));
+    }
+
+    @Test
+    void hasNewPatientId_emptyList_returnsTrue() {
+        assertTrue(modelManager.hasNewPatientId());
+    }
+
+    @Test
+    void hasNewPatientId_oneItemInList_returnsTrue() {
+        modelManager.addPatient(MAIN_PATIENT);
+        assertTrue(modelManager.hasNewPatientId());
+    }
+
+    @Test
+    void hasNewPatientId_maxItemInList_returnsFalse() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Patient toAdd = new PatientBuilder().withId(i).build();
+            modelManager.addPatient(toAdd);
+        }
+        assertFalse(modelManager.hasNewPatientId());
+    }
+
+    @Test
+    void getNewPatientId_emptyList_returns1() {
+        assertEquals(1, modelManager.getNewPatientId());
+    }
+
+    @Test
+    void getNewPatientId_twoItemList_returns3() {
+        modelManager.addPatient(MAIN_PATIENT);
+        modelManager.addPatient(OTHER_PATIENT);
+        assertEquals(3, modelManager.getNewPatientId());
+    }
+
+    @Test
+    void getNewPatientId_maxListSize_throwsMaxAddressBookCapacityReached() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Patient toAdd = new PatientBuilder().withId(i).build();
+            modelManager.addPatient(toAdd);
+        }
+        assertThrows(MaxAddressBookCapacityReached.class, modelManager::getNewPatientId);
+    }
+
+    @Test
+    public void getFilteredPatientList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPatientList()
+            .remove(0));
     }
 
     @Test
