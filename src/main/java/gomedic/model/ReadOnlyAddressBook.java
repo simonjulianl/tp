@@ -26,7 +26,7 @@ public interface ReadOnlyAddressBook {
      * Returns an unmodifiable view of the activity list.
      * Guarantee: This list will not contain any conflicting and duplicate activity.
      */
-    ObservableList<Activity> getActivityList();
+    ObservableList<Activity> getActivityListSortedById();
 
     /**
      * Returns a sorted list by start time.

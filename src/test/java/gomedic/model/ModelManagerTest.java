@@ -1,11 +1,11 @@
 package gomedic.model;
 
-import static gomedic.testutil.Assert.assertThrows;
 import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
 import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.GuiSettings;
 import gomedic.model.commonfield.Id;
-import gomedic.model.commonfield.exceptions.MaxListCapacityExceededException;
+import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.AddressBookBuilder;
@@ -194,12 +194,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    void getNewDoctorId_maxListSize_throwsMaxListCapacityExceededException() {
+    void getNewDoctorId_maxListSize_throwsMaxAddressBookCapacityReached() {
         for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
             Doctor toAdd = new DoctorBuilder().withId(i).build();
             modelManager.addDoctor(toAdd);
         }
-        assertThrows(MaxListCapacityExceededException.class, modelManager::getNewDoctorId);
+        assertThrows(MaxAddressBookCapacityReached.class, modelManager::getNewDoctorId);
     }
 
     @Test
@@ -228,5 +228,21 @@ public class ModelManagerTest {
     public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityList()
                 .remove(0));
+    }
+
+    @Test
+    void getModelBeingShown_validInput_testPassed() {
+        assertEquals(0, modelManager.getModelBeingShown().getValue());
+    }
+
+    @Test
+    void setModelBeingShown_validInput_testPassed() {
+        modelManager.setModelBeingShown(ModelItem.PERSON);
+        assertEquals(1, modelManager.getModelBeingShown().getValue());
+    }
+
+    @Test
+    void setModelBeingShown_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setModelBeingShown(null));
     }
 }

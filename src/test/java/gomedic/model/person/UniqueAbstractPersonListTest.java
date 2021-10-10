@@ -14,7 +14,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import gomedic.model.commonfield.Id;
-import gomedic.model.commonfield.exceptions.MaxListCapacityExceededException;
+import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.exceptions.DuplicatePersonException;
 import gomedic.model.person.exceptions.PersonNotFoundException;
@@ -145,7 +145,7 @@ class UniqueAbstractPersonListTest {
     @Test
     public void setPersons_uniqueAbstractPersonList_replacesOwnListWithProvidedUniqueAbstractPersonList() {
         uniqueAbstractPersonList.add(MAIN_DOCTOR);
-        UniqueAbstractPersonList<Doctor> expectedUniqueAbstractPersonList = new UniqueAbstractPersonList<Doctor>();
+        UniqueAbstractPersonList<Doctor> expectedUniqueAbstractPersonList = new UniqueAbstractPersonList<>();
         expectedUniqueAbstractPersonList.add(OTHER_DOCTOR);
         uniqueAbstractPersonList.setPersons(expectedUniqueAbstractPersonList);
         assertEquals(expectedUniqueAbstractPersonList, uniqueAbstractPersonList);
@@ -222,7 +222,8 @@ class UniqueAbstractPersonListTest {
 
     @Test
     void getNewId_fourAlreadyInListRemoveId2_returns2() {
-        Doctor toRemove = new DoctorBuilder().withId(2).build();;
+        Doctor toRemove = new DoctorBuilder().withId(2).build();
+
         for (int i = 1; i <= 4; i++) {
             Doctor toAdd = new DoctorBuilder().withId(i).build();
             uniqueAbstractPersonList.add(toAdd);
@@ -244,12 +245,12 @@ class UniqueAbstractPersonListTest {
     }
 
     @Test
-    void getNewId_listContainsMax_throwsMaxListCapacityExceededException() {
+    void getNewId_listContainsMax_throwsMaxAddressBookCapacityReached() {
         for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
             Doctor toAdd = new DoctorBuilder().withId(i).build();
             uniqueAbstractPersonList.add(toAdd);
         }
 
-        assertThrows(MaxListCapacityExceededException.class, uniqueAbstractPersonList::getNewId);
+        assertThrows(MaxAddressBookCapacityReached.class, uniqueAbstractPersonList::getNewId);
     }
 }

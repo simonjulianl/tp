@@ -7,7 +7,7 @@ import java.util.List;
 
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.commonfield.Id;
-import gomedic.model.commonfield.exceptions.MaxListCapacityExceededException;
+import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
 import gomedic.model.person.exceptions.DuplicatePersonException;
 import gomedic.model.person.exceptions.PersonNotFoundException;
 import javafx.collections.FXCollections;
@@ -48,7 +48,7 @@ public class UniqueAbstractPersonList<T extends AbstractPerson> implements Itera
     public int getNewId() {
         if (!hasNewId()) {
             // Ideally this exception should never be triggered; Always use this::hasNewId before calling this method
-            throw new MaxListCapacityExceededException();
+            throw new MaxAddressBookCapacityReached();
         }
 
         if (internalList.size() == 0) {

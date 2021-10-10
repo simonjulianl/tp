@@ -57,7 +57,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        setActivities(newData.getActivityList());
+        setActivities(newData.getActivityListSortedById());
         setDoctors(newData.getDoctorList());
     }
 
@@ -221,7 +221,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons; "
-                + activities.asUnmodifiableObservableList().size() + " activities;"
+                + activities.asUnmodifiableSortedByIdObservableList().size() + " activities;"
                 + doctors.asUnmodifiableObservableList().size() + " doctors";
         // TODO: refine later
     }
@@ -237,13 +237,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Activity> getActivityList() {
-        return activities.asUnmodifiableObservableList();
+    public ObservableList<Activity> getActivityListSortedById() {
+        return activities.asUnmodifiableSortedByIdObservableList();
     }
 
     @Override
     public ObservableList<Activity> getActivityListSortedStartTime() {
-        return activities.asUnmodifiableSortedList();
+        return activities.asUnmodifiableSortedByStartTimeList();
     }
 
     @Override

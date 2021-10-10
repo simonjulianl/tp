@@ -12,11 +12,11 @@ import org.junit.jupiter.api.io.TempDir;
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.CommandTestUtil;
-import gomedic.logic.commands.ListCommand;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.commands.exceptions.CommandException;
+import gomedic.logic.commands.listcommand.ListPersonCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
@@ -109,8 +109,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListPersonCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListPersonCommand.MESSAGE_SUCCESS, model);
     }
 
     /**
@@ -210,6 +210,18 @@ public class LogicManagerTest {
     @Test
     public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredActivityList().remove(0));
+    }
+
+    @Test
+    void getModelBeingShown_defaultValue_testPassed() {
+        assertEquals(0, logic.getModelBeingShown().getValue());
+    }
+
+    @Test
+    void getModelBeingShown_executeOtherCommand_testPassed() throws Exception {
+        String listCommand = ListPersonCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListPersonCommand.MESSAGE_SUCCESS, model);
+        assertEquals(1, logic.getModelBeingShown().getValue());
     }
 
     /**

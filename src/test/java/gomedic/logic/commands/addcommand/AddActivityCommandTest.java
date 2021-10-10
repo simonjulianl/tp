@@ -107,7 +107,6 @@ class AddActivityCommandTest {
         assertNotEquals(addMeetingCommand, anotherAddMeetingCommand);
     }
 
-
     /**
      * A Model stub that contains a single activity.
      */

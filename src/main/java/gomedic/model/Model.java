@@ -7,6 +7,7 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -136,4 +137,23 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<? super Person> predicate);
+
+    /**
+     * Updates the filter of the filtered activities list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredActivitiesList(Predicate<? super Activity> predicate);
+
+    /**
+     * Returns the integer showing current item being shown.
+     * 0 -> activity
+     * 1 -> person
+     */
+    ObservableValue<Integer> getModelBeingShown();
+
+    /**
+     * Sets the model being shown.
+     */
+    void setModelBeingShown(ModelItem modelItem);
 }

@@ -12,6 +12,9 @@ import gomedic.commons.util.CollectionUtil;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -26,6 +29,10 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Activity> filteredActivities;
+    // used the ordinal value 0 -> Activity, 1 -> Person for simplicity instead of implementing new class.
+    private final ObjectProperty<Integer> internalModelItemBeingShown =
+            new SimpleIntegerProperty(ModelItem.ACTIVITY.ordinal()).asObject();
+    private final ObservableValue<Integer> modelItemBeingShown = internalModelItemBeingShown; // immutable
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
@@ -44,7 +51,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredDoctors = new FilteredList<>(this.addressBook.getDoctorList());
-        filteredActivities = new FilteredList<>(this.addressBook.getActivityList());
+        filteredActivities = new FilteredList<>(this.addressBook.getActivityListSortedById());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -53,6 +60,8 @@ public class ModelManager implements Model {
     public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
     }
+
+    //=========== UserPrefs ==================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -89,6 +98,8 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+    //=========== AddressBook ================================================================================
+
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
@@ -116,6 +127,23 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<? super Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
+        requireNonNull(predicate);
+        filteredActivities.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableValue<Integer> getModelBeingShown() {
+        return modelItemBeingShown;
+    }
+
+    @Override
+    public void setModelBeingShown(ModelItem modelItem) {
+        requireNonNull(modelItem);
+        internalModelItemBeingShown.setValue(modelItem.ordinal());
     }
 
     @Override
@@ -183,6 +211,8 @@ public class ModelManager implements Model {
 
         addressBook.setPerson(target, editedPerson);
     }
+
+    //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of

@@ -30,7 +30,7 @@ import gomedic.model.activity.exceptions.ActivityNotFoundException;
 import gomedic.model.activity.exceptions.ConflictingActivityException;
 import gomedic.model.activity.exceptions.DuplicateActivityFoundException;
 import gomedic.model.commonfield.Id;
-import gomedic.model.commonfield.exceptions.MaxListCapacityExceededException;
+import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.exceptions.DuplicatePersonException;
@@ -50,7 +50,7 @@ public class AddressBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertEquals(Collections.emptyList(), addressBook.getDoctorList());
-        assertEquals(Collections.emptyList(), addressBook.getActivityList());
+        assertEquals(Collections.emptyList(), addressBook.getActivityListSortedById());
         assertEquals(Collections.emptyList(), addressBook.getActivityListSortedStartTime());
     }
 
@@ -172,7 +172,7 @@ public class AddressBookTest {
 
     @Test
     public void getActivityList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getActivityList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getActivityListSortedById().remove(0));
     }
 
     @Test
@@ -216,7 +216,7 @@ public class AddressBookTest {
         addressBook.addActivity(PAST_ACTIVITY);
         addressBook.addActivity(MEETING);
 
-        assertEquals(addressBook.getActivityList(), addressBook.getActivityListSortedStartTime());
+        assertEquals(List.of(PAST_ACTIVITY, MEETING), addressBook.getActivityListSortedStartTime());
     }
 
     @Test
@@ -296,7 +296,7 @@ public class AddressBookTest {
             Doctor toAdd = new DoctorBuilder().withId(i).build();
             addressBook.addDoctor(toAdd);
         }
-        assertThrows(MaxListCapacityExceededException.class, addressBook::getNewDoctorId);
+        assertThrows(MaxAddressBookCapacityReached.class, addressBook::getNewDoctorId);
     }
 
     /**
@@ -325,7 +325,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Activity> getActivityList() {
+        public ObservableList<Activity> getActivityListSortedById() {
             return activities;
         }
 
