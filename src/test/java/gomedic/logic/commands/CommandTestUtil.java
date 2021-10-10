@@ -22,6 +22,7 @@ import gomedic.model.activity.Activity;
 import gomedic.model.activity.ActivityId;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.EditPersonDescriptorBuilder;
 import javafx.beans.value.ObservableValue;
@@ -191,6 +192,20 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the doctors at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showDoctorAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDoctorList().size());
+
+        Doctor doctor = model.getFilteredDoctorList().get(targetIndex.getZeroBased());
+        final DoctorId did = new DoctorId(doctor.getId().getIdNumber());
+        model.updateFilteredDoctorList(doctor1 -> doctor1.getId().equals(did));
+
+        assertEquals(1, model.getFilteredDoctorList().size());
+    }
+
+    /**
      * Updates {@code model}'s filtered list to show only the activity at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
@@ -325,6 +340,11 @@ public class CommandTestUtil {
 
         @Override
         public void updateFilteredPersonList(Predicate<? super Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredDoctorList(Predicate<? super Doctor> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -9,6 +9,7 @@ import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.ui.panel.ActivityListPanel;
+import gomedic.ui.panel.DoctorListPanel;
 import gomedic.ui.panel.PersonListPanel;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ActivityListPanel activityListPanel;
+    private DoctorListPanel doctorListPanel;
 
     private ResultDisplay resultDisplay;
 
@@ -74,7 +76,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
 
         // Value to indicate what model is currently being shown.
-        // 0 -> Activity, 1 -> Person
+        // 0 -> Activity, 1 -> Doctor, 2 -> Patient, 3 -> Person
         ObservableValue<Integer> modelItemBeingShown = logic.getModelBeingShown();
         modelItemBeingShown.addListener((obs, oldVal, newVal) -> {
             modelListPanelPlaceholder.getChildren().clear();
@@ -83,6 +85,9 @@ public class MainWindow extends UiPart<Stage> {
                 modelListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
                 break;
             case 1:
+                modelListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+                break;
+            case 3:
                 modelListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
                 break;
             default:
@@ -137,6 +142,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         activityListPanel = new ActivityListPanel(logic.getFilteredActivityList());
+        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList());
 
         // by default, show the activity first
         modelListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
@@ -199,6 +205,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public ActivityListPanel getActivityListPanel() {
         return activityListPanel;
+    }
+
+    public DoctorListPanel getDoctorListPanel() {
+        return doctorListPanel;
     }
 
     /**

@@ -29,9 +29,11 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Activity> filteredActivities;
-    // used the ordinal value 0 -> Activity, 1 -> Person for simplicity instead of implementing new class.
+
+    // used the ordinal value 0 -> Activity, 1 -> Doctor, 2 -> Patient, 3 -> Person for simplicity.
     private final ObjectProperty<Integer> internalModelItemBeingShown =
             new SimpleIntegerProperty(ModelItem.ACTIVITY.ordinal()).asObject();
+
     private final ObservableValue<Integer> modelItemBeingShown = internalModelItemBeingShown; // immutable
 
     public ModelManager() {
@@ -50,7 +52,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredDoctors = new FilteredList<>(this.addressBook.getDoctorList());
+        filteredDoctors = new FilteredList<>(this.addressBook.getDoctorListSortedById());
         filteredActivities = new FilteredList<>(this.addressBook.getActivityListSortedById());
     }
 
@@ -130,6 +132,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredDoctorList(Predicate<? super Doctor> predicate) {
+        requireNonNull(predicate);
+        filteredDoctors.setPredicate(predicate);
+    }
+
+    @Override
     public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
         requireNonNull(predicate);
         filteredActivities.setPredicate(predicate);
@@ -151,11 +159,6 @@ public class ModelManager implements Model {
         requireNonNull(doctor);
         addressBook.addDoctor(doctor);
         updateFilteredDoctorList(PREDICATE_SHOW_ALL_ITEMS);
-    }
-
-    private void updateFilteredDoctorList(Predicate<? super Doctor> predicate) {
-        requireNonNull(predicate);
-        filteredDoctors.setPredicate(predicate);
     }
 
     @Override

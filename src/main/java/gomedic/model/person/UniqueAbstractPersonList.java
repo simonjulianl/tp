@@ -144,7 +144,7 @@ public class UniqueAbstractPersonList<T extends AbstractPerson> implements Itera
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<T> asUnmodifiableObservableList() {
+    public ObservableList<T> asUnmodifiableSortedByIdObservableList() {
         return internalUnmodifiableList;
     }
 

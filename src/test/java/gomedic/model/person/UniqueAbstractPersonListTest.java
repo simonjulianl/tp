@@ -178,7 +178,7 @@ class UniqueAbstractPersonListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(
                 UnsupportedOperationException.class, () ->
-                        uniqueAbstractPersonList.asUnmodifiableObservableList().remove(0)
+                        uniqueAbstractPersonList.asUnmodifiableSortedByIdObservableList().remove(0)
         );
     }
 

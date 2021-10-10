@@ -11,28 +11,29 @@
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
         <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
             <padding>
-                <Insets top="5" right="5" bottom="5" left="15"/>
+                <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE"/>
+                        <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="title" text="\$title" styleClass="cell_big_label"/>
+                <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label styleClass="cell_small_label" text="Time: "/>
-                <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime"/>
-                <Label styleClass="cell_small_label" text="To"/>
-                <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime"/>
+                <Label styleClass="cell_small_label" text="Contact: "/>
+                <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             </HBox>
-            <Label fx:id="description" styleClass="cell_small_label" text="\$description"/>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label styleClass="cell_small_label" text="Department: "/>
+                <Label fx:id="department" styleClass="cell_small_label" text="\$department" />
+            </HBox>
         </VBox>
     </GridPane>
 </HBox>

@@ -15,6 +15,7 @@ import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
+import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPersonCommand;
 import gomedic.logic.parser.addcommandparser.AddActivityCommandParser;
 import gomedic.logic.parser.addcommandparser.AddDoctorCommandParser;
@@ -89,6 +90,9 @@ public class AddressBookParser {
 
         case ListPersonCommand.COMMAND_WORD:
             return new ListPersonCommand();
+
+        case ListDoctorCommand.COMMAND_WORD:
+            return new ListDoctorCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

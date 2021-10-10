@@ -238,7 +238,7 @@ public class ModelManagerTest {
     @Test
     void setModelBeingShown_validInput_testPassed() {
         modelManager.setModelBeingShown(ModelItem.PERSON);
-        assertEquals(1, modelManager.getModelBeingShown().getValue());
+        assertEquals(ModelItem.PERSON.ordinal(), modelManager.getModelBeingShown().getValue());
     }
 
     @Test
