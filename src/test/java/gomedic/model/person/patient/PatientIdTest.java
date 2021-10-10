@@ -46,6 +46,21 @@ public class PatientIdTest {
         assertTrue(isValidPatientId(new IdTest.TestId(50, 'P'))); // other id with same prefix
     }
 
+    @Test
+    void isValidId_stringParams_testPassed() {
+        // null patient id
+        assertThrows(NullPointerException.class, () -> new PatientId((String) null));
+
+        // invalid string literal of Patient Id
+        assertFalse(PatientId.isValidPatientId("111")); // no prefix
+        assertFalse(PatientId.isValidPatientId("A111")); // wrong prefix
+        assertFalse(PatientId.isValidPatientId("P11")); // wrong format
+
+        // valid string literal for doctor id
+        assertTrue(PatientId.isValidPatientId("P765")); // normal doctor id
+        assertTrue(PatientId.isValidPatientId("P007")); // doctor id with 2 leading '0's
+    }
+
     @SuppressWarnings("AssertBetweenInconvertibleTypes")
     @Test
     void equals_inputs_testsPassed() {

@@ -3,6 +3,7 @@ package gomedic.model;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
 import javafx.collections.ObservableList;
 
 /**
@@ -21,6 +22,12 @@ public interface ReadOnlyAddressBook {
      * Guarantee: This list will not contain any duplicate doctors.
      */
     ObservableList<Doctor> getDoctorList();
+
+    /**
+     * Returns an unmodifiable view of the patients list.
+     * Guarantee: This list will not contain any duplicate patients.
+     */
+    ObservableList<Patient> getPatientList();
 
     /**
      * Returns an unmodifiable view of the activity list.

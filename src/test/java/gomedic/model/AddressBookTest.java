@@ -7,10 +7,12 @@ import static gomedic.testutil.TypicalActivities.MEETING;
 import static gomedic.testutil.TypicalActivities.PAST_ACTIVITY;
 import static gomedic.testutil.TypicalActivities.getTypicalActivities;
 import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
+import static gomedic.testutil.TypicalPersons.MAIN_PATIENT;
 import static gomedic.testutil.TypicalPersons.NOT_IN_TYPICAL_DOCTOR;
 import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
 import static gomedic.testutil.TypicalPersons.THIRD_DOCTOR;
 import static gomedic.testutil.TypicalPersons.getTypicalDoctors;
+import static gomedic.testutil.TypicalPersons.getTypicalPatients;
 import static gomedic.testutil.TypicalPersons.getTypicalPersons;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,9 +37,11 @@ import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.exceptions.DuplicatePersonException;
 import gomedic.model.person.exceptions.PersonNotFoundException;
+import gomedic.model.person.patient.Patient;
 import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.modelbuilder.ActivityBuilder;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
+import gomedic.testutil.modelbuilder.PatientBuilder;
 import gomedic.testutil.modelbuilder.PersonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,6 +54,7 @@ public class AddressBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertEquals(Collections.emptyList(), addressBook.getDoctorList());
+        assertEquals(Collections.emptyList(), addressBook.getPatientList());
         assertEquals(Collections.emptyList(), addressBook.getActivityListSortedById());
         assertEquals(Collections.emptyList(), addressBook.getActivityListSortedStartTime());
     }
@@ -74,7 +79,8 @@ public class AddressBookTest {
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(TypicalPersons.ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons, getTypicalActivities(), getTypicalDoctors());
+        AddressBookStub newData = new AddressBookStub(newPersons, getTypicalActivities(), getTypicalDoctors(),
+            getTypicalPatients());
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -110,6 +116,68 @@ public class AddressBookTest {
     }
 
     @Test
+    public void addPatient_newPatient_returnsTrue() {
+        addressBook.addPatient(MAIN_PATIENT);
+        assertTrue(addressBook.hasPatient(MAIN_PATIENT));
+    }
+
+    @Test
+    public void addPatient_duplicatePatient_throwsDuplicatePersonException() {
+        addressBook.addPatient(MAIN_PATIENT);
+        assertThrows(DuplicatePersonException.class, () -> addressBook.addPatient(MAIN_PATIENT));
+    }
+
+    @Test
+    public void hasPatient_nullPatient_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasPatient(null));
+    }
+
+    @Test
+    public void hasPatient_patientNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasPatient(MAIN_PATIENT));
+    }
+
+    @Test
+    public void hasPatient_patientInAddressBook_returnsTrue() {
+        addressBook.addPatient(MAIN_PATIENT);
+        assertTrue(addressBook.hasPatient(MAIN_PATIENT));
+    }
+
+    @Test
+    public void hasPatient_patientWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addPatient(MAIN_PATIENT);
+        Patient editedPatient = new PatientBuilder(MAIN_PATIENT).withAge("40")
+                .build();
+        assertTrue(addressBook.hasPatient(editedPatient));
+    }
+
+    @Test
+    public void getPatientList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPatientList().remove(0));
+    }
+
+    @Test
+    void removePatient_nonExistentPatient_throwsPersonNotFoundException() {
+        assertThrows(PersonNotFoundException.class, () -> addressBook.removePatient(MAIN_PATIENT));
+    }
+
+    @Test
+    void removePatient_existingPatient_doesNotThrow() {
+        addressBook.addPatient(MAIN_PATIENT);
+        assertDoesNotThrow(() -> addressBook.removePatient(MAIN_PATIENT));
+    }
+
+    @Test
+    public void resetData_withDuplicatePatients_throwsDuplicatePersonException() {
+        // Two patients with the same id
+        List<Patient> newPatients = Arrays.asList(MAIN_PATIENT, MAIN_PATIENT);
+        AddressBookStub newData = new AddressBookStub(getTypicalPersons(), getTypicalActivities(), getTypicalDoctors(),
+            newPatients);
+
+        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+    }
+
+    @Test
     public void addDoctor_newDoctor_returnsTrue() {
         addressBook.addDoctor(MAIN_DOCTOR);
         assertTrue(addressBook.hasDoctor(MAIN_DOCTOR));
@@ -141,7 +209,7 @@ public class AddressBookTest {
     public void hasDoctor_doctorWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addDoctor(MAIN_DOCTOR);
         Doctor editedDoctor = new DoctorBuilder(MAIN_DOCTOR).withDepartment(MAIN_DOCTOR.getDepartment() + "s")
-                .build();
+            .build();
         assertTrue(addressBook.hasDoctor(editedDoctor));
     }
 
@@ -165,7 +233,8 @@ public class AddressBookTest {
     public void resetData_withDuplicateDoctors_throwsDuplicatePersonException() {
         // Two doctors with the same id
         List<Doctor> newDoctors = Arrays.asList(MAIN_DOCTOR, MAIN_DOCTOR);
-        AddressBookStub newData = new AddressBookStub(getTypicalPersons(), getTypicalActivities(), newDoctors);
+        AddressBookStub newData = new AddressBookStub(getTypicalPersons(), getTypicalActivities(), newDoctors,
+            getTypicalPatients());
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -306,12 +375,14 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Activity> activities = FXCollections.observableArrayList();
         private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
+        private final ObservableList<Patient> patients = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons, Collection<Activity> activities,
-                        Collection<Doctor> doctors) {
+                        Collection<Doctor> doctors, Collection<Patient> patients) {
             this.persons.setAll(persons);
             this.activities.setAll(activities);
             this.doctors.setAll(doctors);
+            this.patients.setAll(patients);
         }
 
         @Override
@@ -322,6 +393,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Doctor> getDoctorList() {
             return doctors;
+        }
+
+        @Override
+        public ObservableList<Patient> getPatientList() {
+            return patients;
         }
 
         @Override

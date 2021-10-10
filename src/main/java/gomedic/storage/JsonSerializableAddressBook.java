@@ -14,6 +14,7 @@ import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -24,11 +25,13 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_ACTIVITY = "Activities list contains duplicate activities(s).";
     public static final String MESSAGE_DUPLICATE_DOCTOR = "Doctors list contains duplicate doctors(s).";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patients(s).";
 
     // TODO remove ab3 person list
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedActivity> activities = new ArrayList<>();
     private final List<JsonAdaptedDoctor> doctors = new ArrayList<>();
+    private final List<JsonAdaptedPatient> patients = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given activities, doctors and patients
@@ -36,10 +39,12 @@ class JsonSerializableAddressBook {
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
                                        @JsonProperty("activities") List<JsonAdaptedActivity> activities,
-                                       @JsonProperty("doctors") List<JsonAdaptedDoctor> doctors) {
+                                       @JsonProperty("doctors") List<JsonAdaptedDoctor> doctors,
+                                       @JsonProperty("patients") List<JsonAdaptedPatient> patients) {
         this.persons.addAll(persons);
         this.activities.addAll(activities);
         this.doctors.addAll(doctors);
+        this.patients.addAll(patients);
     }
 
     /**
@@ -54,6 +59,7 @@ class JsonSerializableAddressBook {
                 .stream()
                 .map(JsonAdaptedActivity::new).collect(Collectors.toList()));
         doctors.addAll(source.getDoctorList().stream().map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
+        patients.addAll(source.getPatientList().stream().map(JsonAdaptedPatient::new).collect(Collectors.toList()));
     }
 
     /**
@@ -77,6 +83,14 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_DOCTOR);
             }
             addressBook.addDoctor(doctor);
+        }
+
+        for (JsonAdaptedPatient jsonAdaptedPatient: patients) {
+            Patient patient = jsonAdaptedPatient.toModelType();
+            if (addressBook.hasPatient(patient)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PATIENT);
+            }
+            addressBook.addPatient(patient);
         }
 
         for (JsonAdaptedActivity jsonAdaptedActivity : activities) {

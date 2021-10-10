@@ -11,6 +11,7 @@ import gomedic.model.person.Person;
 import gomedic.model.person.UniqueAbstractPersonList;
 import gomedic.model.person.UniquePersonList;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
 import javafx.collections.ObservableList;
 
 /**
@@ -22,6 +23,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueActivityList activities;
     private final UniqueAbstractPersonList<Doctor> doctors;
+    private final UniqueAbstractPersonList<Patient> patients;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -35,6 +37,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         activities = new UniqueActivityList();
         doctors = new UniqueAbstractPersonList<>();
+        patients = new UniqueAbstractPersonList<>();
     }
 
     /**
@@ -59,6 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setActivities(newData.getActivityListSortedById());
         setDoctors(newData.getDoctorList());
+        setPatients(newData.getPatientList());
     }
 
     /**
@@ -85,6 +89,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.doctors.setPersons(doctors);
     }
 
+    /**
+     * Replaces the contents of the patient list with {@code patients}.
+     * {@code patients} must not contain duplicate persons.
+     */
+    public void setPatients(List<Patient> patients) {
+        this.patients.setPersons(patients);
+    }
+
     //// person and activity-level operations
 
     /**
@@ -101,6 +113,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasDoctor(Doctor doctor) {
         requireNonNull(doctor);
         return doctors.contains(doctor);
+    }
+
+    /**
+     * Returns true if a patient with the same identity as {@code patient} exists in the address book.
+     */
+    public boolean hasPatient(Patient patient) {
+        requireNonNull(patient);
+        return patients.contains(patient);
     }
 
     /**
@@ -134,6 +154,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addDoctor(Doctor d) {
         doctors.add(d);
+    }
+
+    /**
+     * Adds a patient to the address book.
+     * The patient must not already exist in the address book.
+     */
+    public void addPatient(Patient p) {
+        patients.add(p);
     }
 
     /**
@@ -189,6 +217,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given patient {@code target} in the list with {@code editedPatient}.
+     * {@code target} must exist in the address book.
+     * The patient's id must not be the same as another existing patient in the address book (other than the one
+     * which is being replaced).
+     */
+    public void setPatient(Patient target, Patient editedPerson) {
+        requireNonNull(editedPerson);
+
+        patients.setPerson(target, editedPerson);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
@@ -208,6 +248,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Remove the doctor based on the id.
+     * Therefore, regardless whether the patient has different fields,
+     * as long as the id is the same, it would be treated as equal.
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removePatient(Patient key) {
+        patients.remove(key);
+    }
+
+    /**
      * Remove the activity based on the id.
      * Therefore, regardless whether the activity has different titles/fields,
      * as long as the id is the same, it would be treated as equal.
@@ -221,8 +272,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons; "
-                + activities.asUnmodifiableSortedByIdObservableList().size() + " activities;"
-                + doctors.asUnmodifiableObservableList().size() + " doctors";
+                + activities.asUnmodifiableSortedByIdObservableList().size() + " activities; "
+                + doctors.asUnmodifiableObservableList().size() + " doctors; "
+                + patients.asUnmodifiableObservableList().size() + " patients";
+
         // TODO: refine later
     }
 
@@ -234,6 +287,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Doctor> getDoctorList() {
         return doctors.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Patient> getPatientList() {
+        return patients.asUnmodifiableObservableList();
     }
 
     @Override
@@ -252,11 +310,12 @@ public class AddressBook implements ReadOnlyAddressBook {
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
                 && activities.equals(((AddressBook) other).activities)
-                && doctors.equals(((AddressBook) other).doctors));
+                && doctors.equals(((AddressBook) other).doctors)
+                && patients.equals(((AddressBook) other).patients));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, activities, doctors);
+        return Objects.hash(persons, activities, doctors, patients);
     }
 }
