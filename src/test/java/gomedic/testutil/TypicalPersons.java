@@ -40,11 +40,11 @@ public class TypicalPersons {
      */
     public static final Patient MAIN_PATIENT = new PatientBuilder().build();
     public static final Patient OTHER_PATIENT =
-        new PatientBuilder().withName("Smith John").withPhone("77777777").withAge("40").build();
+        new PatientBuilder().withName("Smith John").withPhone("77777777").withAge("40").withId(2).build();
     public static final Patient THIRD_PATIENT =
-        new PatientBuilder().withName("Joe Smith").withPhone("55555555").withAge("35").build();
+        new PatientBuilder().withName("Joe Smith").withPhone("55555555").withAge("35").withId(3).build();
     public static final Patient NOT_IN_TYPICAL_PATIENT =
-        new PatientBuilder().withName("Midnight coding lol").withPhone("11111111").withAge("28").build();
+        new PatientBuilder().withName("Midnight coding lol").withPhone("11111111").withAge("28").withId(4).build();
 
 
     /**

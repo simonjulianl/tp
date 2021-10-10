@@ -7,6 +7,7 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
@@ -116,6 +117,27 @@ public interface Model {
     boolean hasConflictingActivity(Activity activity);
 
     /**
+     * Adds the given patient.
+     * {@code patient} must not already exist in the address book.
+     */
+    void addPatient(Patient patient);
+
+    /**
+     * Checks if there is a new patient id available for assignment.
+     */
+    boolean hasNewPatientId();
+
+    /**
+     * Get a new available unique patient id.
+     */
+    int getNewPatientId();
+
+    /**
+     * Returns true if a patient with same id exists in the addressbook.
+     */
+    boolean hasPatient(Patient patient);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -127,6 +149,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
+
+    /** Returns an unmodifiable view of the filtered patient list */
+    ObservableList<Patient> getFilteredPatientList();
 
     /** Returns an unmodifiable view of the filtered activity list */
     ObservableList<Activity> getFilteredActivityList();

@@ -23,6 +23,7 @@ import gomedic.model.activity.ActivityId;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
+import gomedic.model.person.patient.Patient;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.EditPersonDescriptorBuilder;
 import javafx.beans.value.ObservableValue;
@@ -87,6 +88,37 @@ public class CommandTestUtil {
     public static final String INVALID_DESC_NAME_MAIN_DOCTOR = " " + CliSyntax.PREFIX_NAME + "John** Doe";
     public static final String INVALID_DESC_PHONE_MAIN_DOCTOR = " " + CliSyntax.PREFIX_PHONE + "not a number";
     public static final String INVALID_DESC_DEPARTMENT_MAIN_DOCTOR = " " + CliSyntax.PREFIX_DEPARTMENT + "Cardi**ology";
+
+    /* valid constants declarations for patient related fields */
+    public static final String VALID_DESC_NAME_MAIN_PATIENT = " " + CliSyntax.PREFIX_NAME + "Dohn Joe";
+    public static final String VALID_DESC_NAME_OTHER_PATIENT = " " + CliSyntax.PREFIX_NAME + "Smith John";
+    public static final String VALID_DESC_PHONE_MAIN_PATIENT = " " + CliSyntax.PREFIX_PHONE + "12345678";
+    public static final String VALID_DESC_PHONE_OTHER_PATIENT = " " + CliSyntax.PREFIX_PHONE + "77777777";
+    public static final String VALID_DESC_AGE_MAIN_PATIENT = " " + CliSyntax.PREFIX_AGE + "40";
+    public static final String VALID_DESC_AGE_OTHER_PATIENT = " " + CliSyntax.PREFIX_AGE + "37";
+    public static final String VALID_DESC_BLOODTYPE_MAIN_PATIENT = " " + CliSyntax.PREFIX_BLOODTYPE + "AB";
+    public static final String VALID_DESC_BLOODTYPE_OTHER_PATIENT = " " + CliSyntax.PREFIX_BLOODTYPE + "B";
+    public static final String VALID_DESC_GENDER_MAIN_PATIENT = " " + CliSyntax.PREFIX_GENDER + "M";
+    public static final String VALID_DESC_GENDER_OTHER_PATIENT = " " + CliSyntax.PREFIX_GENDER + "M";
+    public static final String VALID_DESC_HEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "176";
+    public static final String VALID_DESC_HEIGHT_OTHER_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "186";
+    public static final String VALID_DESC_WEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "86";
+    public static final String VALID_DESC_WEIGHT_OTHER_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "77";
+    public static final String VALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
+        + "heart failure";
+    public static final String VALID_DESC_MEDICALCONDITIONS_OTHER_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
+        + "diabetes";
+
+    /* invalid constants declarations for patient related fields */
+    public static final String INVALID_DESC_NAME_MAIN_PATIENT = " " + CliSyntax.PREFIX_NAME + "John** Doe";
+    public static final String INVALID_DESC_PHONE_MAIN_PATIENT = " " + CliSyntax.PREFIX_PHONE + "not a number";
+    public static final String INVALID_DESC_AGE_MAIN_PATIENT = " " + CliSyntax.PREFIX_AGE + "not a number";
+    public static final String INVALID_DESC_BLOODTYPE_MAIN_PATIENT = " " + CliSyntax.PREFIX_BLOODTYPE + "invalid";
+    public static final String INVALID_DESC_GENDER_MAIN_PATIENT = " " + CliSyntax.PREFIX_GENDER + "invalid";
+    public static final String INVALID_DESC_HEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "invalid";
+    public static final String INVALID_DESC_WEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "invalid";
+    public static final String INVALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
+        + "invalid**";
 
     /* valid constants declarations for activity related fields */
     public static final String VALID_DESC_TITLE_MEETING =
@@ -264,6 +296,11 @@ public class CommandTestUtil {
         }
 
         @Override
+        public void addPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addActivity(Activity activity) {
             throw new AssertionError("This method should not be called.");
         }
@@ -284,12 +321,27 @@ public class CommandTestUtil {
         }
 
         @Override
+        public boolean hasNewPatientId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getNewPatientId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasActivity(Activity activity) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPatient(Patient patient) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -335,6 +387,11 @@ public class CommandTestUtil {
 
         @Override
         public ObservableList<Doctor> getFilteredDoctorList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Patient> getFilteredPatientList() {
             throw new AssertionError("This method should not be called.");
         }
 

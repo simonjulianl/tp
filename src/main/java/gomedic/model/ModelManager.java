@@ -12,6 +12,7 @@ import gomedic.commons.util.CollectionUtil;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctors;
+    private final FilteredList<Patient> filteredPatients;
     private final FilteredList<Activity> filteredActivities;
 
     // used the ordinal value 0 -> Activity, 1 -> Doctor, 2 -> Patient, 3 -> Person for simplicity.
@@ -53,6 +55,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredDoctors = new FilteredList<>(this.addressBook.getDoctorListSortedById());
+        filteredPatients = new FilteredList<>(this.addressBook.getPatientList());
         filteredActivities = new FilteredList<>(this.addressBook.getActivityListSortedById());
     }
 
@@ -178,6 +181,34 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addPatient(Patient patient) {
+        requireNonNull(patient);
+        addressBook.addPatient(patient);
+        updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
+    }
+
+    private void updateFilteredPatientList(Predicate<? super Patient> predicate) {
+        requireNonNull(predicate);
+        filteredPatients.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasNewPatientId() {
+        return addressBook.hasNewPatientId();
+    }
+
+    @Override
+    public int getNewPatientId() {
+        return addressBook.getNewPatientId();
+    }
+
+    @Override
+    public boolean hasPatient(Patient patient) {
+        requireNonNull(patient);
+        return addressBook.hasPatient(patient);
+    }
+
+    @Override
     public void addActivity(Activity activity) {
         requireNonNull(activity);
         addressBook.addActivity(activity);
@@ -237,6 +268,15 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Returns an unmodifiable view of the list of {@code Patient} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Patient> getFilteredPatientList() {
+        return filteredPatients;
+    }
+
+    /**
      * Returns an unmodifiable view of the list of {@code Activity} backed by the internal list of
      * {@code versionedAddressBook}
      */
@@ -263,6 +303,7 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredDoctors.equals(other.filteredDoctors)
+                && filteredPatients.equals(other.filteredPatients)
                 && filteredActivities.equals(other.filteredActivities);
     }
 

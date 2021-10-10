@@ -21,6 +21,11 @@ import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.commonfield.Time;
 import gomedic.model.person.doctor.Department;
+import gomedic.model.person.patient.Age;
+import gomedic.model.person.patient.BloodType;
+import gomedic.model.person.patient.Gender;
+import gomedic.model.person.patient.Height;
+import gomedic.model.person.patient.Weight;
 import gomedic.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -34,8 +39,20 @@ public class ParserUtilTest {
     public static final String INVALID_DESCRIPTION = "SOME LONG DESCRIPTION".repeat(1000);
 
     public static final String VALID_DEPARTMENT = "Neurology";
-
     public static final String INVALID_DEPARTMENT = "Neuro**logy";
+
+    public static final String VALID_AGE = "45";
+    public static final String INVALID_AGE = "1000";
+    public static final String VALID_BLOODTYPE = "AB";
+    public static final String INVALID_BLOODTYPE = "ABC";
+    public static final String VALID_GENDER = "M";
+    public static final String INVALID_GENDER = "ABC";
+    public static final String VALID_HEIGHT = "175";
+    public static final String INVALID_HEIGHT = "1000";
+    public static final String VALID_WEIGHT = "76";
+    public static final String INVALID_WEIGHT = "1000";
+    public static final String VALID_MEDICALCONDITIONS = "heart failure";
+    public static final String INVALID_MEDICALCONDITIONS = "heart**";
 
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
@@ -189,6 +206,121 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseAge_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAge(null));
+    }
+
+    @Test
+    public void parseAge_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAge(INVALID_AGE));
+    }
+
+    @Test
+    public void parseAge_validValueWithoutWhitespace_returnsAge() throws Exception {
+        Age expectedAge = new Age(VALID_AGE);
+        assertEquals(expectedAge, ParserUtil.parseAge(VALID_AGE));
+    }
+
+    @Test
+    public void parseAge_validValueWithWhitespace_returnsTrimmedAge() throws Exception {
+        String ageWithWhitespace = WHITESPACE + VALID_AGE + WHITESPACE;
+        Age expectedAge = new Age(VALID_AGE);
+        assertEquals(expectedAge, ParserUtil.parseAge(ageWithWhitespace));
+    }
+
+    @Test
+    public void parseBloodType_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseBloodType(null));
+    }
+
+    @Test
+    public void parseBloodType_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseBloodType(INVALID_BLOODTYPE));
+    }
+
+    @Test
+    public void parseBloodType_validValueWithoutWhitespace_returnsBloodType() throws Exception {
+        BloodType expectedBloodType = new BloodType(VALID_BLOODTYPE);
+        assertEquals(expectedBloodType, ParserUtil.parseBloodType(VALID_BLOODTYPE));
+    }
+
+    @Test
+    public void parseBloodType_validValueWithWhitespace_returnsTrimmedBloodType() throws Exception {
+        String bloodTypeWithWhitespace = WHITESPACE + VALID_BLOODTYPE + WHITESPACE;
+        BloodType expectedBloodType = new BloodType(VALID_BLOODTYPE);
+        assertEquals(expectedBloodType, ParserUtil.parseBloodType(bloodTypeWithWhitespace));
+    }
+
+    @Test
+    public void parseGender_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseGender(null));
+    }
+
+    @Test
+    public void parseGender_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseGender(INVALID_GENDER));
+    }
+
+    @Test
+    public void parseGender_validValueWithoutWhitespace_returnsGender() throws Exception {
+        Gender expectedGender = new Gender(VALID_GENDER);
+        assertEquals(expectedGender, ParserUtil.parseGender(VALID_GENDER));
+    }
+
+    @Test
+    public void parseGender_validValueWithWhitespace_returnsTrimmedGender() throws Exception {
+        String genderWithWhitespace = WHITESPACE + VALID_GENDER + WHITESPACE;
+        Gender expectedGender = new Gender(VALID_GENDER);
+        assertEquals(expectedGender, ParserUtil.parseGender(genderWithWhitespace));
+    }
+
+    @Test
+    public void parseHeight_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseHeight(null));
+    }
+
+    @Test
+    public void parseHeight_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseHeight(INVALID_HEIGHT));
+    }
+
+    @Test
+    public void parseHeight_validValueWithoutWhitespace_returnsHeight() throws Exception {
+        Height expectedHeight = new Height(VALID_HEIGHT);
+        assertEquals(expectedHeight, ParserUtil.parseHeight(VALID_HEIGHT));
+    }
+
+    @Test
+    public void parseHeight_validValueWithWhitespace_returnsTrimmedHeight() throws Exception {
+        String genderWithWhitespace = WHITESPACE + VALID_HEIGHT + WHITESPACE;
+        Height expectedHeight = new Height(VALID_HEIGHT);
+        assertEquals(expectedHeight, ParserUtil.parseHeight(genderWithWhitespace));
+    }
+
+    @Test
+    public void parseWeight_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseWeight(null));
+    }
+
+    @Test
+    public void parseWeight_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeight(INVALID_WEIGHT));
+    }
+
+    @Test
+    public void parseWeight_validValueWithoutWhitespace_returnsWeight() throws Exception {
+        Weight expectedWeight = new Weight(VALID_WEIGHT);
+        assertEquals(expectedWeight, ParserUtil.parseWeight(VALID_WEIGHT));
+    }
+
+    @Test
+    public void parseWeight_validValueWithWhitespace_returnsTrimmedWeight() throws Exception {
+        String genderWithWhitespace = WHITESPACE + VALID_WEIGHT + WHITESPACE;
+        Weight expectedWeight = new Weight(VALID_WEIGHT);
+        assertEquals(expectedWeight, ParserUtil.parseWeight(genderWithWhitespace));
+    }
+
+    @Test
     public void parseTitle_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseTitle(null));
     }
@@ -302,5 +434,54 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseMedicalCondition_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMedicalConditions(null));
+    }
+
+    @Test
+    public void parseMedicalCondition_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG));
+    }
+
+    @Test
+    public void parseMedicalCondition_validValueWithoutWhitespace_returnsMedicalCondition() throws Exception {
+        Tag expectedMedicalCondition = new Tag(VALID_TAG_1);
+        assertEquals(expectedMedicalCondition, ParserUtil.parseTag(VALID_TAG_1));
+    }
+
+    @Test
+    public void parseMedicalCondition_validValueWithWhitespace_returnsTrimmedMedicalCondition() throws Exception {
+        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
+        Tag expectedMedicalCondition = new Tag(VALID_TAG_1);
+        assertEquals(expectedMedicalCondition, ParserUtil.parseTag(tagWithWhitespace));
+    }
+
+    @Test
+    public void parseMedicalConditions_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMedicalConditions(null));
+    }
+
+    @Test
+    public void parseMedicalConditions_collectionWithInvalidMedicalConditions_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMedicalConditions(Arrays
+            .asList(VALID_TAG_1, INVALID_TAG)));
+    }
+
+    @Test
+    public void parseMedicalConditions_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseMedicalConditions(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseMedicalConditions_collectionWithValidMedicalConditions_returnsMedicalConditionSet()
+        throws Exception {
+        Set<Tag> actualMedicalConditionSet = ParserUtil.parseMedicalConditions(Arrays
+            .asList(VALID_TAG_1, VALID_TAG_2));
+        Set<Tag> expectedMedicalConditionSet = new HashSet<>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+
+        assertEquals(expectedMedicalConditionSet, actualMedicalConditionSet);
     }
 }
