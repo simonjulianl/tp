@@ -17,11 +17,13 @@ import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.ReadOnlyUserPrefs;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.testutil.modelbuilder.PersonBuilder;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 public class AddPersonCommandTest {
@@ -172,6 +174,21 @@ public class AddPersonCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<? super Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableValue<Integer> getModelBeingShown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setModelBeingShown(ModelItem modelItem) {
             throw new AssertionError("This method should not be called.");
         }
     }

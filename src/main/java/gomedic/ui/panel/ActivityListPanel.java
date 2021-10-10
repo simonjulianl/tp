@@ -4,9 +4,8 @@ import java.util.logging.Logger;
 
 import gomedic.commons.core.LogsCenter;
 import gomedic.model.activity.Activity;
-import gomedic.ui.card.ActivityCard;
-import gomedic.ui.card.PersonCard;
 import gomedic.ui.UiPart;
+import gomedic.ui.card.ActivityCard;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -17,7 +16,7 @@ import javafx.scene.layout.Region;
  * Panel containing the list of persons.
  */
 public class ActivityListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "ActivityListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ActivityListPanel.class);
 
     @FXML
@@ -44,7 +43,7 @@ public class ActivityListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ActivityCard(activity, getIndex() + 1).getRoot());
+                setGraphic(new ActivityCard(activity).getRoot());
             }
         }
     }

@@ -11,6 +11,9 @@ import gomedic.commons.core.LogsCenter;
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -19,11 +22,14 @@ import javafx.collections.transformation.FilteredList;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Activity> filteredActivities;
+    // used the ordinal value 0 -> Activity, 1 -> Person for simplicity instead of implementing new class.
+    private final ObjectProperty<Integer> internalModelItemBeingShown =
+            new SimpleIntegerProperty(ModelItem.ACTIVITY.ordinal()).asObject();
+    private final ObservableValue<Integer> modelItemBeingShown = internalModelItemBeingShown; // immutable
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
@@ -41,15 +47,15 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredActivities = new FilteredList<>(this.addressBook.getActivityList());
+        filteredActivities = new FilteredList<>(this.addressBook.getActivityListSortedById());
     }
-
-    //=========== UserPrefs ==================================================================================
 
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
     }
+
+    //=========== UserPrefs ==================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -79,12 +85,12 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookDataFileRootPath(addressBookDataRootFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
+
+    //=========== AddressBook ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -116,6 +122,23 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
+        requireNonNull(predicate);
+        filteredActivities.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableValue<Integer> getModelBeingShown() {
+        return modelItemBeingShown;
+    }
+
+    @Override
+    public void setModelBeingShown(ModelItem modelItem) {
+        requireNonNull(modelItem);
+        internalModelItemBeingShown.setValue(modelItem.ordinal());
+    }
+
+    @Override
     public void addActivity(Activity activity) {
         requireNonNull(activity);
         addressBook.addActivity(activity);
@@ -144,14 +167,14 @@ public class ModelManager implements Model {
         return addressBook.hasConflictingActivity(activity);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
     @Override
     public void setPerson(Person target, Person editedPerson) {
         CollectionUtil.requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
     }
+
+    //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -186,5 +209,4 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredActivities.equals(other.filteredActivities);
     }
-
 }

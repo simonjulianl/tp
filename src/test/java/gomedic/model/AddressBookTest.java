@@ -45,7 +45,7 @@ public class AddressBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertEquals(Collections.emptyList(), addressBook.getDoctorList());
-        assertEquals(Collections.emptyList(), addressBook.getActivityList());
+        assertEquals(Collections.emptyList(), addressBook.getActivityListSortedById());
         assertEquals(Collections.emptyList(), addressBook.getActivityListSortedStartTime());
     }
 
@@ -167,7 +167,7 @@ public class AddressBookTest {
 
     @Test
     public void getActivityList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getActivityList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getActivityListSortedById().remove(0));
     }
 
     @Test
@@ -211,7 +211,7 @@ public class AddressBookTest {
         addressBook.addActivity(PAST_ACTIVITY);
         addressBook.addActivity(MEETING);
 
-        assertEquals(addressBook.getActivityList(), addressBook.getActivityListSortedStartTime());
+        assertEquals(List.of(PAST_ACTIVITY, MEETING), addressBook.getActivityListSortedStartTime());
     }
 
     @Test
@@ -269,7 +269,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Activity> getActivityList() {
+        public ObservableList<Activity> getActivityListSortedById() {
             return activities;
         }
 

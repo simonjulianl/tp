@@ -4,8 +4,8 @@ import java.util.logging.Logger;
 
 import gomedic.commons.core.LogsCenter;
 import gomedic.model.person.Person;
-import gomedic.ui.card.PersonCard;
 import gomedic.ui.UiPart;
+import gomedic.ui.card.PersonCard;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;

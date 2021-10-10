@@ -97,7 +97,7 @@ class UniqueActivityListTest {
         uniqueActivityList.add(PAPER_REVIEW);
         UniqueActivityList expectedUniqueActivityList = new UniqueActivityList();
         expectedUniqueActivityList.add(MEETING);
-        uniqueActivityList.setActivities(expectedUniqueActivityList.asUnmodifiableObservableList());
+        uniqueActivityList.setActivities(expectedUniqueActivityList.asUnmodifiableSortedByIdObservableList());
         assertEquals(expectedUniqueActivityList, uniqueActivityList);
     }
 
@@ -130,14 +130,14 @@ class UniqueActivityListTest {
     @Test
     public void asUnmodifiableObservableList() {
         uniqueActivityList.setActivities(getTypicalActivities());
-        assertEquals(getTypicalActivities(), uniqueActivityList.asUnmodifiableObservableList());
+        assertEquals(getTypicalActivities(), uniqueActivityList.asUnmodifiableSortedByIdObservableList());
     }
 
     @Test
     public void asUnmodifiableSortedList_typicalList_sortedByStartingTime() {
         uniqueActivityList.setActivities(getTypicalActivities());
         Activity prev = null;
-        for (Activity a : uniqueActivityList.asUnmodifiableSortedList()) {
+        for (Activity a : uniqueActivityList.asUnmodifiableSortedByStartTimeList()) {
             if (prev == null) {
                 prev = a;
             } else {
@@ -149,7 +149,8 @@ class UniqueActivityListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(
-                UnsupportedOperationException.class, () -> uniqueActivityList.asUnmodifiableObservableList().remove(0)
+                UnsupportedOperationException.class, () -> uniqueActivityList
+                        .asUnmodifiableSortedByIdObservableList().remove(0)
         );
     }
 

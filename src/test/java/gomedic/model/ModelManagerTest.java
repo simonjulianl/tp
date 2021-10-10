@@ -3,6 +3,7 @@ package gomedic.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -156,5 +157,21 @@ public class ModelManagerTest {
     public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityList()
                 .remove(0));
+    }
+
+    @Test
+    void getModelBeingShown_validInput_testPassed() {
+        assertEquals(0, modelManager.getModelBeingShown().getValue());
+    }
+
+    @Test
+    void setModelBeingShown_validInput_testPassed() {
+        modelManager.setModelBeingShown(ModelItem.PERSON);
+        assertEquals(1, modelManager.getModelBeingShown().getValue());
+    }
+
+    @Test
+    void setModelBeingShown_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setModelBeingShown(null));
     }
 }

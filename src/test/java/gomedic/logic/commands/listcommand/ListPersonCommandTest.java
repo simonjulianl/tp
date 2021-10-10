@@ -1,14 +1,13 @@
-package gomedic.logic.commands;
+package gomedic.logic.commands.listcommand;
 
 import static gomedic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static gomedic.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static gomedic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static gomedic.testutil.TypicalIndexes.INDEX_FIRST;
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import gomedic.logic.commands.listcommand.ListPersonCommand;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
@@ -34,7 +33,7 @@ public class ListPersonCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new ListPersonCommand(), model, ListPersonCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

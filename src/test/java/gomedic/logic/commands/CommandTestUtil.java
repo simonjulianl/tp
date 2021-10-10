@@ -13,6 +13,8 @@ import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
+import gomedic.model.activity.Activity;
+import gomedic.model.activity.ActivityId;
 import gomedic.model.person.Person;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.EditPersonDescriptorBuilder;
@@ -116,6 +118,7 @@ public class CommandTestUtil {
                                             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
+
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -154,4 +157,17 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the activity at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showActivityAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredActivityList().size());
+
+        Activity activity = model.getFilteredActivityList().get(targetIndex.getZeroBased());
+        final ActivityId aid = activity.getActivityId();
+        model.updateFilteredActivitiesList(activity1 -> activity1.getActivityId().equals(aid));
+
+        assertEquals(1, model.getFilteredActivityList().size());
+    }
 }

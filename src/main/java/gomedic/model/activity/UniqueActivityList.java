@@ -23,7 +23,7 @@ import javafx.collections.ObservableList;
  * Supports  a minimal set of list operations.
  */
 public class UniqueActivityList implements Iterable<Activity> {
-    private final int MAX_CAPACITY = 999;
+    public static final int MAX_CAPACITY = 999;
     private final ObservableList<Activity> internalList = FXCollections.observableArrayList();
     private final ObservableList<Activity> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -179,15 +179,20 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Activity> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
+    public ObservableList<Activity> asUnmodifiableSortedByIdObservableList() {
+        return internalUnmodifiableList
+                .sorted((activity, otherAct) ->
+                        activity.getActivityId() == otherAct.getActivityId()
+                                ? 0
+                                : activity.getActivityId().getIdNumber()
+                                < otherAct.getActivityId().getIdNumber() ? -1 : 1);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      * Returned list is sorted by starting the start time.
      */
-    public ObservableList<Activity> asUnmodifiableSortedList() {
+    public ObservableList<Activity> asUnmodifiableSortedByStartTimeList() {
         return internalUnmodifiableList
                 .sorted((activity, otherAct) ->
                         activity.getStartTime() == otherAct.getStartTime()

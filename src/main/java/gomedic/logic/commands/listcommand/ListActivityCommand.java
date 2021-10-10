@@ -9,19 +9,19 @@ import gomedic.model.Model;
 import gomedic.model.ModelItem;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all activities in the address book to the user.
  */
-public class ListPersonCommand extends Command {
+public class ListActivityCommand extends Command {
 
-    public static final String COMMAND_WORD = "list t/person";
+    public static final String COMMAND_WORD = "list t/activity";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Listed all activities sorted by id";
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setModelBeingShown(ModelItem.PERSON);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_ITEMS);
+        model.setModelBeingShown(ModelItem.ACTIVITY);
+        model.updateFilteredActivitiesList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

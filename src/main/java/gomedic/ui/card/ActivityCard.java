@@ -40,10 +40,10 @@ public class ActivityCard extends UiPart<Region> {
     /**
      * Creates a {@code ActivityCode} with the given {@code Activity} and index to display.
      */
-    public ActivityCard(Activity activity, int displayedIndex) {
+    public ActivityCard(Activity activity) {
         super(FXML);
         this.activity = activity;
-        id.setText(activity.toString());
+        id.setText(activity.getActivityId().toString() + ".");
         title.setText(activity.getTitle().toString());
         description.setText(activity.getDescription().toString());
         startTime.setText(activity.getStartTime().toString());
