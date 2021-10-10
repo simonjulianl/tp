@@ -1,5 +1,7 @@
 package gomedic.model;
 
+import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
+import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -14,11 +16,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.GuiSettings;
+import gomedic.model.commonfield.Id;
+import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
+import gomedic.model.person.doctor.Doctor;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.AddressBookBuilder;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalActivities;
 import gomedic.testutil.TypicalPersons;
+import gomedic.testutil.modelbuilder.DoctorBuilder;
 
 public class ModelManagerTest {
 
@@ -102,6 +108,8 @@ public class ModelManagerTest {
                 .withPerson(TypicalPersons.BENSON)
                 .withActivity(TypicalActivities.MEETING)
                 .withActivity(TypicalActivities.PAPER_REVIEW)
+                .withDoctor(TypicalPersons.MAIN_DOCTOR)
+                .withDoctor(TypicalPersons.OTHER_DOCTOR)
                 .build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -135,6 +143,69 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookDataFileRootPath(Paths.get("differentFilePath"));
         assertNotEquals(modelManager, new ModelManager(addressBook, differentUserPrefs));
+    }
+
+    @Test
+    public void hasDoctor_nullDoctor_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasDoctor(null));
+    }
+
+    @Test
+    public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasDoctor(TypicalPersons.MAIN_DOCTOR));
+    }
+
+    @Test
+    public void hasDoctor_doctorInAddressBook_returnsTrue() {
+        modelManager.addDoctor(TypicalPersons.MAIN_DOCTOR);
+        assertTrue(modelManager.hasDoctor(TypicalPersons.MAIN_DOCTOR));
+    }
+
+    @Test
+    void hasNewDoctorId_emptyList_returnsTrue() {
+        assertTrue(modelManager.hasNewDoctorId());
+    }
+
+    @Test
+    void hasNewDoctorId_oneItemInList_returnsTrue() {
+        modelManager.addDoctor(MAIN_DOCTOR);
+        assertTrue(modelManager.hasNewDoctorId());
+    }
+
+    @Test
+    void hasNewDoctorId_maxItemInList_returnsFalse() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            modelManager.addDoctor(toAdd);
+        }
+        assertFalse(modelManager.hasNewDoctorId());
+    }
+
+    @Test
+    void getNewDoctorId_emptyList_returns1() {
+        assertEquals(1, modelManager.getNewDoctorId());
+    }
+
+    @Test
+    void getNewDoctorId_twoItemList_returns3() {
+        modelManager.addDoctor(MAIN_DOCTOR);
+        modelManager.addDoctor(OTHER_DOCTOR);
+        assertEquals(3, modelManager.getNewDoctorId());
+    }
+
+    @Test
+    void getNewDoctorId_maxListSize_throwsMaxAddressBookCapacityReached() {
+        for (int i = 1; i <= Id.MAXIMUM_ASSIGNABLE_IDS; i++) {
+            Doctor toAdd = new DoctorBuilder().withId(i).build();
+            modelManager.addDoctor(toAdd);
+        }
+        assertThrows(MaxAddressBookCapacityReached.class, modelManager::getNewDoctorId);
+    }
+
+    @Test
+    public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredDoctorList()
+                .remove(0));
     }
 
     @Test

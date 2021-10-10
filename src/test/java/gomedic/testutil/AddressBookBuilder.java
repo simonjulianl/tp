@@ -3,6 +3,7 @@ package gomedic.testutil;
 import gomedic.model.AddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -29,12 +30,19 @@ public class AddressBookBuilder {
         return this;
     }
 
-
     /**
      * Adds a new {@code Activity} to the {@code AddressBook} that we are building.
      */
     public AddressBookBuilder withActivity(Activity activity) {
         addressBook.addActivity(activity);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code Doctor} to the {@code AddressBook} that we are building.
+     */
+    public AddressBookBuilder withDoctor(Doctor doctor) {
+        addressBook.addDoctor(doctor);
         return this;
     }
 

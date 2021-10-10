@@ -13,6 +13,7 @@ import gomedic.commons.core.Messages;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
+import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.commands.listcommand.ListPersonCommand;
@@ -23,12 +24,14 @@ import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.UserPrefs;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
 import gomedic.storage.JsonAddressBookStorage;
 import gomedic.storage.JsonUserPrefsStorage;
 import gomedic.storage.StorageManager;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.modelbuilder.ActivityBuilder;
+import gomedic.testutil.modelbuilder.DoctorBuilder;
 import gomedic.testutil.modelbuilder.PersonBuilder;
 
 public class LogicManagerTest {
@@ -149,6 +152,29 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void executeAddDoctor_storageThrowsIoException_throwsCommandException() {
+        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage);
+
+        // Execute add doctor command
+        String addDoctorCommand = AddDoctorCommand.COMMAND_WORD
+                + CommandTestUtil.VALID_DESC_NAME_MAIN_DOCTOR
+                + CommandTestUtil.VALID_DESC_PHONE_MAIN_DOCTOR
+                + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_DOCTOR;
+
+        Doctor expectedDoctor = new DoctorBuilder(TypicalPersons.MAIN_DOCTOR).build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addDoctor(expectedDoctor);
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandFailure(addDoctorCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void executeAddActivity_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
@@ -174,6 +200,11 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredDoctorList().remove(0));
     }
 
     @Test

@@ -7,26 +7,18 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import gomedic.commons.core.GuiSettings;
 import gomedic.logic.commands.CommandResult;
+import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.AddressBook;
-import gomedic.model.Model;
-import gomedic.model.ModelItem;
 import gomedic.model.ReadOnlyAddressBook;
-import gomedic.model.ReadOnlyUserPrefs;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.Person;
 import gomedic.testutil.modelbuilder.ActivityBuilder;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 
 class AddActivityCommandTest {
 
@@ -57,7 +49,7 @@ class AddActivityCommandTest {
     @Test
     public void execute_duplicateActivity_throwsCommandException() {
         Activity validActivity = new ActivityBuilder().build();
-        ModelStub modelStub = new ModelStubWithActivity(validActivity);
+        CommandTestUtil.ModelStub modelStub = new ModelStubWithActivity(validActivity);
 
         AddActivityCommand addActivityCommand = new AddActivityCommand(
                 validActivity.getStartTime(),
@@ -75,7 +67,7 @@ class AddActivityCommandTest {
         Activity validActivity = new ActivityBuilder()
                 .withId(10)
                 .build();
-        ModelStub modelStub = new ModelStubWithActivity(validActivity);
+        CommandTestUtil.ModelStub modelStub = new ModelStubWithActivity(validActivity);
 
         AddActivityCommand addActivityCommand = new AddActivityCommand(
                 CONFLICTING_MEETING.getStartTime(),
@@ -116,124 +108,9 @@ class AddActivityCommandTest {
     }
 
     /**
-     * A default model stub that have all the methods failing.
-     */
-    private static class ModelStub implements Model {
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookDataRootFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookDataRootFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addActivity(Activity activity) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public int getNewActivityId() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasActivity(Activity activity) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasConflictingActivity(Activity activity) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Activity> getFilteredActivityList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<? super Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableValue<Integer> getModelBeingShown() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setModelBeingShown(ModelItem modelItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
      * A Model stub that contains a single activity.
      */
-    private static class ModelStubWithActivity extends AddActivityCommandTest.ModelStub {
+    private static class ModelStubWithActivity extends CommandTestUtil.ModelStub {
         private final Activity activity;
         private int counter = 1;
 
@@ -263,7 +140,7 @@ class AddActivityCommandTest {
     /**
      * A Model stub that always accept the activity being added.
      */
-    private static class ModelStubAcceptingActivityAdded extends AddActivityCommandTest.ModelStub {
+    private static class ModelStubAcceptingActivityAdded extends CommandTestUtil.ModelStub {
         final ArrayList<Activity> activitiesAdded = new ArrayList<>();
         private int counter = 1;
 
