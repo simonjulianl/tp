@@ -61,7 +61,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setActivities(newData.getActivityListSortedById());
-        setDoctors(newData.getDoctorList());
+        setDoctors(newData.getDoctorListSortedById());
         setPatients(newData.getPatientList());
     }
 
@@ -287,8 +287,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons; "
                 + activities.asUnmodifiableSortedByIdObservableList().size() + " activities; "
-                + doctors.asUnmodifiableObservableList().size() + " doctors; "
-                + patients.asUnmodifiableObservableList().size() + " patients";
+                + doctors.asUnmodifiableSortedByIdObservableList().size() + " doctors; "
+                + patients.asUnmodifiableSortedByIdObservableList().size() + " patients";
 
         // TODO: refine later
     }
@@ -299,13 +299,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Doctor> getDoctorList() {
-        return doctors.asUnmodifiableObservableList();
+    public ObservableList<Doctor> getDoctorListSortedById() {
+        return doctors.asUnmodifiableSortedByIdObservableList();
     }
 
     @Override
     public ObservableList<Patient> getPatientList() {
-        return patients.asUnmodifiableObservableList();
+        return patients.asUnmodifiableSortedByIdObservableList();
     }
 
     @Override

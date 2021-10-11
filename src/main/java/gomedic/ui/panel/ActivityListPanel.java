@@ -13,7 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of activities.
  */
 public class ActivityListPanel extends UiPart<Region> {
     private static final String FXML = "ActivityListPanel.fxml";
@@ -47,5 +47,4 @@ public class ActivityListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

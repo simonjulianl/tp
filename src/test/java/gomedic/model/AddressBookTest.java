@@ -56,7 +56,7 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
-        assertEquals(Collections.emptyList(), addressBook.getDoctorList());
+        assertEquals(Collections.emptyList(), addressBook.getDoctorListSortedById());
         assertEquals(Collections.emptyList(), addressBook.getPatientList());
         assertEquals(Collections.emptyList(), addressBook.getActivityListSortedById());
         assertEquals(Collections.emptyList(), addressBook.getActivityListSortedStartTime());
@@ -218,7 +218,7 @@ public class AddressBookTest {
 
     @Test
     public void getDoctorList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getDoctorList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getDoctorListSortedById().remove(0));
     }
 
     @Test
@@ -445,7 +445,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Doctor> getDoctorList() {
+        public ObservableList<Doctor> getDoctorListSortedById() {
             return doctors;
         }
 

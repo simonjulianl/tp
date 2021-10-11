@@ -20,6 +20,7 @@ import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.commands.listcommand.ListPersonCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
 import gomedic.model.ModelManager;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.UserPrefs;
@@ -249,14 +250,14 @@ public class LogicManagerTest {
 
     @Test
     void getModelBeingShown_defaultValue_testPassed() {
-        assertEquals(0, logic.getModelBeingShown().getValue());
+        assertEquals(ModelItem.ACTIVITY.ordinal(), logic.getModelBeingShown().getValue());
     }
 
     @Test
     void getModelBeingShown_executeOtherCommand_testPassed() throws Exception {
         String listCommand = ListPersonCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListPersonCommand.MESSAGE_SUCCESS, model);
-        assertEquals(1, logic.getModelBeingShown().getValue());
+        assertEquals(ModelItem.PERSON.ordinal(), logic.getModelBeingShown().getValue());
     }
 
     /**

@@ -67,7 +67,9 @@ public interface Logic {
     /**
      * Returns the integer showing current item being shown.
      * 0 -> activity
-     * 1 -> person
+     * 1 -> doctor
+     * 2 -> patient
+     * 3 -> person TODO REMOVE
      */
     ObservableValue<Integer> getModelBeingShown();
 }

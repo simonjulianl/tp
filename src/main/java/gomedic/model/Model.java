@@ -164,6 +164,13 @@ public interface Model {
     void updateFilteredPersonList(Predicate<? super Person> predicate);
 
     /**
+     * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDoctorList(Predicate<? super Doctor> predicate);
+
+    /**
      * Updates the filter of the filtered activities list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
@@ -173,7 +180,9 @@ public interface Model {
     /**
      * Returns the integer showing current item being shown.
      * 0 -> activity
-     * 1 -> person
+     * 1 -> doctor
+     * 2 -> patient
+     * 3 -> person
      */
     ObservableValue<Integer> getModelBeingShown();
 
