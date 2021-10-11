@@ -9,18 +9,22 @@ import java.util.Set;
 import gomedic.commons.core.index.Index;
 import gomedic.commons.util.StringUtil;
 import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Address;
 import gomedic.model.commonfield.Email;
+import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.commonfield.Time;
 import gomedic.model.person.doctor.Department;
+import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.person.patient.Age;
 import gomedic.model.person.patient.BloodType;
 import gomedic.model.person.patient.Gender;
 import gomedic.model.person.patient.Height;
+import gomedic.model.person.patient.PatientId;
 import gomedic.model.person.patient.Weight;
 import gomedic.model.tag.Tag;
 
@@ -220,6 +224,30 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
         return new Time(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String id} into an {@code id}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code id} is invalid.
+     */
+    public static Id parseId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        if (trimmedId.length() != 4) {
+            throw new ParseException(Id.MESSAGE_CONSTRAINTS);
+        }
+
+        if (ActivityId.isValidActivityId(trimmedId)) {
+            return new ActivityId(trimmedId);
+        } else if (DoctorId.isValidDoctorId(trimmedId)) {
+            return new DoctorId(trimmedId);
+        } else if (PatientId.isValidPatientId(trimmedId)) {
+            return new PatientId(trimmedId);
+        }
+
+        throw new ParseException(Id.MESSAGE_CONSTRAINTS);
     }
 
     /**

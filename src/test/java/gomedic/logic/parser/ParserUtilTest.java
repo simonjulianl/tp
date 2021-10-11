@@ -13,18 +13,22 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Address;
 import gomedic.model.commonfield.Email;
+import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.commonfield.Time;
 import gomedic.model.person.doctor.Department;
+import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.person.patient.Age;
 import gomedic.model.person.patient.BloodType;
 import gomedic.model.person.patient.Gender;
 import gomedic.model.person.patient.Height;
+import gomedic.model.person.patient.PatientId;
 import gomedic.model.person.patient.Weight;
 import gomedic.model.tag.Tag;
 
@@ -66,6 +70,10 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
+    private static final String VALID_ACTIVITY_ID = "A001";
+    private static final String VALID_DOCTOR_ID = "D001";
+    private static final String VALID_PATIENT_ID = "P001";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -467,7 +475,7 @@ public class ParserUtilTest {
     @Test
     public void parseMedicalConditions_collectionWithInvalidMedicalConditions_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseMedicalConditions(Arrays
-            .asList(VALID_TAG_1, INVALID_TAG)));
+                .asList(VALID_TAG_1, INVALID_TAG)));
     }
 
     @Test
@@ -477,11 +485,29 @@ public class ParserUtilTest {
 
     @Test
     public void parseMedicalConditions_collectionWithValidMedicalConditions_returnsMedicalConditionSet()
-        throws Exception {
+            throws Exception {
         Set<Tag> actualMedicalConditionSet = ParserUtil.parseMedicalConditions(Arrays
-            .asList(VALID_TAG_1, VALID_TAG_2));
+                .asList(VALID_TAG_1, VALID_TAG_2));
         Set<Tag> expectedMedicalConditionSet = new HashSet<>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedMedicalConditionSet, actualMedicalConditionSet);
+    }
+
+    @Test
+    void parseId_validString_testPassed() throws Exception {
+        Id validActivityId = new ActivityId(VALID_ACTIVITY_ID);
+        Id validDoctorId = new DoctorId(VALID_DOCTOR_ID);
+        Id validPatientId = new PatientId(VALID_PATIENT_ID);
+
+        assertEquals(validActivityId, ParserUtil.parseId(VALID_ACTIVITY_ID));
+        assertEquals(validDoctorId, ParserUtil.parseId(VALID_DOCTOR_ID));
+        assertEquals(validPatientId, ParserUtil.parseId(VALID_PATIENT_ID));
+    }
+
+    @Test
+    void parseId_invalidString_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseId("B001"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseId("X001"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseId("Z9999"));
     }
 }
