@@ -356,6 +356,12 @@ public class CommandTestUtil {
         }
 
         @Override
+        public void deletePatient(Patient target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public boolean hasDoctor(Doctor doctor) {
             throw new AssertionError("This method should not be called.");
         }
