@@ -109,6 +109,11 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void executeDeleteDoctor_commandExecutionError_throwsCommandException() {
+        String deleteDoctor = "delete t/doctor D001";
+        assertCommandException(deleteDoctor, Messages.MESSAGE_INVALID_DOCTOR_ID);
+    }
+    @Test
     public void executeDeletePatient_commandExecutionError_throwsCommandException() {
         String deletePatient = "delete t/patient P001";
         assertCommandException(deletePatient, Messages.MESSAGE_INVALID_PATIENT_ID);

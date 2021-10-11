@@ -37,7 +37,7 @@ public class DeleteActivityCommand extends Command {
         requireNonNull(model);
         List<Activity> lastShownList = model.getFilteredActivityList();
 
-        Activity personToDelete = lastShownList
+        Activity activityToDelete = lastShownList
                 .stream()
                 .filter(activity -> activity
                         .getActivityId()
@@ -45,11 +45,11 @@ public class DeleteActivityCommand extends Command {
                 .findFirst()
                 .orElse(null);
 
-        if (personToDelete == null) {
+        if (activityToDelete == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_ID);
         }
-        model.deleteActivity(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, personToDelete));
+        model.deleteActivity(activityToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete));
     }
 
     @Override

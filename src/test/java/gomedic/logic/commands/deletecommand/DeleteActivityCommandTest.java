@@ -18,7 +18,7 @@ import gomedic.model.activity.ActivityId;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
- * {@code DeleteCommand}.
+ * {@code DeleteActivityCommand}.
  */
 public class DeleteActivityCommandTest {
 

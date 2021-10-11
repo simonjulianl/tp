@@ -8,7 +8,7 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.commonfield.Id;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteActivityCommand object
  */
 public class DeleteActivityParser implements Parser<DeleteActivityCommand> {
 

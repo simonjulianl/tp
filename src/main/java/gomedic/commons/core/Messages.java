@@ -19,6 +19,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_ACTIVITY_ID = "The activity id doesn't exist in the list";
+    public static final String MESSAGE_INVALID_DOCTOR_ID = "The doctor id doesn't exist in the list";
     public static final String MESSAGE_INVALID_PATIENT_ID = "The patient id doesn't exist in the list";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_HELP_COMMANDS = generateHelpText();
