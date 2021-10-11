@@ -55,7 +55,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredDoctors = new FilteredList<>(this.addressBook.getDoctorListSortedById());
-        filteredPatients = new FilteredList<>(this.addressBook.getPatientList());
+        filteredPatients = new FilteredList<>(this.addressBook.getPatientListSortedById());
         filteredActivities = new FilteredList<>(this.addressBook.getActivityListSortedById());
     }
 
@@ -141,6 +141,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredPatientList(Predicate<? super Patient> predicate) {
+        requireNonNull(predicate);
+        filteredPatients.setPredicate(predicate);
+    }
+
+    @Override
     public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
         requireNonNull(predicate);
         filteredActivities.setPredicate(predicate);
@@ -185,11 +191,6 @@ public class ModelManager implements Model {
         requireNonNull(patient);
         addressBook.addPatient(patient);
         updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
-    }
-
-    private void updateFilteredPatientList(Predicate<? super Patient> predicate) {
-        requireNonNull(predicate);
-        filteredPatients.setPredicate(predicate);
     }
 
     @Override

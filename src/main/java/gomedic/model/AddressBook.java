@@ -62,7 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setActivities(newData.getActivityListSortedById());
         setDoctors(newData.getDoctorListSortedById());
-        setPatients(newData.getPatientList());
+        setPatients(newData.getPatientListSortedById());
     }
 
     /**
@@ -304,7 +304,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Patient> getPatientList() {
+    public ObservableList<Patient> getPatientListSortedById() {
         return patients.asUnmodifiableSortedByIdObservableList();
     }
 
@@ -323,9 +323,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
-                && activities.equals(((AddressBook) other).activities)
-                && doctors.equals(((AddressBook) other).doctors)
-                && patients.equals(((AddressBook) other).patients));
+                && getActivityListSortedById().equals(((AddressBook) other).getActivityListSortedById())
+                && getDoctorListSortedById().equals(((AddressBook) other).getDoctorListSortedById())
+                && getPatientListSortedById().equals(((AddressBook) other).getPatientListSortedById()));
     }
 
     @Override

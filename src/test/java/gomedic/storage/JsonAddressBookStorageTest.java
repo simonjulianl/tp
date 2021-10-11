@@ -112,6 +112,8 @@ public class JsonAddressBookStorageTest {
         original.addPatient(MAIN_PATIENT);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        System.out.println(original.getPatientListSortedById());
+        System.out.println(new AddressBook(readBack).getPatientListSortedById());
         assertEquals(original, new AddressBook(readBack));
 
     }

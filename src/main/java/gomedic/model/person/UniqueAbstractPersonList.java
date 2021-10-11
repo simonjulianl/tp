@@ -145,7 +145,12 @@ public class UniqueAbstractPersonList<T extends AbstractPerson> implements Itera
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<T> asUnmodifiableSortedByIdObservableList() {
-        return internalUnmodifiableList;
+        return internalUnmodifiableList
+            .sorted((abstractPerson, otherAbstractPerson) ->
+                abstractPerson.getId() == otherAbstractPerson.getId()
+                    ? 0
+                    : abstractPerson.getId().getIdNumber()
+                    < otherAbstractPerson.getId().getIdNumber() ? -1 : 1);
     }
 
     @Override
