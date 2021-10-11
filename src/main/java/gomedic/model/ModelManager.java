@@ -243,6 +243,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deletePatient(Patient target) {
+        addressBook.removePatient(target);
+    }
+
+    @Override
     public boolean hasConflictingActivity(Activity activity) {
         requireNonNull(activity);
         return addressBook.hasConflictingActivity(activity);
