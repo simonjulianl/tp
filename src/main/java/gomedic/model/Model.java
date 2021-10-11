@@ -171,6 +171,13 @@ public interface Model {
     void updateFilteredDoctorList(Predicate<? super Doctor> predicate);
 
     /**
+     * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPatientList(Predicate<? super Patient> predicate);
+
+    /**
      * Updates the filter of the filtered activities list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.

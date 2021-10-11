@@ -10,6 +10,7 @@ import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.ui.panel.ActivityListPanel;
 import gomedic.ui.panel.DoctorListPanel;
+import gomedic.ui.panel.PatientListPanel;
 import gomedic.ui.panel.PersonListPanel;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -39,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ActivityListPanel activityListPanel;
     private DoctorListPanel doctorListPanel;
+    private PatientListPanel patientListPanel;
 
     private ResultDisplay resultDisplay;
 
@@ -86,6 +88,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case 1:
                 modelListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+                break;
+            case 2:
+                modelListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
                 break;
             case 3:
                 modelListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -143,6 +148,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         activityListPanel = new ActivityListPanel(logic.getFilteredActivityList());
         doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList());
+        patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
 
         // by default, show the activity first
         modelListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
@@ -209,6 +215,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public DoctorListPanel getDoctorListPanel() {
         return doctorListPanel;
+    }
+
+    public PatientListPanel getPatientListPanel() {
+        return patientListPanel;
     }
 
     /**

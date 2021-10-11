@@ -19,6 +19,7 @@ import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
+import gomedic.logic.commands.listcommand.ListPatientCommand;
 import gomedic.logic.commands.listcommand.ListPersonCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.Person;
@@ -92,6 +93,12 @@ public class AddressBookParserTest {
     public void parseCommand_listDoctor() throws Exception {
         assertTrue(parser.parseCommand(ListDoctorCommand.COMMAND_WORD) instanceof ListDoctorCommand);
         assertTrue(parser.parseCommand(ListDoctorCommand.COMMAND_WORD + " 3") instanceof ListDoctorCommand);
+    }
+
+    @Test
+    public void parseCommand_listPatient() throws Exception {
+        assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD) instanceof ListPatientCommand);
+        assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD + " 3") instanceof ListPatientCommand);
     }
 
     @Test

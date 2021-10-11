@@ -62,7 +62,10 @@ class JsonSerializableAddressBook {
                 .getDoctorListSortedById()
                 .stream()
                 .map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
-        patients.addAll(source.getPatientList().stream().map(JsonAdaptedPatient::new).collect(Collectors.toList()));
+        patients.addAll(source
+                .getPatientListSortedById()
+                .stream()
+                .map(JsonAdaptedPatient::new).collect(Collectors.toList()));
     }
 
     /**
