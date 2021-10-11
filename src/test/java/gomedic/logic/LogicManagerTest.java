@@ -108,6 +108,12 @@ public class LogicManagerTest {
         assertCommandException(deleteActivity, Messages.MESSAGE_INVALID_ACTIVITY_ID);
     }
 
+    @Test
+    public void executeDeleteDoctor_commandExecutionError_throwsCommandException() {
+        String deleteDoctor = "delete t/doctor D001";
+        assertCommandException(deleteDoctor, Messages.MESSAGE_INVALID_DOCTOR_ID);
+    }
+
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
      *

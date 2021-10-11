@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.doctor.DoctorId;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
@@ -18,57 +20,56 @@ import gomedic.model.activity.ActivityId;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
- * {@code DeleteActivityCommand}.
+ * {@code DeleteDoctorCommand}.
  */
-public class DeleteActivityCommandTest {
-
+public class DeleteDoctorCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Activity activityToDelete = model.getFilteredActivityList().get(INDEX_FIRST.getZeroBased());
-        DeleteActivityCommand deleteActivityCommand = new DeleteActivityCommand(activityToDelete.getActivityId());
+        Doctor doctorToDelete = model.getFilteredDoctorList().get(INDEX_FIRST.getZeroBased());
+        DeleteDoctorCommand deleteDoctorCommand = new DeleteDoctorCommand(doctorToDelete.getId());
 
-        String expectedMessage = String.format(DeleteActivityCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete);
+        String expectedMessage = String.format(DeleteDoctorCommand.MESSAGE_DELETE_DOCTOR_SUCCESS, doctorToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteActivity(activityToDelete);
+        expectedModel.deleteDoctor(doctorToDelete);
 
-        CommandTestUtil.assertCommandSuccess(deleteActivityCommand, model, expectedMessage, expectedModel);
+        CommandTestUtil.assertCommandSuccess(deleteDoctorCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        DeleteActivityCommand deleteActivityCommand = new DeleteActivityCommand(new ActivityId(999));
+        DeleteDoctorCommand deleteDoctorCommand = new DeleteDoctorCommand(new DoctorId(999));
 
-        CommandTestUtil.assertCommandFailure(deleteActivityCommand, model, Messages.MESSAGE_INVALID_ACTIVITY_ID);
+        CommandTestUtil.assertCommandFailure(deleteDoctorCommand, model, Messages.MESSAGE_INVALID_DOCTOR_ID);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        CommandTestUtil.showActivityAtIndex(model, INDEX_FIRST);
+        CommandTestUtil.showDoctorAtIndex(model, INDEX_FIRST);
 
-        Activity activityToDelete = model.getFilteredActivityList().get(INDEX_FIRST.getZeroBased());
-        DeleteActivityCommand deleteActivityCommand = new DeleteActivityCommand(activityToDelete.getActivityId());
+        Doctor doctorToDelete = model.getFilteredDoctorList().get(INDEX_FIRST.getZeroBased());
+        DeleteDoctorCommand deleteDoctorCommand = new DeleteDoctorCommand(doctorToDelete.getId());
 
-        String expectedMessage = String.format(DeleteActivityCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete);
+        String expectedMessage = String.format(DeleteDoctorCommand.MESSAGE_DELETE_DOCTOR_SUCCESS, doctorToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteActivity(activityToDelete);
-        showNoActivity(expectedModel);
+        expectedModel.deleteDoctor(doctorToDelete);
+        showNoDoctor(expectedModel);
 
-        CommandTestUtil.assertCommandSuccess(deleteActivityCommand, model, expectedMessage, expectedModel);
+        CommandTestUtil.assertCommandSuccess(deleteDoctorCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
-        DeleteActivityCommand deleteFirstCommand = new DeleteActivityCommand(new ActivityId(999));
+        DeleteDoctorCommand deleteFirstCommand = new DeleteDoctorCommand(new DoctorId(999));
 
         // same object -> returns true
         assertEquals(deleteFirstCommand, deleteFirstCommand);
 
         // same id -> returns true
-        DeleteActivityCommand deleteFirstCommandCopy = new DeleteActivityCommand(new ActivityId(999));
+        DeleteDoctorCommand deleteFirstCommandCopy = new DeleteDoctorCommand(new DoctorId(999));
         assertEquals(deleteFirstCommand, deleteFirstCommandCopy);
 
         // different types -> returns false
@@ -81,9 +82,9 @@ public class DeleteActivityCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoActivity(Model model) {
-        model.updateFilteredActivitiesList(p -> false);
+    private void showNoDoctor(Model model) {
+        model.updateFilteredDoctorList(p -> false);
 
-        assertTrue(model.getFilteredActivityList().isEmpty());
+        assertTrue(model.getFilteredDoctorList().isEmpty());
     }
 }

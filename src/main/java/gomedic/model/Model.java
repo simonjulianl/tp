@@ -95,6 +95,12 @@ public interface Model {
     boolean hasDoctor(Doctor doctor);
 
     /**
+     * Deletes the given doctor.
+     * The doctor must exist in the address book.
+     */
+    void deleteDoctor(Doctor target);
+
+    /**
      * Adds the given activity.
      * {@code activity} must not already exist and not conflicting
      * with any activity in the address book.

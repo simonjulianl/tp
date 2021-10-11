@@ -187,6 +187,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteDoctor(Doctor target) {
+        addressBook.removeDoctor(target);
+    }
+
+    @Override
     public void addPatient(Patient patient) {
         requireNonNull(patient);
         addressBook.addPatient(patient);
