@@ -118,6 +118,12 @@ public interface Model {
     void deleteActivity(Activity target);
 
     /**
+     * Deletes the given patient.
+     * The patient must exist in the address book.
+     */
+    void deletePatient(Patient target);
+
+    /**
      * Returns true if there is another conflicting activity.
      */
     boolean hasConflictingActivity(Activity activity);

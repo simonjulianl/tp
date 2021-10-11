@@ -13,14 +13,14 @@ import gomedic.model.activity.Activity;
 import gomedic.model.commonfield.Id;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes an activity identified using it's displayed index from the address book.
  */
 public class DeleteActivityCommand extends Command {
 
     public static final String COMMAND_WORD = "delete t/activity";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index shown in the activity list.\n"
+            + ": Deletes the activity identified by the index shown in the activity list.\n"
             + "Parameters: INDEX (must be exactly the same as shown in the list, e.g. A001)\n"
             + "Example: " + COMMAND_WORD + " A001";
 
