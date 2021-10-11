@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import gomedic.model.person.doctor.Doctor;
-import gomedic.model.person.doctor.DoctorId;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
@@ -15,8 +13,8 @@ import gomedic.logic.commands.CommandTestUtil;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
-import gomedic.model.activity.Activity;
-import gomedic.model.activity.ActivityId;
+import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.doctor.DoctorId;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for

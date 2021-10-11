@@ -9,14 +9,13 @@ import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
-import gomedic.model.activity.Activity;
 import gomedic.model.commonfield.Id;
 import gomedic.model.person.doctor.Doctor;
 
 /**
  * Deletes a doctor identified using it's displayed index from the address book.
  */
-public class DeleteDoctorCommand extends Command  {
+public class DeleteDoctorCommand extends Command {
     public static final String COMMAND_WORD = "delete t/doctor";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
