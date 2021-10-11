@@ -106,9 +106,9 @@ public class CommandTestUtil {
     public static final String VALID_DESC_WEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "86";
     public static final String VALID_DESC_WEIGHT_OTHER_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "77";
     public static final String VALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
-        + "heart failure";
+            + "heart failure";
     public static final String VALID_DESC_MEDICALCONDITIONS_OTHER_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
-        + "diabetes";
+            + "diabetes";
 
     /* invalid constants declarations for patient related fields */
     public static final String INVALID_DESC_NAME_MAIN_PATIENT = " " + CliSyntax.PREFIX_NAME + "John** Doe";
@@ -119,7 +119,7 @@ public class CommandTestUtil {
     public static final String INVALID_DESC_HEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "invalid";
     public static final String INVALID_DESC_WEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "invalid";
     public static final String INVALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
-        + "invalid**";
+            + "invalid**";
 
     /* valid constants declarations for activity related fields */
     public static final String VALID_DESC_TITLE_MEETING =
@@ -347,6 +347,11 @@ public class CommandTestUtil {
 
         @Override
         public boolean hasActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteActivity(Activity target) {
             throw new AssertionError("This method should not be called.");
         }
 

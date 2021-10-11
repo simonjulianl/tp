@@ -112,6 +112,12 @@ public interface Model {
     boolean hasActivity(Activity activity);
 
     /**
+     * Deletes the given activity.
+     * The activity must exist in the address book.
+     */
+    void deleteActivity(Activity target);
+
+    /**
      * Returns true if there is another conflicting activity.
      */
     boolean hasConflictingActivity(Activity activity);

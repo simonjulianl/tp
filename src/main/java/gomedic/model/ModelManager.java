@@ -233,6 +233,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteActivity(Activity target) {
+        addressBook.removeActivity(target);
+    }
+
+    @Override
     public boolean hasConflictingActivity(Activity activity) {
         requireNonNull(activity);
         return addressBook.hasConflictingActivity(activity);

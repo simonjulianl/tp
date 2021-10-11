@@ -98,8 +98,14 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete t/person 9";
         assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void executeDeleteActivity_commandExecutionError_throwsCommandException() {
+        String deleteActivity = "delete t/activity A001";
+        assertCommandException(deleteActivity, Messages.MESSAGE_INVALID_ACTIVITY_ID);
     }
 
     /**
@@ -182,21 +188,21 @@ public class LogicManagerTest {
     public void executeAddPatient_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
-            new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
-            new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add patient command
         String addPatientCommand = AddPatientCommand.COMMAND_WORD
-            + CommandTestUtil.VALID_DESC_NAME_MAIN_PATIENT
-            + CommandTestUtil.VALID_DESC_PHONE_MAIN_PATIENT
-            + CommandTestUtil.VALID_DESC_AGE_MAIN_PATIENT
-            + CommandTestUtil.VALID_DESC_BLOODTYPE_MAIN_PATIENT
-            + CommandTestUtil.VALID_DESC_GENDER_MAIN_PATIENT
-            + CommandTestUtil.VALID_DESC_HEIGHT_MAIN_PATIENT
-            + CommandTestUtil.VALID_DESC_WEIGHT_MAIN_PATIENT;
+                + CommandTestUtil.VALID_DESC_NAME_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_PHONE_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_AGE_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_BLOODTYPE_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_GENDER_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_HEIGHT_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_WEIGHT_MAIN_PATIENT;
 
         Patient expectedPatient = new PatientBuilder(TypicalPersons.MAIN_PATIENT).build();
         ModelManager expectedModel = new ModelManager();
