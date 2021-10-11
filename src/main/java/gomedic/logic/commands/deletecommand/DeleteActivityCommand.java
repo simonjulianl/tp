@@ -13,7 +13,7 @@ import gomedic.model.activity.Activity;
 import gomedic.model.commonfield.Id;
 
 /**
- * Deletes a activity identified using it's displayed index from the address book.
+ * Deletes an activity identified using it's displayed index from the address book.
  */
 public class DeleteActivityCommand extends Command {
 
