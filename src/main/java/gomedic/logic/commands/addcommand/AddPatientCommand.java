@@ -8,6 +8,7 @@ import static gomedic.logic.parser.CliSyntax.PREFIX_MEDICALCONDITIONS;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static gomedic.logic.parser.CliSyntax.PREFIX_WEIGHT;
+import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Set;
@@ -17,6 +18,7 @@ import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.patient.Age;
@@ -36,32 +38,32 @@ public class AddPatientCommand extends Command {
     public static final String COMMAND_WORD = "add t/patient";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the address book. "
-        + "Parameters: "
-        + PREFIX_NAME + "NAME "
-        + PREFIX_PHONE + "PHONE "
-        + PREFIX_AGE + "AGE "
-        + PREFIX_BLOODTYPE + "BLOODTYPE "
-        + PREFIX_GENDER + "GENDER "
-        + PREFIX_HEIGHT + "HEIGHT "
-        + PREFIX_WEIGHT + "WEIGHT "
-        + "[" + PREFIX_MEDICALCONDITIONS + "TAG]...\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_NAME + "John Smith "
-        + PREFIX_PHONE + "98765432 "
-        + PREFIX_AGE + "45 "
-        + PREFIX_BLOODTYPE + "AB "
-        + PREFIX_GENDER + "M "
-        + PREFIX_HEIGHT + "175 "
-        + PREFIX_WEIGHT + "70 "
-        + PREFIX_MEDICALCONDITIONS + "heart failure "
-        + PREFIX_MEDICALCONDITIONS + "diabetes";
+            + "Parameters: "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_PHONE + "PHONE "
+            + PREFIX_AGE + "AGE "
+            + PREFIX_BLOODTYPE + "BLOODTYPE "
+            + PREFIX_GENDER + "GENDER "
+            + PREFIX_HEIGHT + "HEIGHT "
+            + PREFIX_WEIGHT + "WEIGHT "
+            + "[" + PREFIX_MEDICALCONDITIONS + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John Smith "
+            + PREFIX_PHONE + "98765432 "
+            + PREFIX_AGE + "45 "
+            + PREFIX_BLOODTYPE + "AB "
+            + PREFIX_GENDER + "M "
+            + PREFIX_HEIGHT + "175 "
+            + PREFIX_WEIGHT + "70 "
+            + PREFIX_MEDICALCONDITIONS + "heart failure "
+            + PREFIX_MEDICALCONDITIONS + "diabetes";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PATIENT =
-        "This Patient already exists in the address book, duplicate id";
+            "This Patient already exists in the address book, duplicate id";
     public static final String MESSAGE_MAXIMUM_CAPACITY_EXCEEDED =
-        "The maximum capacity for the number of patients that can be added in the address book has been reached; "
-            + "No more patients can be added.";
+            "The maximum capacity for the number of patients that can be added in the address book has been reached; "
+                    + "No more patients can be added.";
 
     private final Name name;
     private final Phone phone;
@@ -98,27 +100,29 @@ public class AddPatientCommand extends Command {
         }
 
         Patient toAdd = new Patient(name, phone, new PatientId(model.getNewPatientId()), age, bloodType, gender,
-            height, weight, medicalConditions);
+                height, weight, medicalConditions);
 
         if (model.hasPatient(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
         }
 
         model.addPatient(toAdd);
+        model.setModelBeingShown(ModelItem.PATIENT);
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddPatientCommand // instanceof handles nulls
-            && name.equals(((AddPatientCommand) other).name)
-            && phone.equals(((AddPatientCommand) other).phone)
-            && age.equals(((AddPatientCommand) other).age)
-            && bloodType.equals(((AddPatientCommand) other).bloodType)
-            && gender.equals(((AddPatientCommand) other).gender)
-            && height.equals(((AddPatientCommand) other).height)
-            && weight.equals(((AddPatientCommand) other).weight)
-            && medicalConditions.equals(((AddPatientCommand) other).medicalConditions));
+                || (other instanceof AddPatientCommand // instanceof handles nulls
+                && name.equals(((AddPatientCommand) other).name)
+                && phone.equals(((AddPatientCommand) other).phone)
+                && age.equals(((AddPatientCommand) other).age)
+                && bloodType.equals(((AddPatientCommand) other).bloodType)
+                && gender.equals(((AddPatientCommand) other).gender)
+                && height.equals(((AddPatientCommand) other).height)
+                && weight.equals(((AddPatientCommand) other).weight)
+                && medicalConditions.equals(((AddPatientCommand) other).medicalConditions));
     }
 }

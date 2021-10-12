@@ -433,17 +433,17 @@ public class CommandTestUtil {
 
         @Override
         public void updateFilteredDoctorList(Predicate<? super Doctor> predicate) {
-            throw new AssertionError("This method should not be called.");
+            // noop
         }
 
         @Override
         public void updateFilteredPatientList(Predicate<? super Patient> predicate) {
-            throw new AssertionError("This method should not be called.");
+            // noop
         }
 
         @Override
         public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
-            throw new AssertionError("This method should not be called.");
+            // noop
         }
 
         @Override
@@ -453,7 +453,7 @@ public class CommandTestUtil {
 
         @Override
         public void setModelBeingShown(ModelItem modelItem) {
-            throw new AssertionError("This method should not be called.");
+            // noop
         }
     }
 }
