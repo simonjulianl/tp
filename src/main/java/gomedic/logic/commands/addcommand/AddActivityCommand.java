@@ -4,6 +4,7 @@ import static gomedic.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static gomedic.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_TITLE;
+import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
 import gomedic.commons.util.CollectionUtil;
@@ -11,6 +12,7 @@ import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
 import gomedic.model.activity.Activity;
 import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
@@ -80,6 +82,8 @@ public class AddActivityCommand extends Command {
         }
 
         model.addActivity(toAdd);
+        model.setModelBeingShown(ModelItem.ACTIVITY);
+        model.updateFilteredActivitiesList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
