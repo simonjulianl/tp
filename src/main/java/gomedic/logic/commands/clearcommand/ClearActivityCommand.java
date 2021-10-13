@@ -22,7 +22,6 @@ public class ClearActivityCommand extends Command {
         requireNonNull(model);
         AddressBook newAddressBook = new AddressBook();
         ReadOnlyAddressBook oldAddressBook = model.getAddressBook();
-        newAddressBook.setPersons(oldAddressBook.getPersonList());
         newAddressBook.setDoctors(oldAddressBook.getDoctorListSortedById());
         newAddressBook.setPatients(oldAddressBook.getPatientListSortedById());
         model.setAddressBook(newAddressBook);
