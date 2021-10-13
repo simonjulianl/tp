@@ -1,13 +1,12 @@
 package gomedic.logic.commands;
 
 import static gomedic.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static gomedic.testutil.TypicalPersons.CARL;
-import static gomedic.testutil.TypicalPersons.ELLE;
-import static gomedic.testutil.TypicalPersons.FIONA;
+import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
+import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
+import static gomedic.testutil.TypicalPersons.THIRD_DOCTOR;
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,40 +37,41 @@ public class FindCommandTest {
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertEquals(findFirstCommand, findFirstCommand);
 
         // same values -> returns true
         FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        assertEquals(findFirstCommandCopy, findFirstCommand);
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertNotEquals(findFirstCommand, 1);
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertNotEquals(findFirstCommand, null);
 
         // different person -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertNotEquals(findSecondCommand, findFirstCommand);
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+    public void execute_zeroKeywords_noDoctorFound() {
+        String expectedMessage = String.format(Messages.MESSAGE_DOCTORS_LISTED_OVERVIEW, 0);
+        NameContainsKeywordsPredicate predicate = preparePredicate("THISKEYWORDCANTMATCHANYTHING");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredDoctorList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredDoctorList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+    public void execute_multipleKeywords_multipleDoctorsFound() {
+        String expectedMessage = String.format(Messages.MESSAGE_DOCTORS_LISTED_OVERVIEW, 3);
+        //  predicate keywords based on the typical doctors list
+        NameContainsKeywordsPredicate predicate = preparePredicate("John Smith");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredDoctorList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(MAIN_DOCTOR, OTHER_DOCTOR, THIRD_DOCTOR), model.getFilteredDoctorList());
     }
 
     /**

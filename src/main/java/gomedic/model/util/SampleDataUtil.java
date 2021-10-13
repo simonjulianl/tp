@@ -6,44 +6,41 @@ import java.util.stream.Collectors;
 
 import gomedic.model.AddressBook;
 import gomedic.model.ReadOnlyAddressBook;
-import gomedic.model.commonfield.Address;
-import gomedic.model.commonfield.Email;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
-import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Department;
+import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code DepartmentBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[]{
-                new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                        new Address("Blk 30 Geylang Street 29, #06-40"),
-                        getTagSet("friends")),
-                new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                        new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                        getTagSet("colleagues", "friends")),
-                new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                        new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                        getTagSet("neighbours")),
-                new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                        new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                        getTagSet("family")),
-                new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                        new Address("Blk 47 Tampines Street 20, #17-35"),
-                        getTagSet("classmates")),
-                new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                        new Address("Blk 45 Aljunied Street 85, #11-31"),
-                        getTagSet("colleagues"))
+    public static Doctor[] getSampleDoctors() {
+        int idx = 1;
+        return new Doctor[]{
+                new Doctor(new Name("Alex Yeoh"), new Phone("87438807"), new DoctorId(idx++),
+                        new Department("ENT")),
+                new Doctor(new Name("Bernice Yu"), new Phone("99272758"), new DoctorId(idx++),
+                        new Department("XRAY")),
+                new Doctor(new Name("Charlotte Oliveiro"), new Phone("93210283"), new DoctorId(idx++),
+                        new Department("Surgical")),
+                new Doctor(new Name("David Li"), new Phone("91031282"), new DoctorId(idx++),
+                        new Department("Pediatrics")),
+                new Doctor(new Name("Irfan Ibrahim"), new Phone("92492021"), new DoctorId(idx++),
+                        new Department("Neurology")),
+                new Doctor(new Name("Roy Balakrishnan"), new Phone("92624417"), new DoctorId(idx),
+                        new Department("Cardiology"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Doctor sampleDoctor : getSampleDoctors()) {
+            if (!sampleAb.hasDoctor(sampleDoctor)) {
+                sampleAb.addDoctor(sampleDoctor);
+            }
         }
         return sampleAb;
     }

@@ -5,13 +5,13 @@ import java.util.Objects;
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
-import gomedic.model.person.AbstractPerson;
+import gomedic.model.person.Person;
 
 /**
  * Represents a Doctor in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Doctor extends AbstractPerson {
+public class Doctor extends Person {
 
     // data fields
     private final Department department;
@@ -28,6 +28,11 @@ public class Doctor extends AbstractPerson {
 
     public Department getDepartment() {
         return department;
+    }
+
+    @Override
+    public DoctorId getId() {
+        return (DoctorId) super.getId();
     }
 
     /**

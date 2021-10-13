@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import gomedic.commons.util.StringUtil;
-import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Doctor}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Person> {
+public class NameContainsKeywordsPredicate implements Predicate<Doctor> {
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
@@ -17,9 +17,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     }
 
     @Override
-    public boolean test(Person person) {
+    public boolean test(Doctor doctor) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(doctor.getName().fullName, keyword));
     }
 
     @Override

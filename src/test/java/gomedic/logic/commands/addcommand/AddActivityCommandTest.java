@@ -23,7 +23,7 @@ import gomedic.testutil.modelbuilder.ActivityBuilder;
 class AddActivityCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullActivity_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
                 new AddActivityCommand(null, null, null, null));
     }

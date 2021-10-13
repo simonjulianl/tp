@@ -1,105 +1,100 @@
 package gomedic.logic.commands;
 
-import static gomedic.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static gomedic.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static gomedic.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
+import static gomedic.logic.parser.CliSyntax.PREFIX_ID;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
-import static gomedic.logic.parser.CliSyntax.PREFIX_TAG;
 import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import gomedic.commons.core.Messages;
-import gomedic.commons.core.index.Index;
 import gomedic.commons.util.CollectionUtil;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
-import gomedic.model.commonfield.Address;
-import gomedic.model.commonfield.Email;
+import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
-import gomedic.model.person.Person;
-import gomedic.model.tag.Tag;
+import gomedic.model.person.doctor.Department;
+import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.doctor.DoctorId;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing doctor in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the doctor identified "
+            + "by the index number used in the displayed doctor list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
+            + "[" + PREFIX_ID + "ID] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "[" + PREFIX_DEPARTMENT + "EMAIL] "
+            + "Example: " + COMMAND_WORD + " D001 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_DEPARTMENT + "Neurology";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_EDIT_DOCTOR_SUCCESS = "Edited Doctor: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "Must provide at least one field to be edited (cannot edit ID).";
 
-    private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final Id targetId;
+    private final EditDoctorDescriptor editDoctorDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param targetId of the doctor in the filtered doctor list to edit
+     * @param editDoctorDescriptor details to edit the doctor with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+    public EditCommand(Id targetId, EditDoctorDescriptor editDoctorDescriptor) {
+        requireNonNull(targetId);
+        requireNonNull(editDoctorDescriptor);
 
-        this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.targetId = targetId;
+        this.editDoctorDescriptor = new EditDoctorDescriptor(editDoctorDescriptor);
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Doctor} with the details of {@code doctorToEdit}
+     * edited with {@code editDoctorDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Doctor createEditedDoctor(Doctor doctorToEdit, EditDoctorDescriptor editDoctorDescriptor) {
+        assert doctorToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        DoctorId doctorId = doctorToEdit.getId();
+        Name updatedName = editDoctorDescriptor.getName().orElse(doctorToEdit.getName());
+        Phone updatedPhone = editDoctorDescriptor.getPhone().orElse(doctorToEdit.getPhone());
+        Department updatedDepartment = editDoctorDescriptor.getDepartment().orElse(doctorToEdit.getDepartment());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Doctor(updatedName, updatedPhone, doctorId, updatedDepartment);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Doctor> lastShownList = model.getFilteredDoctorList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Doctor doctorToEdit = lastShownList
+                .stream()
+                .filter(doctor -> doctor
+                        .getId()
+                        .toString().equals(targetId.toString()))
+                .findFirst()
+                .orElse(null);
+
+        if (doctorToEdit == null) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DOCTOR_ID);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Doctor editedDoctor = createEditedDoctor(doctorToEdit, editDoctorDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_ITEMS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setDoctor(doctorToEdit, editedDoctor);
+        model.updateFilteredDoctorList(PREDICATE_SHOW_ALL_ITEMS);
+        return new CommandResult(String.format(MESSAGE_EDIT_DOCTOR_SUCCESS, editedDoctor));
     }
 
     @Override
@@ -116,41 +111,37 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+        return targetId.equals(e.targetId)
+                && editDoctorDescriptor.equals(e.editDoctorDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the doctor with. Each non-empty field value will replace the
+     * corresponding field value of the doctor.
      */
-    public static class EditPersonDescriptor {
+    public static class EditDoctorDescriptor {
         private Name name;
         private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
+        private Department department;
 
-        public EditPersonDescriptor() {
+        public EditDoctorDescriptor() {
         }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditDoctorDescriptor(EditDoctorDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setTags(toCopy.tags);
+            setDepartment(toCopy.department);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, department);
         }
 
         public Optional<Name> getName() {
@@ -169,37 +160,12 @@ public class EditCommand extends Command {
             this.phone = phone;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Department> getDepartment() {
+            return Optional.ofNullable(department);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setDepartment(Department department) {
+            this.department = department;
         }
 
         @Override
@@ -210,18 +176,16 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditDoctorDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditDoctorDescriptor e = (EditDoctorDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                    && getDepartment().equals(e.getDepartment());
         }
     }
 }

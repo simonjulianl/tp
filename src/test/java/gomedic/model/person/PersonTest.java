@@ -1,91 +1,84 @@
 package gomedic.model.person;
 
-import static gomedic.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static gomedic.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static gomedic.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static gomedic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static gomedic.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static gomedic.testutil.Assert.assertThrows;
-import static gomedic.testutil.TypicalPersons.ALICE;
-import static gomedic.testutil.TypicalPersons.BOB;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.Objects;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import gomedic.testutil.modelbuilder.PersonBuilder;
+import gomedic.model.commonfield.Id;
+import gomedic.model.commonfield.IdTest;
+import gomedic.model.commonfield.Name;
+import gomedic.model.commonfield.Phone;
+import gomedic.testutil.ArbitraryPerson;
 
-public class PersonTest {
+class PersonTest {
+    private static Person person;
+    private static Id id;
+    private static Name name;
+    private static Phone phone;
 
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Person person = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+    @BeforeAll
+    public static void setUp() {
+        id = new IdTest.TestId(100, 'P');
+        name = new Name("John Doe");
+        phone = new Phone("87654321");
+
+        // ArbitraryPerson is a testutil class representing the abstract person class
+        person = new ArbitraryPerson(name, phone, id);
     }
 
     @Test
-    public void isSamePerson() {
-        // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
-
-        // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
-
-        // same name, all other attributes different -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
-
-        // different name, all other attributes same -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
-
-        // name differs in case, all other attributes same -> returns false
-        Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSamePerson(editedBob));
-
-        // name has trailing spaces, all other attributes same -> returns false
-        String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
-        assertFalse(BOB.isSamePerson(editedBob));
+    void constructor_anyNull_throwsNullArgumentException() {
+        assertThrows(NullPointerException.class, () -> new ArbitraryPerson(null, null, null));
     }
 
     @Test
-    public void equals() {
-        // same values -> returns true
-        Person aliceCopy = new PersonBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+    void getId() {
+        assertEquals(id, person.getId());
+    }
 
-        // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+    @Test
+    void getName() {
+        assertEquals(name, person.getName());
+    }
 
-        // null -> returns false
-        assertFalse(ALICE.equals(null));
+    @Test
+    void getPhone() {
+        assertEquals(phone, person.getPhone());
+    }
 
-        // different type -> returns false
-        assertFalse(ALICE.equals(5));
+    @Test
+    void testHashCode() {
+        int hash = Objects.hash(name, phone, id);
+        assertEquals(hash, person.hashCode());
+    }
 
-        // different person -> returns false
-        assertFalse(ALICE.equals(BOB));
+    @Test
+    void testEquals() {
+        Id diffId = new IdTest.TestId(420, 'L');
+        Name diffName = new Name("Johnny");
+        Phone diffPhone = new Phone("12345678");
 
-        // different name -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Person personDiffId = new ArbitraryPerson(name, phone, diffId);
+        Person personDiffName = new ArbitraryPerson(diffName, phone, id);
+        Person personDiffPhone = new ArbitraryPerson(name, diffPhone, id);
+        Person personAllSameFields = new ArbitraryPerson(name, phone, id);
 
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertNotEquals(person, personDiffId); // Person is not same if id is not same
+        assertEquals(person, personDiffName); // Person with different names are the same if id is the same
+        assertEquals(person, personDiffPhone); // Person with different phone numbers are the same if id is the same
 
-        // different email -> returns false
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // Same if other person is different instance with the same id and data fields
+        assertEquals(person, personAllSameFields);
+    }
 
-        // different address -> returns false
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+    @Test
+    void testToString() {
+        assertEquals("John Doe;"
+                + " Phone: 87654321", person.toString());
     }
 }

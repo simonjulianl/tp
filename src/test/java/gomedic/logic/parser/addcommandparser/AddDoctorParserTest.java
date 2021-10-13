@@ -33,7 +33,7 @@ public class AddDoctorParserTest {
 
         // multiple name - last name will be accepted
         CommandParserTestUtil.assertParseSuccess(parser,
-                CommandTestUtil.NAME_DESC_AMY
+                CommandTestUtil.VALID_DESC_NAME_OTHER_DOCTOR
                         + CommandTestUtil.VALID_DESC_NAME_MAIN_DOCTOR
                         + CommandTestUtil.VALID_DESC_PHONE_MAIN_DOCTOR
                         + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_DOCTOR, new AddDoctorCommand(

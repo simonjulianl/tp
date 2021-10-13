@@ -37,7 +37,7 @@ public class DeletePatientCommand extends Command {
         requireNonNull(model);
         List<Patient> lastShownList = model.getFilteredPatientList();
 
-        Patient personToDelete = lastShownList
+        Patient patientToDelete = lastShownList
             .stream()
             .filter(patient -> patient
                 .getId()
@@ -45,11 +45,11 @@ public class DeletePatientCommand extends Command {
             .findFirst()
             .orElse(null);
 
-        if (personToDelete == null) {
+        if (patientToDelete == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_ID);
         }
-        model.deletePatient(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, personToDelete));
+        model.deletePatient(patientToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete));
     }
 
     @Override

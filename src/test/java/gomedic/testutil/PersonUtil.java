@@ -1,12 +1,10 @@
 package gomedic.testutil;
 
-import java.util.Set;
 
 import gomedic.logic.commands.EditCommand;
-import gomedic.logic.commands.addcommand.AddPersonCommand;
+import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.parser.CliSyntax;
-import gomedic.model.person.Person;
-import gomedic.model.tag.Tag;
+import gomedic.model.person.doctor.Doctor;
 
 /**
  * A utility class for Person.
@@ -14,43 +12,33 @@ import gomedic.model.tag.Tag;
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code doctor}.
      */
-    public static String getAddPersonCommand(Person person) {
-        return AddPersonCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddDoctorCommand(Doctor doctor) {
+        return AddDoctorCommand.COMMAND_WORD + " " + getDoctorDetails(doctor);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code doctor}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getDoctorDetails(Doctor doctor) {
         StringBuilder sb = new StringBuilder();
-        sb.append(CliSyntax.PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(CliSyntax.PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(CliSyntax.PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(CliSyntax.PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(s -> sb.append(CliSyntax.PREFIX_TAG + s.tagName + " "));
+        sb.append(CliSyntax.PREFIX_NAME + doctor.getName().fullName + " ");
+        sb.append(CliSyntax.PREFIX_PHONE + doctor.getPhone().value + " ");
+        sb.append(CliSyntax.PREFIX_DEPARTMENT + doctor.getDepartment().departmentName);
         return sb.toString();
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditDoctorDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditCommand.EditPersonDescriptor descriptor) {
+    public static String getEditDoctorDescriptorDetails(EditCommand.EditDoctorDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(CliSyntax.PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(CliSyntax.PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress()
-                .ifPresent(address -> sb.append(CliSyntax.PREFIX_ADDRESS).append(address.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(CliSyntax.PREFIX_TAG);
-            } else {
-                tags.forEach(s -> sb.append(CliSyntax.PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
+        descriptor.getDepartment()
+                .ifPresent(department ->
+                        sb.append(CliSyntax.PREFIX_DEPARTMENT).append(department.departmentName).append(" "));
         return sb.toString();
     }
 }

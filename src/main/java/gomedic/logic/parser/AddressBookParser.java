@@ -12,7 +12,6 @@ import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.addcommand.AddPatientCommand;
-import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.commands.clearcommand.ClearActivityCommand;
 import gomedic.logic.commands.clearcommand.ClearCommand;
 import gomedic.logic.commands.clearcommand.ClearDoctorCommand;
@@ -20,17 +19,13 @@ import gomedic.logic.commands.clearcommand.ClearPatientCommand;
 import gomedic.logic.commands.deletecommand.DeleteActivityCommand;
 import gomedic.logic.commands.deletecommand.DeleteDoctorCommand;
 import gomedic.logic.commands.deletecommand.DeletePatientCommand;
-import gomedic.logic.commands.deletecommand.DeletePersonCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPatientCommand;
-import gomedic.logic.commands.listcommand.ListPersonCommand;
 import gomedic.logic.parser.addcommandparser.AddActivityCommandParser;
 import gomedic.logic.parser.addcommandparser.AddDoctorCommandParser;
 import gomedic.logic.parser.addcommandparser.AddPatientCommandParser;
-import gomedic.logic.parser.addcommandparser.AddPersonCommandParser;
 import gomedic.logic.parser.deletecommandparser.DeleteActivityParser;
-import gomedic.logic.parser.deletecommandparser.DeleteCommandParser;
 import gomedic.logic.parser.deletecommandparser.DeleteDoctorParser;
 import gomedic.logic.parser.deletecommandparser.DeletePatientParser;
 import gomedic.logic.parser.exceptions.ParseException;
@@ -77,9 +72,6 @@ public class AddressBookParser {
 
         switch (commandWord) {
 
-        case AddPersonCommand.COMMAND_WORD:
-            return new AddPersonCommandParser().parse(arguments);
-
         case AddActivityCommand.COMMAND_WORD:
             return new AddActivityCommandParser().parse(arguments);
 
@@ -91,9 +83,6 @@ public class AddressBookParser {
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
-
-        case DeletePersonCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
 
         case DeleteActivityCommand.COMMAND_WORD:
             return new DeleteActivityParser().parse(arguments);
@@ -121,9 +110,6 @@ public class AddressBookParser {
 
         case ListActivityCommand.COMMAND_WORD:
             return new ListActivityCommand();
-
-        case ListPersonCommand.COMMAND_WORD:
-            return new ListPersonCommand();
 
         case ListDoctorCommand.COMMAND_WORD:
             return new ListDoctorCommand();

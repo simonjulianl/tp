@@ -1,6 +1,7 @@
 package gomedic.logic;
 
-import java.nio.file.Path;
+import
+        java.nio.file.Path;
 
 import gomedic.commons.core.GuiSettings;
 import gomedic.logic.commands.CommandResult;
@@ -9,7 +10,6 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 import javafx.beans.value.ObservableValue;
@@ -39,10 +39,6 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of patients */
     ObservableList<Patient> getFilteredPatientList();
 
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
-
     /** Returns an unmodifiable view of the filtered list of doctors */
     ObservableList<Doctor> getFilteredDoctorList();
 
@@ -69,7 +65,6 @@ public interface Logic {
      * 0 -> activity
      * 1 -> doctor
      * 2 -> patient
-     * 3 -> person TODO REMOVE
      */
     ObservableValue<Integer> getModelBeingShown();
 }
