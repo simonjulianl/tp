@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.commons.core.index.Index;
+import gomedic.logic.commands.clearcommand.ClearCommand;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;

@@ -10,12 +10,15 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.ClearCommand;
 import gomedic.logic.commands.EditCommand;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
+import gomedic.logic.commands.clearcommand.ClearActivityCommand;
+import gomedic.logic.commands.clearcommand.ClearCommand;
+import gomedic.logic.commands.clearcommand.ClearDoctorCommand;
+import gomedic.logic.commands.clearcommand.ClearPatientCommand;
 import gomedic.logic.commands.deletecommand.DeletePersonCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
@@ -44,6 +47,24 @@ public class AddressBookParserTest {
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    }
+
+    @Test
+    public void parseCommand_clearActivity() throws Exception {
+        assertTrue(parser.parseCommand(ClearActivityCommand.COMMAND_WORD) instanceof ClearActivityCommand);
+        assertTrue(parser.parseCommand(ClearActivityCommand.COMMAND_WORD + " 3") instanceof ClearActivityCommand);
+    }
+
+    @Test
+    public void parseCommand_clearDoctor() throws Exception {
+        assertTrue(parser.parseCommand(ClearDoctorCommand.COMMAND_WORD) instanceof ClearDoctorCommand);
+        assertTrue(parser.parseCommand(ClearDoctorCommand.COMMAND_WORD + " 3") instanceof ClearDoctorCommand);
+    }
+
+    @Test
+    public void parseCommand_clearPatient() throws Exception {
+        assertTrue(parser.parseCommand(ClearPatientCommand.COMMAND_WORD) instanceof ClearPatientCommand);
+        assertTrue(parser.parseCommand(ClearPatientCommand.COMMAND_WORD + " 3") instanceof ClearPatientCommand);
     }
 
     @Test

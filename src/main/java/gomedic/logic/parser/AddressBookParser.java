@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.ClearCommand;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.EditCommand;
 import gomedic.logic.commands.ExitCommand;
@@ -14,6 +13,10 @@ import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.addcommand.AddPatientCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
+import gomedic.logic.commands.clearcommand.ClearActivityCommand;
+import gomedic.logic.commands.clearcommand.ClearCommand;
+import gomedic.logic.commands.clearcommand.ClearDoctorCommand;
+import gomedic.logic.commands.clearcommand.ClearPatientCommand;
 import gomedic.logic.commands.deletecommand.DeleteActivityCommand;
 import gomedic.logic.commands.deletecommand.DeletePersonCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
@@ -93,6 +96,15 @@ public class AddressBookParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case ClearActivityCommand.COMMAND_WORD:
+            return new ClearActivityCommand();
+
+        case ClearDoctorCommand.COMMAND_WORD:
+            return new ClearDoctorCommand();
+
+        case ClearPatientCommand.COMMAND_WORD:
+            return new ClearPatientCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
