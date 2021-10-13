@@ -27,7 +27,6 @@ public class ClearDoctorCommandTest {
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         AddressBook newAddressBook = new AddressBook();
         ReadOnlyAddressBook oldAddressBook = model.getAddressBook();
-        newAddressBook.setPersons(oldAddressBook.getPersonList());
         newAddressBook.setActivities(oldAddressBook.getActivityListSortedById());
         newAddressBook.setPatients(oldAddressBook.getPatientListSortedById());
         expectedModel.setAddressBook(newAddressBook);
