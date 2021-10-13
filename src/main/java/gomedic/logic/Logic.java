@@ -1,7 +1,6 @@
 package gomedic.logic;
 
-import
-        java.nio.file.Path;
+import java.nio.file.Path;
 
 import gomedic.commons.core.GuiSettings;
 import gomedic.logic.commands.CommandResult;
