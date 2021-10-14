@@ -14,7 +14,7 @@ import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code DepartmentBook} with sample data.
+ * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
     public static Doctor[] getSampleDoctors() {
