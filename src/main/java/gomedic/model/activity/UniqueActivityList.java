@@ -60,7 +60,7 @@ public class UniqueActivityList implements Iterable<Activity> {
 
     /**
      * Adds an activity to the list.
-     * The person must not already exist in the list.
+     * The activity must not already exist in the list.
      */
     public void add(Activity toAdd) {
         requireNonNull(toAdd);

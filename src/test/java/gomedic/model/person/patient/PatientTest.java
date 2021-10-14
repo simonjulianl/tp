@@ -141,7 +141,7 @@ public class PatientTest {
 
     @Test
     void testToString() {
-        assertEquals("John Doe;"
+        assertEquals("Id: P001;" + " Name: John Doe;"
             + " Phone: 12345678;"
             + " Age: 31;"
             + " Blood type: A;"

@@ -10,7 +10,6 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.LogsCenter;
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 import javafx.beans.property.ObjectProperty;
@@ -27,12 +26,11 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Patient> filteredPatients;
     private final FilteredList<Activity> filteredActivities;
 
-    // used the ordinal value 0 -> Activity, 1 -> Doctor, 2 -> Patient, 3 -> Person for simplicity.
+    // used the ordinal value 0 -> Activity, 1 -> Doctor, 2 -> Patient, for simplicity.
     private final ObjectProperty<Integer> internalModelItemBeingShown =
             new SimpleIntegerProperty(ModelItem.ACTIVITY.ordinal()).asObject();
 
@@ -53,7 +51,6 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredDoctors = new FilteredList<>(this.addressBook.getDoctorListSortedById());
         filteredPatients = new FilteredList<>(this.addressBook.getPatientListSortedById());
         filteredActivities = new FilteredList<>(this.addressBook.getActivityListSortedById());
@@ -111,30 +108,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        requireNonNull(person);
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_ITEMS);
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<? super Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
     public void updateFilteredDoctorList(Predicate<? super Doctor> predicate) {
         requireNonNull(predicate);
         filteredDoctors.setPredicate(predicate);
@@ -189,6 +162,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteDoctor(Doctor target) {
         addressBook.removeDoctor(target);
+    }
+
+    @Override
+    public void setDoctor(Doctor oldDoctor, Doctor replacementDoctor) {
+        addressBook.setDoctor(oldDoctor, replacementDoctor);
     }
 
     @Override
@@ -255,25 +233,6 @@ public class ModelManager implements Model {
 
     //=========== Filtered Person List Accessors =============================================================
 
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        CollectionUtil.requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-
     /**
      * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
      * {@code versionedAddressBook}
@@ -317,7 +276,6 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
                 && filteredDoctors.equals(other.filteredDoctors)
                 && filteredPatients.equals(other.filteredPatients)
                 && filteredActivities.equals(other.filteredActivities);

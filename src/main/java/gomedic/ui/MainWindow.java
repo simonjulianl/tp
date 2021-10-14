@@ -11,7 +11,6 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.ui.panel.ActivityListPanel;
 import gomedic.ui.panel.DoctorListPanel;
 import gomedic.ui.panel.PatientListPanel;
-import gomedic.ui.panel.PersonListPanel;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +36,6 @@ public class MainWindow extends UiPart<Stage> {
     private final HelpWindow helpWindow;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private ActivityListPanel activityListPanel;
     private DoctorListPanel doctorListPanel;
     private PatientListPanel patientListPanel;
@@ -78,7 +76,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
 
         // Value to indicate what model is currently being shown.
-        // 0 -> Activity, 1 -> Doctor, 2 -> Patient, 3 -> Person
+        // 0 -> Activity, 1 -> Doctor, 2 -> Patient
         ObservableValue<Integer> modelItemBeingShown = logic.getModelBeingShown();
         modelItemBeingShown.addListener((obs, oldVal, newVal) -> {
             modelListPanelPlaceholder.getChildren().clear();
@@ -91,9 +89,6 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case 2:
                 modelListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
-                break;
-            case 3:
-                modelListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
                 break;
             default:
                 // do nothing
@@ -145,7 +140,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         activityListPanel = new ActivityListPanel(logic.getFilteredActivityList());
         doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList());
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
@@ -203,10 +197,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     public ActivityListPanel getActivityListPanel() {

@@ -96,7 +96,7 @@ class UniqueActivityListTest {
     }
 
     @Test
-    public void remove_activityDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_activityDoesNotExist_throwsActivityNotFoundException() {
         assertThrows(ActivityNotFoundException.class, () -> uniqueActivityList.remove(MEETING));
     }
 

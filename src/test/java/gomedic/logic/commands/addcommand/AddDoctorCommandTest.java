@@ -24,7 +24,7 @@ import gomedic.testutil.modelbuilder.DoctorBuilder;
 public class AddDoctorCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullDoctor_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
                 new AddDoctorCommand(null, null, null));
     }

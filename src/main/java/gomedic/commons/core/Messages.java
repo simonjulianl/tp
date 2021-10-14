@@ -17,11 +17,10 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Sorry, %s is an invalid command.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_ACTIVITY_ID = "The activity id doesn't exist in the list";
     public static final String MESSAGE_INVALID_DOCTOR_ID = "The doctor id doesn't exist in the list";
     public static final String MESSAGE_INVALID_PATIENT_ID = "The patient id doesn't exist in the list";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_ITEMS_LISTED_OVERVIEW = "%1$d items listed!";
     public static final String MESSAGE_HELP_COMMANDS = generateHelpText();
 
     /**
@@ -66,7 +65,7 @@ public class Messages {
         String deleteDescription = "delete:\n    Deletes the patient, doctor or activity identified "
                 + "by the index number used in their respective list.\n\n";
         String editDescription = "edit:\n    Edits the details of the patient, doctor or activity identified "
-                + "by the index number used in the displayed person list.\n"
+                + "by the index number used in the displayed list.\n"
                 + "    Existing values will be overwritten by the input values.\n\n";
         String exitDescription = "exit:\n    Exits GoMedic and closes the window.\n\n";
         String findDescription = "find:\n    Finds entries that contain the given keyword as substring "

@@ -20,7 +20,7 @@ public class JsonAdaptedActivity {
     private final String endTime;
 
     /**
-     * Constructs a {@code JsonAdaptedActivity} with the given person details.
+     * Constructs a {@code JsonAdaptedActivity} with the given activity details.
      */
     @JsonCreator
     public JsonAdaptedActivity(@JsonProperty("id") String id,
@@ -47,9 +47,9 @@ public class JsonAdaptedActivity {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Activity} object.
+     * Converts this Jackson-friendly adapted activity object into the model's {@code Activity} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted activity.
      */
     public Activity toModelType() throws IllegalValueException {
         if (id == null) {

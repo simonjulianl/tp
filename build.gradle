@@ -6,6 +6,16 @@ plugins {
     id 'jacoco'
 }
 
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
 mainClassName = 'gomedic.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
