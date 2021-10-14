@@ -116,7 +116,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = "Invalid input".split("\\s+");
-        modelManager.updateFilteredDoctorList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredDoctorList(new NameContainsKeywordsPredicate<>(Arrays.asList(keywords)));
         assertNotEquals(modelManager, new ModelManager(addressBook, userPrefs));
 
         // resets modelManager to initial state for upcoming tests

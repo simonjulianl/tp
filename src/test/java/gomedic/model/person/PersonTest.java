@@ -78,7 +78,7 @@ class PersonTest {
 
     @Test
     void testToString() {
-        assertEquals("John Doe;"
+        assertEquals("Id: P100; Name: John Doe;"
                 + " Phone: 87654321", person.toString());
     }
 }

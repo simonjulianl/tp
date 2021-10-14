@@ -20,7 +20,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_ACTIVITY_ID = "The activity id doesn't exist in the list";
     public static final String MESSAGE_INVALID_DOCTOR_ID = "The doctor id doesn't exist in the list";
     public static final String MESSAGE_INVALID_PATIENT_ID = "The patient id doesn't exist in the list";
-    public static final String MESSAGE_DOCTORS_LISTED_OVERVIEW = "%1$d doctors listed!";
+    public static final String MESSAGE_ITEMS_LISTED_OVERVIEW = "%1$d items listed!";
     public static final String MESSAGE_HELP_COMMANDS = generateHelpText();
 
     /**

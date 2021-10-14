@@ -65,7 +65,10 @@ public abstract class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append("Id: ")
+                .append(getId())
+                .append("; Name: ")
+                .append(getName())
                 .append("; Phone: ")
                 .append(getPhone());
 

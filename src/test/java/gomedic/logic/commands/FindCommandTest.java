@@ -17,6 +17,7 @@ import gomedic.commons.core.Messages;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
+import gomedic.model.person.doctor.Doctor;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 
 /**
@@ -28,10 +29,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        NameContainsKeywordsPredicate<Doctor> firstPredicate =
+                new NameContainsKeywordsPredicate<>(Collections.singletonList("first"));
+        NameContainsKeywordsPredicate<Doctor> secondPredicate =
+                new NameContainsKeywordsPredicate<>(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -55,8 +56,8 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noDoctorFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_DOCTORS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate("THISKEYWORDCANTMATCHANYTHING");
+        String expectedMessage = String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, 0);
+        NameContainsKeywordsPredicate<Doctor> predicate = preparePredicate("THISKEYWORDCANTMATCHANYTHING");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredDoctorList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -65,9 +66,9 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleDoctorsFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_DOCTORS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, 3);
         //  predicate keywords based on the typical doctors list
-        NameContainsKeywordsPredicate predicate = preparePredicate("John Smith");
+        NameContainsKeywordsPredicate<Doctor> predicate = preparePredicate("John Smith");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredDoctorList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -77,7 +78,7 @@ public class FindCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private NameContainsKeywordsPredicate<Doctor> preparePredicate(String userInput) {
+        return new NameContainsKeywordsPredicate<>(Arrays.asList(userInput.split("\\s+")));
     }
 }

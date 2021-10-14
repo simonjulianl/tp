@@ -84,7 +84,7 @@ public class DoctorTest {
 
     @Test
     void testToString() {
-        assertEquals("John Doe version 2;"
+        assertEquals("Id: D001; Name: John Doe version 2;"
                 + " Phone: 995; "
                 + "Department: Dermatology", doctor.toString());
     }

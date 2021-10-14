@@ -14,6 +14,7 @@ import gomedic.commons.core.Messages;
 import gomedic.commons.util.CollectionUtil;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
 import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
@@ -94,6 +95,7 @@ public class EditCommand extends Command {
 
         model.setDoctor(doctorToEdit, editedDoctor);
         model.updateFilteredDoctorList(PREDICATE_SHOW_ALL_ITEMS);
+        model.setModelBeingShown(ModelItem.DOCTOR);
         return new CommandResult(String.format(MESSAGE_EDIT_DOCTOR_SUCCESS, editedDoctor));
     }
 
