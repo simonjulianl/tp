@@ -3,6 +3,7 @@ package gomedic.logic.commands.addcommand;
 import static gomedic.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
 import gomedic.commons.util.CollectionUtil;
@@ -10,6 +11,7 @@ import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.doctor.Department;
@@ -27,7 +29,7 @@ public class AddDoctorCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
-            + PREFIX_DEPARTMENT + "DEPARTMENT "
+            + PREFIX_DEPARTMENT + "DEPARTMENT \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Smith "
             + PREFIX_PHONE + "98765432 "
@@ -70,6 +72,8 @@ public class AddDoctorCommand extends Command {
         }
 
         model.addDoctor(toAdd);
+        model.setModelBeingShown(ModelItem.DOCTOR);
+        model.updateFilteredDoctorList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

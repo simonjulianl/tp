@@ -9,6 +9,7 @@ import gomedic.commons.util.CollectionUtil;
 import gomedic.model.activity.exceptions.ActivityNotFoundException;
 import gomedic.model.activity.exceptions.ConflictingActivityException;
 import gomedic.model.activity.exceptions.DuplicateActivityFoundException;
+import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,7 +23,7 @@ import javafx.collections.ObservableList;
  * Supports  a minimal set of list operations.
  */
 public class UniqueActivityList implements Iterable<Activity> {
-
+    public static final int MAX_CAPACITY = 999;
     private final ObservableList<Activity> internalList = FXCollections.observableArrayList();
     private final ObservableList<Activity> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -32,14 +33,29 @@ public class UniqueActivityList implements Iterable<Activity> {
      * If it's an empty list, return id 1.
      */
     public int getNewActivityId() {
-        try {
-            return internalList
-                    .get(internalList.size() - 1)
-                    .getActivityId()
-                    .getIdNumber() + 1;
-        } catch (Exception e) {
+        if (internalList.size() == 0) {
             return 1;
         }
+
+        int counter = 1;
+        // Find first id that does not exist in the list starting from D001
+        for (Iterator<Integer> it = internalList
+                .stream()
+                .map(entry -> entry.getActivityId().getIdNumber())
+                .sorted()
+                .iterator(); it.hasNext(); counter++) {
+            int id = it.next();
+            if (id != counter) {
+                return counter;
+            }
+        }
+
+        // all the id are in sequences, make a new one
+        if (counter <= MAX_CAPACITY) {
+            return counter;
+        }
+
+        throw new MaxAddressBookCapacityReached();
     }
 
     /**
@@ -163,15 +179,20 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Activity> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
+    public ObservableList<Activity> asUnmodifiableSortedByIdObservableList() {
+        return internalUnmodifiableList
+                .sorted((activity, otherAct) ->
+                        activity.getActivityId() == otherAct.getActivityId()
+                                ? 0
+                                : activity.getActivityId().getIdNumber()
+                                < otherAct.getActivityId().getIdNumber() ? -1 : 1);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      * Returned list is sorted by starting the start time.
      */
-    public ObservableList<Activity> asUnmodifiableSortedList() {
+    public ObservableList<Activity> asUnmodifiableSortedByStartTimeList() {
         return internalUnmodifiableList
                 .sorted((activity, otherAct) ->
                         activity.getStartTime() == otherAct.getStartTime()

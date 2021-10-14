@@ -12,19 +12,22 @@ import org.junit.jupiter.api.io.TempDir;
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.CommandTestUtil;
-import gomedic.logic.commands.ListCommand;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
+import gomedic.logic.commands.addcommand.AddPatientCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.commands.exceptions.CommandException;
+import gomedic.logic.commands.listcommand.ListPersonCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
 import gomedic.model.ModelManager;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.UserPrefs;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
 import gomedic.storage.JsonAddressBookStorage;
 import gomedic.storage.JsonUserPrefsStorage;
 import gomedic.storage.StorageManager;
@@ -32,6 +35,7 @@ import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.modelbuilder.ActivityBuilder;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
+import gomedic.testutil.modelbuilder.PatientBuilder;
 import gomedic.testutil.modelbuilder.PersonBuilder;
 
 public class LogicManagerTest {
@@ -94,8 +98,25 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete t/person 9";
         assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void executeDeleteActivity_commandExecutionError_throwsCommandException() {
+        String deleteActivity = "delete t/activity A001";
+        assertCommandException(deleteActivity, Messages.MESSAGE_INVALID_ACTIVITY_ID);
+    }
+
+    @Test
+    public void executeDeleteDoctor_commandExecutionError_throwsCommandException() {
+        String deleteDoctor = "delete t/doctor D001";
+        assertCommandException(deleteDoctor, Messages.MESSAGE_INVALID_DOCTOR_ID);
+    }
+    @Test
+    public void executeDeletePatient_commandExecutionError_throwsCommandException() {
+        String deletePatient = "delete t/patient P001";
+        assertCommandException(deletePatient, Messages.MESSAGE_INVALID_PATIENT_ID);
     }
 
     /**
@@ -109,8 +130,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListPersonCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListPersonCommand.MESSAGE_SUCCESS, model);
     }
 
     /**
@@ -175,6 +196,33 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void executeAddPatient_storageThrowsIoException_throwsCommandException() {
+        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage);
+
+        // Execute add patient command
+        String addPatientCommand = AddPatientCommand.COMMAND_WORD
+                + CommandTestUtil.VALID_DESC_NAME_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_PHONE_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_AGE_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_BLOODTYPE_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_GENDER_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_HEIGHT_MAIN_PATIENT
+                + CommandTestUtil.VALID_DESC_WEIGHT_MAIN_PATIENT;
+
+        Patient expectedPatient = new PatientBuilder(TypicalPersons.MAIN_PATIENT).build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addPatient(expectedPatient);
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandFailure(addPatientCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void executeAddActivity_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
@@ -208,8 +256,25 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void getFilteredPatientList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPatientList().remove(0));
+    }
+
+    @Test
     public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredActivityList().remove(0));
+    }
+
+    @Test
+    void getModelBeingShown_defaultValue_testPassed() {
+        assertEquals(ModelItem.ACTIVITY.ordinal(), logic.getModelBeingShown().getValue());
+    }
+
+    @Test
+    void getModelBeingShown_executeOtherCommand_testPassed() throws Exception {
+        String listCommand = ListPersonCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListPersonCommand.MESSAGE_SUCCESS, model);
+        assertEquals(ModelItem.PERSON.ordinal(), logic.getModelBeingShown().getValue());
     }
 
     /**

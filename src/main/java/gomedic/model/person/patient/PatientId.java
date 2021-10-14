@@ -10,7 +10,7 @@ import gomedic.model.commonfield.Id;
 public class PatientId extends Id {
     public static final String MESSAGE_CONSTRAINTS =
             "Id should only contain from 1 to 999, Prefix should be P";
-    private static final Character ACTIVITY_PREFIX = 'P';
+    private static final Character PATIENT_PREFIX = 'P';
 
     /**
      * {@inheritDoc}
@@ -18,7 +18,7 @@ public class PatientId extends Id {
      * @param id Integer from 1 to 999.
      */
     public PatientId(Integer id) {
-        super(id, ACTIVITY_PREFIX);
+        super(id, PATIENT_PREFIX);
         AppUtil.checkArgument(isValidPatientId(this), MESSAGE_CONSTRAINTS);
     }
 
@@ -28,7 +28,7 @@ public class PatientId extends Id {
      * @param id a string of format "PDDD", where "P" is an alphabetic character and "D" is a decimal number.
      */
     public PatientId(String id) {
-        super(Integer.parseInt(id.substring(1)), ACTIVITY_PREFIX);
+        super(Integer.parseInt(id.substring(1)), PATIENT_PREFIX);
         AppUtil.checkArgument(isValidPatientId(this), MESSAGE_CONSTRAINTS);
     }
 
@@ -42,7 +42,26 @@ public class PatientId extends Id {
     public static boolean isValidPatientId(Id id) {
         int number = Integer.parseInt(id.toString().substring(1));
         Character prefix = id.toString().charAt(0);
-        boolean isValidPrefix = prefix.equals(ACTIVITY_PREFIX);
+        boolean isValidPrefix = prefix.equals(PATIENT_PREFIX);
+
+        return isValidId(number, prefix) && isValidPrefix;
+    }
+
+    /**
+     * Returns true if a given stringId is a valid activity valid id.
+     * Valid if integer is 3 digit, from 1 to 999, prefix is P.
+     *
+     * @param id String.
+     * @return true if valid, else false.
+     */
+    public static boolean isValidPatientId(String id) {
+        if (!isValidIdFormat(id)) {
+            return false;
+        }
+
+        int number = Integer.parseInt(id.substring(1));
+        Character prefix = id.charAt(0);
+        boolean isValidPrefix = prefix.equals(PATIENT_PREFIX);
 
         return isValidId(number, prefix) && isValidPrefix;
     }

@@ -4,20 +4,35 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.ClearCommand;
 import gomedic.logic.commands.Command;
-import gomedic.logic.commands.DeleteCommand;
 import gomedic.logic.commands.EditCommand;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
-import gomedic.logic.commands.ListCommand;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
+import gomedic.logic.commands.addcommand.AddPatientCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
+import gomedic.logic.commands.clearcommand.ClearActivityCommand;
+import gomedic.logic.commands.clearcommand.ClearCommand;
+import gomedic.logic.commands.clearcommand.ClearDoctorCommand;
+import gomedic.logic.commands.clearcommand.ClearPatientCommand;
+import gomedic.logic.commands.deletecommand.DeleteActivityCommand;
+import gomedic.logic.commands.deletecommand.DeleteDoctorCommand;
+import gomedic.logic.commands.deletecommand.DeletePatientCommand;
+import gomedic.logic.commands.deletecommand.DeletePersonCommand;
+import gomedic.logic.commands.listcommand.ListActivityCommand;
+import gomedic.logic.commands.listcommand.ListDoctorCommand;
+import gomedic.logic.commands.listcommand.ListPatientCommand;
+import gomedic.logic.commands.listcommand.ListPersonCommand;
 import gomedic.logic.parser.addcommandparser.AddActivityCommandParser;
 import gomedic.logic.parser.addcommandparser.AddDoctorCommandParser;
+import gomedic.logic.parser.addcommandparser.AddPatientCommandParser;
 import gomedic.logic.parser.addcommandparser.AddPersonCommandParser;
+import gomedic.logic.parser.deletecommandparser.DeleteActivityParser;
+import gomedic.logic.parser.deletecommandparser.DeleteCommandParser;
+import gomedic.logic.parser.deletecommandparser.DeleteDoctorParser;
+import gomedic.logic.parser.deletecommandparser.DeletePatientParser;
 import gomedic.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,20 +86,50 @@ public class AddressBookParser {
         case AddDoctorCommand.COMMAND_WORD:
             return new AddDoctorCommandParser().parse(arguments);
 
+        case AddPatientCommand.COMMAND_WORD:
+            return new AddPatientCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeletePersonCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteActivityCommand.COMMAND_WORD:
+            return new DeleteActivityParser().parse(arguments);
+
+        case DeleteDoctorCommand.COMMAND_WORD:
+            return new DeleteDoctorParser().parse(arguments);
+
+        case DeletePatientCommand.COMMAND_WORD:
+            return new DeletePatientParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
+        case ClearActivityCommand.COMMAND_WORD:
+            return new ClearActivityCommand();
+
+        case ClearDoctorCommand.COMMAND_WORD:
+            return new ClearDoctorCommand();
+
+        case ClearPatientCommand.COMMAND_WORD:
+            return new ClearPatientCommand();
+
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListActivityCommand.COMMAND_WORD:
+            return new ListActivityCommand();
+
+        case ListPersonCommand.COMMAND_WORD:
+            return new ListPersonCommand();
+
+        case ListDoctorCommand.COMMAND_WORD:
+            return new ListDoctorCommand();
+
+        case ListPatientCommand.COMMAND_WORD:
+            return new ListPatientCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

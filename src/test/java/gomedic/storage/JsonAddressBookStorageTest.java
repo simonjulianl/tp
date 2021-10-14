@@ -1,7 +1,9 @@
 package gomedic.storage;
 
 import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
+import static gomedic.testutil.TypicalPersons.MAIN_PATIENT;
 import static gomedic.testutil.TypicalPersons.NOT_IN_TYPICAL_DOCTOR;
+import static gomedic.testutil.TypicalPersons.NOT_IN_TYPICAL_PATIENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -65,10 +67,23 @@ public class JsonAddressBookStorageTest {
         Assert.assertThrows(DataConversionException.class, () -> readAddressBook("invalidDoctorAddressBook.json"));
     }
 
+
     @Test
     public void readAddressBook_invalidAndValidDoctorAddressBook_throwDataConversionException() {
         Assert.assertThrows(
                 DataConversionException.class, () -> readAddressBook("invalidAndValidDoctorAddressBook.json"));
+    }
+
+    @Test
+    public void readAddressBook_invalidPatientAddressBook_throwDataConversionException() {
+        Assert.assertThrows(DataConversionException.class, () -> readAddressBook("invalidDoctorAddressBook.json"));
+    }
+
+
+    @Test
+    public void readAddressBook_invalidAndValidPatientAddressBook_throwDataConversionException() {
+        Assert.assertThrows(
+            DataConversionException.class, () -> readAddressBook("invalidAndValidDoctorAddressBook.json"));
     }
 
     // TODO: add more tests for the activities
@@ -86,12 +101,15 @@ public class JsonAddressBookStorageTest {
         // Modify data, overwrite exiting file, and read back
         original.addDoctor(NOT_IN_TYPICAL_DOCTOR);
         original.removeDoctor(MAIN_DOCTOR);
+        original.addPatient(NOT_IN_TYPICAL_PATIENT);
+        original.removePatient(MAIN_PATIENT);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Save and read without specifying file path
         original.addDoctor(MAIN_DOCTOR);
+        original.addPatient(MAIN_PATIENT);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));

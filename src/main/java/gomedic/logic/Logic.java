@@ -11,6 +11,8 @@ import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -33,6 +35,10 @@ public interface Logic {
      * @see Model#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns an unmodifiable view of the filtered list of patients */
+    ObservableList<Patient> getFilteredPatientList();
+
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -57,4 +63,13 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the integer showing current item being shown.
+     * 0 -> activity
+     * 1 -> doctor
+     * 2 -> patient
+     * 3 -> person TODO REMOVE
+     */
+    ObservableValue<Integer> getModelBeingShown();
 }

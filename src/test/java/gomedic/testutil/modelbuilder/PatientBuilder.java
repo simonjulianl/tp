@@ -26,7 +26,7 @@ public class PatientBuilder {
     public static final String DEFAULT_HEIGHT = "176";
     public static final String DEFAULT_WEIGHT = "86";
     public static final Set<Tag> DEFAULT_MEDICAL_CONDITIONS = new HashSet<>();
-    private static int idPool = 1;
+    private static final int DEFAULT_ID = 1;
 
     private Name name;
     private Phone phone;
@@ -49,7 +49,7 @@ public class PatientBuilder {
         gender = new Gender(DEFAULT_GENDER);
         height = new Height(DEFAULT_HEIGHT);
         weight = new Weight(DEFAULT_WEIGHT);
-        pid = new PatientId(idPool++);
+        pid = new PatientId(DEFAULT_ID);
         medicalConditions = new HashSet<>();
         medicalConditions.addAll(DEFAULT_MEDICAL_CONDITIONS);
         medicalConditions.add(new Tag("heart failure"));

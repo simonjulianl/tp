@@ -1,0 +1,27 @@
+{
+  "persons": [],
+  "activities": [],
+  "doctors": [],
+  "patients": [
+    {
+      "name": "Tom Joe",
+      "phone": "9482424",
+      "id": "P001",
+      "age": "35",
+      "bloodtype": "AB",
+      "gender": "M",
+      "height": "175",
+      "weight": "76"
+    },
+    {
+      "name": "Johny Star",
+      "phone": "12345678",
+      "id": "P001",
+      "age": "25",
+      "bloodtype": "A",
+      "gender": "M",
+      "height": "178",
+      "weight": "77"
+    }
+  ]
+}

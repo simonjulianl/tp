@@ -9,14 +9,23 @@ import java.util.Set;
 import gomedic.commons.core.index.Index;
 import gomedic.commons.util.StringUtil;
 import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Address;
 import gomedic.model.commonfield.Email;
+import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.commonfield.Time;
 import gomedic.model.person.doctor.Department;
+import gomedic.model.person.doctor.DoctorId;
+import gomedic.model.person.patient.Age;
+import gomedic.model.person.patient.BloodType;
+import gomedic.model.person.patient.Gender;
+import gomedic.model.person.patient.Height;
+import gomedic.model.person.patient.PatientId;
+import gomedic.model.person.patient.Weight;
 import gomedic.model.tag.Tag;
 
 /**
@@ -86,6 +95,93 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String age} into a {@code Age}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code age} is invalid.
+     */
+    public static Age parseAge(String age) throws ParseException {
+        requireNonNull(age);
+        String trimmedAge = age.trim();
+        if (!Age.isValidAge(trimmedAge)) {
+            throw new ParseException(Age.MESSAGE_CONSTRAINTS);
+        }
+        return new Age(trimmedAge);
+    }
+
+    /**
+     * Parses a {@code String bloodType} into a {@code BloodType}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code bloodType} is invalid.
+     */
+    public static BloodType parseBloodType(String bloodType) throws ParseException {
+        requireNonNull(bloodType);
+        String trimmedBloodType = bloodType.trim();
+        if (!BloodType.isValidBloodType(trimmedBloodType)) {
+            throw new ParseException(BloodType.MESSAGE_CONSTRAINTS);
+        }
+        return new BloodType(trimmedBloodType);
+    }
+
+    /**
+     * Parses a {@code String gender} into a {@code Gender}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code gender} is invalid.
+     */
+    public static Gender parseGender(String gender) throws ParseException {
+        requireNonNull(gender);
+        String trimmedGender = gender.trim();
+        if (!Gender.isValidGender(trimmedGender)) {
+            throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+        }
+        return new Gender(trimmedGender);
+    }
+
+    /**
+     * Parses a {@code String height} into a {@code Height}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code height} is invalid.
+     */
+    public static Height parseHeight(String height) throws ParseException {
+        requireNonNull(height);
+        String trimmedHeight = height.trim();
+        if (!Height.isValidHeight(trimmedHeight)) {
+            throw new ParseException(Height.MESSAGE_CONSTRAINTS);
+        }
+        return new Height(trimmedHeight);
+    }
+
+    /**
+     * Parses a {@code String weight} into a {@code Weight}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code weight} is invalid.
+     */
+    public static Weight parseWeight(String weight) throws ParseException {
+        requireNonNull(weight);
+        String trimmedWeight = weight.trim();
+        if (!Weight.isValidWeight(trimmedWeight)) {
+            throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
+        }
+        return new Weight(trimmedWeight);
+    }
+
+    /**
+     * Parses {@code Collection<String> medicalConditions} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseMedicalConditions(Collection<String> medicalConditions) throws ParseException {
+        requireNonNull(medicalConditions);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : medicalConditions) {
+            tagSet.add(parseTag(tagName));
+        }
+        return tagSet;
+    }
+
+    /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -128,6 +224,30 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
         return new Time(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String id} into an {@code id}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code id} is invalid.
+     */
+    public static Id parseId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        if (trimmedId.length() != 4) {
+            throw new ParseException(Id.MESSAGE_CONSTRAINTS);
+        }
+
+        if (ActivityId.isValidActivityId(trimmedId)) {
+            return new ActivityId(trimmedId);
+        } else if (DoctorId.isValidDoctorId(trimmedId)) {
+            return new DoctorId(trimmedId);
+        } else if (PatientId.isValidPatientId(trimmedId)) {
+            return new PatientId(trimmedId);
+        }
+
+        throw new ParseException(Id.MESSAGE_CONSTRAINTS);
     }
 
     /**

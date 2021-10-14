@@ -1,8 +1,9 @@
-package gomedic.ui;
+package gomedic.ui.card;
 
 import java.util.Comparator;
 
 import gomedic.model.person.Person;
+import gomedic.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;

@@ -1,4 +1,4 @@
-package gomedic.logic.commands;
+package gomedic.logic.commands.clearcommand;
 
 import static gomedic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;

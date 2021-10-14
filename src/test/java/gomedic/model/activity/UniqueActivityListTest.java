@@ -19,6 +19,8 @@ import org.junit.jupiter.api.Test;
 import gomedic.model.activity.exceptions.ActivityNotFoundException;
 import gomedic.model.activity.exceptions.ConflictingActivityException;
 import gomedic.model.activity.exceptions.DuplicateActivityFoundException;
+import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
+import gomedic.testutil.modelbuilder.ActivityBuilder;
 
 class UniqueActivityListTest {
     private final UniqueActivityList uniqueActivityList = new UniqueActivityList();
@@ -38,6 +40,32 @@ class UniqueActivityListTest {
     void add_normal_returnsTrue() {
         uniqueActivityList.add(MEETING);
         assertTrue(uniqueActivityList.contains(MEETING));
+    }
+
+    @Test
+    void add_maxCapacity_throwsMaxCapacityReached() {
+        String startTime = "%02d/%02d/%04d 15:00";
+        String endTime = "%02d/%02d/%04d 16:00";
+
+        Runnable r = () -> {
+            for (int day = 1; day < 28; day++) {
+                for (int month = 1; month < 12; month++) {
+                    for (int year = 2000; year < 2100; year++) {
+                        Activity a = new ActivityBuilder()
+                                .withId(uniqueActivityList.getNewActivityId())
+                                .withTitle("test")
+                                .withStartTime(String.format(startTime, day, month, year))
+                                .withEndTime(String.format(endTime, day, month, year))
+                                .build();
+
+                        uniqueActivityList.add(a);
+                    }
+                }
+            }
+        };
+
+        assertThrows(MaxAddressBookCapacityReached.class, r::run);
+
     }
 
     @Test
@@ -97,7 +125,7 @@ class UniqueActivityListTest {
         uniqueActivityList.add(PAPER_REVIEW);
         UniqueActivityList expectedUniqueActivityList = new UniqueActivityList();
         expectedUniqueActivityList.add(MEETING);
-        uniqueActivityList.setActivities(expectedUniqueActivityList.asUnmodifiableObservableList());
+        uniqueActivityList.setActivities(expectedUniqueActivityList.asUnmodifiableSortedByIdObservableList());
         assertEquals(expectedUniqueActivityList, uniqueActivityList);
     }
 
@@ -130,14 +158,14 @@ class UniqueActivityListTest {
     @Test
     public void asUnmodifiableObservableList() {
         uniqueActivityList.setActivities(getTypicalActivities());
-        assertEquals(getTypicalActivities(), uniqueActivityList.asUnmodifiableObservableList());
+        assertEquals(getTypicalActivities(), uniqueActivityList.asUnmodifiableSortedByIdObservableList());
     }
 
     @Test
     public void asUnmodifiableSortedList_typicalList_sortedByStartingTime() {
         uniqueActivityList.setActivities(getTypicalActivities());
         Activity prev = null;
-        for (Activity a : uniqueActivityList.asUnmodifiableSortedList()) {
+        for (Activity a : uniqueActivityList.asUnmodifiableSortedByStartTimeList()) {
             if (prev == null) {
                 prev = a;
             } else {
@@ -149,14 +177,15 @@ class UniqueActivityListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(
-                UnsupportedOperationException.class, () -> uniqueActivityList.asUnmodifiableObservableList().remove(0)
+                UnsupportedOperationException.class, () -> uniqueActivityList
+                        .asUnmodifiableSortedByIdObservableList().remove(0)
         );
     }
 
     @Test
     void getLastActivityId_validInput_testsPassed() {
         uniqueActivityList.setActivities(getTypicalActivities());
-        assertEquals(5, uniqueActivityList.getNewActivityId());
+        assertEquals(2, uniqueActivityList.getNewActivityId());
     }
 
     @Test

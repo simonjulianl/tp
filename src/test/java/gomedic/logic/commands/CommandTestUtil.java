@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -16,13 +15,19 @@ import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.AddressBook;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.ReadOnlyUserPrefs;
 import gomedic.model.activity.Activity;
+import gomedic.model.activity.ActivityId;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.doctor.DoctorId;
+import gomedic.model.person.patient.Patient;
+import gomedic.model.person.patient.PatientId;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.EditPersonDescriptorBuilder;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -85,6 +90,37 @@ public class CommandTestUtil {
     public static final String INVALID_DESC_PHONE_MAIN_DOCTOR = " " + CliSyntax.PREFIX_PHONE + "not a number";
     public static final String INVALID_DESC_DEPARTMENT_MAIN_DOCTOR = " " + CliSyntax.PREFIX_DEPARTMENT + "Cardi**ology";
 
+    /* valid constants declarations for patient related fields */
+    public static final String VALID_DESC_NAME_MAIN_PATIENT = " " + CliSyntax.PREFIX_NAME + "Dohn Joe";
+    public static final String VALID_DESC_NAME_OTHER_PATIENT = " " + CliSyntax.PREFIX_NAME + "Smith John";
+    public static final String VALID_DESC_PHONE_MAIN_PATIENT = " " + CliSyntax.PREFIX_PHONE + "12345678";
+    public static final String VALID_DESC_PHONE_OTHER_PATIENT = " " + CliSyntax.PREFIX_PHONE + "77777777";
+    public static final String VALID_DESC_AGE_MAIN_PATIENT = " " + CliSyntax.PREFIX_AGE + "40";
+    public static final String VALID_DESC_AGE_OTHER_PATIENT = " " + CliSyntax.PREFIX_AGE + "37";
+    public static final String VALID_DESC_BLOODTYPE_MAIN_PATIENT = " " + CliSyntax.PREFIX_BLOODTYPE + "AB";
+    public static final String VALID_DESC_BLOODTYPE_OTHER_PATIENT = " " + CliSyntax.PREFIX_BLOODTYPE + "B";
+    public static final String VALID_DESC_GENDER_MAIN_PATIENT = " " + CliSyntax.PREFIX_GENDER + "M";
+    public static final String VALID_DESC_GENDER_OTHER_PATIENT = " " + CliSyntax.PREFIX_GENDER + "M";
+    public static final String VALID_DESC_HEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "176";
+    public static final String VALID_DESC_HEIGHT_OTHER_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "186";
+    public static final String VALID_DESC_WEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "86";
+    public static final String VALID_DESC_WEIGHT_OTHER_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "77";
+    public static final String VALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
+            + "heart failure";
+    public static final String VALID_DESC_MEDICALCONDITIONS_OTHER_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
+            + "diabetes";
+
+    /* invalid constants declarations for patient related fields */
+    public static final String INVALID_DESC_NAME_MAIN_PATIENT = " " + CliSyntax.PREFIX_NAME + "John** Doe";
+    public static final String INVALID_DESC_PHONE_MAIN_PATIENT = " " + CliSyntax.PREFIX_PHONE + "not a number";
+    public static final String INVALID_DESC_AGE_MAIN_PATIENT = " " + CliSyntax.PREFIX_AGE + "not a number";
+    public static final String INVALID_DESC_BLOODTYPE_MAIN_PATIENT = " " + CliSyntax.PREFIX_BLOODTYPE + "invalid";
+    public static final String INVALID_DESC_GENDER_MAIN_PATIENT = " " + CliSyntax.PREFIX_GENDER + "invalid";
+    public static final String INVALID_DESC_HEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "invalid";
+    public static final String INVALID_DESC_WEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "invalid";
+    public static final String INVALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
+            + "invalid**";
+
     /* valid constants declarations for activity related fields */
     public static final String VALID_DESC_TITLE_MEETING =
             " " + CliSyntax.PREFIX_TITLE + "Meeting me";
@@ -128,6 +164,106 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel}
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
+                                            Model expectedModel) {
+        try {
+            CommandResult result = command.execute(actualModel);
+
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     */
+    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showPersonAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+
+        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = person.getName().fullName.split("\\s+");
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(List.of(splitName[0])));
+
+        assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the doctors at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showDoctorAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDoctorList().size());
+
+        Doctor doctor = model.getFilteredDoctorList().get(targetIndex.getZeroBased());
+        final DoctorId did = new DoctorId(doctor.getId().getIdNumber());
+        model.updateFilteredDoctorList(doctor1 -> doctor1.getId().equals(did));
+
+        assertEquals(1, model.getFilteredDoctorList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the patients at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showPatientAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPatientList().size());
+
+        Patient patient = model.getFilteredPatientList().get(targetIndex.getZeroBased());
+        final PatientId pid = new PatientId(patient.getId().getIdNumber());
+        model.updateFilteredPatientList(patient1 -> patient1.getId().equals(pid));
+
+        assertEquals(1, model.getFilteredPatientList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the activity at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showActivityAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredActivityList().size());
+
+        Activity activity = model.getFilteredActivityList().get(targetIndex.getZeroBased());
+        final ActivityId aid = activity.getActivityId();
+        model.updateFilteredActivitiesList(activity1 -> activity1.getActivityId().equals(aid));
+
+        assertEquals(1, model.getFilteredActivityList().size());
     }
 
     /**
@@ -175,6 +311,11 @@ public class CommandTestUtil {
         }
 
         @Override
+        public void addPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addActivity(Activity activity) {
             throw new AssertionError("This method should not be called.");
         }
@@ -195,12 +336,43 @@ public class CommandTestUtil {
         }
 
         @Override
+        public boolean hasNewPatientId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getNewPatientId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasActivity(Activity activity) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void deleteActivity(Activity target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePatient(Patient target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public boolean hasDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDoctor(Doctor target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPatient(Patient patient) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -250,66 +422,38 @@ public class CommandTestUtil {
         }
 
         @Override
+        public ObservableList<Patient> getFilteredPatientList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<? super Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-    }
 
-    /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
-     */
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                            Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
-    }
+        @Override
+        public void updateFilteredDoctorList(Predicate<? super Doctor> predicate) {
+            // noop
+        }
 
-    /**
-     * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
-     * - the {@code actualModel} matches {@code expectedModel}
-     */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-                                            Model expectedModel) {
-        try {
-            CommandResult result = command.execute(actualModel);
-            assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
-        } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
+        @Override
+        public void updateFilteredPatientList(Predicate<? super Patient> predicate) {
+            // noop
+        }
+
+        @Override
+        public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
+            // noop
+        }
+
+        @Override
+        public ObservableValue<Integer> getModelBeingShown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setModelBeingShown(ModelItem modelItem) {
+            // noop
         }
     }
-
-    /**
-     * Executes the given {@code command}, confirms that <br>
-     * - a {@code CommandException} is thrown <br>
-     * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
-     */
-    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
-        // we are unable to defensively copy the model for comparison later, so we can
-        // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-     */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
-
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredPersonList().size());
-    }
-
 }

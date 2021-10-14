@@ -20,14 +20,6 @@ public abstract class UiPart<T> {
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**
-     * Constructs a UiPart with the specified FXML file URL.
-     * The FXML file must not specify the {@code fx:controller} attribute.
-     */
-    public UiPart(URL fxmlFileUrl) {
-        loadFxmlFile(fxmlFileUrl, null);
-    }
-
-    /**
      * Constructs a UiPart using the specified FXML file within {@link #FXML_FILE_FOLDER}.
      *
      * @see #UiPart(URL)
@@ -37,11 +29,11 @@ public abstract class UiPart<T> {
     }
 
     /**
-     * Constructs a UiPart with the specified FXML file URL and root object.
+     * Constructs a UiPart with the specified FXML file URL.
      * The FXML file must not specify the {@code fx:controller} attribute.
      */
-    public UiPart(URL fxmlFileUrl, T root) {
-        loadFxmlFile(fxmlFileUrl, root);
+    public UiPart(URL fxmlFileUrl) {
+        loadFxmlFile(fxmlFileUrl, null);
     }
 
     /**
@@ -54,6 +46,14 @@ public abstract class UiPart<T> {
     }
 
     /**
+     * Constructs a UiPart with the specified FXML file URL and root object.
+     * The FXML file must not specify the {@code fx:controller} attribute.
+     */
+    public UiPart(URL fxmlFileUrl, T root) {
+        loadFxmlFile(fxmlFileUrl, root);
+    }
+
+    /**
      * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
      */
     private static URL getFxmlFileUrl(String fxmlFileName) {
@@ -61,13 +61,6 @@ public abstract class UiPart<T> {
         String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
         URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
         return requireNonNull(fxmlFileUrl);
-    }
-
-    /**
-     * Returns the root object of the scene graph of this UiPart.
-     */
-    public T getRoot() {
-        return fxmlLoader.getRoot();
     }
 
     /**
@@ -86,6 +79,13 @@ public abstract class UiPart<T> {
         } catch (IOException e) {
             throw new AssertionError(e);
         }
+    }
+
+    /**
+     * Returns the root object of the scene graph of this UiPart.
+     */
+    public T getRoot() {
+        return fxmlLoader.getRoot();
     }
 
 }

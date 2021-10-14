@@ -7,6 +7,8 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
+import gomedic.model.person.patient.Patient;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -93,6 +95,12 @@ public interface Model {
     boolean hasDoctor(Doctor doctor);
 
     /**
+     * Deletes the given doctor.
+     * The doctor must exist in the address book.
+     */
+    void deleteDoctor(Doctor target);
+
+    /**
      * Adds the given activity.
      * {@code activity} must not already exist and not conflicting
      * with any activity in the address book.
@@ -110,9 +118,42 @@ public interface Model {
     boolean hasActivity(Activity activity);
 
     /**
+     * Deletes the given activity.
+     * The activity must exist in the address book.
+     */
+    void deleteActivity(Activity target);
+
+    /**
+     * Deletes the given patient.
+     * The patient must exist in the address book.
+     */
+    void deletePatient(Patient target);
+
+    /**
      * Returns true if there is another conflicting activity.
      */
     boolean hasConflictingActivity(Activity activity);
+
+    /**
+     * Adds the given patient.
+     * {@code patient} must not already exist in the address book.
+     */
+    void addPatient(Patient patient);
+
+    /**
+     * Checks if there is a new patient id available for assignment.
+     */
+    boolean hasNewPatientId();
+
+    /**
+     * Get a new available unique patient id.
+     */
+    int getNewPatientId();
+
+    /**
+     * Returns true if a patient with same id exists in the addressbook.
+     */
+    boolean hasPatient(Patient patient);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -127,6 +168,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
 
+    /** Returns an unmodifiable view of the filtered patient list */
+    ObservableList<Patient> getFilteredPatientList();
+
     /** Returns an unmodifiable view of the filtered activity list */
     ObservableList<Activity> getFilteredActivityList();
 
@@ -136,4 +180,39 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<? super Person> predicate);
+
+    /**
+     * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDoctorList(Predicate<? super Doctor> predicate);
+
+    /**
+     * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPatientList(Predicate<? super Patient> predicate);
+
+    /**
+     * Updates the filter of the filtered activities list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredActivitiesList(Predicate<? super Activity> predicate);
+
+    /**
+     * Returns the integer showing current item being shown.
+     * 0 -> activity
+     * 1 -> doctor
+     * 2 -> patient
+     * 3 -> person
+     */
+    ObservableValue<Integer> getModelBeingShown();
+
+    /**
+     * Sets the model being shown.
+     */
+    void setModelBeingShown(ModelItem modelItem);
 }

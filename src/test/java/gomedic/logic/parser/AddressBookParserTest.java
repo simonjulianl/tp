@@ -10,14 +10,20 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.ClearCommand;
-import gomedic.logic.commands.DeleteCommand;
 import gomedic.logic.commands.EditCommand;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
-import gomedic.logic.commands.ListCommand;
 import gomedic.logic.commands.addcommand.AddPersonCommand;
+import gomedic.logic.commands.clearcommand.ClearActivityCommand;
+import gomedic.logic.commands.clearcommand.ClearCommand;
+import gomedic.logic.commands.clearcommand.ClearDoctorCommand;
+import gomedic.logic.commands.clearcommand.ClearPatientCommand;
+import gomedic.logic.commands.deletecommand.DeletePersonCommand;
+import gomedic.logic.commands.listcommand.ListActivityCommand;
+import gomedic.logic.commands.listcommand.ListDoctorCommand;
+import gomedic.logic.commands.listcommand.ListPatientCommand;
+import gomedic.logic.commands.listcommand.ListPersonCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.Person;
 import gomedic.model.util.NameContainsKeywordsPredicate;
@@ -44,10 +50,28 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_clearActivity() throws Exception {
+        assertTrue(parser.parseCommand(ClearActivityCommand.COMMAND_WORD) instanceof ClearActivityCommand);
+        assertTrue(parser.parseCommand(ClearActivityCommand.COMMAND_WORD + " 3") instanceof ClearActivityCommand);
+    }
+
+    @Test
+    public void parseCommand_clearDoctor() throws Exception {
+        assertTrue(parser.parseCommand(ClearDoctorCommand.COMMAND_WORD) instanceof ClearDoctorCommand);
+        assertTrue(parser.parseCommand(ClearDoctorCommand.COMMAND_WORD + " 3") instanceof ClearDoctorCommand);
+    }
+
+    @Test
+    public void parseCommand_clearPatient() throws Exception {
+        assertTrue(parser.parseCommand(ClearPatientCommand.COMMAND_WORD) instanceof ClearPatientCommand);
+        assertTrue(parser.parseCommand(ClearPatientCommand.COMMAND_WORD + " 3") instanceof ClearPatientCommand);
+    }
+
+    @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(TypicalIndexes.INDEX_FIRST_PERSON), command);
+        DeletePersonCommand command = (DeletePersonCommand) parser.parseCommand(
+                DeletePersonCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST.getOneBased());
+        assertEquals(new DeletePersonCommand(TypicalIndexes.INDEX_FIRST), command);
     }
 
     @Test
@@ -55,9 +79,9 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased()
+                + TypicalIndexes.INDEX_FIRST.getOneBased()
                 + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST, descriptor), command);
     }
 
     @Test
@@ -81,9 +105,27 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    public void parseCommand_listPerson() throws Exception {
+        assertTrue(parser.parseCommand(ListPersonCommand.COMMAND_WORD) instanceof ListPersonCommand);
+        assertTrue(parser.parseCommand(ListPersonCommand.COMMAND_WORD + " 3") instanceof ListPersonCommand);
+    }
+
+    @Test
+    public void parseCommand_listDoctor() throws Exception {
+        assertTrue(parser.parseCommand(ListDoctorCommand.COMMAND_WORD) instanceof ListDoctorCommand);
+        assertTrue(parser.parseCommand(ListDoctorCommand.COMMAND_WORD + " 3") instanceof ListDoctorCommand);
+    }
+
+    @Test
+    public void parseCommand_listPatient() throws Exception {
+        assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD) instanceof ListPatientCommand);
+        assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD + " 3") instanceof ListPatientCommand);
+    }
+
+    @Test
+    public void parseCommand_listActivity() throws Exception {
+        assertTrue(parser.parseCommand(ListActivityCommand.COMMAND_WORD) instanceof ListActivityCommand);
+        assertTrue(parser.parseCommand(ListActivityCommand.COMMAND_WORD + " 3") instanceof ListActivityCommand);
     }
 
     @Test

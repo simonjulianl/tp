@@ -1,0 +1,27 @@
+{
+  "persons": [],
+  "activities": [],
+  "doctors": [],
+  "patients": [
+    {
+      "name": "Valid Person",
+      "phone": "9482424",
+      "id": "P123",
+      "age": "35",
+      "bloodtype": "AB",
+      "gender": "M",
+      "height": "175",
+      "weight": "76"
+    },
+    {
+      "name": "Person with invalid phone name field",
+      "phone": "9482abc424",
+      "id": "P123",
+      "age": "35",
+      "bloodtype": "AB",
+      "gender": "M",
+      "height": "175",
+      "weight": "76"
+    }
+  ]
+}
