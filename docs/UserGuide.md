@@ -153,11 +153,11 @@ Examples:
 
 * `delete t/patient i/P001`
 
-### Updating an existing patient: `update t/patient`
+### Updating an existing patient: `edit t/patient`
 
-Updates a patient's details from the GoMedic application.
+Edits a patient's details from the GoMedic application.
 
-Format: `update t/patient i/PATIENT_ID [OPTIONAL_PARAMETER]...`
+Format: `edit t/patient i/PATIENT_ID [OPTIONAL_PARAMETER]...`
 
 The parameters are:
 
@@ -185,9 +185,9 @@ Notes:
 
 Examples:
 
-* `update t/patient i/P123 n/John Doe a/30 g/M`
-* `update t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234 do/diabetes`
-* `update t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234 o/fever o/headache do/diabetes do/heart feailure`
+* `edit t/patient i/P123 n/John Doe a/30 g/M`
+* `edit t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234 do/diabetes`
+* `edit t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234 o/fever o/headache do/diabetes do/heart feailure`
 
 ### Viewing the list of patients `list t/patient`
 
@@ -251,11 +251,11 @@ Examples:
 
 * `delete t/doctor i/D001`
 
-### Updating an existing doctor: `update t/doctor`
+### Updating an existing doctor: `edit t/doctor`
 
-Updates a doctor's details from the GoMedic application.
+Edits a doctor's details from the GoMedic application.
 
-Format: `update t/doctor i/DOCTOR_ID [OPTIONAL_PARAMETER]...`
+Format: `edit t/doctor i/DOCTOR_ID [OPTIONAL_PARAMETER]...`
 
 The parameters are:
 * `i/DOCTOR_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
@@ -462,7 +462,7 @@ Action        | Format, Examples |
 --------------|------------------ |
 **Add**       | `add {type} {PARAMETERS}`<br> e.g., `add t/doctor n/Timmy Tom p/98765432 de/neurology`
 **Delete**    | `delete {type} i/{type}_ID` <br> e.g., `delete t/patient i/P003`<br>
-**Update**    | `update {type} i/{type}_ID [OPTIONAL PARAMETER]...`<br>e.g.,`update t/patient i/P123 n/John Doe a/30 g/M`<br>
+**Edit**      | `edit {type} i/{type}_ID [OPTIONAL PARAMETER]...`<br>e.g.,`edit t/patient i/P123 n/John Doe a/30 g/M`<br>
 **Find**      | `find [OPTIONAL_PARAMATERS]...`<br> e.g., `find ta/important ti/tutorial`<br>
 **View**      | `view t/doctor i/DOCTOR_ID`, `view t/patient i/PATIENT_ID`<br> e.g., `view t/patient i/P003`
 **Tag**       | `tag t/activity  i/ACTIVITY_ID [ta/TAG_DESCRIPTION]...` <br> e.g., `tag t/activity i/A420 ta/important ta/NUS ta/schoolwork`

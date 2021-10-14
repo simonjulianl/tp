@@ -3,6 +3,7 @@ package gomedic.logic.commands.addcommand;
 import static gomedic.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_DOCTOR;
 import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
@@ -23,7 +24,7 @@ import gomedic.model.person.doctor.DoctorId;
  * Adds an doctor to the address book
  */
 public class AddDoctorCommand extends Command {
-    public static final String COMMAND_WORD = "add t/doctor";
+    public static final String COMMAND_WORD = "add" + " " + PREFIX_TYPE_DOCTOR;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a doctor to the address book. "
             + "Parameters: "

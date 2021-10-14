@@ -1,5 +1,6 @@
 package gomedic.logic.commands.listcommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_ACTIVITY;
 import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
@@ -13,7 +14,7 @@ import gomedic.model.ModelItem;
  */
 public class ListActivityCommand extends Command {
 
-    public static final String COMMAND_WORD = "list t/activity";
+    public static final String COMMAND_WORD = "list" + " " + PREFIX_TYPE_ACTIVITY;
 
     public static final String MESSAGE_SUCCESS = "Listed all activities sorted by id";
 

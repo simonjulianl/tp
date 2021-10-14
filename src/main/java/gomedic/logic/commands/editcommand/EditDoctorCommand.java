@@ -4,6 +4,7 @@ import static gomedic.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static gomedic.logic.parser.CliSyntax.PREFIX_ID;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_DOCTOR;
 import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
@@ -29,7 +30,7 @@ import gomedic.model.person.doctor.DoctorId;
  */
 public class EditDoctorCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit t/doctor";
+    public static final String COMMAND_WORD = "edit" + " " + PREFIX_TYPE_DOCTOR;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the doctor identified "
             + "by the index number used in the displayed doctor list. "
@@ -38,7 +39,7 @@ public class EditDoctorCommand extends Command {
             + "[" + PREFIX_ID + "ID] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_DEPARTMENT + "EMAIL] "
+            + "[" + PREFIX_DEPARTMENT + "DEPARTMENT] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + " D001 "
             + PREFIX_NAME + "John Snow "
@@ -85,9 +86,7 @@ public class EditDoctorCommand extends Command {
 
         Doctor doctorToEdit = lastShownList
                 .stream()
-                .filter(doctor -> doctor
-                        .getId()
-                        .toString().equals(targetId.toString()))
+                .filter(doctor -> doctor.getId().toString().equals(targetId.toString()))
                 .findFirst()
                 .orElse(null);
 
