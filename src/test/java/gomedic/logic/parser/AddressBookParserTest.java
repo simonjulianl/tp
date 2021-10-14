@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.EditCommand;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
@@ -20,6 +19,7 @@ import gomedic.logic.commands.clearcommand.ClearCommand;
 import gomedic.logic.commands.clearcommand.ClearDoctorCommand;
 import gomedic.logic.commands.clearcommand.ClearPatientCommand;
 import gomedic.logic.commands.deletecommand.DeleteDoctorCommand;
+import gomedic.logic.commands.editcommand.EditDoctorCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPatientCommand;
@@ -27,8 +27,8 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.util.NameContainsKeywordsPredicate;
-import gomedic.testutil.EditDoctorDescriptorBuilder;
-import gomedic.testutil.PersonUtil;
+import gomedic.testutil.CommandGenerationUtils;
+import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
 
 public class AddressBookParserTest {
@@ -36,9 +36,10 @@ public class AddressBookParserTest {
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
+    public void parseCommand_addDoctor() throws Exception {
         Doctor doctor = new DoctorBuilder().build();
-        AddDoctorCommand command = (AddDoctorCommand) parser.parseCommand(PersonUtil.getAddDoctorCommand(doctor));
+        AddDoctorCommand command =
+                (AddDoctorCommand) parser.parseCommand(CommandGenerationUtils.getAddDoctorCommand(doctor));
         assertEquals(new AddDoctorCommand(doctor.getName(), doctor.getPhone(), doctor.getDepartment()), command);
     }
 
@@ -75,13 +76,13 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
+    public void parseCommand_editDoctor() throws Exception {
         Doctor doctor = new DoctorBuilder().build();
-        EditCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder(doctor).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + CliSyntax.PREFIX_ID + doctor.getId()
-                + " " + PersonUtil.getEditDoctorDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(doctor.getId(), descriptor), command);
+        EditDoctorCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder(doctor).build();
+        EditDoctorCommand command = (EditDoctorCommand) parser.parseCommand(EditDoctorCommand.COMMAND_WORD
+                + " " + CliSyntax.PREFIX_ID + doctor.getId()
+                + " " + CommandGenerationUtils.getEditDoctorDescriptorDetails(descriptor));
+        assertEquals(new EditDoctorCommand(doctor.getId(), descriptor), command);
     }
 
     @Test

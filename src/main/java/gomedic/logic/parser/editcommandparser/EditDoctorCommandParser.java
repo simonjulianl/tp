@@ -1,16 +1,21 @@
-package gomedic.logic.parser;
+package gomedic.logic.parser.editcommandparser;
 
 import static java.util.Objects.requireNonNull;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.EditCommand;
+import gomedic.logic.commands.editcommand.EditDoctorCommand;
+import gomedic.logic.parser.ArgumentMultimap;
+import gomedic.logic.parser.ArgumentTokenizer;
+import gomedic.logic.parser.CliSyntax;
+import gomedic.logic.parser.Parser;
+import gomedic.logic.parser.ParserUtil;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.commonfield.Id;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditCommandParser implements Parser<EditCommand> {
+public class EditDoctorCommandParser implements Parser<EditDoctorCommand> {
 
     private static final String INVALID_INPUT = "";
     /**
@@ -19,7 +24,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public EditDoctorCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
@@ -34,10 +39,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             targetId = ParserUtil.parseId(argMultimap.getValue(CliSyntax.PREFIX_ID).orElse(INVALID_INPUT));
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditDoctorCommand.MESSAGE_USAGE), pe);
         }
 
-        EditCommand.EditDoctorDescriptor editDoctorDescriptor = new EditCommand.EditDoctorDescriptor();
+        EditDoctorCommand.EditDoctorDescriptor editDoctorDescriptor = new EditDoctorCommand.EditDoctorDescriptor();
         if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
             editDoctorDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
         }
@@ -50,10 +55,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (!editDoctorDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditDoctorCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(targetId, editDoctorDescriptor);
+        return new EditDoctorCommand(targetId, editDoctorDescriptor);
     }
 
 }

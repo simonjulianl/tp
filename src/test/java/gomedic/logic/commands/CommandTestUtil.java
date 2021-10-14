@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 
 import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.index.Index;
+import gomedic.logic.commands.editcommand.EditDoctorCommand;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.AddressBook;
@@ -24,8 +25,8 @@ import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.person.patient.Patient;
 import gomedic.model.person.patient.PatientId;
-import gomedic.testutil.EditDoctorDescriptorBuilder;
 import gomedic.testutil.TypicalPersons;
+import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
@@ -121,8 +122,8 @@ public class CommandTestUtil {
     public static final String INVALID_DESC_DESCRIPTION =
             " " + CliSyntax.PREFIX_DESCRIPTION + "SOME LONG DESCRIPTION".repeat(1000);
 
-    public static final EditCommand.EditDoctorDescriptor DESC_MAIN_DOCTOR;
-    public static final EditCommand.EditDoctorDescriptor DESC_OTHER_DOCTOR;
+    public static final EditDoctorCommand.EditDoctorDescriptor DESC_MAIN_DOCTOR;
+    public static final EditDoctorCommand.EditDoctorDescriptor DESC_OTHER_DOCTOR;
 
     static {
         DESC_MAIN_DOCTOR = new EditDoctorDescriptorBuilder().withName(TypicalPersons.MAIN_DOCTOR.getName().fullName)
@@ -287,7 +288,6 @@ public class CommandTestUtil {
         public void setDoctor(Doctor oldDoctor, Doctor replacement) {
             throw new AssertionError("This method should not be called.");
         }
-
 
         @Override
         public boolean hasNewPatientId() {

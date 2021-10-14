@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.Command;
-import gomedic.logic.commands.EditCommand;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
@@ -19,6 +18,7 @@ import gomedic.logic.commands.clearcommand.ClearPatientCommand;
 import gomedic.logic.commands.deletecommand.DeleteActivityCommand;
 import gomedic.logic.commands.deletecommand.DeleteDoctorCommand;
 import gomedic.logic.commands.deletecommand.DeletePatientCommand;
+import gomedic.logic.commands.editcommand.EditDoctorCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPatientCommand;
@@ -28,6 +28,7 @@ import gomedic.logic.parser.addcommandparser.AddPatientCommandParser;
 import gomedic.logic.parser.deletecommandparser.DeleteActivityParser;
 import gomedic.logic.parser.deletecommandparser.DeleteDoctorParser;
 import gomedic.logic.parser.deletecommandparser.DeletePatientParser;
+import gomedic.logic.parser.editcommandparser.EditDoctorCommandParser;
 import gomedic.logic.parser.exceptions.ParseException;
 
 /**
@@ -81,8 +82,8 @@ public class AddressBookParser {
         case AddPatientCommand.COMMAND_WORD:
             return new AddPatientCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EditDoctorCommand.COMMAND_WORD:
+            return new EditDoctorCommandParser().parse(arguments);
 
         case DeleteActivityCommand.COMMAND_WORD:
             return new DeleteActivityParser().parse(arguments);

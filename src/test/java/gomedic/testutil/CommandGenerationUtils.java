@@ -1,15 +1,14 @@
 package gomedic.testutil;
 
-
-import gomedic.logic.commands.EditCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
+import gomedic.logic.commands.editcommand.EditDoctorCommand;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.person.doctor.Doctor;
 
 /**
- * A utility class for Person.
+ * A utility class for generation of commands / details of commands.
  */
-public class PersonUtil {
+public class CommandGenerationUtils {
 
     /**
      * Returns an add command string for adding the {@code doctor}.
@@ -32,7 +31,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditDoctorDescriptor}'s details.
      */
-    public static String getEditDoctorDescriptorDetails(EditCommand.EditDoctorDescriptor descriptor) {
+    public static String getEditDoctorDescriptorDetails(EditDoctorCommand.EditDoctorDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(CliSyntax.PREFIX_PHONE).append(phone.value).append(" "));

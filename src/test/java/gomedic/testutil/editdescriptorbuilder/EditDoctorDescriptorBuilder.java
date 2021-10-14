@@ -1,6 +1,6 @@
-package gomedic.testutil;
+package gomedic.testutil.editdescriptorbuilder;
 
-import gomedic.logic.commands.EditCommand;
+import gomedic.logic.commands.editcommand.EditDoctorCommand;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.doctor.Department;
@@ -11,21 +11,21 @@ import gomedic.model.person.doctor.Doctor;
  */
 public class EditDoctorDescriptorBuilder {
 
-    private final EditCommand.EditDoctorDescriptor descriptor;
+    private final EditDoctorCommand.EditDoctorDescriptor descriptor;
 
     public EditDoctorDescriptorBuilder() {
-        descriptor = new EditCommand.EditDoctorDescriptor();
+        descriptor = new EditDoctorCommand.EditDoctorDescriptor();
     }
 
-    public EditDoctorDescriptorBuilder(EditCommand.EditDoctorDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditDoctorDescriptor(descriptor);
+    public EditDoctorDescriptorBuilder(EditDoctorCommand.EditDoctorDescriptor descriptor) {
+        this.descriptor = new EditDoctorCommand.EditDoctorDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditDoctorDescriptor} with fields containing {@code person}'s details
      */
     public EditDoctorDescriptorBuilder(Doctor doctor) {
-        descriptor = new EditCommand.EditDoctorDescriptor();
+        descriptor = new EditDoctorCommand.EditDoctorDescriptor();
         descriptor.setName(doctor.getName());
         descriptor.setPhone(doctor.getPhone());
         descriptor.setDepartment(doctor.getDepartment());
@@ -55,7 +55,7 @@ public class EditDoctorDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditDoctorDescriptor build() {
+    public EditDoctorCommand.EditDoctorDescriptor build() {
         return descriptor;
     }
 }

@@ -1,27 +1,30 @@
-package gomedic.logic.parser;
+package gomedic.logic.parser.editcommandparser;
 
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.CommandTestUtil;
-import gomedic.logic.commands.EditCommand;
+import gomedic.logic.commands.editcommand.EditDoctorCommand;
+import gomedic.logic.parser.CliSyntax;
+import gomedic.logic.parser.CommandParserTestUtil;
 import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.doctor.Department;
 import gomedic.model.person.doctor.DoctorId;
-import gomedic.testutil.EditDoctorDescriptorBuilder;
 import gomedic.testutil.TypicalPersons;
+import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class EditDoctorCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditDoctorCommand.MESSAGE_USAGE);
 
+    // Use doctor id 1 as the control id for comparison
     private static final Id targetId = new DoctorId(1);
     private static final String PREFIXED_TARGET_ID = " " + CliSyntax.PREFIX_ID + targetId.toString();
 
-    private final EditCommandParser parser = new EditCommandParser();
+    private final EditDoctorCommandParser parser = new EditDoctorCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -30,7 +33,7 @@ public class EditCommandParserTest {
                 CommandTestUtil.VALID_DESC_NAME_MAIN_DOCTOR, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        CommandParserTestUtil.assertParseFailure(parser, PREFIXED_TARGET_ID, EditCommand.MESSAGE_NOT_EDITED);
+        CommandParserTestUtil.assertParseFailure(parser, PREFIXED_TARGET_ID, EditDoctorCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         CommandParserTestUtil.assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -82,12 +85,12 @@ public class EditCommandParserTest {
                 + CommandTestUtil.VALID_DESC_NAME_MAIN_DOCTOR + CommandTestUtil.VALID_DESC_PHONE_MAIN_DOCTOR
                 + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_DOCTOR;
 
-        EditCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
+        EditDoctorCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
                 .withName(TypicalPersons.MAIN_DOCTOR.getName().fullName)
                 .withPhone(TypicalPersons.MAIN_DOCTOR.getPhone().value)
                 .withDepartment(TypicalPersons.MAIN_DOCTOR.getDepartment().departmentName)
                 .build();
-        EditCommand expectedCommand = new EditCommand(targetId, descriptor);
+        EditDoctorCommand expectedCommand = new EditDoctorCommand(targetId, descriptor);
 
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -96,10 +99,10 @@ public class EditCommandParserTest {
     public void parse_someFieldsSpecified_success() {
         String userInput = PREFIXED_TARGET_ID + CommandTestUtil.VALID_DESC_PHONE_MAIN_DOCTOR
                 + CommandTestUtil.VALID_DESC_DEPARTMENT_OTHER_DOCTOR;
-        EditCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
+        EditDoctorCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
                 .withPhone(TypicalPersons.MAIN_DOCTOR.getPhone().value)
                 .withDepartment(TypicalPersons.OTHER_DOCTOR.getDepartment().departmentName).build();
-        EditCommand expectedCommand = new EditCommand(targetId, descriptor);
+        EditDoctorCommand expectedCommand = new EditDoctorCommand(targetId, descriptor);
 
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -109,23 +112,23 @@ public class EditCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // name
         String userInput = PREFIXED_TARGET_ID + CommandTestUtil.VALID_DESC_NAME_MAIN_DOCTOR;
-        EditCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
+        EditDoctorCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
                 .withName(TypicalPersons.MAIN_DOCTOR.getName().fullName)
                 .build();
-        EditCommand expectedCommand = new EditCommand(targetId, descriptor);
+        EditDoctorCommand expectedCommand = new EditDoctorCommand(targetId, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
         userInput = PREFIXED_TARGET_ID + CommandTestUtil.VALID_DESC_PHONE_MAIN_DOCTOR;
         descriptor = new EditDoctorDescriptorBuilder().withPhone(TypicalPersons.MAIN_DOCTOR.getPhone().value).build();
-        expectedCommand = new EditCommand(targetId, descriptor);
+        expectedCommand = new EditDoctorCommand(targetId, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
         // department
         userInput = PREFIXED_TARGET_ID + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_DOCTOR;
         descriptor = new EditDoctorDescriptorBuilder()
                 .withDepartment(TypicalPersons.MAIN_DOCTOR.getDepartment().departmentName).build();
-        expectedCommand = new EditCommand(targetId, descriptor);
+        expectedCommand = new EditDoctorCommand(targetId, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -135,23 +138,23 @@ public class EditCommandParserTest {
                 + CommandTestUtil.VALID_DESC_DEPARTMENT_OTHER_DOCTOR
                 + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_DOCTOR;
 
-        EditCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
+        EditDoctorCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
                 .withDepartment(TypicalPersons.MAIN_DOCTOR.getDepartment().departmentName).build();
-        EditCommand expectedCommand = new EditCommand(targetId, descriptor);
+        EditDoctorCommand expectedCommand = new EditDoctorCommand(targetId, descriptor);
 
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
-        // no other valid values specified
+        // no other values specified other than phone
         String userInput = PREFIXED_TARGET_ID
                 + CommandTestUtil.INVALID_PHONE_DESC
                 + CommandTestUtil.VALID_DESC_PHONE_MAIN_DOCTOR;
-        EditCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
+        EditDoctorCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder()
                 .withPhone(TypicalPersons.MAIN_DOCTOR.getPhone().value)
                 .build();
-        EditCommand expectedCommand = new EditCommand(targetId, descriptor);
+        EditDoctorCommand expectedCommand = new EditDoctorCommand(targetId, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
@@ -163,7 +166,7 @@ public class EditCommandParserTest {
         descriptor = new EditDoctorDescriptorBuilder().withPhone(TypicalPersons.MAIN_DOCTOR.getPhone().value)
                 .withDepartment(TypicalPersons.MAIN_DOCTOR.getDepartment().departmentName)
                 .withName(TypicalPersons.MAIN_DOCTOR.getName().fullName).build();
-        expectedCommand = new EditCommand(targetId, descriptor);
+        expectedCommand = new EditDoctorCommand(targetId, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

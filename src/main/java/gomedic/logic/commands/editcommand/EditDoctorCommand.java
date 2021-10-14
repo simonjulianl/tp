@@ -1,4 +1,4 @@
-package gomedic.logic.commands;
+package gomedic.logic.commands.editcommand;
 
 import static gomedic.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static gomedic.logic.parser.CliSyntax.PREFIX_ID;
@@ -12,6 +12,8 @@ import java.util.Optional;
 
 import gomedic.commons.core.Messages;
 import gomedic.commons.util.CollectionUtil;
+import gomedic.logic.commands.Command;
+import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
 import gomedic.model.ModelItem;
@@ -25,9 +27,9 @@ import gomedic.model.person.doctor.DoctorId;
 /**
  * Edits the details of an existing doctor in the address book.
  */
-public class EditCommand extends Command {
+public class EditDoctorCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit t/doctor";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the doctor identified "
             + "by the index number used in the displayed doctor list. "
@@ -37,12 +39,14 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_DEPARTMENT + "EMAIL] "
-            + "Example: " + COMMAND_WORD + " D001 "
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_ID + " D001 "
+            + PREFIX_NAME + "John Snow "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_DEPARTMENT + "Neurology";
 
     public static final String MESSAGE_EDIT_DOCTOR_SUCCESS = "Edited Doctor: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "Must provide at least one field to be edited (cannot edit ID).";
+    public static final String MESSAGE_NOT_EDITED = "Must provide at least one field (other than ID).";
 
     private final Id targetId;
     private final EditDoctorDescriptor editDoctorDescriptor;
@@ -51,7 +55,7 @@ public class EditCommand extends Command {
      * @param targetId of the doctor in the filtered doctor list to edit
      * @param editDoctorDescriptor details to edit the doctor with
      */
-    public EditCommand(Id targetId, EditDoctorDescriptor editDoctorDescriptor) {
+    public EditDoctorCommand(Id targetId, EditDoctorDescriptor editDoctorDescriptor) {
         requireNonNull(targetId);
         requireNonNull(editDoctorDescriptor);
 
@@ -107,12 +111,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditDoctorCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditDoctorCommand e = (EditDoctorCommand) other;
         return targetId.equals(e.targetId)
                 && editDoctorDescriptor.equals(e.editDoctorDescriptor);
     }

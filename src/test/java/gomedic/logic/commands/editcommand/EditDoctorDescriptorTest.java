@@ -1,4 +1,4 @@
-package gomedic.logic.commands;
+package gomedic.logic.commands.editcommand;
 
 import static gomedic.logic.commands.CommandTestUtil.DESC_MAIN_DOCTOR;
 import static gomedic.logic.commands.CommandTestUtil.DESC_OTHER_DOCTOR;
@@ -7,16 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
-import gomedic.testutil.EditDoctorDescriptorBuilder;
 import gomedic.testutil.TypicalPersons;
+import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
 
 public class EditDoctorDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditDoctorDescriptor descriptorWithSameValues =
-                new EditCommand.EditDoctorDescriptor(DESC_MAIN_DOCTOR);
+        EditDoctorCommand.EditDoctorDescriptor descriptorWithSameValues =
+                new EditDoctorCommand.EditDoctorDescriptor(DESC_MAIN_DOCTOR);
         assertEquals(descriptorWithSameValues, DESC_MAIN_DOCTOR);
 
         // same object -> returns true
@@ -32,7 +32,7 @@ public class EditDoctorDescriptorTest {
         assertNotEquals(DESC_MAIN_DOCTOR, DESC_OTHER_DOCTOR);
 
         // different name -> returns false
-        EditCommand.EditDoctorDescriptor editedMainDoctor =
+        EditDoctorCommand.EditDoctorDescriptor editedMainDoctor =
                 new EditDoctorDescriptorBuilder(DESC_MAIN_DOCTOR)
                         .withName(TypicalPersons.OTHER_DOCTOR.getName().fullName)
                         .build();
