@@ -13,13 +13,13 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.commonfield.Id;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new EditDoctorCommand object
  */
 public class EditDoctorCommandParser implements Parser<EditDoctorCommand> {
 
     private static final String INVALID_INPUT = "";
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
+     * Parses the given {@code String} of arguments in the context of the EditDoctorCommand
      * and returns an EditCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
