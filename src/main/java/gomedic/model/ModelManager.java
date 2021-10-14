@@ -221,6 +221,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setActivity(Activity oldActivity, Activity replacementActivity) {
+        addressBook.setActivity(oldActivity, replacementActivity);
+    }
+
+    @Override
     public void deletePatient(Patient target) {
         addressBook.removePatient(target);
     }

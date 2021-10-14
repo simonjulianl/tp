@@ -69,7 +69,7 @@ public class EditDoctorCommand extends Command {
      * edited with {@code editDoctorDescriptor}.
      */
     private static Doctor createEditedDoctor(Doctor doctorToEdit, EditDoctorDescriptor editDoctorDescriptor) {
-        assert doctorToEdit != null;
+        requireNonNull(doctorToEdit);
 
         DoctorId doctorId = doctorToEdit.getId();
         Name updatedName = editDoctorDescriptor.getName().orElse(doctorToEdit.getName());
@@ -134,7 +134,6 @@ public class EditDoctorCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditDoctorDescriptor(EditDoctorDescriptor toCopy) {
             setName(toCopy.name);

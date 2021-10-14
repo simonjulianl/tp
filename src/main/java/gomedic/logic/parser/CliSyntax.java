@@ -6,7 +6,6 @@ package gomedic.logic.parser;
 public class CliSyntax {
     /* Prefixes for entry types */
     public static final String PREFIX_TYPE_AS_STRING = "t/";
-    public static final Prefix PREFIX_TYPE = new Prefix(PREFIX_TYPE_AS_STRING);
     public static final String PREFIX_TYPE_DOCTOR = PREFIX_TYPE_AS_STRING + "doctor";
     public static final String PREFIX_TYPE_ACTIVITY = PREFIX_TYPE_AS_STRING + "activity";
     public static final String PREFIX_TYPE_PATIENT = PREFIX_TYPE_AS_STRING + "patient";

@@ -192,4 +192,66 @@ class UniqueActivityListTest {
     void getLastActivityId_emptyListInput_testsPassed() {
         assertEquals(1, uniqueActivityList.getNewActivityId());
     }
+
+    @Test
+    public void setActivity_nullTargetActivity_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueActivityList.setActivity(null, MEETING));
+    }
+
+    @Test
+    public void setActivity_nullEditedActivity_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueActivityList.setActivity(MEETING, null));
+    }
+
+    @Test
+    public void setActivity_targetActivityNotInList_throwsActivityNotFoundException() {
+        assertThrows(ActivityNotFoundException.class, () -> uniqueActivityList.setActivity(MEETING, MEETING));
+    }
+
+    @Test
+    public void setActivity_editedActivityIsSameActivity_success() {
+        uniqueActivityList.add(MEETING);
+        uniqueActivityList.setActivity(MEETING, MEETING);
+        UniqueActivityList expectedActivityList = new UniqueActivityList();
+        expectedActivityList.add(MEETING);
+        assertEquals(expectedActivityList, uniqueActivityList);
+    }
+
+    @Test
+    public void setActivity_editedActivityHasSameIdentity_success() {
+        uniqueActivityList.add(MEETING);
+        Activity editedActivity = new ActivityBuilder()
+                .withId(MEETING.getActivityId().getIdNumber())
+                .withStartTime(MEETING.getStartTime().toString())
+                .withEndTime(MEETING.getEndTime().toString())
+                .withTitle("Maybe a new title").build();
+        uniqueActivityList.setActivity(MEETING, editedActivity);
+        UniqueActivityList expectedActivityList = new UniqueActivityList();
+        expectedActivityList.add(editedActivity);
+        assertEquals(uniqueActivityList, expectedActivityList);
+    }
+
+    @Test
+    public void setActivity_editedActivityHasDifferentIdentity_success() {
+        uniqueActivityList.add(MEETING);
+        uniqueActivityList.setActivity(MEETING, PAPER_REVIEW);
+        UniqueActivityList expectedActivityList = new UniqueActivityList();
+        expectedActivityList.add(PAPER_REVIEW);
+        assertEquals(expectedActivityList, uniqueActivityList);
+    }
+
+    @Test
+    public void setActivity_editedActivityHasNonUniqueIdentity_throwsDuplicateActivityException() {
+        uniqueActivityList.add(MEETING);
+        uniqueActivityList.add(PAPER_REVIEW);
+        assertThrows(DuplicateActivityFoundException.class, () ->
+                uniqueActivityList.setActivity(MEETING, PAPER_REVIEW));
+    }
+
+    @Test
+    public void setActivity_editedActivityIsConflicting_throwsConflictingActivityException() {
+        uniqueActivityList.add(MEETING);
+        assertThrows(ConflictingActivityException.class, () ->
+                uniqueActivityList.setActivity(MEETING, CONFLICTING_MEETING));
+    }
 }
