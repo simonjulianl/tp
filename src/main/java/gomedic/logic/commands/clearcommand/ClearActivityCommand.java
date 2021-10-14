@@ -1,5 +1,6 @@
 package gomedic.logic.commands.clearcommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_ACTIVITY;
 import static java.util.Objects.requireNonNull;
 
 import gomedic.logic.commands.Command;
@@ -13,7 +14,7 @@ import gomedic.model.ReadOnlyAddressBook;
  */
 public class ClearActivityCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear t/activity";
+    public static final String COMMAND_WORD = "clear" + " " + PREFIX_TYPE_ACTIVITY;
     public static final String MESSAGE_SUCCESS = "activities in GoMedic has been cleared!";
 
 

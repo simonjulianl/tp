@@ -1,5 +1,6 @@
 package gomedic.logic.commands.clearcommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
 import static java.util.Objects.requireNonNull;
 
 import gomedic.logic.commands.Command;
@@ -13,7 +14,7 @@ import gomedic.model.ReadOnlyAddressBook;
  */
 public class ClearPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear t/patient";
+    public static final String COMMAND_WORD = "clear" + " " + PREFIX_TYPE_PATIENT;
     public static final String MESSAGE_SUCCESS = "patients in GoMedic has been cleared!";
 
 

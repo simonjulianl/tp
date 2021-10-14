@@ -7,6 +7,7 @@ import static gomedic.logic.parser.CliSyntax.PREFIX_HEIGHT;
 import static gomedic.logic.parser.CliSyntax.PREFIX_MEDICALCONDITIONS;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
 import static gomedic.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
@@ -35,7 +36,7 @@ import gomedic.model.tag.Tag;
  * Adds a patient to the address book
  */
 public class AddPatientCommand extends Command {
-    public static final String COMMAND_WORD = "add t/patient";
+    public static final String COMMAND_WORD = "add" + " " + PREFIX_TYPE_PATIENT;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the address book. "
             + "Parameters: "

@@ -1,5 +1,6 @@
 package gomedic.logic.commands.deletecommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import gomedic.model.person.patient.Patient;
  */
 public class DeletePatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete t/patient";
+    public static final String COMMAND_WORD = "delete" + " " + PREFIX_TYPE_PATIENT;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the patient identified by the index shown in the patient list.\n"

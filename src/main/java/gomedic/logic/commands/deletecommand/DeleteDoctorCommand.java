@@ -1,5 +1,6 @@
 package gomedic.logic.commands.deletecommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_DOCTOR;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import gomedic.model.person.doctor.Doctor;
  * Deletes a doctor identified using it's displayed index from the address book.
  */
 public class DeleteDoctorCommand extends Command {
-    public static final String COMMAND_WORD = "delete t/doctor";
+    public static final String COMMAND_WORD = "delete" + " " + PREFIX_TYPE_DOCTOR;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the doctor identified by the index shown in the doctor list.\n"
