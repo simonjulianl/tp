@@ -33,22 +33,60 @@ public class Messages {
      */
     public static String getSuggestions(String command) {
 
-        List<String> listOfCommands = Arrays.asList("add", "edit", "delete",
-                "clear", "find", "list", "exit", "help");
+        List<String> listOfCommands = Arrays.asList(
+                "help",
+                "add t/patient",
+                "view t/patient",
+                "delete t/patient",
+                "edit t/patient",
+                "list t/patient",
+                "clear t/patient",
+                "add t/doctor",
+                "view t/doctor",
+                "delete t/doctor",
+                "edit t/doctor",
+                "list t/doctor",
+                "clear t/doctor",
+                "find",
+                "add t/activity",
+                "delete t/activity",
+                "list t/activity",
+                "clear t/activity",
+                "exit");
         LevenshteinDistance stringChecker = new LevenshteinDistance();
-        List<Pair<Integer, String>> closestStrings = listOfCommands.stream()
-                .map(x -> new Pair<>(stringChecker.apply(x, command), x))
-                .sorted(Comparator.comparingInt(Pair::getKey))
-                .collect(Collectors.toList());
+        String[] commandArgs = command.split(" ", 2);
+        List<Pair<Integer, String>> closestStrings;
+        Iterator<Pair<Integer, String>> iterator;
 
+        // if wrong command is too short, the command type is probably wrong
+        if (commandArgs.length == 1) {
+            closestStrings = listOfCommands.stream()
+                    .map(x -> new Pair<>(stringChecker.apply(x.split(" ")[0], commandArgs[0]), x))
+                    .sorted(Comparator.comparingInt(Pair::getKey))
+                    .collect(Collectors.toList());
+            iterator = closestStrings.stream()
+                    .filter(x -> x.getKey() <= Math.ceil(x.getValue().split(" ")[0].length() / 2))
+                    .iterator();
+
+        // if wrong command has two parts, the command target is probably wrong
+        } else {
+            closestStrings = listOfCommands.stream()
+                    .map(x -> new Pair<>(stringChecker.apply(x, command), x))
+                    .sorted(Comparator.comparingInt(Pair::getKey))
+                    .collect(Collectors.toList());
+            iterator = closestStrings.stream()
+                    .filter(x -> x.getKey() <= Math.ceil(x.getValue().length() / 2))
+                    .limit(5)
+                    .iterator();
+        }
+
+        // if there are matches in the suggested items
         String reply = String.format(MESSAGE_UNKNOWN_COMMAND, command);
-        Iterator<Pair<Integer, String>> iterator = closestStrings.stream()
-                .filter(x -> x.getKey() <= Math.ceil(x.getValue().length() / 2))
-                .iterator();
+
         if (iterator.hasNext()) {
             String additionalReply = " You can choose from these commands instead: \n";
             while (iterator.hasNext()) {
-                additionalReply += iterator.next().getValue() + "\n";
+                additionalReply += iterator.next().getValue() + "   ";
             }
             reply += additionalReply;
         }
