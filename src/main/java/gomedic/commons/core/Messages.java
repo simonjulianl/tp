@@ -86,7 +86,7 @@ public class Messages {
         if (iterator.hasNext()) {
             String additionalReply = " You can choose from these commands instead: \n";
             while (iterator.hasNext()) {
-                additionalReply += iterator.next().getValue() + "   ";
+                additionalReply += iterator.next().getValue() + "\n";
             }
             reply += additionalReply;
         }
