@@ -61,7 +61,7 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Replaces the activity {@code target} in the list with {@code editedActivity}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedActivity} must not be the same as another existing activity in the list.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity in the list.
      */
     public void setActivity(Activity target, Activity editedActivity) {
         CollectionUtil.requireAllNonNull(target, editedActivity);
