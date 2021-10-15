@@ -20,7 +20,7 @@ public class EditDoctorCommandParser implements Parser<EditDoctorCommand> {
     private static final String INVALID_INPUT = "";
     /**
      * Parses the given {@code String} of arguments in the context of the EditDoctorCommand
-     * and returns an EditCommand object for execution.
+     * and returns an EditDoctorCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

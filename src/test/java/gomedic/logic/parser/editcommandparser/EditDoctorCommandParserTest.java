@@ -22,7 +22,7 @@ public class EditDoctorCommandParserTest {
 
     // Use doctor id 1 as the control id for comparison
     private static final Id targetId = new DoctorId(1);
-    private static final String PREFIXED_TARGET_ID = " " + CliSyntax.PREFIX_ID + targetId.toString();
+    private static final String PREFIXED_TARGET_ID = " " + CliSyntax.PREFIX_ID + targetId;
 
     private final EditDoctorCommandParser parser = new EditDoctorCommandParser();
 

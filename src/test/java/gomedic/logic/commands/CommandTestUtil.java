@@ -1,6 +1,8 @@
 package gomedic.logic.commands;
 
 import static gomedic.testutil.Assert.assertThrows;
+import static gomedic.testutil.TypicalActivities.MEETING;
+import static gomedic.testutil.TypicalActivities.PAPER_REVIEW;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,6 +13,7 @@ import java.util.function.Predicate;
 
 import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.index.Index;
+import gomedic.logic.commands.editcommand.EditActivityCommand;
 import gomedic.logic.commands.editcommand.EditDoctorCommand;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.CliSyntax;
@@ -26,6 +29,7 @@ import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.person.patient.Patient;
 import gomedic.model.person.patient.PatientId;
 import gomedic.testutil.TypicalPersons;
+import gomedic.testutil.editdescriptorbuilder.EditActivityDescriptorBuilder;
 import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -107,6 +111,8 @@ public class CommandTestUtil {
 
     public static final String VALID_DESC_MEETING_DESCRIPTION =
             " " + CliSyntax.PREFIX_DESCRIPTION + "today at somewhere";
+    public static final String VALID_DESC_PAPER_REVIEW_DESCRIPTION =
+            " " + CliSyntax.PREFIX_DESCRIPTION + "someone is attending this";
 
     /* invalid constants declarations for activity related fields */
     public static final String INVALID_DESC_START_TIME_MEETING =
@@ -125,13 +131,26 @@ public class CommandTestUtil {
     public static final EditDoctorCommand.EditDoctorDescriptor DESC_MAIN_DOCTOR;
     public static final EditDoctorCommand.EditDoctorDescriptor DESC_OTHER_DOCTOR;
 
+    public static final EditActivityCommand.EditActivityDescriptor DESC_MEETING;
+    public static final EditActivityCommand.EditActivityDescriptor DESC_PAPER_REVIEW;
+
     static {
         DESC_MAIN_DOCTOR = new EditDoctorDescriptorBuilder().withName(TypicalPersons.MAIN_DOCTOR.getName().fullName)
                 .withPhone(TypicalPersons.MAIN_DOCTOR.getPhone().value)
                 .withDepartment(TypicalPersons.MAIN_DOCTOR.getDepartment().departmentName).build();
         DESC_OTHER_DOCTOR = new EditDoctorDescriptorBuilder().withName(TypicalPersons.OTHER_DOCTOR.getName().fullName)
                 .withPhone(TypicalPersons.OTHER_DOCTOR.getPhone().value)
-                .withDepartment(TypicalPersons.OTHER_DOCTOR.getDepartment().departmentName).build();;
+                .withDepartment(TypicalPersons.OTHER_DOCTOR.getDepartment().departmentName).build();
+        DESC_MEETING = new EditActivityDescriptorBuilder()
+                .withStartTime(MEETING.getStartTime().toString())
+                .withEndTime(MEETING.getEndTime().toString())
+                .withTitle(MEETING.getTitle().toString())
+                .withDescription(MEETING.getDescription().toString()).build();
+        DESC_PAPER_REVIEW = new EditActivityDescriptorBuilder()
+                .withStartTime(PAPER_REVIEW.getStartTime().toString())
+                .withEndTime(PAPER_REVIEW.getEndTime().toString())
+                .withTitle(PAPER_REVIEW.getTitle().toString())
+                .withDescription(PAPER_REVIEW.getDescription().toString()).build();
     }
 
     /**
@@ -153,7 +172,6 @@ public class CommandTestUtil {
                                             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
-
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -306,6 +324,11 @@ public class CommandTestUtil {
 
         @Override
         public void deleteActivity(Activity target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setActivity(Activity oldActivity, Activity replacementActivity) {
             throw new AssertionError("This method should not be called.");
         }
 

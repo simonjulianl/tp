@@ -18,6 +18,7 @@ import gomedic.logic.commands.clearcommand.ClearPatientCommand;
 import gomedic.logic.commands.deletecommand.DeleteActivityCommand;
 import gomedic.logic.commands.deletecommand.DeleteDoctorCommand;
 import gomedic.logic.commands.deletecommand.DeletePatientCommand;
+import gomedic.logic.commands.editcommand.EditActivityCommand;
 import gomedic.logic.commands.editcommand.EditDoctorCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
@@ -28,6 +29,7 @@ import gomedic.logic.parser.addcommandparser.AddPatientCommandParser;
 import gomedic.logic.parser.deletecommandparser.DeleteActivityParser;
 import gomedic.logic.parser.deletecommandparser.DeleteDoctorParser;
 import gomedic.logic.parser.deletecommandparser.DeletePatientParser;
+import gomedic.logic.parser.editcommandparser.EditActivityCommandParser;
 import gomedic.logic.parser.editcommandparser.EditDoctorCommandParser;
 import gomedic.logic.parser.exceptions.ParseException;
 
@@ -84,6 +86,9 @@ public class AddressBookParser {
 
         case EditDoctorCommand.COMMAND_WORD:
             return new EditDoctorCommandParser().parse(arguments);
+
+        case EditActivityCommand.COMMAND_WORD:
+            return new EditActivityCommandParser().parse(arguments);
 
         case DeleteActivityCommand.COMMAND_WORD:
             return new DeleteActivityParser().parse(arguments);

@@ -180,6 +180,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given activity {@code target} in the list with {@code editedActivity}.
+     * {@code target} must exist in the address book.
+     * The activity's id must not be the same as another existing activity in the address book (other than the one
+     * which is being replaced).
+     */
+    public void setActivity(Activity target, Activity editedActivity) {
+        requireNonNull(editedActivity);
+
+        activities.setActivity(target, editedActivity);
+    }
+
+    /**
      * Replaces the given doctor {@code target} in the list with {@code editedDoctor}.
      * {@code target} must exist in the address book.
      * The doctor's id must not be the same as another existing doctor in the address book (other than the one

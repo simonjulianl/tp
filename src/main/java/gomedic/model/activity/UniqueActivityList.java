@@ -59,6 +59,30 @@ public class UniqueActivityList implements Iterable<Activity> {
     }
 
     /**
+     * Replaces the activity {@code target} in the list with {@code editedActivity}.
+     * {@code target} must exist in the list.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity in the list.
+     */
+    public void setActivity(Activity target, Activity editedActivity) {
+        CollectionUtil.requireAllNonNull(target, editedActivity);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ActivityNotFoundException();
+        }
+
+        if (!target.equals(editedActivity) && contains(editedActivity)) {
+            throw new DuplicateActivityFoundException();
+        }
+
+        if (containsConflicting(editedActivity)) {
+            throw new ConflictingActivityException();
+        }
+
+        internalList.set(index, editedActivity);
+    }
+
+    /**
      * Adds an activity to the list.
      * The activity must not already exist in the list.
      */
