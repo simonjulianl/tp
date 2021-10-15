@@ -12,9 +12,9 @@ public class MessagesTest {
     public void getSuggestions_misspelledCommandType_correctSuggestionsReturned() {
         String wrongCommand = "clara";
         List<String> closestWords = List.of(
-                "clear t/patient\n",
-                "clear t/doctor\n",
-                "clear t/activity\n");
+                "clear t/patient    ",
+                "clear t/doctor    ",
+                "clear t/activity    ");
         String reply = String.format("Sorry, %s is an invalid command. "
                 + "You can choose from these commands instead: \n", wrongCommand);
         for (String s : closestWords) {
@@ -27,11 +27,11 @@ public class MessagesTest {
     public void getSuggestions_misspelledCommandTarget_correctSuggestionsReturned() {
         String wrongCommand = "add t/patet";
         List<String> closestWords = List.of(
-                "add t/patient\n",
-                "edit t/patient\n",
-                "add t/doctor\n",
-                "view t/patient\n",
-                "list t/patient\n"
+                "add t/patient    ",
+                "edit t/patient    ",
+                "add t/doctor    ",
+                "view t/patient    ",
+                "list t/patient    "
                 );
         String reply = String.format("Sorry, %s is an invalid command. "
                 + "You can choose from these commands instead: \n", wrongCommand);
