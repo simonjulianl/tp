@@ -231,6 +231,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setPatient(Patient oldPatient, Patient replacementPatient) {
+        addressBook.setPatient(oldPatient, replacementPatient);
+    }
+
+    @Override
     public boolean hasConflictingActivity(Activity activity) {
         requireNonNull(activity);
         return addressBook.hasConflictingActivity(activity);

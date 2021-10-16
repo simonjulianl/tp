@@ -169,6 +169,7 @@ The parameters are:
 * `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
 * `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
 
+NOTE: TO COMPLETE - when you edit tags, you will replace all of the current tags
 The optional parameters are: 
 * `o/description` is the list of patient's past/pre-existing medical conditions to be **added**. For medical condition that has
   multiple words, use `space` to combine the words, e.g. `heart failure`. To separate between conditions, use more tags `o/`.

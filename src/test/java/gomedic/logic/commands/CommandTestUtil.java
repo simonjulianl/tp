@@ -15,6 +15,7 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.index.Index;
 import gomedic.logic.commands.editcommand.EditActivityCommand;
 import gomedic.logic.commands.editcommand.EditDoctorCommand;
+import gomedic.logic.commands.editcommand.EditPatientCommand;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.AddressBook;
@@ -31,6 +32,7 @@ import gomedic.model.person.patient.PatientId;
 import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.editdescriptorbuilder.EditActivityDescriptorBuilder;
 import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
+import gomedic.testutil.editdescriptorbuilder.EditPatientDescriptorBuilder;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
@@ -131,6 +133,9 @@ public class CommandTestUtil {
     public static final EditDoctorCommand.EditDoctorDescriptor DESC_MAIN_DOCTOR;
     public static final EditDoctorCommand.EditDoctorDescriptor DESC_OTHER_DOCTOR;
 
+    public static final EditPatientCommand.EditPatientDescriptor DESC_MAIN_PATIENT;
+    public static final EditPatientCommand.EditPatientDescriptor DESC_OTHER_PATIENT;
+
     public static final EditActivityCommand.EditActivityDescriptor DESC_MEETING;
     public static final EditActivityCommand.EditActivityDescriptor DESC_PAPER_REVIEW;
 
@@ -141,6 +146,23 @@ public class CommandTestUtil {
         DESC_OTHER_DOCTOR = new EditDoctorDescriptorBuilder().withName(TypicalPersons.OTHER_DOCTOR.getName().fullName)
                 .withPhone(TypicalPersons.OTHER_DOCTOR.getPhone().value)
                 .withDepartment(TypicalPersons.OTHER_DOCTOR.getDepartment().departmentName).build();
+        DESC_MAIN_PATIENT = new EditPatientDescriptorBuilder().withName(TypicalPersons.MAIN_PATIENT.getName().fullName)
+            .withPhone(TypicalPersons.MAIN_PATIENT.getPhone().value)
+            .withAge(TypicalPersons.MAIN_PATIENT.getAge().age)
+            .withBloodType(TypicalPersons.MAIN_PATIENT.getBloodType().bloodType)
+            .withGender(TypicalPersons.MAIN_PATIENT.getGender().gender)
+            .withHeight(TypicalPersons.MAIN_PATIENT.getHeight().height)
+            .withWeight(TypicalPersons.MAIN_PATIENT.getWeight().weight)
+            .withMedicalConditions("heart failure").build();
+        DESC_OTHER_PATIENT = new EditPatientDescriptorBuilder()
+            .withName(TypicalPersons.OTHER_PATIENT.getName().fullName)
+            .withPhone(TypicalPersons.OTHER_PATIENT.getPhone().value)
+            .withAge(TypicalPersons.OTHER_PATIENT.getAge().age)
+            .withBloodType(TypicalPersons.OTHER_PATIENT.getBloodType().bloodType)
+            .withGender(TypicalPersons.OTHER_PATIENT.getGender().gender)
+            .withHeight(TypicalPersons.OTHER_PATIENT.getHeight().height)
+            .withWeight(TypicalPersons.OTHER_PATIENT.getWeight().weight)
+            .withMedicalConditions("heart failure").build();
         DESC_MEETING = new EditActivityDescriptorBuilder()
                 .withStartTime(MEETING.getStartTime().toString())
                 .withEndTime(MEETING.getEndTime().toString())
@@ -337,6 +359,10 @@ public class CommandTestUtil {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void setPatient(Patient oldPatient, Patient replacement) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public boolean hasDoctor(Doctor doctor) {

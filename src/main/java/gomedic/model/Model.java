@@ -129,6 +129,12 @@ public interface Model {
     void deletePatient(Patient target);
 
     /**
+     * Sets a patient in the model with another patient.
+     * The patient must exist in the address book.
+     */
+    void setPatient(Patient oldPatient, Patient replacementPatient);
+
+    /**
      * Adds the given patient.
      * {@code patient} must not already exist in the address book.
      */
