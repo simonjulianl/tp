@@ -78,24 +78,23 @@ public class MainWindow extends UiPart<Stage> {
         // Value to indicate what model is currently being shown.
         // 0 -> Activity, 1 -> Doctor, 2 -> Patient
         ObservableValue<Integer> modelItemBeingShown = logic.getModelBeingShown();
-        // TODO : Uncomment this later
-//        modelItemBeingShown.addListener((obs, oldVal, newVal) -> {
-//            modelListPanelPlaceholder.getChildren().clear();
-//            switch (newVal) {
-//            case 0:
-//                modelListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
-//                break;
-//            case 1:
-//                modelListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
-//                break;
-//            case 2:
-//                modelListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
-//                break;
-//            default:
-//                // do nothing
-//                break;
-//            }
-//        });
+        modelItemBeingShown.addListener((obs, oldVal, newVal) -> {
+            modelListPanelPlaceholder.getChildren().clear();
+            switch (newVal) {
+            case 0:
+                modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
+                break;
+            case 1:
+                modelListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+                break;
+            case 2:
+                modelListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
+                break;
+            default:
+                // do nothing
+                break;
+            }
+        });
     }
 
     public Stage getPrimaryStage() {
