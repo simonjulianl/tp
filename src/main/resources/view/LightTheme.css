@@ -4,28 +4,28 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Open Sans Semibold";
+    -fx-font-family: "Lato Semibold";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Open Sans Semibold";
+    -fx-font-family: "Lato Semibold";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Open Sans Light";
+    -fx-font-family: "Lato Light";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Open Sans Semibold";
+    -fx-font-family: "Lato Semibold";
 }
 
 .tab-pane {
@@ -44,35 +44,85 @@
     -fx-background-color: derive(#e6f6fa, 35%);
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0)
+}
+
+.table-view .table-cell {
+    -fx-font-size: 14pt;
+    -fx-border-color: transparent;
+    -fx-padding: 20 0 15 0px;
+    -fx-alignment: center;
+    -fx-border-color: #D3D3D3;
+    -fx-border-width: 0 0 1 0;
+}
+
+#activityTable {
+    -fx-border-radius: 20 20 0 0;
+    -fx-background-radius: 20 20 0 0;
 }
 
 .table-view .column-header-background {
     -fx-background-color: transparent;
+    -fx-background-radius: 20 20 0 0;
 }
 
 .table-view .column-header, .table-view .filler {
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color:
-        transparent
-        transparent
-        derive(-fx-base, 80%)
-        transparent;
+    -fx-text-fill: derive(#25282B, 35%);
+    -fx-background-color: derive(#ADD8E6, 35%);
     -fx-border-insets: 0 10 1 0;
+
+}
+
+#idField {
+    -fx-border-radius: 20 0 0 0 ;
+    -fx-background-radius: 20 0 0 0;
+}
+
+#descriptionField {
+    -fx-border-radius: 0 20 0 0;
+    -fx-background-radius: 0 20 0 0;
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Open Sans Light";
-    -fx-text-fill: white;
-    -fx-alignment: center-left;
+    -fx-font-size: 14pt;
+    -fx-font-family: "Lato";
+    -fx-text-fill: black;
+    -fx-alignment: center;
     -fx-opacity: 1;
+    -fx-background-insets: 0 11px 0 0;
+    -fx-padding: 15 0 15 0px;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
+}
+
+/*
+ * Styling Table View
+ * Author: Ed Eden-Rump
+ * https://edencoding.com/style-tableview-javafx/
+ */
+
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+
+.table-row-cell: hover {
+    -fx-background-color: derive(#90ee90, 20%);
+    -fx-text-background-color: yellow;
+}
+
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -120,13 +170,13 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Open Sans Semibold";
+    -fx-font-family: "Lato Semibold";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-family: "Open Sans Regular";
+    -fx-font-family: "Lato Regular";
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
@@ -147,7 +197,7 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Open Sans Light";
+    -fx-font-family: "Lato Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
 }
@@ -157,7 +207,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Open Sans Light";
+    -fx-font-family: "Lato Light";
     -fx-text-fill: white;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
@@ -197,13 +247,17 @@
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Open Sans Light";
-    -fx-text-fill: black;
+    -fx-font-family: "Lato Light";
+    -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
 
 .menu .left-container {
     -fx-background-color: black;
+}
+
+.menu-item .label {
+    -fx-text-fill: black;
 }
 
 /*
@@ -215,9 +269,8 @@
     -fx-padding: 5 22 5 22;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
-    -fx-background-radius: 0;
     -fx-background-color: #e6f6fa;
-    -fx-font-family: "Open Sans Regular";
+    -fx-font-family: "Lato Regular";
     -fx-font-size: 11pt;
     -fx-text-fill: #0388a8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -326,7 +379,7 @@
     -fx-border-color: #26a1bf #26a1bf #ffffff #26a1bf;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-family: "Open Sans Light";
+    -fx-font-family: "Lato Light";
     -fx-font-size: 13pt;
     -fx-text-fill: #26a1bf;
 }
@@ -337,7 +390,6 @@
 
 #resultDisplay .content {
     -fx-background-color: transparent, #98acb5, transparent, #98acb5;
-    -fx-background-radius: 0;
 }
 
 #tags {

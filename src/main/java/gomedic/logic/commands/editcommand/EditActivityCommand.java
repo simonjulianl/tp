@@ -41,7 +41,7 @@ public class EditActivityCommand extends Command {
             + "[" + PREFIX_START_TIME + "NAME] "
             + "[" + PREFIX_END_TIME + "PHONE] "
             + "[" + PREFIX_TITLE + "TITLE] "
-            + "[" + PREFIX_DESCRIPTION + "TITLE] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + " A001 "
             + PREFIX_START_TIME + "17/10/2021 14:00 "

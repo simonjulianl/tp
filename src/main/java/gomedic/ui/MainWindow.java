@@ -8,9 +8,9 @@ import gomedic.logic.Logic;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.exceptions.ParseException;
-import gomedic.ui.panel.ActivityListPanel;
 import gomedic.ui.panel.DoctorListPanel;
 import gomedic.ui.panel.PatientListPanel;
+import gomedic.ui.table.ActivityTable;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private final HelpWindow helpWindow;
 
     // Independent Ui parts residing in this Ui container
-    private ActivityListPanel activityListPanel;
+    private ActivityTable activityTable;
     private DoctorListPanel doctorListPanel;
     private PatientListPanel patientListPanel;
 
@@ -82,7 +82,7 @@ public class MainWindow extends UiPart<Stage> {
             modelListPanelPlaceholder.getChildren().clear();
             switch (newVal) {
             case 0:
-                modelListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
+                modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
                 break;
             case 1:
                 modelListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
@@ -140,12 +140,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        activityListPanel = new ActivityListPanel(logic.getFilteredActivityList());
+        activityTable = new ActivityTable(logic.getFilteredActivityList());
         doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList());
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
 
         // by default, show the activity first
-        modelListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
+        modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -183,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         //  set full-screen if wanted
-        //  primaryStage.setMaximized(true);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
@@ -199,8 +199,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ActivityListPanel getActivityListPanel() {
-        return activityListPanel;
+    public ActivityTable getActivityTable() {
+        return activityTable;
     }
 
     public DoctorListPanel getDoctorListPanel() {
