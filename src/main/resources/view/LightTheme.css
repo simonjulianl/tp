@@ -52,19 +52,37 @@
     -fx-border-color: transparent;
     -fx-padding: 20 0 15 0px;
     -fx-alignment: center;
+    -fx-border-color: #D3D3D3;
+    -fx-border-width: 0 0 1 0;
+}
+
+#activityTable {
+    -fx-border-radius: 20 20 0 0;
+    -fx-background-radius: 20 20 0 0;
 }
 
 .table-view .column-header-background {
     -fx-background-color: transparent;
-    -fx-background-radius: 16 16 0 0;
+    -fx-background-radius: 20 20 0 0;
 }
 
 .table-view .column-header, .table-view .filler {
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
     -fx-text-fill: derive(#25282B, 35%);
-    -fx-background-color: derive(#61BCE1, 35%);
+    -fx-background-color: derive(#ADD8E6, 35%);
     -fx-border-insets: 0 10 1 0;
+
+}
+
+#idField {
+    -fx-border-radius: 20 0 0 0 ;
+    -fx-background-radius: 20 0 0 0;
+}
+
+#descriptionField {
+    -fx-border-radius: 0 20 0 0;
+    -fx-background-radius: 0 20 0 0;
 }
 
 .table-view .column-header .label {
