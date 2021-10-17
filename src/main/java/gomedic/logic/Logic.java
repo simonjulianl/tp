@@ -41,8 +41,11 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of doctors */
     ObservableList<Doctor> getFilteredDoctorList();
 
-    /** Returns an unmodifiable view of the filtered list of activities */
-    ObservableList<Activity> getFilteredActivityList();
+    /** Returns an unmodifiable view of the filtered list of activities sorted by id*/
+    ObservableList<Activity> getFilteredActivityListById();
+
+    /** Returns an unmodifiable view of the filtered list of activities sorted by start time*/
+    ObservableList<Activity> getFilteredActivityListByStartTime();
 
     /**
      * Returns the user prefs' address root file path.

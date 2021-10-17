@@ -32,5 +32,5 @@ public interface ReadOnlyAddressBook {
      * Returns a sorted list by start time.
      * Guarantee: This list will not contain any conflicting and duplicate activity.
      */
-    ObservableList<Activity> getActivityListSortedStartTime();
+    ObservableList<Activity> getActivityListSortedByStartTime();
 }

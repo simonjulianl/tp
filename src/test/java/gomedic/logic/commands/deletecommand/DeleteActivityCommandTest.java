@@ -26,7 +26,7 @@ public class DeleteActivityCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Activity activityToDelete = model.getFilteredActivityList().get(INDEX_FIRST.getZeroBased());
+        Activity activityToDelete = model.getFilteredActivityListById().get(INDEX_FIRST.getZeroBased());
         DeleteActivityCommand deleteActivityCommand = new DeleteActivityCommand(activityToDelete.getActivityId());
 
         String expectedMessage = String.format(DeleteActivityCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete);
@@ -48,7 +48,7 @@ public class DeleteActivityCommandTest {
     public void execute_validIndexFilteredList_success() {
         CommandTestUtil.showActivityAtIndex(model, INDEX_FIRST);
 
-        Activity activityToDelete = model.getFilteredActivityList().get(INDEX_FIRST.getZeroBased());
+        Activity activityToDelete = model.getFilteredActivityListById().get(INDEX_FIRST.getZeroBased());
         DeleteActivityCommand deleteActivityCommand = new DeleteActivityCommand(activityToDelete.getActivityId());
 
         String expectedMessage = String.format(DeleteActivityCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete);
@@ -84,6 +84,6 @@ public class DeleteActivityCommandTest {
     private void showNoActivity(Model model) {
         model.updateFilteredActivitiesList(p -> false);
 
-        assertTrue(model.getFilteredActivityList().isEmpty());
+        assertTrue(model.getFilteredActivityListById().isEmpty());
     }
 }

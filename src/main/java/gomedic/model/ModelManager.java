@@ -28,13 +28,12 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Patient> filteredPatients;
-    private final FilteredList<Activity> filteredActivities;
-
     // used the ordinal value 0 -> Activity, 1 -> Doctor, 2 -> Patient, for simplicity.
     private final ObjectProperty<Integer> internalModelItemBeingShown =
-            new SimpleIntegerProperty(ModelItem.ACTIVITY.ordinal()).asObject();
-
+            new SimpleIntegerProperty(ModelItem.ACTIVITY_ID.ordinal()).asObject();
     private final ObservableValue<Integer> modelItemBeingShown = internalModelItemBeingShown; // immutable
+    private final FilteredList<Activity> filteredActivitiesById;
+    private final FilteredList<Activity> filteredActivitiesByStartTime;
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
@@ -53,7 +52,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredDoctors = new FilteredList<>(this.addressBook.getDoctorListSortedById());
         filteredPatients = new FilteredList<>(this.addressBook.getPatientListSortedById());
-        filteredActivities = new FilteredList<>(this.addressBook.getActivityListSortedById());
+        filteredActivitiesById = new FilteredList<>(this.addressBook.getActivityListSortedById());
+        filteredActivitiesByStartTime = new FilteredList<>(this.addressBook.getActivityListSortedByStartTime());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -122,7 +122,8 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
         requireNonNull(predicate);
-        filteredActivities.setPredicate(predicate);
+        filteredActivitiesById.setPredicate(predicate);
+        filteredActivitiesByStartTime.setPredicate(predicate);
     }
 
     @Override
@@ -196,12 +197,7 @@ public class ModelManager implements Model {
     public void addActivity(Activity activity) {
         requireNonNull(activity);
         addressBook.addActivity(activity);
-        updateFilteredActivityList(PREDICATE_SHOW_ALL_ITEMS);
-    }
-
-    private void updateFilteredActivityList(Predicate<? super Activity> predicate) {
-        requireNonNull(predicate);
-        filteredActivities.setPredicate(predicate);
+        updateFilteredActivitiesList(PREDICATE_SHOW_ALL_ITEMS);
     }
 
     @Override
@@ -266,8 +262,13 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Activity> getFilteredActivityList() {
-        return filteredActivities;
+    public ObservableList<Activity> getFilteredActivityListById() {
+        return filteredActivitiesById;
+    }
+
+    @Override
+    public ObservableList<Activity> getFilteredActivityListByStartTime() {
+        return filteredActivitiesByStartTime;
     }
 
     @Override
@@ -288,7 +289,8 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredDoctors.equals(other.filteredDoctors)
                 && filteredPatients.equals(other.filteredPatients)
-                && filteredActivities.equals(other.filteredActivities);
+                && filteredActivitiesById.equals(other.filteredActivitiesById)
+                && filteredActivitiesByStartTime.equals(other.filteredActivitiesByStartTime);
     }
 
 }

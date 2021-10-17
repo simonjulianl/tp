@@ -2,12 +2,15 @@ package gomedic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import gomedic.commons.core.index.Index;
 import gomedic.commons.util.StringUtil;
+import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
@@ -273,5 +276,37 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String sortFlag} into a {@code Sort} flag.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortFlag} is invalid.
+     */
+    public static ListActivityCommand.Sort parseSortActivityFlags(String sortFlag) throws ParseException {
+        requireNonNull(sortFlag);
+        String trimmedSortFlag = sortFlag.trim();
+        if (Arrays.stream(ListActivityCommand.Sort.values())
+                .noneMatch(it -> it.toString().equalsIgnoreCase(trimmedSortFlag))) {
+            throw new ParseException(ListActivityCommand.Sort.MESSAGE_CONSTRAINTS);
+        }
+        return ListActivityCommand.Sort.valueOf(sortFlag.toUpperCase());
+    }
+
+    /**
+     * Parses a {@code String sortFlag} into a {@code Sort} flag.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortFlag} is invalid.
+     */
+    public static ListActivityCommand.Period parsePeriodActivityFlags(String periodFlag) throws ParseException {
+        requireNonNull(periodFlag);
+        String trimmedPeriodFlag = periodFlag.trim();
+        if (Arrays.stream(ListActivityCommand.Period.values())
+                .noneMatch(it -> it.toString().equalsIgnoreCase(trimmedPeriodFlag))) {
+            throw new ParseException(ListActivityCommand.Period.MESSAGE_CONSTRAINTS);
+        }
+        return ListActivityCommand.Period.valueOf(periodFlag.toUpperCase());
     }
 }

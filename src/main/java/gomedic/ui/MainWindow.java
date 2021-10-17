@@ -82,12 +82,17 @@ public class MainWindow extends UiPart<Stage> {
             modelListPanelPlaceholder.getChildren().clear();
             switch (newVal) {
             case 0:
+                activityTable = new ActivityTable(logic.getFilteredActivityListById());
                 modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
                 break;
             case 1:
-                modelListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+                activityTable = new ActivityTable(logic.getFilteredActivityListByStartTime());
+                modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
                 break;
             case 2:
+                modelListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+                break;
+            case 3:
                 modelListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
                 break;
             default:
@@ -140,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        activityTable = new ActivityTable(logic.getFilteredActivityList());
+        activityTable = new ActivityTable(logic.getFilteredActivityListById());
         doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList());
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
 

@@ -272,7 +272,7 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityList()
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityListById()
                 .remove(0));
     }
 

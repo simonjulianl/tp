@@ -54,7 +54,7 @@ public class AddressBookTest {
         assertEquals(Collections.emptyList(), addressBook.getDoctorListSortedById());
         assertEquals(Collections.emptyList(), addressBook.getPatientListSortedById());
         assertEquals(Collections.emptyList(), addressBook.getActivityListSortedById());
-        assertEquals(Collections.emptyList(), addressBook.getActivityListSortedStartTime());
+        assertEquals(Collections.emptyList(), addressBook.getActivityListSortedByStartTime());
     }
 
     @Test
@@ -230,7 +230,7 @@ public class AddressBookTest {
 
     @Test
     public void getActivityListSortedStartTime_call_returnsTrue() {
-        assertDoesNotThrow(addressBook::getActivityListSortedStartTime);
+        assertDoesNotThrow(addressBook::getActivityListSortedByStartTime);
     }
 
     @Test
@@ -239,7 +239,7 @@ public class AddressBookTest {
         addressBook.addActivity(PAST_ACTIVITY);
         addressBook.addActivity(MEETING);
 
-        assertEquals(List.of(PAST_ACTIVITY, MEETING), addressBook.getActivityListSortedStartTime());
+        assertEquals(List.of(PAST_ACTIVITY, MEETING), addressBook.getActivityListSortedByStartTime());
     }
 
     @Test
@@ -404,7 +404,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Activity> getActivityListSortedStartTime() {
+        public ObservableList<Activity> getActivityListSortedByStartTime() {
             return activities.sorted();
         }
     }
