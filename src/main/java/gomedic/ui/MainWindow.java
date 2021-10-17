@@ -184,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         //  set full-screen if wanted
-        //  primaryStage.setMaximized(true);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
