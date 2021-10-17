@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<TableView fx:id="patientTable" xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           prefHeight="400.0" prefWidth="600.0">
+    <columns>
+        <TableColumn fx:id="idField" text="ID" minWidth="50" maxWidth="1000">
+            <cellValueFactory>
+                <PropertyValueFactory property="id"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="nameField" text="Name" prefWidth="300" maxWidth="3000">
+            <cellValueFactory>
+                <PropertyValueFactory property="name"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="contactField" text="Contact" prefWidth="300" maxWidth="3000">
+            <cellValueFactory>
+                <PropertyValueFactory property="phone"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="ageField" text="Age" prefWidth="200" maxWidth="3000">
+            <cellValueFactory>
+                <PropertyValueFactory property="age"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="bloodTypeField" text="Blood Type" prefWidth="200" maxWidth="3000">
+            <cellValueFactory>
+                <PropertyValueFactory property="bloodType"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="GenderField" text="Gender" prefWidth="200" maxWidth="3000">
+            <cellValueFactory>
+                <PropertyValueFactory property="gender"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="heightField" text="Height" prefWidth="200" maxWidth="3000">
+            <cellValueFactory>
+                <PropertyValueFactory property="height"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="weightField" text="Weight" prefWidth="200" maxWidth="3000">
+            <cellValueFactory>
+                <PropertyValueFactory property="weight"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="medicalConditionsField" text="Medical Conditions" prefWidth="1000" maxWidth="10000">
+            <cellValueFactory>
+                <PropertyValueFactory property="medicalConditions"/>
+            </cellValueFactory>
+        </TableColumn>
+    </columns>
+    <columnResizePolicy>
+        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+    </columnResizePolicy>
+</TableView>

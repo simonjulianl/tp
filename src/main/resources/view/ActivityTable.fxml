@@ -9,12 +9,12 @@
     <columns>
         <TableColumn fx:id="idField" text="ID" minWidth="50" maxWidth="1000">
             <cellValueFactory>
-                <PropertyValueFactory property="activityId"/>
+                <PropertyValueFactory property="patientId"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="titleField" text="Title" prefWidth="300" maxWidth="3000">
+        <TableColumn fx:id="contactField" text="Contact" prefWidth="300" maxWidth="3000">
             <cellValueFactory>
-                <PropertyValueFactory property="title"/>
+                <PropertyValueFactory property="phone"/>
             </cellValueFactory>
         </TableColumn>
         <TableColumn fx:id="startTimeField" text="Start Time" prefWidth="300" maxWidth="2000">
