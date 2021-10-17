@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 import gomedic.commons.core.index.Index;

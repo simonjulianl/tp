@@ -36,6 +36,12 @@ public class ListActivityCommand extends Command {
     private final Sort sortFlag;
     private final Period periodFlag;
 
+    /**
+     * Constructs a new list activity command.
+     *
+     * @param sortFlag to be sorted by id or start time.
+     * @param periodFlag to show all, today, within one week, etc.
+     */
     public ListActivityCommand(Sort sortFlag, Period periodFlag) {
         this.sortFlag = sortFlag;
         this.periodFlag = periodFlag;
@@ -52,6 +58,8 @@ public class ListActivityCommand extends Command {
         case START:
             model.setModelBeingShown(ModelItem.ACTIVITY_START_TIME);
             break;
+        default:
+            break;
         }
 
         Time yesterday = new Time(LocalDateTime.now().minusDays(1));
@@ -67,6 +75,7 @@ public class ListActivityCommand extends Command {
         case WEEK:
             model.updateFilteredActivitiesList(activity ->
                     isInBetween(activity, yesterday, new Time(LocalDateTime.now().plusDays(7))));
+            break;
         case MONTH:
             model.updateFilteredActivitiesList(activity ->
                     isInBetween(activity, yesterday, new Time(LocalDateTime.now().plusMonths(1))));
@@ -74,6 +83,8 @@ public class ListActivityCommand extends Command {
         case YEAR:
             model.updateFilteredActivitiesList(activity ->
                     isInBetween(activity, yesterday, new Time(LocalDateTime.now().plusYears(1))));
+            break;
+        default:
             break;
         }
 

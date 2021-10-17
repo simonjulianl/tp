@@ -37,8 +37,8 @@ public class ListActivityParserTest {
         CommandParserTestUtil.assertParseSuccess(parser,
                 CommandTestUtil.VALID_SORT_FLAG_START
                         + CommandTestUtil.VALID_PERIOD_FLAG_ALL
-                        + CommandTestUtil.VALID_PERIOD_FLAG_TODAY
-                , new ListActivityCommand(ListActivityCommand.Sort.START, ListActivityCommand.Period.TODAY));
+                        + CommandTestUtil.VALID_PERIOD_FLAG_TODAY,
+                new ListActivityCommand(ListActivityCommand.Sort.START, ListActivityCommand.Period.TODAY));
     }
 
     @Test
