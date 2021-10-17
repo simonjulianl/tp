@@ -7,22 +7,22 @@
            xmlns:fx="http://javafx.com/fxml"
            prefHeight="400.0" prefWidth="600.0">
     <columns>
-        <TableColumn fx:id="idField" text="Id" maxWidth="1000">
+        <TableColumn fx:id="idField" text="ID" minWidth="50" maxWidth="1000">
             <cellValueFactory>
                 <PropertyValueFactory property="activityId"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="titleField" text="Title" prefWidth="300">
+        <TableColumn fx:id="titleField" text="Title" prefWidth="300" maxWidth="3000">
             <cellValueFactory>
                 <PropertyValueFactory property="title"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="startTimeField" text="Start Time" prefWidth="300">
+        <TableColumn fx:id="startTimeField" text="Start Time" prefWidth="300" maxWidth="2000">
             <cellValueFactory>
                 <PropertyValueFactory property="startTime"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="endTimeField" text="End Time" prefWidth="300">
+        <TableColumn fx:id="endTimeField" text="End Time" prefWidth="300" maxWidth="2000">
             <cellValueFactory>
                 <PropertyValueFactory property="endTime"/>
             </cellValueFactory>
