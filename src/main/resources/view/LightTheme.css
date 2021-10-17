@@ -185,6 +185,15 @@
      -fx-background-color: derive(#e6f6fa, 35%);
 }
 
+.command-box {
+    -fx-background-color: derive(#e6f6fa, 35%);
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20 20 20 20;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 0);
+    -fx-padding: 0 0 5 0;
+}
+
 .pane-with-border {
      -fx-background-color: derive(#e6f6fa, 35%);
      -fx-border-color: derive(#1d1d1d, 10%);
@@ -200,10 +209,17 @@
     -fx-font-family: "Lato Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20 20 20 20;
+    -fx-padding: 0 0 5 0;
 }
 
 .result-display .label {
     -fx-text-fill: black !important;
+    -fx-border-color: transparent;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20 20 20 20;
 }
 
 .status-bar .label {
@@ -388,8 +404,26 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
+#placeHolder {
+    -fx-background-color: #98acb5;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20 20 20 20;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0)
+}
+
+#resultDisplay {
+    -fx-background-color: #98acb5;
+    -fx-border-color: transparent;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20 20 20 20;
+}
+
 #resultDisplay .content {
-    -fx-background-color: transparent, #98acb5, transparent, #98acb5;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20 20 20 20;
 }
 
 #tags {
@@ -422,4 +456,120 @@
 
 .list-cell:empty {
     -fx-opacity: 0;
+}
+
+#commandTextField {
+    -fx-border-color: transparent;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-color: transparent;
+}
+
+.title-label {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Lato bold";
+    -fx-text-fill: black;
+    -fx-padding: 0 0 0 15;
+    -fx-font-weight: bold;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+/*
+ * Dark scrollbar skin
+ * Author: farrukhobaid
+ * https://farrukhobaid.wordpress.com/2013/01/16/dark-scrollbar-skin-for-javafx/
+ */
+.scroll-bar {
+    -fx-background-color: rgb(96,96,96);
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color:transparent;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: rgb(211,211,211);
+    -fx-background-insets: 4 0 4 0;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgb(211,211,211);
+    -fx-background-insets: 0 4 0 4;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgb(231,231,231);
+}
+
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: rgb(255,255,255);
+}
+
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 2em;
+    -fx-padding: 5;
+}
+
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 2em;
+    -fx-padding: 5;
+}
+
+.scroll-bar:horizontal .increment-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-background-color: rgb(211,211,211);
+    -fx-padding: 0.25em;
+    -fx-rotate: -90;
+}
+
+.scroll-bar:vertical .increment-arrow {
+    -fx-background-color: rgb(211,211,211);
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-padding: 0.25em;
+    -fx-rotate: 0;
+}
+
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-background-color: rgb(211,211,211);
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-padding: 0.25em;
+    -fx-rotate: 90;
+}
+
+.scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: rgb(211,211,211);
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-padding: 0.25em;
+    -fx-rotate: -180;
+}
+
+.scroll-bar:vertical:focused,
+.scroll-bar:horizontal:focused {
+    -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
 }
