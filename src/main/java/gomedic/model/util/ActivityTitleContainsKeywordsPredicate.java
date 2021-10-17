@@ -4,23 +4,22 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import gomedic.commons.util.StringUtil;
-import gomedic.model.person.Person;
+import gomedic.model.activity.Activity;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate<T extends Person> implements Predicate<T> {
+public class ActivityTitleContainsKeywordsPredicate<T extends Activity> implements Predicate<T> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public ActivityTitleContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
-
     @Override
-    public boolean test(T person) {
+    public boolean test(T activity) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getDescription().toString(), keyword));
     }
 
     @Override
@@ -29,9 +28,9 @@ public class NameContainsKeywordsPredicate<T extends Person> implements Predicat
             return true;
         }
 
-        if (other instanceof NameContainsKeywordsPredicate) {
+        if (other instanceof ActivityTitleContainsKeywordsPredicate) {
             @SuppressWarnings("unchecked")
-            NameContainsKeywordsPredicate<T> otherKeywords = (NameContainsKeywordsPredicate<T>) other;
+            ActivityTitleContainsKeywordsPredicate<T> otherKeywords = (ActivityTitleContainsKeywordsPredicate<T>) other;
 
             return keywords.equals(otherKeywords.keywords);
         }

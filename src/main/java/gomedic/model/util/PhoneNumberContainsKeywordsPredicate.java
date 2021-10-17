@@ -5,22 +5,22 @@ import java.util.function.Predicate;
 
 import gomedic.commons.util.StringUtil;
 import gomedic.model.person.Person;
+import gomedic.model.person.doctor.Doctor;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate<T extends Person> implements Predicate<T> {
+public class PhoneNumberContainsKeywordsPredicate<T extends Person> implements Predicate<T> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public PhoneNumberContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
-
 
     @Override
     public boolean test(T person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
     }
 
     @Override
@@ -29,9 +29,9 @@ public class NameContainsKeywordsPredicate<T extends Person> implements Predicat
             return true;
         }
 
-        if (other instanceof NameContainsKeywordsPredicate) {
+        if (other instanceof PhoneNumberContainsKeywordsPredicate) {
             @SuppressWarnings("unchecked")
-            NameContainsKeywordsPredicate<T> otherKeywords = (NameContainsKeywordsPredicate<T>) other;
+            PhoneNumberContainsKeywordsPredicate<T> otherKeywords = (PhoneNumberContainsKeywordsPredicate<T>) other;
 
             return keywords.equals(otherKeywords.keywords);
         }

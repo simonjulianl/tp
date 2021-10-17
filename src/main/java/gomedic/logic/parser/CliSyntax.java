@@ -9,6 +9,8 @@ public class CliSyntax {
     public static final String PREFIX_TYPE_DOCTOR = PREFIX_TYPE_AS_STRING + "doctor";
     public static final String PREFIX_TYPE_ACTIVITY = PREFIX_TYPE_AS_STRING + "activity";
     public static final String PREFIX_TYPE_PATIENT = PREFIX_TYPE_AS_STRING + "patient";
+    public static final String PREFIX_TYPE_ALL = PREFIX_TYPE_AS_STRING + "all";
+
 
     /* General prefixes */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
@@ -32,4 +34,18 @@ public class CliSyntax {
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_START_TIME = new Prefix("s/");
     public static final Prefix PREFIX_END_TIME = new Prefix("e/");
+
+    /* Prefix categories */
+    public static final String NAME = "n";
+    public static final String PHONE_NUMBER = "p";
+    public static final String AGE = "a";
+    public static final String GENDER = "g";
+    public static final String HEIGHT = "h";
+    public static final String WEIGHT = "w";
+    public static final String BLOOD_TYPE = "b";
+    public static final String MEDICAL_CONDITION = "m";
+    public static final String DEPARTMENT = "de";
+    public static final String ACTIVITY_TITLE = "ti";
+    public static final String TAG_DESCRIPTION = "ta";
+    public static final String ALL = "all";
 }

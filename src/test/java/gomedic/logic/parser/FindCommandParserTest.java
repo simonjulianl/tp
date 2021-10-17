@@ -5,10 +5,11 @@ import static gomedic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
 
+import gomedic.logic.parser.findcommandparser.FindCommandParser;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.FindCommand;
+import gomedic.logic.commands.findcommand.FindCommand;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {

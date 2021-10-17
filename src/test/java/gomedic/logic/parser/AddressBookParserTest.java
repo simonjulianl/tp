@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.ExitCommand;
-import gomedic.logic.commands.FindCommand;
+import gomedic.logic.commands.findcommand.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.clearcommand.ClearActivityCommand;

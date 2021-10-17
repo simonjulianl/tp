@@ -110,12 +110,12 @@ The parameters are :
 * `w/WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
 * `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
 * `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
-* `o/MEDICAL_CONDITION` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
+* `m/MEDICAL_CONDITION` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
   words, use `space` to combine the words, e.g. `heart failure`. 
 
 Examples:
 
-* `add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 o/heart failure o/diabetes`
+* `add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart failure `
 * `add t/patient n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234`
 
 ### Display full details of a patient: `view t/patient`
@@ -310,7 +310,7 @@ Examples:
 * `tag t/activity i/A420 ta/important ta/NUS ta/schoolwork`
 * `tag t/activity i/A421 ta/important`
 
-### Find results that contain keyword: `find [OPTIONAL_PARAMETERS]...`
+### Find results that contain keyword: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
 
 Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
 If more than 1 keyword is specified, results that contain at least 1 of the keywords will be returned (i.e. `OR` search)
@@ -320,9 +320,18 @@ Users can specify additional optional parameters to limit the keyword matching t
 flag. Parameters will only match results that contain the associated field (E.g. n/Hans will not return any `activities`
 since `activities` do not have a `name` field.)
 
-Format: `find [OPTIONAL_PARAMETERS]...`
+Format: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
 
 The parameters are:
+* `t/CATEGORY`: Searches for matches within this category.
+    * Valid values are:
+        * doctor
+        * patient
+        * activity
+        * all
+  
+
+The optional parameters are:
 
 * `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
 * `p/PHONE_NUMBER`: Matches the phone number field (Valid for: `Patients`, `Doctors`)
@@ -338,12 +347,14 @@ The parameters are:
 * `ti/TITLE`: Matches the title field (Valid for: `Activities`)
 * `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`,
   _Tagging for `Doctors` and `Patients` coming soon_)
+    
+* `all/KEYWORD` : Matches any field with the keyword specified
 
 Note: 
 * Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
   condition as “Diabetes”)
 * Parameters can be repeated (e.g. `find n/Hans n/Bo` will return both `Hans Gruber` and `Bo Yang`)
-* If the optional parameters is not specified, the keyword will match any fields. E.g. `find dia` will return:
+* If the optional parameters `all` is  specified, the keyword will match any fields. E.g. `find t/all all/dia` will return:
     1. Doctor Claudia, whose name matches `dia`
     2. Patient Jaryl, whose medical condition, `diabetes`, matches `dia`
     3. Doctor Tom, whose specialty, `Pediatrics`, matches `dia`
@@ -351,9 +362,9 @@ Note:
 
 Examples:
 
-* `find o/diabetes a/42 n/Jaryl`
-* `find ta/important ti/tutorial`
-* `find dia`
+* `find t/all o/diabetes a/42 n/Jaryl`
+* `find t/activity ta/important ti/tutorial`
+* `find t/all all/dia`
 
 ### Adding a new activity: `add t/activity`
 

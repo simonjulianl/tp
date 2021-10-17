@@ -1,9 +1,10 @@
-package gomedic.logic.parser;
+package gomedic.logic.parser.findcommandparser;
 
 import java.util.Arrays;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.FindCommand;
+import gomedic.logic.commands.findcommand.FindCommand;
+import gomedic.logic.parser.Parser;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 
