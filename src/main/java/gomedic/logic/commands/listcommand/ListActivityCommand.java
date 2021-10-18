@@ -50,7 +50,6 @@ public class ListActivityCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        System.out.println("test");
         switch (sortFlag) {
         case ID:
             model.setModelBeingShown(ModelItem.ACTIVITY_ID);

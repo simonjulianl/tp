@@ -9,7 +9,7 @@ import gomedic.logic.parser.ParserUtil;
 import gomedic.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteActivityCommand object
+ * Parses input arguments and creates a new ListActivityCommand object.
  */
 public class ListActivityParser implements Parser<ListActivityCommand> {
 
