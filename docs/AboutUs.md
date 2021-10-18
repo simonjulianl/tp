@@ -17,8 +17,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/simonjulianl)]
 [[portfolio](team/simonjulianlauw.md)]
 
-* Role: Team Lead 
-* Responsibilities: Deliverables and deadlines  
+* Role: Team Lead
+* Responsibilities: Deliverables and deadlines
 
 ### Radian Krisno
 
