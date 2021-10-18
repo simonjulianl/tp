@@ -35,19 +35,7 @@ public class PatientTable extends UiPart<Region> {
     private TableColumn<Patient, String> ageField;
 
     @FXML
-    private TableColumn<Patient, String> bloodTypeField;
-
-    @FXML
     private TableColumn<Patient, String> genderField;
-
-    @FXML
-    private TableColumn<Patient, String> heightField;
-
-    @FXML
-    private TableColumn<Patient, String> weightField;
-
-    @FXML
-    private TableColumn<Patient, String> medicalConditionsField;
 
     /**
      * Creates a {@code PatientTable} with the given {@code ObservableList}.
