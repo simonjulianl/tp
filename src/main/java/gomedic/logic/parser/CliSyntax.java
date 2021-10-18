@@ -48,7 +48,7 @@ public class CliSyntax {
     public static final String ACTIVITY_TITLE = "ti";
     public static final String TAG_DESCRIPTION = "ta";
     public static final String ALL = "all";
-  
+
     /* Prefix definitions for listing */
     public static final Prefix PREFIX_SORT_FLAG = new Prefix("s/");
     public static final Prefix PREFIX_PERIOD_FLAG = new Prefix("p/");
