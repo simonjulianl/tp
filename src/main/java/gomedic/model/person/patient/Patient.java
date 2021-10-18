@@ -50,6 +50,11 @@ public class Patient extends Person {
         this.medicalConditions.addAll(medicalConditions);
     }
 
+    @Override
+    public PatientId getId() {
+        return (PatientId) super.getId();
+    }
+
     /**
      * Returns Age of the patient.
      *

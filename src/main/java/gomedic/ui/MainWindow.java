@@ -8,9 +8,9 @@ import gomedic.logic.Logic;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.exceptions.ParseException;
-import gomedic.ui.panel.ActivityListPanel;
-import gomedic.ui.panel.DoctorListPanel;
-import gomedic.ui.panel.PatientListPanel;
+import gomedic.ui.table.ActivityTable;
+import gomedic.ui.table.DoctorTable;
+import gomedic.ui.table.PatientTable;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,9 +36,9 @@ public class MainWindow extends UiPart<Stage> {
     private final HelpWindow helpWindow;
 
     // Independent Ui parts residing in this Ui container
-    private ActivityListPanel activityListPanel;
-    private DoctorListPanel doctorListPanel;
-    private PatientListPanel patientListPanel;
+    private ActivityTable activityTable;
+    private DoctorTable doctorTable;
+    private PatientTable patientTable;
 
     private ResultDisplay resultDisplay;
 
@@ -82,13 +82,18 @@ public class MainWindow extends UiPart<Stage> {
             modelListPanelPlaceholder.getChildren().clear();
             switch (newVal) {
             case 0:
-                modelListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
+                activityTable = new ActivityTable(logic.getFilteredActivityListById());
+                modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
                 break;
             case 1:
-                modelListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+                activityTable = new ActivityTable(logic.getFilteredActivityListByStartTime());
+                modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
                 break;
             case 2:
-                modelListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
+                modelListPanelPlaceholder.getChildren().add(doctorTable.getRoot());
+                break;
+            case 3:
+                modelListPanelPlaceholder.getChildren().add(patientTable.getRoot());
                 break;
             default:
                 // do nothing
@@ -140,12 +145,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        activityListPanel = new ActivityListPanel(logic.getFilteredActivityList());
-        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList());
-        patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
+        activityTable = new ActivityTable(logic.getFilteredActivityListById());
+        doctorTable = new DoctorTable(logic.getFilteredDoctorList());
+        patientTable = new PatientTable(logic.getFilteredPatientList());
 
         // by default, show the activity first
-        modelListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
+        modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -183,7 +188,7 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         //  set full-screen if wanted
-        //  primaryStage.setMaximized(true);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
@@ -199,16 +204,16 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ActivityListPanel getActivityListPanel() {
-        return activityListPanel;
+    public ActivityTable getActivityTable() {
+        return activityTable;
     }
 
-    public DoctorListPanel getDoctorListPanel() {
-        return doctorListPanel;
+    public DoctorTable getDoctorTable() {
+        return doctorTable;
     }
 
-    public PatientListPanel getPatientListPanel() {
-        return patientListPanel;
+    public PatientTable getPatientTable() {
+        return patientTable;
     }
 
     /**

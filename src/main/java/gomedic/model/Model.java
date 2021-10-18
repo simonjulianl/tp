@@ -129,6 +129,12 @@ public interface Model {
     void deletePatient(Patient target);
 
     /**
+     * Sets a patient in the model with another patient.
+     * The patient must exist in the address book.
+     */
+    void setPatient(Patient oldPatient, Patient replacementPatient);
+
+    /**
      * Adds the given patient.
      * {@code patient} must not already exist in the address book.
      */
@@ -155,8 +161,11 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered patient list */
     ObservableList<Patient> getFilteredPatientList();
 
-    /** Returns an unmodifiable view of the filtered activity list */
-    ObservableList<Activity> getFilteredActivityList();
+    /** Returns an unmodifiable view of the filtered activity list sorted by id*/
+    ObservableList<Activity> getFilteredActivityListById();
+
+    /** Returns an unmodifiable view of the filtered activity list sorted by start time*/
+    ObservableList<Activity> getFilteredActivityListByStartTime();
 
     /**
      * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.

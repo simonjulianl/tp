@@ -36,7 +36,7 @@ public class DeleteActivityCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Activity> lastShownList = model.getFilteredActivityList();
+        List<Activity> lastShownList = model.getFilteredActivityListById();
 
         Activity activityToDelete = lastShownList
                 .stream()
