@@ -35,6 +35,7 @@ import gomedic.logic.parser.editcommandparser.EditDoctorCommandParser;
 import gomedic.logic.parser.editcommandparser.EditPatientCommandParser;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.logic.parser.findcommandparser.*;
+import gomedic.logic.parser.listcommandparser.ListActivityParser;
 
 /**
  * Parses user input.
@@ -130,7 +131,7 @@ public class AddressBookParser {
 //            return new FindAllCommandParser().parse(arguments);
 
         case ListActivityCommand.COMMAND_WORD:
-            return new ListActivityCommand();
+            return new ListActivityParser().parse(arguments);
 
         case ListDoctorCommand.COMMAND_WORD:
             return new ListDoctorCommand();

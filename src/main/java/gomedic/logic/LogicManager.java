@@ -74,8 +74,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Activity> getFilteredActivityList() {
-        return model.getFilteredActivityList();
+    public ObservableList<Activity> getFilteredActivityListById() {
+        return model.getFilteredActivityListById();
+    }
+
+    @Override
+    public ObservableList<Activity> getFilteredActivityListByStartTime() {
+        return model.getFilteredActivityListByStartTime();
     }
 
     @Override
