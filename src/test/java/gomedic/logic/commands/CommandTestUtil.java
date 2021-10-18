@@ -95,6 +95,15 @@ public class CommandTestUtil {
     public static final String INVALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
             + "invalid**";
 
+    /* for listing activities */
+    public static final String VALID_PERIOD_FLAG_TODAY = " " + CliSyntax.PREFIX_PERIOD_FLAG + "TODAY";
+    public static final String VALID_PERIOD_FLAG_ALL = " " + CliSyntax.PREFIX_PERIOD_FLAG + "ALL";
+    public static final String VALID_SORT_FLAG_START = " " + CliSyntax.PREFIX_SORT_FLAG + "START";
+    public static final String VALID_SORT_FLAG_ID = " " + CliSyntax.PREFIX_SORT_FLAG + "ID";
+
+    public static final String INVALID_PERIOD_FLAG = " " + CliSyntax.PREFIX_PERIOD_FLAG + "TOMORROW";
+    public static final String INVALID_SORT_FLAG = " " + CliSyntax.PREFIX_SORT_FLAG + "end time";
+
     /* valid constants declarations for activity related fields */
     public static final String VALID_DESC_TITLE_MEETING =
             " " + CliSyntax.PREFIX_TITLE + "Meeting me";
@@ -147,22 +156,22 @@ public class CommandTestUtil {
                 .withPhone(TypicalPersons.OTHER_DOCTOR.getPhone().value)
                 .withDepartment(TypicalPersons.OTHER_DOCTOR.getDepartment().departmentName).build();
         DESC_MAIN_PATIENT = new EditPatientDescriptorBuilder().withName(TypicalPersons.MAIN_PATIENT.getName().fullName)
-            .withPhone(TypicalPersons.MAIN_PATIENT.getPhone().value)
-            .withAge(TypicalPersons.MAIN_PATIENT.getAge().age)
-            .withBloodType(TypicalPersons.MAIN_PATIENT.getBloodType().bloodType)
-            .withGender(TypicalPersons.MAIN_PATIENT.getGender().gender)
-            .withHeight(TypicalPersons.MAIN_PATIENT.getHeight().height)
-            .withWeight(TypicalPersons.MAIN_PATIENT.getWeight().weight)
-            .withMedicalConditions("heart failure").build();
+                .withPhone(TypicalPersons.MAIN_PATIENT.getPhone().value)
+                .withAge(TypicalPersons.MAIN_PATIENT.getAge().age)
+                .withBloodType(TypicalPersons.MAIN_PATIENT.getBloodType().bloodType)
+                .withGender(TypicalPersons.MAIN_PATIENT.getGender().gender)
+                .withHeight(TypicalPersons.MAIN_PATIENT.getHeight().height)
+                .withWeight(TypicalPersons.MAIN_PATIENT.getWeight().weight)
+                .withMedicalConditions("heart failure").build();
         DESC_OTHER_PATIENT = new EditPatientDescriptorBuilder()
-            .withName(TypicalPersons.OTHER_PATIENT.getName().fullName)
-            .withPhone(TypicalPersons.OTHER_PATIENT.getPhone().value)
-            .withAge(TypicalPersons.OTHER_PATIENT.getAge().age)
-            .withBloodType(TypicalPersons.OTHER_PATIENT.getBloodType().bloodType)
-            .withGender(TypicalPersons.OTHER_PATIENT.getGender().gender)
-            .withHeight(TypicalPersons.OTHER_PATIENT.getHeight().height)
-            .withWeight(TypicalPersons.OTHER_PATIENT.getWeight().weight)
-            .withMedicalConditions("heart failure").build();
+                .withName(TypicalPersons.OTHER_PATIENT.getName().fullName)
+                .withPhone(TypicalPersons.OTHER_PATIENT.getPhone().value)
+                .withAge(TypicalPersons.OTHER_PATIENT.getAge().age)
+                .withBloodType(TypicalPersons.OTHER_PATIENT.getBloodType().bloodType)
+                .withGender(TypicalPersons.OTHER_PATIENT.getGender().gender)
+                .withHeight(TypicalPersons.OTHER_PATIENT.getHeight().height)
+                .withWeight(TypicalPersons.OTHER_PATIENT.getWeight().weight)
+                .withMedicalConditions("heart failure").build();
         DESC_MEETING = new EditActivityDescriptorBuilder()
                 .withStartTime(MEETING.getStartTime().toString())
                 .withEndTime(MEETING.getEndTime().toString())
@@ -211,11 +220,11 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Activity> expectedFilteredList = new ArrayList<>(actualModel.getFilteredActivityList());
+        List<Activity> expectedFilteredList = new ArrayList<>(actualModel.getFilteredActivityListById());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredActivityList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredActivityListById());
     }
 
     /**
@@ -251,13 +260,13 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showActivityAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredActivityList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredActivityListById().size());
 
-        Activity activity = model.getFilteredActivityList().get(targetIndex.getZeroBased());
+        Activity activity = model.getFilteredActivityListById().get(targetIndex.getZeroBased());
         final ActivityId aid = activity.getActivityId();
         model.updateFilteredActivitiesList(activity1 -> activity1.getActivityId().equals(aid));
 
-        assertEquals(1, model.getFilteredActivityList().size());
+        assertEquals(1, model.getFilteredActivityListById().size());
     }
 
     /**
@@ -395,7 +404,12 @@ public class CommandTestUtil {
         }
 
         @Override
-        public ObservableList<Activity> getFilteredActivityList() {
+        public ObservableList<Activity> getFilteredActivityListById() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Activity> getFilteredActivityListByStartTime() {
             throw new AssertionError("This method should not be called.");
         }
 

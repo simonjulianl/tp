@@ -226,12 +226,12 @@ public class LogicManagerTest {
 
     @Test
     public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredActivityList().remove(0));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredActivityListById().remove(0));
     }
 
     @Test
     void getModelBeingShown_defaultValue_testPassed() {
-        assertEquals(ModelItem.ACTIVITY.ordinal(), logic.getModelBeingShown().getValue());
+        assertEquals(ModelItem.ACTIVITY_ID.ordinal(), logic.getModelBeingShown().getValue());
     }
 
     @Test

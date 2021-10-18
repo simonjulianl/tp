@@ -273,7 +273,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Activity> getActivityListSortedStartTime() {
+    public ObservableList<Activity> getActivityListSortedByStartTime() {
         return activities.asUnmodifiableSortedByStartTimeList();
     }
 
