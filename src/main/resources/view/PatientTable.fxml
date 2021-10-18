@@ -28,7 +28,7 @@
                 <PropertyValueFactory property="age"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="GenderField" text="Gender" prefWidth="300" maxWidth="2000">
+        <TableColumn fx:id="GenderField" styleClass="header-right-border" text="Gender" prefWidth="300">
             <cellValueFactory>
                 <PropertyValueFactory property="gender"/>
             </cellValueFactory>

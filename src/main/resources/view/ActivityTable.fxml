@@ -27,7 +27,7 @@
                 <PropertyValueFactory property="endTime"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="descriptionField" text="Description" prefWidth="300">
+        <TableColumn fx:id="descriptionField" styleClass="header-right-border" text="Description" prefWidth="300">
             <cellValueFactory>
                 <PropertyValueFactory property="description"/>
             </cellValueFactory>

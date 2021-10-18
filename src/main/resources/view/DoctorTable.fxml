@@ -23,7 +23,7 @@
                 <PropertyValueFactory property="phone"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="departmentField" text="Department" prefWidth="300" maxWidth="2000">
+        <TableColumn fx:id="departmentField" styleClass="header-right-border" text="Department" prefWidth="300">
             <cellValueFactory>
                 <PropertyValueFactory property="department"/>
             </cellValueFactory>
