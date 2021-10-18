@@ -161,8 +161,11 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered patient list */
     ObservableList<Patient> getFilteredPatientList();
 
-    /** Returns an unmodifiable view of the filtered activity list */
-    ObservableList<Activity> getFilteredActivityList();
+    /** Returns an unmodifiable view of the filtered activity list sorted by id*/
+    ObservableList<Activity> getFilteredActivityListById();
+
+    /** Returns an unmodifiable view of the filtered activity list sorted by start time*/
+    ObservableList<Activity> getFilteredActivityListByStartTime();
 
     /**
      * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
