@@ -8,8 +8,8 @@ import gomedic.logic.Logic;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.exceptions.ParseException;
-import gomedic.ui.panel.DoctorListPanel;
 import gomedic.ui.table.ActivityTable;
+import gomedic.ui.table.DoctorTable;
 import gomedic.ui.table.PatientTable;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -37,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ActivityTable activityTable;
-    private DoctorListPanel doctorListPanel;
+    private DoctorTable doctorTable;
     private PatientTable patientTable;
 
     private ResultDisplay resultDisplay;
@@ -90,7 +90,7 @@ public class MainWindow extends UiPart<Stage> {
                 modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
                 break;
             case 2:
-                modelListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+                modelListPanelPlaceholder.getChildren().add(doctorTable.getRoot());
                 break;
             case 3:
                 modelListPanelPlaceholder.getChildren().add(patientTable.getRoot());
@@ -146,7 +146,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         activityTable = new ActivityTable(logic.getFilteredActivityListById());
-        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList());
+        doctorTable = new DoctorTable(logic.getFilteredDoctorList());
         patientTable = new PatientTable(logic.getFilteredPatientList());
 
         // by default, show the activity first
@@ -208,8 +208,8 @@ public class MainWindow extends UiPart<Stage> {
         return activityTable;
     }
 
-    public DoctorListPanel getDoctorListPanel() {
-        return doctorListPanel;
+    public DoctorTable getDoctorTable() {
+        return doctorTable;
     }
 
     public PatientTable getPatientTable() {
