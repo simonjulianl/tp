@@ -19,7 +19,8 @@ public class ActivityTitleContainsKeywordsPredicate<T extends Activity> implemen
     @Override
     public boolean test(T activity) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getDescription().toString(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getTitle().toString(), keyword)
+                        || StringUtil.containsWordIgnoreCase(activity.getDescription().toString(), keyword));
     }
 
     @Override

@@ -28,7 +28,7 @@ public class StringUtil {
         requireNonNull(sentence);
         requireNonNull(word);
 
-        String preppedWord = word.trim();
+        String preppedWord = word.trim().toLowerCase();
         AppUtil.checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         AppUtil.checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 

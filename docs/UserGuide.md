@@ -344,7 +344,7 @@ The optional parameters are:
 * `o/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
   for: `Patients`)
 * `de/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
-* `ti/TITLE`: Matches the title field (Valid for: `Activities`)
+* `ti/TITLE`: Matches the title field or description field (Valid for: `Activities`)
 * `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`,
   _Tagging for `Doctors` and `Patients` coming soon_)
     

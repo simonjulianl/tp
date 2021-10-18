@@ -1,8 +1,8 @@
 package gomedic.logic.parser.findcommandparser;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.findcommand.FindDoctorCommand;
 import gomedic.logic.commands.findcommand.FindPatientCommand;
+import gomedic.logic.parser.Parser;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.util.*;
 
@@ -14,7 +14,7 @@ import static gomedic.logic.parser.CliSyntax.*;
 /**
  * Parses input arguments and creates a new FindPatientCommand object
  */
-public class FindPatientCommandParser {
+public class FindPatientCommandParser implements Parser<FindPatientCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -32,7 +32,16 @@ public class FindPatientCommandParser {
         // First find out which field it is supposed to match to
         // then create a PatientCommand with the argument containing the corresponding
         // Predicate
+        if (trimmedArgs.indexOf("/") == -1 ) {
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindPatientCommand.MESSAGE_USAGE));
+        }
         String[] fieldAndArguments = trimmedArgs.split("/");
+        if (fieldAndArguments.length != 2) {
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindPatientCommand.MESSAGE_USAGE));
+        }
+        fieldAndArguments[1] = fieldAndArguments[1].trim();
         String[] argumentKeywords = fieldAndArguments[1].split("\\s+");
 
         String field = fieldAndArguments[0];

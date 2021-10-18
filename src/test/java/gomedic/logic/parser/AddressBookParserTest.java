@@ -7,11 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
+import gomedic.logic.commands.findcommand.FindActivityCommand;
+import gomedic.logic.commands.findcommand.FindDoctorCommand;
+import gomedic.logic.commands.findcommand.FindPatientCommand;
+import gomedic.model.activity.Activity;
+import gomedic.model.person.patient.Patient;
+import gomedic.model.util.ActivityTitleContainsKeywordsPredicate;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.ExitCommand;
-import gomedic.logic.commands.findcommand.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.clearcommand.ClearActivityCommand;
@@ -92,11 +97,27 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_findDoctor() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + String.join(" ", keywords));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate<>(keywords)), command);
+        FindDoctorCommand command = (FindDoctorCommand) parser.parseCommand(
+                FindDoctorCommand.COMMAND_WORD + " " + String.join(" ", keywords));
+        assertEquals(new FindDoctorCommand(new NameContainsKeywordsPredicate<Doctor>(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findPatient() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindPatientCommand command = (FindPatientCommand) parser.parseCommand(
+                FindPatientCommand.COMMAND_WORD + " " + String.join(" ", keywords));
+        assertEquals(new FindPatientCommand(new NameContainsKeywordsPredicate<Patient>(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findActivity() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindActivityCommand command = (FindActivityCommand) parser.parseCommand(
+                FindActivityCommand.COMMAND_WORD + " " + String.join(" ", keywords));
+        assertEquals(new FindActivityCommand(new ActivityTitleContainsKeywordsPredicate<Activity>(keywords)), command);
     }
 
     @Test

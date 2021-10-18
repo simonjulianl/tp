@@ -1,4 +1,4 @@
-package gomedic.model.commonfield;
+package gomedic.model.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import gomedic.model.person.patient.Patient;
+import gomedic.testutil.modelbuilder.PatientBuilder;
 import org.junit.jupiter.api.Test;
 
 import gomedic.model.person.doctor.Doctor;
@@ -61,8 +63,14 @@ public class NameContainsKeywordsPredicateTest {
         assertTrue(predicate.test(new DoctorBuilder().withName("Alice Carol").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate<Doctor>(Arrays.asList("aLIce", "bOB"));
+        predicate = new NameContainsKeywordsPredicate<Doctor>(Arrays.asList("aLIce", "boB"));
         assertTrue(predicate.test(new DoctorBuilder().withName("Alice Bob").build()));
+
+        // Patient test
+        NameContainsKeywordsPredicate<Patient> predicatePatient =
+                new NameContainsKeywordsPredicate<Patient>(Collections.singletonList("Alice"));
+        assertTrue(predicatePatient.test(new PatientBuilder().withName("Alice Bob").build()));
+
     }
 
     @Test
