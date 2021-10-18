@@ -38,9 +38,9 @@ public class FindActivityCommand extends Command{
 
         model.updateFilteredActivitiesList(predicate);
 
-        model.setModelBeingShown(ModelItem.ACTIVITY);
+        model.setModelBeingShown(ModelItem.ACTIVITY_ID);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, model.getFilteredActivityList().size()));
+                String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, model.getFilteredActivityListById().size()));
     }
 
     @Override
