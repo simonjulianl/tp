@@ -53,6 +53,7 @@ public class Messages {
                 "list t/activity",
                 "clear t/activity",
                 "exit");
+
         LevenshteinDistance stringChecker = new LevenshteinDistance();
         String[] commandArgs = command.split(" ", 2);
         List<Pair<Integer, String>> closestStrings;
@@ -66,16 +67,35 @@ public class Messages {
                     .collect(Collectors.toList());
             iterator = closestStrings.stream()
                     .filter(x -> x.getKey() <= Math.ceil(x.getValue().split(" ")[0].length() / 2))
+                    .limit(5)
                     .iterator();
-
-        // if wrong command has two parts, the command target is probably wrong
+        // if wrong command has two parts, check both parts
         } else {
             closestStrings = listOfCommands.stream()
-                    .map(x -> new Pair<>(stringChecker.apply(x, command), x))
+                    .map(x -> {
+                        String[] temp = x.split(" ");
+                        // input command does not match single commands like exit/clear/help
+                        if (temp.length == 1) {
+                            return new Pair<>(Integer.MAX_VALUE, x);
+                        // first part of input command is incorrect, return suggestions based on whole command
+                        } else if (stringChecker.apply(temp[0], commandArgs[0]) > 0) {
+                            return new Pair<>(stringChecker.apply(x, command), x);
+                        // only second part of input command is incorrect, return suggestions based on command target
+                        } else {
+                            return temp[0].equals(commandArgs[0])
+                                    ? new Pair<>(stringChecker.apply(temp[1], commandArgs[1]), x)
+                                    : new Pair<>(Integer.MAX_VALUE, x);
+                        }
+                    })
                     .sorted(Comparator.comparingInt(Pair::getKey))
                     .collect(Collectors.toList());
             iterator = closestStrings.stream()
-                    .filter(x -> x.getKey() <= Math.ceil(x.getValue().length() / 2))
+                    .filter(x -> {
+                        String commandString = x.getValue();
+                        Integer strLen = commandString.length();
+                        return x.getKey() <= Math.ceil(commandString.length() / 2)
+                                && x.getKey() <= Math.ceil((strLen - commandString.split(" ")[0].length()) / 2);
+                    })
                     .limit(5)
                     .iterator();
         }
