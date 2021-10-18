@@ -86,7 +86,7 @@ public class EditActivityCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Activity> lastShownList = model.getFilteredActivityList();
+        List<Activity> lastShownList = model.getFilteredActivityListById();
 
         Activity activityToEdit = lastShownList
                 .stream()
@@ -101,7 +101,7 @@ public class EditActivityCommand extends Command {
         Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
 
         boolean anyConflicting = model
-                .getFilteredActivityList()
+                .getFilteredActivityListById()
                 .stream()
                 .anyMatch(it -> it.isConflicting(editedActivity) && !it.getActivityId()
                         .equals(editedActivity.getActivityId()));
@@ -112,7 +112,10 @@ public class EditActivityCommand extends Command {
 
         model.setActivity(activityToEdit, editedActivity);
         model.updateFilteredActivitiesList(PREDICATE_SHOW_ALL_ITEMS);
-        model.setModelBeingShown(ModelItem.ACTIVITY);
+        if (!(model.getModelBeingShown().getValue().equals(ModelItem.ACTIVITY_ID.ordinal())
+                || model.getModelBeingShown().getValue().equals(ModelItem.ACTIVITY_START_TIME.ordinal()))) {
+            model.setModelBeingShown(ModelItem.ACTIVITY_ID);
+        }
 
         return new CommandResult(String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity));
     }

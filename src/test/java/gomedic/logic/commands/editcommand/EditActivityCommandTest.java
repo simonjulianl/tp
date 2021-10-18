@@ -50,15 +50,15 @@ public class EditActivityCommandTest {
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setActivity(model.getFilteredActivityList().get(0), editedActivity);
+        expectedModel.setActivity(model.getFilteredActivityListById().get(0), editedActivity);
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someConflictingTiming_throwsConflictingTiming() {
-        Index indexLastActivity = Index.fromOneBased(model.getFilteredActivityList().size());
-        Activity lastActivity = model.getFilteredActivityList().get(indexLastActivity.getZeroBased());
+        Index indexLastActivity = Index.fromOneBased(model.getFilteredActivityListById().size());
+        Activity lastActivity = model.getFilteredActivityListById().get(indexLastActivity.getZeroBased());
         Id targetId = lastActivity.getActivityId();
 
         EditActivityCommand.EditActivityDescriptor descriptor = new EditActivityDescriptorBuilder()
@@ -72,7 +72,7 @@ public class EditActivityCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        Activity editedActivity = model.getFilteredActivityList().get(INDEX_FIRST.getZeroBased());
+        Activity editedActivity = model.getFilteredActivityListById().get(INDEX_FIRST.getZeroBased());
         Id targetId = editedActivity.getActivityId();
         EditActivityCommand editActivityCommand =
                 new EditActivityCommand(targetId, new EditActivityCommand.EditActivityDescriptor());
@@ -89,7 +89,7 @@ public class EditActivityCommandTest {
     public void execute_filteredList_success() {
         showActivityAtIndex(model, INDEX_FIRST);
 
-        Activity activityInFilteredList = model.getFilteredActivityList().get(INDEX_FIRST.getZeroBased());
+        Activity activityInFilteredList = model.getFilteredActivityListById().get(INDEX_FIRST.getZeroBased());
         Activity editedActivity = new ActivityBuilder()
                 .withId(activityInFilteredList.getActivityId().getIdNumber())
                 .withTitle(activityInFilteredList.getTitle().toString())
@@ -104,7 +104,7 @@ public class EditActivityCommandTest {
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setActivity(model.getFilteredActivityList().get(0), editedActivity);
+        expectedModel.setActivity(model.getFilteredActivityListById().get(0), editedActivity);
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
     }

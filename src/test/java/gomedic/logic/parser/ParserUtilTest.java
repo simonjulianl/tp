@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
@@ -461,5 +462,42 @@ public class ParserUtilTest {
         assertThrows(ParseException.class, () -> ParserUtil.parseId("B001"));
         assertThrows(ParseException.class, () -> ParserUtil.parseId("X001"));
         assertThrows(ParseException.class, () -> ParserUtil.parseId("Z9999"));
+    }
+
+    @Test
+    void parseSortActivityFlags_valid_testPassed() throws ParseException {
+        assertEquals(ParserUtil.parseSortActivityFlags("id"), ListActivityCommand.Sort.ID);
+        assertEquals(ParserUtil.parseSortActivityFlags("ID"), ListActivityCommand.Sort.ID);
+        assertEquals(ParserUtil.parseSortActivityFlags("start"), ListActivityCommand.Sort.START);
+        assertEquals(ParserUtil.parseSortActivityFlags("START"), ListActivityCommand.Sort.START);
+
+    }
+
+    @Test
+    void parseSortActivityFlags_invalid_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortActivityFlags("Z9999"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortActivityFlags("endtime"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortActivityFlags("i d"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortActivityFlags("start time"));
+    }
+
+    @Test
+    void parsePeriodActivityFlags_valid_testPassed() throws ParseException {
+        assertEquals(ParserUtil.parsePeriodActivityFlags("today"), ListActivityCommand.Period.TODAY);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("ALL"), ListActivityCommand.Period.ALL);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("TODAY"), ListActivityCommand.Period.TODAY);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("toDAY"), ListActivityCommand.Period.TODAY);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("WEEK"), ListActivityCommand.Period.WEEK);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("year"), ListActivityCommand.Period.YEAR);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("MONTH"), ListActivityCommand.Period.MONTH);
+    }
+
+    @Test
+    void parsePeriodActivityFlags_invalid_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("Z9999"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("tommorow"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("yesterday"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("oneday"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("15/9/2020 15:00"));
     }
 }
