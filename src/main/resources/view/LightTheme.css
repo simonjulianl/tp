@@ -44,7 +44,9 @@
     -fx-background-color: derive(#e6f6fa, 35%);
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0)
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+    -fx-border-radius: 20 20 0 0;
+    -fx-background-radius: 20 20 0 0;
 }
 
 .table-view .table-cell {
@@ -56,13 +58,8 @@
     -fx-border-width: 0 0 1 0;
 }
 
-#activityTable {
-    -fx-border-radius: 20 20 0 0;
-    -fx-background-radius: 20 20 0 0;
-}
-
 .table-view .column-header-background {
-    -fx-background-color: transparent;
+    -fx-background-color: derive(#ADD8E6, 35%);
     -fx-background-radius: 20 20 0 0;
 }
 
@@ -75,12 +72,16 @@
 
 }
 
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
 #idField {
     -fx-border-radius: 20 0 0 0 ;
     -fx-background-radius: 20 0 0 0;
 }
 
-#descriptionField {
+.header-right-border {
     -fx-border-radius: 0 20 0 0;
     -fx-background-radius: 0 20 0 0;
 }
