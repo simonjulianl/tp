@@ -4,13 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import gomedic.model.person.patient.Patient;
 import gomedic.testutil.modelbuilder.PatientBuilder;
-import org.junit.jupiter.api.Test;
 
 public class HeightContainsKeywordsPredicateTest {
 
@@ -29,7 +30,7 @@ public class HeightContainsKeywordsPredicateTest {
 
         // same values -> returns true
         HeightContainsKeywordsPredicate<Patient> firstPredicateCopy =
-                new  HeightContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
+                new HeightContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
         assertEquals(firstPredicateCopy, firstPredicate);
 
         // null -> returns false
@@ -43,7 +44,7 @@ public class HeightContainsKeywordsPredicateTest {
     public void test_heightContainsKeywords_returnsTrue() {
         // One keyword
         HeightContainsKeywordsPredicate<Patient> predicate =
-                new  HeightContainsKeywordsPredicate<Patient>(Collections.singletonList("1"));
+                new HeightContainsKeywordsPredicate<Patient>(Collections.singletonList("1"));
         assertTrue(predicate.test(new PatientBuilder().withHeight("153").build()));
 
         // Multiple keywords

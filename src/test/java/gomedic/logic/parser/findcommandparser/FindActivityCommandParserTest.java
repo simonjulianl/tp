@@ -3,19 +3,16 @@ package gomedic.logic.parser.findcommandparser;
 import static gomedic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static gomedic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
-
-import gomedic.logic.commands.findcommand.FindActivityCommand;
-import gomedic.logic.commands.findcommand.FindPatientCommand;
-import gomedic.model.activity.Activity;
-import gomedic.model.person.patient.Patient;
-import gomedic.model.util.ActivityTitleContainsKeywordsPredicate;
 import org.junit.jupiter.api.Test;
 
-import gomedic.commons.core.Messages;
-import gomedic.model.util.NameContainsKeywordsPredicate;
+import java.util.Arrays;
 
-public class FindActivityCommandParserTest{
+import gomedic.commons.core.Messages;
+import gomedic.logic.commands.findcommand.FindActivityCommand;
+import gomedic.model.activity.Activity;
+import gomedic.model.util.ActivityTitleContainsKeywordsPredicate;
+
+public class FindActivityCommandParserTest {
 
     private final FindActivityCommandParser parser = new FindActivityCommandParser();
 
@@ -29,7 +26,8 @@ public class FindActivityCommandParserTest{
     public void parse_validArgs_returnsFindDoctorCommand() {
         // no leading and trailing whitespaces
         FindActivityCommand expectedFindActivityCommand =
-                new FindActivityCommand(new ActivityTitleContainsKeywordsPredicate<Activity>(Arrays.asList("Alice", "Bob")));
+                new FindActivityCommand(new
+                        ActivityTitleContainsKeywordsPredicate<Activity>(Arrays.asList("Alice", "Bob")));
         assertParseSuccess(parser, "ti/Alice Bob", expectedFindActivityCommand);
 
         // multiple whitespaces between keywords

@@ -5,13 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import gomedic.model.person.patient.Patient;
 import gomedic.testutil.modelbuilder.PatientBuilder;
-import org.junit.jupiter.api.Test;
 
 public class GenderContainsKeywordsPredicateTest {
 
@@ -30,7 +31,7 @@ public class GenderContainsKeywordsPredicateTest {
 
         // same values -> returns true
         GenderContainsKeywordsPredicate<Patient> firstPredicateCopy =
-                new  GenderContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
+                new GenderContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
         assertEquals(firstPredicateCopy, firstPredicate);
 
         // null -> returns false
@@ -44,7 +45,7 @@ public class GenderContainsKeywordsPredicateTest {
     public void test_genderContainsKeywords_returnsTrue() {
         // One keyword
         GenderContainsKeywordsPredicate<Patient> predicate =
-                new  GenderContainsKeywordsPredicate<Patient>(Collections.singletonList("M"));
+                new GenderContainsKeywordsPredicate<Patient>(Collections.singletonList("M"));
         assertTrue(predicate.test(new PatientBuilder().withGender("M").build()));
 
         // Only one matching keyword

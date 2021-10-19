@@ -3,13 +3,13 @@ package gomedic.logic.parser.findcommandparser;
 import static gomedic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static gomedic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
-
-import gomedic.logic.commands.findcommand.FindDoctorCommand;
-import gomedic.model.person.doctor.Doctor;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import gomedic.commons.core.Messages;
+import gomedic.logic.commands.findcommand.FindDoctorCommand;
+import gomedic.model.person.doctor.Doctor;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 
 public class FindDoctorCommandParserTest {

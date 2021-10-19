@@ -1,8 +1,11 @@
 package gomedic.model.util;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,7 +13,6 @@ import java.util.List;
 
 import gomedic.model.person.patient.Patient;
 import gomedic.testutil.modelbuilder.PatientBuilder;
-import org.junit.jupiter.api.Test;
 
 
 public class AgeContainsKeywordsPredicateTest {
@@ -31,7 +33,7 @@ public class AgeContainsKeywordsPredicateTest {
 
         // same values -> returns true
         AgeContainsKeywordsPredicate<Patient> firstPredicateCopy =
-                new  AgeContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
+                new AgeContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
         assertEquals(firstPredicateCopy, firstPredicate);
 
         // null -> returns false
@@ -45,7 +47,7 @@ public class AgeContainsKeywordsPredicateTest {
     public void test_ageContainsKeywords_returnsTrue() {
         // One keyword
         AgeContainsKeywordsPredicate<Patient> predicate =
-                new  AgeContainsKeywordsPredicate<Patient>(Collections.singletonList("1"));
+                new AgeContainsKeywordsPredicate<Patient>(Collections.singletonList("1"));
         assertTrue(predicate.test(new PatientBuilder().withAge("13").build()));
 
         // Multiple keywords

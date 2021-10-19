@@ -5,13 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import gomedic.model.person.patient.Patient;
 import gomedic.testutil.modelbuilder.PatientBuilder;
-import org.junit.jupiter.api.Test;
 
 public class BloodTypeContainsKeywordsPredicateTest {
 
@@ -31,7 +32,7 @@ public class BloodTypeContainsKeywordsPredicateTest {
 
         // same values -> returns true
         BloodTypeContainsKeywordsPredicate<Patient> firstPredicateCopy =
-                new  BloodTypeContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
+                new BloodTypeContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
         assertEquals(firstPredicateCopy, firstPredicate);
 
         // null -> returns false
@@ -45,7 +46,7 @@ public class BloodTypeContainsKeywordsPredicateTest {
     public void test_bloodTypeContainsKeywords_returnsTrue() {
         // One keyword
         BloodTypeContainsKeywordsPredicate<Patient> predicate =
-                new  BloodTypeContainsKeywordsPredicate<Patient>(Collections.singletonList("A"));
+                new BloodTypeContainsKeywordsPredicate<Patient>(Collections.singletonList("A"));
         assertTrue(predicate.test(new PatientBuilder().withBloodType("AB").build()));
 
         // Multiple keywords
