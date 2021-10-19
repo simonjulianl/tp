@@ -116,7 +116,7 @@ public class AddressBookParserTest {
     public void parseCommand_findActivity() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindActivityCommand command = (FindActivityCommand) parser.parseCommand(
-                FindActivityCommand.COMMAND_WORD + " "  + "ti/" + String.join(" ", keywords));
+                FindActivityCommand.COMMAND_WORD + " " + "ti/" + String.join(" ", keywords));
         assertEquals(new FindActivityCommand(new ActivityTitleContainsKeywordsPredicate<Activity>(keywords)), command);
     }
 
