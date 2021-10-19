@@ -100,7 +100,7 @@ public class AddressBookParserTest {
     public void parseCommand_findDoctor() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindDoctorCommand command = (FindDoctorCommand) parser.parseCommand(
-                FindDoctorCommand.COMMAND_WORD + " " + String.join(" ", keywords));
+                FindDoctorCommand.COMMAND_WORD + " " + "n/" + String.join(" ", keywords));
         assertEquals(new FindDoctorCommand(new NameContainsKeywordsPredicate<Doctor>(keywords)), command);
     }
 
@@ -108,7 +108,7 @@ public class AddressBookParserTest {
     public void parseCommand_findPatient() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindPatientCommand command = (FindPatientCommand) parser.parseCommand(
-                FindPatientCommand.COMMAND_WORD + " " + String.join(" ", keywords));
+                FindPatientCommand.COMMAND_WORD + " " + "n/" + String.join(" ", keywords));
         assertEquals(new FindPatientCommand(new NameContainsKeywordsPredicate<Patient>(keywords)), command);
     }
 
@@ -116,7 +116,7 @@ public class AddressBookParserTest {
     public void parseCommand_findActivity() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindActivityCommand command = (FindActivityCommand) parser.parseCommand(
-                FindActivityCommand.COMMAND_WORD + " " + String.join(" ", keywords));
+                FindActivityCommand.COMMAND_WORD + " "  + "ti/" + String.join(" ", keywords));
         assertEquals(new FindActivityCommand(new ActivityTitleContainsKeywordsPredicate<Activity>(keywords)), command);
     }
 
