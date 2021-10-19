@@ -35,7 +35,7 @@ public class MedicalConditionContainsKeywordsPredicateTest {
 
         // same values -> returns true
         MedicalConditionContainsKeywordsPredicate<Patient> firstPredicateCopy =
-                new  MedicalConditionContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
+                new MedicalConditionContainsKeywordsPredicate<Patient>(firstPredicateKeywordList);
         assertEquals(firstPredicateCopy, firstPredicate);
 
         // null -> returns false
@@ -54,7 +54,7 @@ public class MedicalConditionContainsKeywordsPredicateTest {
 
         // One keyword
         MedicalConditionContainsKeywordsPredicate<Patient> predicate =
-                new  MedicalConditionContainsKeywordsPredicate<Patient>(Collections.singletonList("Hypothermia"));
+                new MedicalConditionContainsKeywordsPredicate<Patient>(Collections.singletonList("Hypothermia"));
         assertTrue(predicate.test(new PatientBuilder().withMedicalConditions(medicalConditions).build()));
 
         // Multiple keywords

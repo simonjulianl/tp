@@ -1,11 +1,10 @@
 package gomedic.logic.commands.findcommand;
 
 import static gomedic.logic.commands.CommandTestUtil.assertCommandSuccess;
-
-import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
 import static gomedic.testutil.TypicalPersons.MAIN_PATIENT;
 import static gomedic.testutil.TypicalPersons.OTHER_PATIENT;
 import static gomedic.testutil.TypicalPersons.THIRD_PATIENT;
+import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -15,10 +14,10 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
-import gomedic.model.person.patient.Patient;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
+import gomedic.model.person.patient.Patient;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 
 /**
