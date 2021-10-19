@@ -1,28 +1,29 @@
 package gomedic.logic.commands.findcommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
+import static java.util.Objects.requireNonNull;
+
+import java.util.function.Predicate;
+
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
 import gomedic.model.Model;
 import gomedic.model.ModelItem;
-import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 
-import java.util.function.Predicate;
-
-import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all entries of patients in GoMedic whose fields contains any of the
  * argument keywords in the corresponding fields.
  * Keyword matching is case insensitive.
  */
-public class FindPatientCommand extends Command{
+public class FindPatientCommand extends Command {
     public static final String COMMAND_WORD = "find" + " " + PREFIX_TYPE_PATIENT;
 
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all patients whose specified fields contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all patients whose specified"
+            + "fields contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";

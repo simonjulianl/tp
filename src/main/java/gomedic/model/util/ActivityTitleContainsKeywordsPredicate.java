@@ -7,7 +7,7 @@ import gomedic.commons.util.StringUtil;
 import gomedic.model.activity.Activity;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that an Activity's title or description matches any of the keywords given.
  */
 public class ActivityTitleContainsKeywordsPredicate<T extends Activity> implements Predicate<T> {
     private final List<String> keywords;

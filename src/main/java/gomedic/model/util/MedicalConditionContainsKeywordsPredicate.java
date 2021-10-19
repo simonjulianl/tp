@@ -7,7 +7,7 @@ import gomedic.commons.util.StringUtil;
 import gomedic.model.person.patient.Patient;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a Patient's medical condition matches any of the keywords given.
  */
 public class MedicalConditionContainsKeywordsPredicate<T extends Patient> implements Predicate<T> {
     private final List<String> keywords;
@@ -19,7 +19,8 @@ public class MedicalConditionContainsKeywordsPredicate<T extends Patient> implem
     @Override
     public boolean test(T person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getMedicalConditions().toString(), keyword));
+                .anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(person.getMedicalConditions().toString(), keyword));
     }
 
     @Override
@@ -30,7 +31,8 @@ public class MedicalConditionContainsKeywordsPredicate<T extends Patient> implem
 
         if (other instanceof MedicalConditionContainsKeywordsPredicate) {
             @SuppressWarnings("unchecked")
-            MedicalConditionContainsKeywordsPredicate<T> otherKeywords = (MedicalConditionContainsKeywordsPredicate<T>) other;
+            MedicalConditionContainsKeywordsPredicate<T> otherKeywords =
+                    (MedicalConditionContainsKeywordsPredicate<T>) other;
 
             return keywords.equals(otherKeywords.keywords);
         }

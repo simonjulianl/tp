@@ -5,10 +5,9 @@ import java.util.function.Predicate;
 
 import gomedic.commons.util.StringUtil;
 import gomedic.model.person.Person;
-import gomedic.model.person.doctor.Doctor;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a Patient's or Doctor's phone number matches any of the keywords given.
  */
 public class PhoneNumberContainsKeywordsPredicate<T extends Person> implements Predicate<T> {
     private final List<String> keywords;

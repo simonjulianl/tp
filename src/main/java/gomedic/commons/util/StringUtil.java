@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
-import java.util.Locale;
 
 /**
  * Helper functions for handling strings.

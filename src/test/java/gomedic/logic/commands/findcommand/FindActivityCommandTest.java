@@ -62,7 +62,7 @@ public class FindActivityCommandTest {
         FindActivityCommand command = new FindActivityCommand(predicate);
         expectedModel.updateFilteredActivitiesList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredActivityList());
+        assertEquals(Collections.emptyList(), model.getFilteredActivityListById());
     }
 
     @Test
@@ -72,8 +72,8 @@ public class FindActivityCommandTest {
         ActivityTitleContainsKeywordsPredicate<Activity> predicate = preparePredicate("Meeting");
         FindActivityCommand command = new FindActivityCommand(predicate);
         expectedModel.updateFilteredActivitiesList(predicate);
-//        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(MEETING, CONFLICTING_MEETING), model.getFilteredActivityList());
+        //assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(MEETING, CONFLICTING_MEETING), model.getFilteredActivityListById());
     }
 
     /**

@@ -7,7 +7,7 @@ import gomedic.commons.util.StringUtil;
 import gomedic.model.person.Person;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a Patient's or Doctor's name matches any of the keywords given.
  */
 public class NameContainsKeywordsPredicate<T extends Person> implements Predicate<T> {
     private final List<String> keywords;

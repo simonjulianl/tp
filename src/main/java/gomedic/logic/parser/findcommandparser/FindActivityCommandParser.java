@@ -1,16 +1,14 @@
 package gomedic.logic.parser.findcommandparser;
 
-import gomedic.commons.core.Messages;
-import gomedic.logic.commands.findcommand.FindActivityCommand;
-import gomedic.logic.commands.findcommand.FindDoctorCommand;
-import gomedic.logic.parser.Parser;
-import gomedic.logic.parser.exceptions.ParseException;
-import gomedic.model.util.ActivityTitleContainsKeywordsPredicate;
-
+import static gomedic.logic.parser.CliSyntax.ACTIVITY_TITLE;
 
 import java.util.Arrays;
 
-import static gomedic.logic.parser.CliSyntax.*;
+import gomedic.commons.core.Messages;
+import gomedic.logic.commands.findcommand.FindActivityCommand;
+import gomedic.logic.parser.Parser;
+import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.model.util.ActivityTitleContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindActivityCommand object
@@ -33,7 +31,7 @@ public class FindActivityCommandParser implements Parser<FindActivityCommand> {
         // First find out which field it is supposed to match to
         // then create an ActivityCommand with the argument containing the corresponding
         // Predicate
-        if (trimmedArgs.indexOf("/") == -1 ) {
+        if (trimmedArgs.indexOf("/") == -1) {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindActivityCommand.MESSAGE_USAGE));
         }
@@ -48,11 +46,13 @@ public class FindActivityCommandParser implements Parser<FindActivityCommand> {
         String field = fieldAndArguments[0];
 
         switch (field) {
-            case ACTIVITY_TITLE:
-                return new FindActivityCommand(new ActivityTitleContainsKeywordsPredicate<>(Arrays.asList(argumentKeywords)));
-            default:
-                throw new ParseException(
-                        String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindDoctorCommand.MESSAGE_USAGE));
+
+        case ACTIVITY_TITLE:
+            return new FindActivityCommand(new ActivityTitleContainsKeywordsPredicate<>(Arrays.asList(argumentKeywords)));
+        default:
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindActivityCommand.MESSAGE_USAGE));
+
         }
 
     }

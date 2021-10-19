@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import gomedic.commons.util.StringUtil;
-import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a Doctor's department matches any of the keywords given.
  */
 public class DepartmentContainsKeywordsPredicate<T extends Doctor> implements Predicate<T> {
     private final List<String> keywords;

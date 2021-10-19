@@ -1,18 +1,18 @@
 package gomedic.logic.commands.findcommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_DOCTOR;
+import static java.util.Objects.requireNonNull;
+
+import java.util.function.Predicate;
+
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
 import gomedic.model.Model;
 import gomedic.model.ModelItem;
 import gomedic.model.person.doctor.Doctor;
-import gomedic.model.util.NameContainsKeywordsPredicate;
 
-import java.util.List;
-import java.util.function.Predicate;
 
-import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_DOCTOR;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all entries of doctors in GoMedic whose fields contains any of the

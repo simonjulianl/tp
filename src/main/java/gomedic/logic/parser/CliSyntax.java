@@ -35,7 +35,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_START_TIME = new Prefix("s/");
     public static final Prefix PREFIX_END_TIME = new Prefix("e/");
 
-    /* Prefix categories */
+    /* Categories */
     public static final String NAME = "n";
     public static final String PHONE_NUMBER = "p";
     public static final String AGE = "a";
@@ -46,8 +46,6 @@ public class CliSyntax {
     public static final String MEDICAL_CONDITION = "m";
     public static final String DEPARTMENT = "de";
     public static final String ACTIVITY_TITLE = "ti";
-    public static final String TAG_DESCRIPTION = "ta";
-    public static final String ALL = "all";
 
     /* Prefix definitions for listing */
     public static final Prefix PREFIX_SORT_FLAG = new Prefix("s/");

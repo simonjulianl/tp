@@ -1,27 +1,28 @@
 package gomedic.logic.commands.findcommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_ACTIVITY;
+import static java.util.Objects.requireNonNull;
+
+import java.util.function.Predicate;
+
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
 import gomedic.model.Model;
 import gomedic.model.ModelItem;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.doctor.Doctor;
 
-import java.util.function.Predicate;
-
-import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_ACTIVITY;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all entries of activities in GoMedic whose fields contains any of the
  * argument keywords in the corresponding fields.
  * Keyword matching is case insensitive.
  */
-public class FindActivityCommand extends Command{
+public class FindActivityCommand extends Command {
 
     public static final String COMMAND_WORD = "find" + " " + PREFIX_TYPE_ACTIVITY;
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all activities whose specified fields contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all activities whose specified"
+            + "fields contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
