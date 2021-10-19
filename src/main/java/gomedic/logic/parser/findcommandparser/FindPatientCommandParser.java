@@ -4,8 +4,8 @@ import static gomedic.logic.parser.CliSyntax.AGE;
 import static gomedic.logic.parser.CliSyntax.BLOOD_TYPE;
 import static gomedic.logic.parser.CliSyntax.GENDER;
 import static gomedic.logic.parser.CliSyntax.HEIGHT;
-import static gomedic.logic.parser.CliSyntax.NAME;
 import static gomedic.logic.parser.CliSyntax.MEDICAL_CONDITION;
+import static gomedic.logic.parser.CliSyntax.NAME;
 import static gomedic.logic.parser.CliSyntax.PHONE_NUMBER;
 import static gomedic.logic.parser.CliSyntax.WEIGHT;
 
@@ -19,8 +19,8 @@ import gomedic.model.util.AgeContainsKeywordsPredicate;
 import gomedic.model.util.BloodTypeContainsKeywordsPredicate;
 import gomedic.model.util.GenderContainsKeywordsPredicate;
 import gomedic.model.util.HeightContainsKeywordsPredicate;
-import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.model.util.MedicalConditionContainsKeywordsPredicate;
+import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.model.util.PhoneNumberContainsKeywordsPredicate;
 import gomedic.model.util.WeightContainsKeywordsPredicate;
 
@@ -89,6 +89,8 @@ public class FindPatientCommandParser implements Parser<FindPatientCommand> {
 
         default:
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindPatientCommand.MESSAGE_USAGE));        }
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindPatientCommand.MESSAGE_USAGE));
+
+        }
     }
 }
