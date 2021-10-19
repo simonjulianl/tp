@@ -9,10 +9,10 @@ import static gomedic.testutil.TypicalPersons.THIRD_PATIENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.model.person.patient.Patient;

@@ -3,9 +3,9 @@ package gomedic.logic.parser.findcommandparser;
 import static gomedic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static gomedic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.findcommand.FindActivityCommand;

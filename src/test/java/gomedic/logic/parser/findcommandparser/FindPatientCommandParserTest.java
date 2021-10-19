@@ -5,9 +5,10 @@ import static gomedic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Test;
+
 import gomedic.logic.commands.findcommand.FindPatientCommand;
 import gomedic.model.person.patient.Patient;
-import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.model.util.NameContainsKeywordsPredicate;
