@@ -94,7 +94,7 @@ public class Messages {
     }
 
     /**
-     * Returns a list of approved command suggestions based on type.
+     * Returns a list of string approved command suggestions based on type.
      *
      * @param command First part of erroneous command input.
      * @param listOfTypes Hashset of command types to refer to.
@@ -129,12 +129,12 @@ public class Messages {
     }
 
     /**
-     * Returns a list of command suggestions based on target.
+     * Returns a list of approved string command suggestions based on target.
      *
      * @param command Second part of erroneous input.
      * @param listOfTypes
      * @param listOfTargets
-     * @return
+     * @return A list of command suggestions.
      */
     private static List<String> generateTargetSuggestions(String command, HashSet<String> listOfTypes,
                                                         List<String> listOfTargets) {
