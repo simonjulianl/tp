@@ -33,6 +33,7 @@ import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.editdescriptorbuilder.EditActivityDescriptorBuilder;
 import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
 import gomedic.testutil.editdescriptorbuilder.EditPatientDescriptorBuilder;
+import gomedic.testutil.modelbuilder.ActivityBuilder;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
@@ -125,7 +126,25 @@ public class CommandTestUtil {
     public static final String VALID_DESC_PAPER_REVIEW_DESCRIPTION =
             " " + CliSyntax.PREFIX_DESCRIPTION + "someone is attending this";
 
+    /* valid constant declarations for appointment related fields */
+    public static final String VALID_PATIENT_ID =
+            " " + CliSyntax.PREFIX_ID + "P001";
+
+    public static final String VALID_DESC_TITLE_APPOINTMENT =
+            " " + CliSyntax.PREFIX_TITLE + "Meeting me";
+
+    public static final String VALID_DESC_START_TIME_APPOINTMENT =
+            " " + CliSyntax.PREFIX_START_TIME + "20-09-2022 13:00";
+
+    public static final String VALID_DESC_END_TIME_APPOINTMENT =
+            " " + CliSyntax.PREFIX_END_TIME + "21-09-2022 15:00";
+
+    public static final String VALID_DESC_APPOINTMENT_DESCRIPTION =
+            " " + CliSyntax.PREFIX_DESCRIPTION + "today at somewhere";
+
     /* invalid constants declarations for activity related fields */
+    public static final String INVALID_PATIENT_ID =
+            " " + CliSyntax.PREFIX_ID + "X001";
     public static final String INVALID_DESC_START_TIME_MEETING =
             " " + CliSyntax.PREFIX_START_TIME + "15-13-2022 13:00";
     public static final String INVALID_DESC_END_TIME_MEETING =
