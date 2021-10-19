@@ -11,10 +11,10 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
-import gomedic.model.activity.Activity;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
+import gomedic.model.activity.Activity;
 import gomedic.model.util.ActivityTitleContainsKeywordsPredicate;
 
 /**
