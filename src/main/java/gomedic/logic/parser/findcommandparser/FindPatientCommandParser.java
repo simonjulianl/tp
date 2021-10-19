@@ -5,8 +5,8 @@ import static gomedic.logic.parser.CliSyntax.BLOOD_TYPE;
 import static gomedic.logic.parser.CliSyntax.GENDER;
 import static gomedic.logic.parser.CliSyntax.HEIGHT;
 import static gomedic.logic.parser.CliSyntax.NAME;
-import static gomedic.logic.parser.CliSyntax.PHONE_NUMBER;
 import static gomedic.logic.parser.CliSyntax.MEDICAL_CONDITION;
+import static gomedic.logic.parser.CliSyntax.PHONE_NUMBER;
 import static gomedic.logic.parser.CliSyntax.WEIGHT;
 
 import java.util.Arrays;
@@ -20,8 +20,8 @@ import gomedic.model.util.BloodTypeContainsKeywordsPredicate;
 import gomedic.model.util.GenderContainsKeywordsPredicate;
 import gomedic.model.util.HeightContainsKeywordsPredicate;
 import gomedic.model.util.NameContainsKeywordsPredicate;
-import gomedic.model.util.PhoneNumberContainsKeywordsPredicate;
 import gomedic.model.util.MedicalConditionContainsKeywordsPredicate;
+import gomedic.model.util.PhoneNumberContainsKeywordsPredicate;
 import gomedic.model.util.WeightContainsKeywordsPredicate;
 
 
@@ -46,7 +46,7 @@ public class FindPatientCommandParser implements Parser<FindPatientCommand> {
         // First find out which field it is supposed to match to
         // then create a PatientCommand with the argument containing the corresponding
         // Predicate
-        if (trimmedArgs.indexOf("/") == -1 ) {
+        if (trimmedArgs.indexOf("/") == -1) {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindPatientCommand.MESSAGE_USAGE));
         }
@@ -84,7 +84,8 @@ public class FindPatientCommandParser implements Parser<FindPatientCommand> {
             return new FindPatientCommand(new WeightContainsKeywordsPredicate<>(Arrays.asList(argumentKeywords)));
 
         case MEDICAL_CONDITION:
-            return new FindPatientCommand(new MedicalConditionContainsKeywordsPredicate<>(Arrays.asList(argumentKeywords)));
+            return new FindPatientCommand(new MedicalConditionContainsKeywordsPredicate<>(
+                    Arrays.asList(argumentKeywords)));
 
         default:
             throw new ParseException(
