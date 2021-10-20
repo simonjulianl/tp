@@ -1,4 +1,4 @@
-package gomedic.logic.commands.deletecommand;
+package gomedic.logic.commands.viewcommand;
 
 import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
 import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
@@ -15,23 +15,21 @@ import gomedic.model.ModelItem;
 import gomedic.model.commonfield.Id;
 import gomedic.model.person.patient.Patient;
 
-/**
- * Deletes a patient identified using it's displayed index from the address book.
- */
-public class DeletePatientCommand extends Command {
+public class ViewPatientCommand extends Command {
+    public static final String COMMAND_WORD = "view" + " " + PREFIX_TYPE_PATIENT;
 
-    public static final String COMMAND_WORD = "delete" + " " + PREFIX_TYPE_PATIENT;
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the patient identified by the index shown in the patient list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": View the detail of the patient with the specified id "
         + "Parameters: INDEX (must be exactly the same as shown in the list, e.g. P001)\n"
         + "Example: " + COMMAND_WORD + " P001";
 
-    public static final String MESSAGE_DELETE_PATIENT_SUCCESS = "Deleted Patient: %1$s";
+    public static final String MESSAGE_VIEW_PATIENT_SUCCESS = "View patient with id: %1s";
 
     private final Id targetId;
 
-    public DeletePatientCommand(Id targetId) {
+    /**
+     * @param targetId of the patient in the filtered patient list to edit
+     */
+    public ViewPatientCommand(Id targetId) {
         this.targetId = targetId;
     }
 
@@ -40,7 +38,7 @@ public class DeletePatientCommand extends Command {
         requireNonNull(model);
         List<Patient> lastShownList = model.getFilteredPatientList();
 
-        Patient patientToDelete = lastShownList
+        Patient patientToView = lastShownList
             .stream()
             .filter(patient -> patient
                 .getId()
@@ -48,20 +46,20 @@ public class DeletePatientCommand extends Command {
             .findFirst()
             .orElse(null);
 
-        if (patientToDelete == null) {
+        if (patientToView == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_ID);
         }
-        model.deletePatient(patientToDelete);
-        model.viewPatient(null);
-        model.setModelBeingShown(ModelItem.PATIENT);
+
+        model.viewPatient(patientToView);
+        model.setModelBeingShown(ModelItem.VIEW_PATIENT);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
-        return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete));
+        return new CommandResult(String.format(MESSAGE_VIEW_PATIENT_SUCCESS, patientToView));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof DeletePatientCommand // instanceof handles nulls
-            && targetId.equals(((DeletePatientCommand) other).targetId)); // state check
+            || (other instanceof ViewPatientCommand // instanceof handles nulls
+            && targetId.equals(((ViewPatientCommand) other).targetId)); // state check
     }
 }

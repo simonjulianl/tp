@@ -102,4 +102,9 @@ public class LogicManager implements Logic {
     public ObservableValue<Integer> getModelBeingShown() {
         return model.getModelBeingShown();
     }
+
+    @Override
+    public ObservableValue<Patient> getViewPatient() {
+        return model.getViewPatient();
+    }
 }

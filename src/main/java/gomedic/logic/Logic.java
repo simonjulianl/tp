@@ -69,4 +69,11 @@ public interface Logic {
      * 2 -> patient
      */
     ObservableValue<Integer> getModelBeingShown();
+
+    /**
+     * Returns patient to be viewed.
+     *
+     * @return Patient to be viewed.
+     */
+    ObservableValue<Patient> getViewPatient();
 }
