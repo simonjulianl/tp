@@ -4,6 +4,7 @@ import static gomedic.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static gomedic.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_TITLE;
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_ACTIVITY;
 import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
@@ -23,7 +24,7 @@ import gomedic.model.commonfield.Time;
  * Adds an activity to the address book
  */
 public class AddActivityCommand extends Command {
-    public static final String COMMAND_WORD = "add t/activity";
+    public static final String COMMAND_WORD = "add" + " " + PREFIX_TYPE_ACTIVITY;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an activity to the address book. "
             + "Parameters: "
@@ -82,7 +83,7 @@ public class AddActivityCommand extends Command {
         }
 
         model.addActivity(toAdd);
-        model.setModelBeingShown(ModelItem.ACTIVITY);
+        model.setModelBeingShown(ModelItem.ACTIVITY_ID);
         model.updateFilteredActivitiesList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

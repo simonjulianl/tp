@@ -12,12 +12,11 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
-import gomedic.model.commonfield.Address;
-import gomedic.model.commonfield.Email;
 import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
@@ -142,52 +141,6 @@ public class ParserUtilTest {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         Phone expectedPhone = new Phone(VALID_PHONE);
         assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
-    }
-
-    @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress(null));
-    }
-
-    @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
-    }
-
-    @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail(null));
-    }
-
-    @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
-    }
-
-    @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
-    }
-
-    @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
     }
 
     @Test
@@ -509,5 +462,42 @@ public class ParserUtilTest {
         assertThrows(ParseException.class, () -> ParserUtil.parseId("B001"));
         assertThrows(ParseException.class, () -> ParserUtil.parseId("X001"));
         assertThrows(ParseException.class, () -> ParserUtil.parseId("Z9999"));
+    }
+
+    @Test
+    void parseSortActivityFlags_valid_testPassed() throws ParseException {
+        assertEquals(ParserUtil.parseSortActivityFlags("id"), ListActivityCommand.Sort.ID);
+        assertEquals(ParserUtil.parseSortActivityFlags("ID"), ListActivityCommand.Sort.ID);
+        assertEquals(ParserUtil.parseSortActivityFlags("start"), ListActivityCommand.Sort.START);
+        assertEquals(ParserUtil.parseSortActivityFlags("START"), ListActivityCommand.Sort.START);
+
+    }
+
+    @Test
+    void parseSortActivityFlags_invalid_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortActivityFlags("Z9999"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortActivityFlags("endtime"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortActivityFlags("i d"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortActivityFlags("start time"));
+    }
+
+    @Test
+    void parsePeriodActivityFlags_valid_testPassed() throws ParseException {
+        assertEquals(ParserUtil.parsePeriodActivityFlags("today"), ListActivityCommand.Period.TODAY);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("ALL"), ListActivityCommand.Period.ALL);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("TODAY"), ListActivityCommand.Period.TODAY);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("toDAY"), ListActivityCommand.Period.TODAY);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("WEEK"), ListActivityCommand.Period.WEEK);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("year"), ListActivityCommand.Period.YEAR);
+        assertEquals(ParserUtil.parsePeriodActivityFlags("MONTH"), ListActivityCommand.Period.MONTH);
+    }
+
+    @Test
+    void parsePeriodActivityFlags_invalid_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("Z9999"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("tommorow"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("yesterday"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("oneday"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePeriodActivityFlags("15/9/2020 15:00"));
     }
 }

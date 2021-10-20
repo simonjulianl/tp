@@ -14,7 +14,6 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 import gomedic.storage.Storage;
@@ -70,18 +69,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
     public ObservableList<Doctor> getFilteredDoctorList() {
         return model.getFilteredDoctorList();
     }
 
     @Override
-    public ObservableList<Activity> getFilteredActivityList() {
-        return model.getFilteredActivityList();
+    public ObservableList<Activity> getFilteredActivityListById() {
+        return model.getFilteredActivityListById();
+    }
+
+    @Override
+    public ObservableList<Activity> getFilteredActivityListByStartTime() {
+        return model.getFilteredActivityListByStartTime();
     }
 
     @Override

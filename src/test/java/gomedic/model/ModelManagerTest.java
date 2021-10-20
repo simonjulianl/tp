@@ -85,31 +85,8 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(TypicalPersons.ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(TypicalPersons.ALICE);
-        assertTrue(modelManager.hasPerson(TypicalPersons.ALICE));
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
-    }
-
-    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder()
-                .withPerson(TypicalPersons.ALICE)
-                .withPerson(TypicalPersons.BENSON)
                 .withActivity(TypicalActivities.MEETING)
                 .withActivity(TypicalActivities.PAPER_REVIEW)
                 .withDoctor(TypicalPersons.MAIN_DOCTOR)
@@ -138,12 +115,12 @@ public class ModelManagerTest {
         assertNotEquals(modelManager, new ModelManager(differentAddressBook, userPrefs));
 
         // different filteredList -> returns false
-        String[] keywords = TypicalPersons.ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String[] keywords = "Invalid input".split("\\s+");
+        modelManager.updateFilteredDoctorList(new NameContainsKeywordsPredicate<>(Arrays.asList(keywords)));
         assertNotEquals(modelManager, new ModelManager(addressBook, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_ITEMS);
+        modelManager.updateFilteredDoctorList(Model.PREDICATE_SHOW_ALL_ITEMS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
@@ -295,7 +272,7 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityList()
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityListById()
                 .remove(0));
     }
 
@@ -306,8 +283,8 @@ public class ModelManagerTest {
 
     @Test
     void setModelBeingShown_validInput_testPassed() {
-        modelManager.setModelBeingShown(ModelItem.PERSON);
-        assertEquals(ModelItem.PERSON.ordinal(), modelManager.getModelBeingShown().getValue());
+        modelManager.setModelBeingShown(ModelItem.PATIENT);
+        assertEquals(ModelItem.PATIENT.ordinal(), modelManager.getModelBeingShown().getValue());
     }
 
     @Test

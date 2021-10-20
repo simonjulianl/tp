@@ -1,6 +1,8 @@
 package gomedic.logic.commands;
 
 import static gomedic.testutil.Assert.assertThrows;
+import static gomedic.testutil.TypicalActivities.MEETING;
+import static gomedic.testutil.TypicalActivities.PAPER_REVIEW;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,6 +13,9 @@ import java.util.function.Predicate;
 
 import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.index.Index;
+import gomedic.logic.commands.editcommand.EditActivityCommand;
+import gomedic.logic.commands.editcommand.EditDoctorCommand;
+import gomedic.logic.commands.editcommand.EditPatientCommand;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.logic.parser.CliSyntax;
 import gomedic.model.AddressBook;
@@ -20,13 +25,14 @@ import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.ReadOnlyUserPrefs;
 import gomedic.model.activity.Activity;
 import gomedic.model.activity.ActivityId;
-import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.person.patient.Patient;
 import gomedic.model.person.patient.PatientId;
-import gomedic.model.util.NameContainsKeywordsPredicate;
-import gomedic.testutil.EditPersonDescriptorBuilder;
+import gomedic.testutil.TypicalPersons;
+import gomedic.testutil.editdescriptorbuilder.EditActivityDescriptorBuilder;
+import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
+import gomedic.testutil.editdescriptorbuilder.EditPatientDescriptorBuilder;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
@@ -35,42 +41,10 @@ import javafx.collections.ObservableList;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
-
-    /* valid constants declarations for name */
-    public static final String NAME_DESC_AMY = " " + CliSyntax.PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + CliSyntax.PREFIX_NAME + VALID_NAME_BOB;
-
-    /* valid constants declarations for phone */
-    public static final String PHONE_DESC_AMY = " " + CliSyntax.PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + CliSyntax.PREFIX_PHONE + VALID_PHONE_BOB;
-
-    /* valid constants declarations for email */
-    public static final String EMAIL_DESC_AMY = " " + CliSyntax.PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + CliSyntax.PREFIX_EMAIL + VALID_EMAIL_BOB;
-
-    /* valid constants declarations for address */
-    public static final String ADDRESS_DESC_AMY = " " + CliSyntax.PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + CliSyntax.PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-
-    /* valid constants declarations for tags */
-    public static final String TAG_DESC_FRIEND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_HUSBAND;
-
     /* invalid constants declarations for common fields */
     public static final String INVALID_NAME_DESC = " " + CliSyntax.PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + CliSyntax.PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + CliSyntax.PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + CliSyntax.PREFIX_ADDRESS;
+
     // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
@@ -121,6 +95,15 @@ public class CommandTestUtil {
     public static final String INVALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
             + "invalid**";
 
+    /* for listing activities */
+    public static final String VALID_PERIOD_FLAG_TODAY = " " + CliSyntax.PREFIX_PERIOD_FLAG + "TODAY";
+    public static final String VALID_PERIOD_FLAG_ALL = " " + CliSyntax.PREFIX_PERIOD_FLAG + "ALL";
+    public static final String VALID_SORT_FLAG_START = " " + CliSyntax.PREFIX_SORT_FLAG + "START";
+    public static final String VALID_SORT_FLAG_ID = " " + CliSyntax.PREFIX_SORT_FLAG + "ID";
+
+    public static final String INVALID_PERIOD_FLAG = " " + CliSyntax.PREFIX_PERIOD_FLAG + "TOMORROW";
+    public static final String INVALID_SORT_FLAG = " " + CliSyntax.PREFIX_SORT_FLAG + "end time";
+
     /* valid constants declarations for activity related fields */
     public static final String VALID_DESC_TITLE_MEETING =
             " " + CliSyntax.PREFIX_TITLE + "Meeting me";
@@ -139,8 +122,28 @@ public class CommandTestUtil {
 
     public static final String VALID_DESC_MEETING_DESCRIPTION =
             " " + CliSyntax.PREFIX_DESCRIPTION + "today at somewhere";
+    public static final String VALID_DESC_PAPER_REVIEW_DESCRIPTION =
+            " " + CliSyntax.PREFIX_DESCRIPTION + "someone is attending this";
+
+    /* valid constant declarations for appointment related fields */
+    public static final String VALID_PATIENT_ID =
+            " " + CliSyntax.PREFIX_ID + "P001";
+
+    public static final String VALID_DESC_TITLE_APPOINTMENT =
+            " " + CliSyntax.PREFIX_TITLE + "Meeting me";
+
+    public static final String VALID_DESC_START_TIME_APPOINTMENT =
+            " " + CliSyntax.PREFIX_START_TIME + "20-09-2022 13:00";
+
+    public static final String VALID_DESC_END_TIME_APPOINTMENT =
+            " " + CliSyntax.PREFIX_END_TIME + "21-09-2022 15:00";
+
+    public static final String VALID_DESC_APPOINTMENT_DESCRIPTION =
+            " " + CliSyntax.PREFIX_DESCRIPTION + "today at somewhere";
 
     /* invalid constants declarations for activity related fields */
+    public static final String INVALID_PATIENT_ID =
+            " " + CliSyntax.PREFIX_ID + "X001";
     public static final String INVALID_DESC_START_TIME_MEETING =
             " " + CliSyntax.PREFIX_START_TIME + "15-13-2022 13:00";
     public static final String INVALID_DESC_END_TIME_MEETING =
@@ -154,16 +157,49 @@ public class CommandTestUtil {
     public static final String INVALID_DESC_DESCRIPTION =
             " " + CliSyntax.PREFIX_DESCRIPTION + "SOME LONG DESCRIPTION".repeat(1000);
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditDoctorCommand.EditDoctorDescriptor DESC_MAIN_DOCTOR;
+    public static final EditDoctorCommand.EditDoctorDescriptor DESC_OTHER_DOCTOR;
+
+    public static final EditPatientCommand.EditPatientDescriptor DESC_MAIN_PATIENT;
+    public static final EditPatientCommand.EditPatientDescriptor DESC_OTHER_PATIENT;
+
+    public static final EditActivityCommand.EditActivityDescriptor DESC_MEETING;
+    public static final EditActivityCommand.EditActivityDescriptor DESC_PAPER_REVIEW;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_MAIN_DOCTOR = new EditDoctorDescriptorBuilder().withName(TypicalPersons.MAIN_DOCTOR.getName().fullName)
+                .withPhone(TypicalPersons.MAIN_DOCTOR.getPhone().value)
+                .withDepartment(TypicalPersons.MAIN_DOCTOR.getDepartment().departmentName).build();
+        DESC_OTHER_DOCTOR = new EditDoctorDescriptorBuilder().withName(TypicalPersons.OTHER_DOCTOR.getName().fullName)
+                .withPhone(TypicalPersons.OTHER_DOCTOR.getPhone().value)
+                .withDepartment(TypicalPersons.OTHER_DOCTOR.getDepartment().departmentName).build();
+        DESC_MAIN_PATIENT = new EditPatientDescriptorBuilder().withName(TypicalPersons.MAIN_PATIENT.getName().fullName)
+                .withPhone(TypicalPersons.MAIN_PATIENT.getPhone().value)
+                .withAge(TypicalPersons.MAIN_PATIENT.getAge().age)
+                .withBloodType(TypicalPersons.MAIN_PATIENT.getBloodType().bloodType)
+                .withGender(TypicalPersons.MAIN_PATIENT.getGender().gender)
+                .withHeight(TypicalPersons.MAIN_PATIENT.getHeight().height)
+                .withWeight(TypicalPersons.MAIN_PATIENT.getWeight().weight)
+                .withMedicalConditions("heart failure").build();
+        DESC_OTHER_PATIENT = new EditPatientDescriptorBuilder()
+                .withName(TypicalPersons.OTHER_PATIENT.getName().fullName)
+                .withPhone(TypicalPersons.OTHER_PATIENT.getPhone().value)
+                .withAge(TypicalPersons.OTHER_PATIENT.getAge().age)
+                .withBloodType(TypicalPersons.OTHER_PATIENT.getBloodType().bloodType)
+                .withGender(TypicalPersons.OTHER_PATIENT.getGender().gender)
+                .withHeight(TypicalPersons.OTHER_PATIENT.getHeight().height)
+                .withWeight(TypicalPersons.OTHER_PATIENT.getWeight().weight)
+                .withMedicalConditions("heart failure").build();
+        DESC_MEETING = new EditActivityDescriptorBuilder()
+                .withStartTime(MEETING.getStartTime().toString())
+                .withEndTime(MEETING.getEndTime().toString())
+                .withTitle(MEETING.getTitle().toString())
+                .withDescription(MEETING.getDescription().toString()).build();
+        DESC_PAPER_REVIEW = new EditActivityDescriptorBuilder()
+                .withStartTime(PAPER_REVIEW.getStartTime().toString())
+                .withEndTime(PAPER_REVIEW.getEndTime().toString())
+                .withTitle(PAPER_REVIEW.getTitle().toString())
+                .withDescription(PAPER_REVIEW.getDescription().toString()).build();
     }
 
     /**
@@ -185,7 +221,6 @@ public class CommandTestUtil {
                                             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
-
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -197,31 +232,17 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the address book, filtered activity list and selected activity in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Activity> expectedFilteredList = new ArrayList<>(actualModel.getFilteredActivityListById());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-     */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
-
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(List.of(splitName[0])));
-
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(expectedFilteredList, actualModel.getFilteredActivityListById());
     }
 
     /**
@@ -257,13 +278,13 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showActivityAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredActivityList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredActivityListById().size());
 
-        Activity activity = model.getFilteredActivityList().get(targetIndex.getZeroBased());
+        Activity activity = model.getFilteredActivityListById().get(targetIndex.getZeroBased());
         final ActivityId aid = activity.getActivityId();
         model.updateFilteredActivitiesList(activity1 -> activity1.getActivityId().equals(aid));
 
-        assertEquals(1, model.getFilteredActivityList().size());
+        assertEquals(1, model.getFilteredActivityListById().size());
     }
 
     /**
@@ -301,11 +322,6 @@ public class CommandTestUtil {
         }
 
         @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addDoctor(Doctor doctor) {
             throw new AssertionError("This method should not be called.");
         }
@@ -336,6 +352,11 @@ public class CommandTestUtil {
         }
 
         @Override
+        public void setDoctor(Doctor oldDoctor, Doctor replacement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasNewPatientId() {
             throw new AssertionError("This method should not be called.");
         }
@@ -356,10 +377,24 @@ public class CommandTestUtil {
         }
 
         @Override
+        public void deletePatientAssociatedAppointments(Patient associatedPatient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setActivity(Activity oldActivity, Activity replacementActivity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePatient(Patient target) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void setPatient(Patient oldPatient, Patient replacement) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public boolean hasDoctor(Doctor doctor) {
@@ -392,27 +427,12 @@ public class CommandTestUtil {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public ObservableList<Activity> getFilteredActivityListById() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Activity> getFilteredActivityList() {
+        public ObservableList<Activity> getFilteredActivityListByStartTime() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -423,11 +443,6 @@ public class CommandTestUtil {
 
         @Override
         public ObservableList<Patient> getFilteredPatientList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<? super Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

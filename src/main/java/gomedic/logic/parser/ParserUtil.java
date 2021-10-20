@@ -2,18 +2,18 @@ package gomedic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import gomedic.commons.core.index.Index;
 import gomedic.commons.util.StringUtil;
+import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
-import gomedic.model.commonfield.Address;
-import gomedic.model.commonfield.Email;
 import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
@@ -182,36 +182,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
-    }
-
-    /**
      * Parses a {@code String time} into an {@code Time}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -305,5 +275,37 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String sortFlag} into a {@code Sort} flag.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortFlag} is invalid.
+     */
+    public static ListActivityCommand.Sort parseSortActivityFlags(String sortFlag) throws ParseException {
+        requireNonNull(sortFlag);
+        String trimmedSortFlag = sortFlag.trim();
+        if (Arrays.stream(ListActivityCommand.Sort.values())
+                .noneMatch(it -> it.toString().equalsIgnoreCase(trimmedSortFlag))) {
+            throw new ParseException(ListActivityCommand.Sort.MESSAGE_CONSTRAINTS);
+        }
+        return ListActivityCommand.Sort.valueOf(sortFlag.toUpperCase());
+    }
+
+    /**
+     * Parses a {@code String sortFlag} into a {@code Sort} flag.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortFlag} is invalid.
+     */
+    public static ListActivityCommand.Period parsePeriodActivityFlags(String periodFlag) throws ParseException {
+        requireNonNull(periodFlag);
+        String trimmedPeriodFlag = periodFlag.trim();
+        if (Arrays.stream(ListActivityCommand.Period.values())
+                .noneMatch(it -> it.toString().equalsIgnoreCase(trimmedPeriodFlag))) {
+            throw new ParseException(ListActivityCommand.Period.MESSAGE_CONSTRAINTS);
+        }
+        return ListActivityCommand.Period.valueOf(periodFlag.toUpperCase());
     }
 }

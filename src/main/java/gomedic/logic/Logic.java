@@ -9,7 +9,6 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 import javafx.beans.value.ObservableValue;
@@ -39,15 +38,14 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of patients */
     ObservableList<Patient> getFilteredPatientList();
 
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
-
     /** Returns an unmodifiable view of the filtered list of doctors */
     ObservableList<Doctor> getFilteredDoctorList();
 
-    /** Returns an unmodifiable view of the filtered list of activities */
-    ObservableList<Activity> getFilteredActivityList();
+    /** Returns an unmodifiable view of the filtered list of activities sorted by id*/
+    ObservableList<Activity> getFilteredActivityListById();
+
+    /** Returns an unmodifiable view of the filtered list of activities sorted by start time*/
+    ObservableList<Activity> getFilteredActivityListByStartTime();
 
     /**
      * Returns the user prefs' address root file path.
@@ -69,7 +67,6 @@ public interface Logic {
      * 0 -> activity
      * 1 -> doctor
      * 2 -> patient
-     * 3 -> person TODO REMOVE
      */
     ObservableValue<Integer> getModelBeingShown();
 }

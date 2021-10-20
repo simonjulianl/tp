@@ -7,8 +7,6 @@ import java.util.Objects;
 
 import gomedic.model.activity.Activity;
 import gomedic.model.activity.UniqueActivityList;
-import gomedic.model.person.Person;
-import gomedic.model.person.UniqueAbstractPersonList;
 import gomedic.model.person.UniquePersonList;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
@@ -20,10 +18,9 @@ import javafx.collections.ObservableList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
     private final UniqueActivityList activities;
-    private final UniqueAbstractPersonList<Doctor> doctors;
-    private final UniqueAbstractPersonList<Patient> patients;
+    private final UniquePersonList<Doctor> doctors;
+    private final UniquePersonList<Patient> patients;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,14 +31,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
 
     {
-        persons = new UniquePersonList();
         activities = new UniqueActivityList();
-        doctors = new UniqueAbstractPersonList<>();
-        patients = new UniqueAbstractPersonList<>();
+        doctors = new UniquePersonList<>();
+        patients = new UniquePersonList<>();
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the data in {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -59,23 +55,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
         setActivities(newData.getActivityListSortedById());
         setDoctors(newData.getDoctorListSortedById());
         setPatients(newData.getPatientListSortedById());
     }
 
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
 
     /**
-     * Replaces the contents of the person list with {@code activities}.
-     * {@code persons} must not contain duplicate and conflicting activities.
+     * Replaces the contents of the activity list with {@code activities}.
+     * {@code activities} must not contain duplicate and conflicting activities.
      */
     public void setActivities(List<Activity> activities) {
         this.activities.setActivities(activities);
@@ -83,7 +71,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the contents of the doctor list with {@code doctors}.
-     * {@code doctors} must not contain duplicate persons.
+     * {@code doctors} must not contain duplicate doctors.
      */
     public void setDoctors(List<Doctor> doctors) {
         this.doctors.setPersons(doctors);
@@ -91,21 +79,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the contents of the patient list with {@code patients}.
-     * {@code patients} must not contain duplicate persons.
+     * {@code patients} must not contain duplicate patients.
      */
     public void setPatients(List<Patient> patients) {
         this.patients.setPersons(patients);
     }
 
     //// person and activity-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
 
     /**
      * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
@@ -138,14 +118,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasConflictingActivity(Activity activity) {
         requireNonNull(activity);
         return activities.containsConflicting(activity);
-    }
-
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
     }
 
     /**
@@ -208,14 +180,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given activity {@code target} in the list with {@code editedActivity}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The activity's id must not be the same as another existing activity in the address book (other than the one
+     * which is being replaced).
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setActivity(Activity target, Activity editedActivity) {
+        requireNonNull(editedActivity);
 
-        persons.setPerson(target, editedPerson);
+        activities.setActivity(target, editedActivity);
     }
 
     /**
@@ -243,14 +216,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
-    }
-
-    /**
      * Remove the doctor based on the id.
      * Therefore, regardless whether the doctor has different fields,
      * as long as the id is the same, it would be treated as equal.
@@ -262,7 +227,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Remove the doctor based on the id.
+     * Remove the patient based on the id.
      * Therefore, regardless whether the patient has different fields,
      * as long as the id is the same, it would be treated as equal.
      * Removes {@code key} from this {@code AddressBook}.
@@ -285,17 +250,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons; "
-                + activities.asUnmodifiableSortedByIdObservableList().size() + " activities; "
+        return activities.asUnmodifiableSortedByIdObservableList().size() + " activities; "
                 + doctors.asUnmodifiableSortedByIdObservableList().size() + " doctors; "
                 + patients.asUnmodifiableSortedByIdObservableList().size() + " patients";
 
         // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
     }
 
     @Override
@@ -314,7 +273,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Activity> getActivityListSortedStartTime() {
+    public ObservableList<Activity> getActivityListSortedByStartTime() {
         return activities.asUnmodifiableSortedByStartTimeList();
     }
 
@@ -322,7 +281,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons)
                 && getActivityListSortedById().equals(((AddressBook) other).getActivityListSortedById())
                 && getDoctorListSortedById().equals(((AddressBook) other).getDoctorListSortedById())
                 && getPatientListSortedById().equals(((AddressBook) other).getPatientListSortedById()));
@@ -330,6 +288,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, activities, doctors, patients);
+        return Objects.hash(activities, doctors, patients);
     }
 }

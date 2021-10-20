@@ -27,6 +27,8 @@
                 <Label fx:id="title" text="\$title" styleClass="cell_big_label"/>
             </HBox>
             <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label styleClass="cell_small_label" text="Patient: "/>
+                <Label fx:id="patientId" styleClass="cell_small_label" text="\$patientId"/>
                 <Label styleClass="cell_small_label" text="Time: "/>
                 <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime"/>
                 <Label styleClass="cell_small_label" text="To"/>

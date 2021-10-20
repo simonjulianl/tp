@@ -8,14 +8,14 @@ import java.util.Set;
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
-import gomedic.model.person.AbstractPerson;
+import gomedic.model.person.Person;
 import gomedic.model.tag.Tag;
 
 /**
  * Represents a Patient in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Patient extends AbstractPerson {
+public class Patient extends Person {
 
     //data fields
     private final Age age;
@@ -48,6 +48,11 @@ public class Patient extends AbstractPerson {
         this.height = height;
         this.weight = weight;
         this.medicalConditions.addAll(medicalConditions);
+    }
+
+    @Override
+    public PatientId getId() {
+        return (PatientId) super.getId();
     }
 
     /**

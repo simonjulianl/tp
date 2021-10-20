@@ -23,11 +23,25 @@ public class JsonAdaptedActivityTest {
     private static final String VALID_END_TIME = TypicalActivities.MEETING.getEndTime().toString();
     private static final String VALID_ID = TypicalActivities.MEETING.getActivityId().toString();
     private static final String VALID_DESCRIPTION = TypicalActivities.MEETING.getDescription().toString();
+    private static final String VALID_ACTIVITY_PATIENT = null;
+    private static final String VALID_APPOINTMENT_PATIENT = TypicalActivities.APPOINTMENT.getPatientId().toString();
 
     @Test
     public void toModelType_validActivityDetails_returnsDoctor() throws Exception {
         JsonAdaptedActivity activity = new JsonAdaptedActivity(
                 VALID_ID,
+                VALID_ACTIVITY_PATIENT,
+                VALID_TITLE,
+                VALID_DESCRIPTION,
+                VALID_START_TIME,
+                VALID_END_TIME);
+        Assertions.assertEquals(TypicalActivities.MEETING, activity.toModelType());
+    }
+    @Test
+    public void toModelType_validAppointmentDetails_returnsDoctor() throws Exception {
+        JsonAdaptedActivity activity = new JsonAdaptedActivity(
+                VALID_ID,
+                VALID_APPOINTMENT_PATIENT,
                 VALID_TITLE,
                 VALID_DESCRIPTION,
                 VALID_START_TIME,
@@ -39,6 +53,7 @@ public class JsonAdaptedActivityTest {
     public void toModelType_invalidTitle_throwsIllegalValueException() {
         JsonAdaptedActivity activity =
                 new JsonAdaptedActivity(VALID_ID,
+                        VALID_ACTIVITY_PATIENT,
                         INVALID_TITLE,
                         VALID_DESCRIPTION,
                         VALID_START_TIME,
@@ -50,6 +65,7 @@ public class JsonAdaptedActivityTest {
     @Test
     public void toModelType_nullId_throwsIllegalValueException() {
         JsonAdaptedActivity activity = new JsonAdaptedActivity(null,
+                VALID_ACTIVITY_PATIENT,
                 VALID_TITLE,
                 VALID_DESCRIPTION,
                 VALID_START_TIME,
@@ -64,6 +80,7 @@ public class JsonAdaptedActivityTest {
     public void toModelType_invalidDescription_throwsIllegalValueException() {
         JsonAdaptedActivity activity =
                 new JsonAdaptedActivity(VALID_ID,
+                        VALID_ACTIVITY_PATIENT,
                         VALID_TITLE,
                         INVALID_DESC,
                         VALID_START_TIME,
@@ -75,6 +92,7 @@ public class JsonAdaptedActivityTest {
     @Test
     public void toModelType_nullTitle_throwsIllegalValueException() {
         JsonAdaptedActivity activity = new JsonAdaptedActivity(VALID_ID,
+                VALID_ACTIVITY_PATIENT,
                 null,
                 VALID_DESCRIPTION,
                 VALID_START_TIME,
@@ -89,6 +107,7 @@ public class JsonAdaptedActivityTest {
     public void toModelType_invalidId_throwsIllegalValueException() {
         JsonAdaptedActivity activity =
                 new JsonAdaptedActivity(INVALID_ID,
+                        VALID_ACTIVITY_PATIENT,
                         VALID_TITLE,
                         VALID_DESCRIPTION,
                         VALID_START_TIME,
@@ -101,6 +120,7 @@ public class JsonAdaptedActivityTest {
     public void toModelType_invalidTime_throwsIllegalValueException() {
         JsonAdaptedActivity activity =
                 new JsonAdaptedActivity(VALID_ID,
+                        VALID_ACTIVITY_PATIENT,
                         VALID_TITLE,
                         VALID_DESCRIPTION,
                         INVALID_START_TIME,
@@ -110,6 +130,7 @@ public class JsonAdaptedActivityTest {
 
         JsonAdaptedActivity activityTwo =
                 new JsonAdaptedActivity(VALID_ID,
+                        VALID_ACTIVITY_PATIENT,
                         VALID_TITLE,
                         VALID_DESCRIPTION,
                         VALID_START_TIME,
@@ -121,6 +142,7 @@ public class JsonAdaptedActivityTest {
     @Test
     public void toModelType_nullTime_throwsIllegalValueException() {
         JsonAdaptedActivity activity = new JsonAdaptedActivity(VALID_ID,
+                VALID_ACTIVITY_PATIENT,
                 VALID_TITLE,
                 VALID_DESCRIPTION,
                 null,
@@ -131,6 +153,7 @@ public class JsonAdaptedActivityTest {
         Assert.assertThrows(IllegalValueException.class, expectedMessage, activity::toModelType);
 
         JsonAdaptedActivity activityTwo = new JsonAdaptedActivity(VALID_ID,
+                VALID_ACTIVITY_PATIENT,
                 VALID_TITLE,
                 VALID_DESCRIPTION,
                 VALID_START_TIME,

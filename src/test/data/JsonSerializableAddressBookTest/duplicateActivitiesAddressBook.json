@@ -1,19 +1,22 @@
 {
-  "persons": [],
   "activities": [
     {
       "id": "A001",
       "title": "testing activity",
       "description": "meeting someone at Jurong east",
       "startTime": "15/09/2022 13:00",
-      "endTime": "15/09/2022 14:00"
+      "endTime": "15/09/2022 14:00",
+      "patientId": null,
+      "isAppointment": false
     },
     {
       "id": "A001",
       "title": "another activity",
       "description": "meeting someone at Jurong east",
       "startTime": "15/09/2022 15:00",
-      "endTime": "15/09/2022 18:00"
+      "endTime": "15/09/2022 18:00",
+      "patientId": null,
+      "isAppointment": false
     }
   ],
   "doctors": [],

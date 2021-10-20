@@ -15,7 +15,23 @@ public class TypicalActivities {
             .withStartTime("15/09/2022 13:00")
             .withEndTime("15/09/2022 15:00").build();
 
+    public static final Activity APPOINTMENT = new ActivityBuilder()
+            .withId(5)
+            .withPatientId(1)
+            .withTitle("Meeting me")
+            .withDescription("today at somewhere")
+            .withStartTime("20/09/2022 13:00")
+            .withEndTime("21/09/2022 15:00").build();
+
     public static final Activity CONFLICTING_MEETING = new ActivityBuilder()
+            .withId(2)
+            .withTitle("Another Meeting")
+            .withDescription("today at somewhere")
+            .withStartTime("15/09/2022 13:00")
+            .withEndTime("15/09/2022 14:00").build();
+
+    public static final Activity CONFLICTING_APPOINTMENT = new ActivityBuilder()
+            .withPatientId(2)
             .withId(2)
             .withTitle("Another Meeting")
             .withDescription("today at somewhere")
@@ -57,7 +73,7 @@ public class TypicalActivities {
      * @return a list of activity.
      */
     public static List<Activity> getTypicalActivities() {
-        return new ArrayList<>(Arrays.asList(MEETING, PAPER_REVIEW, PAST_ACTIVITY));
+        return new ArrayList<>(Arrays.asList(MEETING, PAPER_REVIEW, PAST_ACTIVITY, APPOINTMENT));
     }
 
     /**

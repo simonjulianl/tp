@@ -1,5 +1,6 @@
 package gomedic.logic.commands.deletecommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_ACTIVITY;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import gomedic.model.commonfield.Id;
  */
 public class DeleteActivityCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete t/activity";
+    public static final String COMMAND_WORD = "delete" + " " + PREFIX_TYPE_ACTIVITY;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the activity identified by the index shown in the activity list.\n"
@@ -35,7 +36,7 @@ public class DeleteActivityCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Activity> lastShownList = model.getFilteredActivityList();
+        List<Activity> lastShownList = model.getFilteredActivityListById();
 
         Activity activityToDelete = lastShownList
                 .stream()

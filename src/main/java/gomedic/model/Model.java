@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import gomedic.commons.core.GuiSettings;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 import javafx.beans.value.ObservableValue;
@@ -57,23 +56,6 @@ public interface Model {
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
      * Adds the given doctor.
      * {@code doctor} must not already exist in the address book.
      */
@@ -101,6 +83,12 @@ public interface Model {
     void deleteDoctor(Doctor target);
 
     /**
+     * Sets a doctor in the model with another doctor.
+     * The doctor must exist in the address book.
+     */
+    void setDoctor(Doctor oldDoctor, Doctor replacementDoctor);
+
+    /**
      * Adds the given activity.
      * {@code activity} must not already exist and not conflicting
      * with any activity in the address book.
@@ -124,15 +112,33 @@ public interface Model {
     void deleteActivity(Activity target);
 
     /**
+     * Deletes appointments associated with a deleted patient.
+     * The patient may or may not have an appointment registered.
+     */
+    void deletePatientAssociatedAppointments(Patient associatedPatient);
+
+    /**
+     * Sets an activity in the model with another activity.
+     * The activity must exist in the address book.
+     */
+    void setActivity(Activity oldActivity, Activity replacementActivity);
+
+    /**
+     * Returns true if there is another conflicting activity.
+     */
+    boolean hasConflictingActivity(Activity activity);
+
+    /**
      * Deletes the given patient.
      * The patient must exist in the address book.
      */
     void deletePatient(Patient target);
 
     /**
-     * Returns true if there is another conflicting activity.
+     * Sets a patient in the model with another patient.
+     * The patient must exist in the address book.
      */
-    boolean hasConflictingActivity(Activity activity);
+    void setPatient(Patient oldPatient, Patient replacementPatient);
 
     /**
      * Adds the given patient.
@@ -155,31 +161,17 @@ public interface Model {
      */
     boolean hasPatient(Patient patient);
 
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
 
     /** Returns an unmodifiable view of the filtered patient list */
     ObservableList<Patient> getFilteredPatientList();
 
-    /** Returns an unmodifiable view of the filtered activity list */
-    ObservableList<Activity> getFilteredActivityList();
+    /** Returns an unmodifiable view of the filtered activity list sorted by id*/
+    ObservableList<Activity> getFilteredActivityListById();
 
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<? super Person> predicate);
+    /** Returns an unmodifiable view of the filtered activity list sorted by start time*/
+    ObservableList<Activity> getFilteredActivityListByStartTime();
 
     /**
      * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
@@ -207,7 +199,6 @@ public interface Model {
      * 0 -> activity
      * 1 -> doctor
      * 2 -> patient
-     * 3 -> person
      */
     ObservableValue<Integer> getModelBeingShown();
 

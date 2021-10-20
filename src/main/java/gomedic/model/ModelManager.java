@@ -10,9 +10,9 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.commons.core.LogsCenter;
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.person.patient.PatientId;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
@@ -27,16 +27,14 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Patient> filteredPatients;
-    private final FilteredList<Activity> filteredActivities;
-
-    // used the ordinal value 0 -> Activity, 1 -> Doctor, 2 -> Patient, 3 -> Person for simplicity.
+    // used the ordinal value 0 -> Activity, 1 -> Doctor, 2 -> Patient, for simplicity.
     private final ObjectProperty<Integer> internalModelItemBeingShown =
-            new SimpleIntegerProperty(ModelItem.ACTIVITY.ordinal()).asObject();
-
+            new SimpleIntegerProperty(ModelItem.ACTIVITY_ID.ordinal()).asObject();
     private final ObservableValue<Integer> modelItemBeingShown = internalModelItemBeingShown; // immutable
+    private final FilteredList<Activity> filteredActivitiesById;
+    private final FilteredList<Activity> filteredActivitiesByStartTime;
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
@@ -53,10 +51,10 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredDoctors = new FilteredList<>(this.addressBook.getDoctorListSortedById());
         filteredPatients = new FilteredList<>(this.addressBook.getPatientListSortedById());
-        filteredActivities = new FilteredList<>(this.addressBook.getActivityListSortedById());
+        filteredActivitiesById = new FilteredList<>(this.addressBook.getActivityListSortedById());
+        filteredActivitiesByStartTime = new FilteredList<>(this.addressBook.getActivityListSortedByStartTime());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -111,30 +109,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        requireNonNull(person);
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_ITEMS);
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<? super Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
     public void updateFilteredDoctorList(Predicate<? super Doctor> predicate) {
         requireNonNull(predicate);
         filteredDoctors.setPredicate(predicate);
@@ -149,7 +123,8 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredActivitiesList(Predicate<? super Activity> predicate) {
         requireNonNull(predicate);
-        filteredActivities.setPredicate(predicate);
+        filteredActivitiesById.setPredicate(predicate);
+        filteredActivitiesByStartTime.setPredicate(predicate);
     }
 
     @Override
@@ -192,6 +167,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setDoctor(Doctor oldDoctor, Doctor replacementDoctor) {
+        addressBook.setDoctor(oldDoctor, replacementDoctor);
+    }
+
+    @Override
     public void addPatient(Patient patient) {
         requireNonNull(patient);
         addressBook.addPatient(patient);
@@ -218,12 +198,7 @@ public class ModelManager implements Model {
     public void addActivity(Activity activity) {
         requireNonNull(activity);
         addressBook.addActivity(activity);
-        updateFilteredActivityList(PREDICATE_SHOW_ALL_ITEMS);
-    }
-
-    private void updateFilteredActivityList(Predicate<? super Activity> predicate) {
-        requireNonNull(predicate);
-        filteredActivities.setPredicate(predicate);
+        updateFilteredActivitiesList(PREDICATE_SHOW_ALL_ITEMS);
     }
 
     @Override
@@ -243,8 +218,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deletePatientAssociatedAppointments(Patient associatedPatient) {
+        PatientId id = associatedPatient.getId();
+        FilteredList<Activity> associatedAppointments = addressBook.getActivityListSortedById()
+                .filtered(x -> id.equals(x.getPatientId()));
+        while (!associatedAppointments.isEmpty()) {
+            deleteActivity(associatedAppointments.get(0));
+        }
+    }
+
+    @Override
+    public void setActivity(Activity oldActivity, Activity replacementActivity) {
+        addressBook.setActivity(oldActivity, replacementActivity);
+    }
+
+    @Override
     public void deletePatient(Patient target) {
         addressBook.removePatient(target);
+    }
+
+    @Override
+    public void setPatient(Patient oldPatient, Patient replacementPatient) {
+        addressBook.setPatient(oldPatient, replacementPatient);
     }
 
     @Override
@@ -254,25 +249,6 @@ public class ModelManager implements Model {
     }
 
     //=========== Filtered Person List Accessors =============================================================
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        CollectionUtil.requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
 
     /**
      * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
@@ -297,8 +273,13 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Activity> getFilteredActivityList() {
-        return filteredActivities;
+    public ObservableList<Activity> getFilteredActivityListById() {
+        return filteredActivitiesById;
+    }
+
+    @Override
+    public ObservableList<Activity> getFilteredActivityListByStartTime() {
+        return filteredActivitiesByStartTime;
     }
 
     @Override
@@ -317,10 +298,10 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
                 && filteredDoctors.equals(other.filteredDoctors)
                 && filteredPatients.equals(other.filteredPatients)
-                && filteredActivities.equals(other.filteredActivities);
+                && filteredActivitiesById.equals(other.filteredActivitiesById)
+                && filteredActivitiesByStartTime.equals(other.filteredActivitiesByStartTime);
     }
 
 }

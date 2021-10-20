@@ -15,9 +15,9 @@ import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.addcommand.AddPatientCommand;
-import gomedic.logic.commands.addcommand.AddPersonCommand;
 import gomedic.logic.commands.exceptions.CommandException;
-import gomedic.logic.commands.listcommand.ListPersonCommand;
+import gomedic.logic.commands.listcommand.ListActivityCommand;
+import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.Model;
 import gomedic.model.ModelItem;
@@ -25,7 +25,6 @@ import gomedic.model.ModelManager;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.UserPrefs;
 import gomedic.model.activity.Activity;
-import gomedic.model.person.Person;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 import gomedic.storage.JsonAddressBookStorage;
@@ -36,7 +35,6 @@ import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.modelbuilder.ActivityBuilder;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
 import gomedic.testutil.modelbuilder.PatientBuilder;
-import gomedic.testutil.modelbuilder.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -97,12 +95,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete t/person 9";
-        assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
     public void executeDeleteActivity_commandExecutionError_throwsCommandException() {
         String deleteActivity = "delete t/activity A001";
         assertCommandException(deleteActivity, Messages.MESSAGE_INVALID_ACTIVITY_ID);
@@ -130,8 +122,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListPersonCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListPersonCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListActivityCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListActivityCommand.MESSAGE_SUCCESS, model);
     }
 
     /**
@@ -147,29 +139,6 @@ public class LogicManagerTest {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
-    }
-
-    @Test
-    public void executeAddPerson_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
-
-        // Execute add command
-        String addPersonCommand = AddPersonCommand.COMMAND_WORD
-                + CommandTestUtil.NAME_DESC_AMY
-                + CommandTestUtil.PHONE_DESC_AMY
-                + CommandTestUtil.EMAIL_DESC_AMY
-                + CommandTestUtil.ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(TypicalPersons.AMY).withTags().build();
-        ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addPersonCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
@@ -246,11 +215,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
-    }
-
-    @Test
     public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredDoctorList().remove(0));
     }
@@ -262,19 +226,19 @@ public class LogicManagerTest {
 
     @Test
     public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredActivityList().remove(0));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredActivityListById().remove(0));
     }
 
     @Test
     void getModelBeingShown_defaultValue_testPassed() {
-        assertEquals(ModelItem.ACTIVITY.ordinal(), logic.getModelBeingShown().getValue());
+        assertEquals(ModelItem.ACTIVITY_ID.ordinal(), logic.getModelBeingShown().getValue());
     }
 
     @Test
     void getModelBeingShown_executeOtherCommand_testPassed() throws Exception {
-        String listCommand = ListPersonCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListPersonCommand.MESSAGE_SUCCESS, model);
-        assertEquals(ModelItem.PERSON.ordinal(), logic.getModelBeingShown().getValue());
+        String listCommand = ListDoctorCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListDoctorCommand.MESSAGE_SUCCESS, model);
+        assertEquals(ModelItem.DOCTOR.ordinal(), logic.getModelBeingShown().getValue());
     }
 
     /**

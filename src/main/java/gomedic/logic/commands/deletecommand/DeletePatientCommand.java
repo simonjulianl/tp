@@ -1,5 +1,6 @@
 package gomedic.logic.commands.deletecommand;
 
+import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import gomedic.model.person.patient.Patient;
  */
 public class DeletePatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete t/patient";
+    public static final String COMMAND_WORD = "delete" + " " + PREFIX_TYPE_PATIENT;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the patient identified by the index shown in the patient list.\n"
@@ -37,7 +38,7 @@ public class DeletePatientCommand extends Command {
         requireNonNull(model);
         List<Patient> lastShownList = model.getFilteredPatientList();
 
-        Patient personToDelete = lastShownList
+        Patient patientToDelete = lastShownList
             .stream()
             .filter(patient -> patient
                 .getId()
@@ -45,11 +46,12 @@ public class DeletePatientCommand extends Command {
             .findFirst()
             .orElse(null);
 
-        if (personToDelete == null) {
+        if (patientToDelete == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_ID);
         }
-        model.deletePatient(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, personToDelete));
+        model.deletePatient(patientToDelete);
+        model.deletePatientAssociatedAppointments(patientToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete));
     }
 
     @Override

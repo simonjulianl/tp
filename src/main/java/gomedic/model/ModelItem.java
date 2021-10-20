@@ -1,8 +1,8 @@
 package gomedic.model;
 
 public enum ModelItem {
-    ACTIVITY,
+    ACTIVITY_ID,
+    ACTIVITY_START_TIME,
     DOCTOR,
-    PATIENT,
-    PERSON
+    PATIENT
 }
