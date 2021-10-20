@@ -15,7 +15,7 @@ formatting, etc.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+# Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -46,7 +46,7 @@ formatting, etc.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+# Features
 
 <div markdown="block" class="alert alert-info">
 
@@ -81,19 +81,11 @@ formatting, etc.
     2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00)
     3. yyyy-MM-dd HH:mm (e.g. 2022-09-15 13:00)
 
+* `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
+
 </div>
 
-### Viewing help : `help`
-
-Shows a message explaining how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
-### Suggestions
-
-GoMedic will suggest up to the 5 closest command to be executed if you make a typo and send an invalid command.
+## Patients Related Features
 
 ### Adding a new patient's details: `add t/patient`
 
@@ -200,6 +192,8 @@ Examples:
 
 * `list t/patient`
 
+## Doctors Related Features
+
 ### Adding a new doctor's details: `add t/doctor`
 
 Adds a new doctor into the GoMedic application.
@@ -216,20 +210,6 @@ Examples:
 
 * `add t/doctor n/Timmy Tom p/98765432 de/neurology`
 * `add t/doctor n/John White p/12312312 de/cardiology`
-
-### Display full details of a doctor: `view t/doctor`
-
-Displays the full details of a doctor
-
-Format: `view t/doctor i/DOCTOR_ID`
-
-The parameters are: 
-
-* `i/DOCTOR_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
-
-Examples:
-
-* `view t/doctor i/D001`
 
 ### Deleting an existing doctor: `delete t/doctor`
 
@@ -282,50 +262,7 @@ Examples:
 
 * `list t/doctor`
 
-### Find results that contain keyword: `find [OPTIONAL_PARAMETERS]...`
-
-Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
-If more than 1 keyword is specified, results that contain at least 1 of the keywords will be returned (i.e. `OR` search)
-E.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Users can specify additional optional parameters to limit the keyword matching to the fields that is associated with each
-flag. Parameters will only match results that contain the associated field (E.g. n/Hans will not return any `activities`
-since `activities` do not have a `name` field.)
-
-Format: `find [OPTIONAL_PARAMETERS]...`
-
-The parameters are:
-
-* `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
-* `p/PHONE_NUMBER`: Matches the phone number field (Valid for: `Patients`, `Doctors`)
-* `a/AGE`: Matches the age field (Valid for: `Patients`)
-* `g/GENDER`: Matches the gender field; The only valid keywords for this field are `M/F/O` (Valid for: `Patients`)
-* `h/HEIGHT`: Matches the height field (Valid for: `Patients`)
-* `w/WEIGHT`: Matches the weight field (Valid for: `Patients`)
-* `b/BLOOD_TYPE`: Matches the blood type field; The only valid keywords for this field are `A/B/AB/O`
-  (Valid for: `Patients`)
-* `o/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
-  for: `Patients`)
-* `de/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
-* `ti/TITLE`: Matches the title field (Valid for: `Activities`)
-* `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`,
-  _Tagging for `Doctors` and `Patients` coming soon_)
-
-Note: 
-* Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
-  condition as “Diabetes”)
-* Parameters can be repeated (e.g. `find n/Hans n/Bo` will return both `Hans Gruber` and `Bo Yang`)
-* If the optional parameters is not specified, the keyword will match any fields. E.g. `find dia` will return:
-    1. Doctor Claudia, whose name matches `dia`
-    2. Patient Jaryl, whose medical condition, `diabetes`, matches `dia`
-    3. Doctor Tom, whose specialty, `Pediatrics`, matches `dia`
-    4. Patient Lydia, whose name matches `dia`
-
-Examples:
-
-* `find o/diabetes a/42 n/Jaryl`
-* `find ta/important ti/tutorial`
-* `find dia`
+## Activities Related Features
 
 ### Adding a new activity: `add t/activity`
 
@@ -388,17 +325,80 @@ Examples:
 
 * `list t/activity`
 
-### Clearing all entries : `clear`
+## Finding entries: `find [OPTIONAL_PARAMETERS]...`
 
-Clears all entries from the address book.
+Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
+If more than 1 keyword is specified, results that contain at least 1 of the keywords will be returned (i.e. `OR` search)
+E.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Format: `clear`
+Users can specify additional optional parameters to limit the keyword matching to the fields that is associated with each
+flag. Parameters will only match results that contain the associated field (E.g. n/Hans will not return any `activities`
+since `activities` do not have a `name` field.)
+
+Format: `find [OPTIONAL_PARAMETERS]...`
+
+The parameters are:
+
+* `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
+* `p/PHONE_NUMBER`: Matches the phone number field (Valid for: `Patients`, `Doctors`)
+* `a/AGE`: Matches the age field (Valid for: `Patients`)
+* `g/GENDER`: Matches the gender field; The only valid keywords for this field are `M/F/O` (Valid for: `Patients`)
+* `h/HEIGHT`: Matches the height field (Valid for: `Patients`)
+* `w/WEIGHT`: Matches the weight field (Valid for: `Patients`)
+* `b/BLOOD_TYPE`: Matches the blood type field; The only valid keywords for this field are `A/B/AB/O`
+  (Valid for: `Patients`)
+* `o/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
+  for: `Patients`)
+* `de/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
+* `ti/TITLE`: Matches the title field (Valid for: `Activities`)
+* `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`,
+  _Tagging for `Doctors` and `Patients` coming soon_)
+
+Note:
+* Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
+  condition as “Diabetes”)
+* Parameters can be repeated (e.g. `find n/Hans n/Bo` will return both `Hans Gruber` and `Bo Yang`)
+* If the optional parameters is not specified, the keyword will match any fields. E.g. `find dia` will return:
+    1. Doctor Claudia, whose name matches `dia`
+    2. Patient Jaryl, whose medical condition, `diabetes`, matches `dia`
+    3. Doctor Tom, whose specialty, `Pediatrics`, matches `dia`
+    4. Patient Lydia, whose name matches `dia`
+
+Examples:
+
+* `find o/diabetes a/42 n/Jaryl`
+* `find ta/important ti/tutorial`
+* `find dia`
+
+## General Utility Commands 
+
+### Viewing help : `help`
+
+Shows a message explaining how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
+### Clearing all entries : `clear [{type}]`
+
+Clears all entries from the address book related to the specified type. If there is no type that is specified, all the data would be cleared.
+
+Format: `clear [{type}]`
+
+Examples: 
+
+* `clear t/patient`
 
 ### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
+
+### Suggestions
+
+GoMedic will suggest up to the 5 closest command to be executed if you make a typo and send an invalid command.
 
 ### Saving the data
 
@@ -419,7 +419,7 @@ If your changes to the data file makes its format invalid, GoMedic will discard 
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+# FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
@@ -427,8 +427,7 @@ the data of your previous GoMedic home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
-* `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
+# Command summary
 * `{PARAMETERS}` indicates the mandatory parameters as specified in the [Features](#features) section.
 
 Action        | Format                                            | Examples                                             |                
