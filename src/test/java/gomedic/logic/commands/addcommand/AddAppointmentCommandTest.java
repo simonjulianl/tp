@@ -1,22 +1,27 @@
 package gomedic.logic.commands.addcommand;
 
+import static gomedic.testutil.Assert.assertThrows;
+import static gomedic.testutil.TypicalActivities.APPOINTMENT;
+import static gomedic.testutil.TypicalActivities.CONFLICTING_APPOINTMENT;
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.model.AddressBook;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
+import gomedic.model.person.patient.Patient;
+import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.modelbuilder.ActivityBuilder;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static gomedic.testutil.Assert.assertThrows;
-import static gomedic.testutil.TypicalActivities.CONFLICTING_APPOINTMENT;
-import static gomedic.testutil.TypicalActivities.APPOINTMENT;
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 class AddAppointmentCommandTest {
 
@@ -80,6 +85,13 @@ class AddAppointmentCommandTest {
     private static class ModelStubAcceptingActivityAdded extends CommandTestUtil.ModelStub {
         final ArrayList<Activity> activitiesAdded = new ArrayList<>();
         private int counter = 1;
+
+        @Override
+        public ObservableList<Patient> getFilteredPatientList() {
+            ObservableList<Patient> dummyList = FXCollections.observableArrayList();
+            dummyList.add(TypicalPersons.MAIN_PATIENT);
+            return dummyList;
+        }
 
         @Override
         public boolean hasActivity(Activity activity) {

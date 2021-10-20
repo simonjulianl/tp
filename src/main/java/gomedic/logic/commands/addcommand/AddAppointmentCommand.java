@@ -21,7 +21,9 @@ import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Time;
+import gomedic.model.person.patient.Patient;
 import gomedic.model.person.patient.PatientId;
+import javafx.collections.ObservableList;
 
 /**
  * Adds an activity to the address book
@@ -48,6 +50,8 @@ public class AddAppointmentCommand extends Command {
             "This Activity already exists in the address book, duplicate id";
     public static final String MESSAGE_CONFLICTING_ACTIVITY =
             "There exists an activity that overlaps with this activity's timing of this activity.";
+    public static final String MESSAGE_MISSING_PATIENT =
+            "No such patient exists within your records.";
 
     private final PatientId patientId;
     private final Time startTime;
@@ -73,6 +77,12 @@ public class AddAppointmentCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        ObservableList<Patient> listOfPatients = model.getFilteredPatientList();
+        // patient does not exist in directory
+        if (listOfPatients.isEmpty()
+                || listOfPatients.filtered(x -> x.getId().getIdNumber() == patientId.getIdNumber()).isEmpty()) {
+            throw new CommandException(MESSAGE_MISSING_PATIENT);
+        }
 
         Activity toAdd = new Activity(
                 new ActivityId(model.getNewActivityId()),

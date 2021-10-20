@@ -33,7 +33,6 @@ import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.editdescriptorbuilder.EditActivityDescriptorBuilder;
 import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
 import gomedic.testutil.editdescriptorbuilder.EditPatientDescriptorBuilder;
-import gomedic.testutil.modelbuilder.ActivityBuilder;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
@@ -374,6 +373,11 @@ public class CommandTestUtil {
 
         @Override
         public void deleteActivity(Activity target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePatientAssociatedAppointments(Patient associatedPatient) {
             throw new AssertionError("This method should not be called.");
         }
 
