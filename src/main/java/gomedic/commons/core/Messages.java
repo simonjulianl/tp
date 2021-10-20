@@ -1,12 +1,8 @@
 package gomedic.commons.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
@@ -51,13 +47,14 @@ public class Messages {
                 "list t/doctor",
                 "clear t/doctor",
                 "find",
+                "add t/appointment",
                 "add t/activity",
                 "delete t/activity",
                 "list t/activity",
                 "clear t/activity",
                 "exit");
         // list of command targets
-        List<String> listOfTargets = Arrays.asList("t/patient", "t/doctor", "t/activity");
+        List<String> listOfTargets = Arrays.asList("t/patient", "t/doctor", "t/activity", "t/appointment");
         // get hashset of types for checking
         HashSet<String> listOfTypes = new HashSet<>(listOfCommands.stream()
                 .map(x -> x.split(" ")[0])
@@ -115,15 +112,21 @@ public class Messages {
         // list of valid suggestions only if distance is less than or equal to half the suggested command
         List<Pair<Integer, String>> validTypes = closestStrings.stream()
                 .filter(x -> x.getKey() <= Math.ceil(x.getValue().length() / 2))
-                .limit(5)
                 .collect(Collectors.toList());
         // append second part of command to available command types
         return validTypes.stream()
                 .flatMap(x -> !singleWordCommands.contains(x.getValue())
                         ? listOfTargets
                         .stream()
-                        .map(y -> x.getValue() + " " + y)
-                        : Arrays.asList(x.getValue()).stream())
+                        .map(y -> {
+                            if (Objects.equals(y, "t/appointment")) {
+                                if (Objects.equals(x.getValue(), "add")) {
+                                    return x.getValue() + " " + y;
+                                }
+                            }
+                            return x.getValue() + " " + y;
+                        })
+                        : Stream.of(x.getValue()))
                 .limit(5)
                 .collect(Collectors.toList());
     }
@@ -153,11 +156,13 @@ public class Messages {
                 .collect(Collectors.toList());
         // prepend first part of command to available command target
         return validTargets.stream()
-                .flatMap(x -> listOfTypes
+                .flatMap(x -> x.getValue() != "t/appointment"
+                        ? listOfTypes
                         .stream()
                         .map(y -> !singleWordCommands.contains(y)
                                 ? y + " " + x.getValue()
-                                : y))
+                                : y)
+                        : Stream.of("add t/appointment"))
                 .collect(Collectors.toList());
     }
     /**
@@ -183,6 +188,5 @@ public class Messages {
 
         return addDescription + clearDescription + deleteDescription + editDescription + exitDescription
                 + findDescription + listDescription + helpDescription;
-
     }
 }
