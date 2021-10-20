@@ -18,6 +18,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -41,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private PatientTable patientTable;
 
     private ResultDisplay resultDisplay;
+    private SideWindow sideWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -57,6 +59,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane sideWindowPlaceholder;
+
+    @FXML
+    private HBox mainWindow;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -148,6 +156,10 @@ public class MainWindow extends UiPart<Stage> {
         activityTable = new ActivityTable(logic.getFilteredActivityListById());
         doctorTable = new DoctorTable(logic.getFilteredDoctorList());
         patientTable = new PatientTable(logic.getFilteredPatientList());
+
+        // fill in the side window
+        sideWindow = new SideWindow();
+        sideWindowPlaceholder.getChildren().add(sideWindow.getRoot());
 
         // by default, show the activity first
         modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
