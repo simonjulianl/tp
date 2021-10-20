@@ -1,4 +1,8 @@
 {
+  "userProfile": {
+    "name" : "John Smith",
+    "description" : "This is my personal tracker for all work related activities and contacts"
+  },
   "activities": [],
   "doctors": [],
   "patients": [

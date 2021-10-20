@@ -3,12 +3,23 @@ package gomedic.model;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.userprofile.UserProfile;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 /**
  * Unmodifiable view of an address book
  */
 public interface ReadOnlyAddressBook {
+    /**
+     * Returns a copy of the user profile.
+     */
+    UserProfile getUserProfile();
+
+    /**
+     * Returns an observable singleton list of the user profile.
+     */
+    ObservableValue<UserProfile> getObservableUserProfile();
 
     /**
      * Returns an unmodifiable view of the doctors list.

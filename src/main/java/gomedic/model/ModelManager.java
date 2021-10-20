@@ -12,6 +12,7 @@ import gomedic.commons.util.CollectionUtil;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.userprofile.UserProfile;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
@@ -124,6 +125,22 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredActivitiesById.setPredicate(predicate);
         filteredActivitiesByStartTime.setPredicate(predicate);
+    }
+
+    @Override
+    public void setUserProfile(UserProfile userProfile) {
+        requireNonNull(userProfile);
+        addressBook.setUserProfile(userProfile.copy());
+    }
+
+    @Override
+    public UserProfile getUserProfile() {
+        return addressBook.getUserProfile();
+    }
+
+    @Override
+    public ObservableValue<UserProfile> getObservableUserProfile() {
+        return addressBook.getObservableUserProfile();
     }
 
     @Override

@@ -29,6 +29,7 @@ import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.person.patient.Patient;
 import gomedic.model.person.patient.PatientId;
+import gomedic.model.userprofile.UserProfile;
 import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.editdescriptorbuilder.EditActivityDescriptorBuilder;
 import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
@@ -300,6 +301,21 @@ public class CommandTestUtil {
 
         @Override
         public void setAddressBookDataRootFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfile(UserProfile userProfile) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UserProfile getUserProfile() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableValue<UserProfile> getObservableUserProfile() {
             throw new AssertionError("This method should not be called.");
         }
 

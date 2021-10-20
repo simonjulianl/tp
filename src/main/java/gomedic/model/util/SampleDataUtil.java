@@ -6,17 +6,23 @@ import java.util.stream.Collectors;
 
 import gomedic.model.AddressBook;
 import gomedic.model.ReadOnlyAddressBook;
+import gomedic.model.activity.Description;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.doctor.Department;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.tag.Tag;
+import gomedic.model.userprofile.UserProfile;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+    public static UserProfile getSampleUserProfile() {
+        return new UserProfile(new Name("User profile not set yet"),
+                new Description("Refer to profile command to set profile description"));
+    }
     public static Doctor[] getSampleDoctors() {
         int idx = 1;
         return new Doctor[]{
@@ -37,6 +43,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
+        sampleAb.setUserProfile(getSampleUserProfile());
+
         for (Doctor sampleDoctor : getSampleDoctors()) {
             if (!sampleAb.hasDoctor(sampleDoctor)) {
                 sampleAb.addDoctor(sampleDoctor);

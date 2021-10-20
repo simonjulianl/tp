@@ -38,10 +38,15 @@ import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.exceptions.DuplicatePersonException;
 import gomedic.model.person.exceptions.PersonNotFoundException;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.userprofile.UserProfile;
+import gomedic.model.util.SampleDataUtil;
 import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.modelbuilder.ActivityBuilder;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
 import gomedic.testutil.modelbuilder.PatientBuilder;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -51,6 +56,8 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
+        assertEquals((new SimpleObjectProperty<>(SampleDataUtil.getSampleUserProfile())).getValue(),
+                addressBook.getObservableUserProfile().getValue());
         assertEquals(Collections.emptyList(), addressBook.getDoctorListSortedById());
         assertEquals(Collections.emptyList(), addressBook.getPatientListSortedById());
         assertEquals(Collections.emptyList(), addressBook.getActivityListSortedById());
@@ -377,15 +384,35 @@ public class AddressBookTest {
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
+        private final ObjectProperty<UserProfile> userProfile = new SimpleObjectProperty<>();
         private final ObservableList<Activity> activities = FXCollections.observableArrayList();
         private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
         private final ObservableList<Patient> patients = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Activity> activities,
                         Collection<Doctor> doctors, Collection<Patient> patients) {
+            this.userProfile.setValue(SampleDataUtil.getSampleUserProfile());
             this.activities.setAll(activities);
             this.doctors.setAll(doctors);
             this.patients.setAll(patients);
+        }
+
+        AddressBookStub(UserProfile userProfile, Collection<Activity> activities,
+                        Collection<Doctor> doctors, Collection<Patient> patients) {
+            this.userProfile.setValue(userProfile);
+            this.activities.setAll(activities);
+            this.doctors.setAll(doctors);
+            this.patients.setAll(patients);
+        }
+
+        @Override
+        public UserProfile getUserProfile() {
+            return userProfile.getValue();
+        }
+
+        @Override
+        public ObservableValue<UserProfile> getObservableUserProfile() {
+            return userProfile;
         }
 
         @Override

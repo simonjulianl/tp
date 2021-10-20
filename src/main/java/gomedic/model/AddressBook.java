@@ -10,6 +10,10 @@ import gomedic.model.activity.UniqueActivityList;
 import gomedic.model.person.UniquePersonList;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.userprofile.ObservableUserProfile;
+import gomedic.model.userprofile.UserProfile;
+import gomedic.model.util.SampleDataUtil;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -18,6 +22,7 @@ import javafx.collections.ObservableList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final ObservableUserProfile userProfile;
     private final UniqueActivityList activities;
     private final UniquePersonList<Doctor> doctors;
     private final UniquePersonList<Patient> patients;
@@ -31,6 +36,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
 
     {
+        // uses the default user profile unless it is reset with some other user profile
+        userProfile = new ObservableUserProfile();
+        userProfile.setUserProfile(SampleDataUtil.getSampleUserProfile());
+
         activities = new UniqueActivityList();
         doctors = new UniquePersonList<>();
         patients = new UniquePersonList<>();
@@ -55,11 +64,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
+        setUserProfile(newData.getUserProfile());
         setActivities(newData.getActivityListSortedById());
         setDoctors(newData.getDoctorListSortedById());
         setPatients(newData.getPatientListSortedById());
     }
 
+    /**
+     * Replaces the current user profile with a copy of the user profile supplied in the parameter.
+     * @param userProfile the new user profile that is set.
+     */
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile.setUserProfile(userProfile.copy());
+    }
 
     /**
      * Replaces the contents of the activity list with {@code activities}.
@@ -255,6 +272,16 @@ public class AddressBook implements ReadOnlyAddressBook {
                 + patients.asUnmodifiableSortedByIdObservableList().size() + " patients";
 
         // TODO: refine later
+    }
+
+    @Override
+    public UserProfile getUserProfile() {
+        return userProfile.getUserProfile();
+    }
+
+    @Override
+    public ObservableValue<UserProfile> getObservableUserProfile() {
+        return userProfile.getUnmodifiableUserProfile();
     }
 
     @Override
