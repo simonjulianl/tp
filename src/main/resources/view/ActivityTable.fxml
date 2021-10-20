@@ -18,7 +18,7 @@
                 <PropertyValueFactory property="title"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="patientField" text="Patient" prefWidth="300" maxWidth="3000">
+        <TableColumn fx:id="patientField" text="Patient" prefWidth="300" maxWidth="1000">
             <cellValueFactory>
                 <PropertyValueFactory property="patientId"/>
             </cellValueFactory>

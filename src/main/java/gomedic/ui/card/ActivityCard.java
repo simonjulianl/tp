@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
  */
 public class ActivityCard extends UiPart<Region> {
 
+    // TODO: this class is an artifact and should be deleted
     private static final String FXML = "ActivityListCard.fxml";
 
     /**
@@ -47,8 +48,7 @@ public class ActivityCard extends UiPart<Region> {
         this.activity = activity;
         if (activity.isAppointment()) {
             String pId = activity.getPatientId().toString();
-            //patientId.setText(String.format("Appointment with %s", pId));
-            patientId.setText("chickens");
+            patientId.setText(pId);
         } else {
             patientId.setText("N.A.");
         }

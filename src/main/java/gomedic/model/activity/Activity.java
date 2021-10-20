@@ -129,18 +129,13 @@ public class Activity {
 
     @Override
     public String toString() {
-        return isAppointment
-                ? activityId
-                + "; Patient: " + patientId
-                + "; Title: " + title
-                + "; Desc: " + description
-                + "; Start Time: " + startTime
-                + "; End Time: " + endTime
-                : activityId
-                + "; Title: " + title
+        String commonString = "; Title: " + title
                 + "; Desc: " + description
                 + "; Start Time: " + startTime
                 + "; End Time: " + endTime;
+        return isAppointment
+                ? activityId + "; Patient: " + patientId + commonString
+                : activityId + commonString;
     }
 
     /**
