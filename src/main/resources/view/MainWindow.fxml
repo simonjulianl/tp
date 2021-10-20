@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root minHeight="800" minWidth="1000" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage"
+<fx:root minHeight="800" minWidth="1300" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/address_book_32.png"/>
@@ -76,7 +76,7 @@
                     </VBox>
                 </HBox>
 
-                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" style="-fx-padding: 0 0 -1 0;"/>
             </VBox>
         </Scene>
     </scene>

@@ -84,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
 
         // Value to indicate what model is currently being shown.
-        // 0 -> Activity, 1 -> Doctor, 2 -> Patient
+        // 0 -> Activity, 1 -> Activity by Start Time, 2 -> Doctor, 3 -> Patient
         ObservableValue<Integer> modelItemBeingShown = logic.getModelBeingShown();
         modelItemBeingShown.addListener((obs, oldVal, newVal) -> {
             modelListPanelPlaceholder.getChildren().clear();
@@ -158,7 +158,7 @@ public class MainWindow extends UiPart<Stage> {
         patientTable = new PatientTable(logic.getFilteredPatientList());
 
         // fill in the side window
-        sideWindow = new SideWindow();
+        sideWindow = new SideWindow(logic.getModelBeingShown());
         sideWindowPlaceholder.getChildren().add(sideWindow.getRoot());
 
         // by default, show the activity first
