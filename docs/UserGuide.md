@@ -282,34 +282,6 @@ Examples:
 
 * `list t/doctor`
 
-### Tagging an activity: `tag t/activity`
-
-Tags a specific activity with the tags specified in the command.
-
-Format: `tag t/activity i/ACTIVITY_ID [ta/TAG_DESCRIPTION]...`
-
-The parameters are: 
-
-* `i/ACTIVITY_ID` indicates the ID number of the activity to be tagged.
-
-The optional parameters are:
-
-* `ta/TAG_DESCRIPTION` indicates a series of tag to be added into the activity. In the case there is no `ta/TAG_DESCRIPTION` parameter found, this command does nothing to the activity identified by its id.
-
-Notes:
-* Activity ID can be obtained by listing all the activities or a search for certain activities within a certain time
-  frame.
-* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
-  1 `tag t/activity` command will not tag 2 activities at once).
-* Invalid Activity IDs supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
-
-_Tagging for doctors and patients coming soon..._
-
-Examples:
-
-* `tag t/activity i/A420 ta/important ta/NUS ta/schoolwork`
-* `tag t/activity i/A421 ta/important`
-
 ### Find results that contain keyword: `find [OPTIONAL_PARAMETERS]...`
 
 Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
@@ -459,15 +431,15 @@ the data of your previous GoMedic home folder.
 * `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
 * `{PARAMETERS}` indicates the mandatory parameters as specified in the [Features](#features) section.
 
-Action        | Format, Examples |
---------------|------------------ |
-**Add**       | `add {type} {PARAMETERS}`<br> e.g., `add t/doctor n/Timmy Tom p/98765432 de/neurology`
-**Delete**    | `delete {type} i/{type}_ID` <br> e.g., `delete t/patient i/P003`<br>
-**Edit**      | `edit {type} i/{type}_ID [OPTIONAL PARAMETER]...`<br>e.g.,`edit t/patient i/P123 n/John Doe a/30 g/M`<br>
-**Find**      | `find [OPTIONAL_PARAMATERS]...`<br> e.g., `find ta/important ti/tutorial`<br>
-**View**      | `view t/doctor i/DOCTOR_ID`, `view t/patient i/PATIENT_ID`<br> e.g., `view t/patient i/P003`
-**Tag**       | `tag t/activity  i/ACTIVITY_ID [ta/TAG_DESCRIPTION]...` <br> e.g., `tag t/activity i/A420 ta/important ta/NUS ta/schoolwork`
-**Clear**     | `clear`<br>
-**List**      | `list {type}`<br>
-**Exit**      | `exit`<br>
-**Help**      | `help`<br>
+Action        | Format                                            | Examples                                             |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+**Add**       | `add {type} {PARAMETERS}`                         | `add t/doctor n/Timmy Tom p/98765432 de/neurology`   |
+**Delete**    | `delete {type} i/{type}_ID`                       | `delete t/patient i/P003`                            |
+**Edit**      | `edit {type} i/{type}_ID [OPTIONAL PARAMETER]...` | `edit t/patient i/P123 n/John Doe a/30 g/M`          |
+**Find**      | `find [OPTIONAL_PARAMATERS]...`                   | `find ta/important ti/tutorial`                      |
+**View**      | `view t/patient i/PATIENT_ID`                     | `view t/patient i/P003`                              |
+**Clear**     | `clear`                                           |                                                      |
+**List**      | `list {type}`                                     | `list t/patient`                                     |
+**Exit**      | `exit`                                            |                                                      |
+**Help**      | `help`                                            |                                                      |
+
