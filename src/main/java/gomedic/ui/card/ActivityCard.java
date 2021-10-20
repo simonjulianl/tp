@@ -48,7 +48,7 @@ public class ActivityCard extends UiPart<Region> {
         this.activity = activity;
         if (activity.isAppointment()) {
             String pId = activity.getPatientId().toString();
-            patientId.setText(pId);
+            patientId.setText(String.format("Appointment with: %s", pId));
         } else {
             patientId.setText("N.A.");
         }
