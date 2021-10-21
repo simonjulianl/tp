@@ -58,10 +58,10 @@ public class ActivityTable extends UiPart<Region> {
         idField.setSortable(true);
 
         // make the startTime and endTime sortable
-        startTimeField.setSortType(TableColumn.SortType.ASCENDING); // TODO : Write the custom sorting comparator
+        startTimeField.setSortType(TableColumn.SortType.ASCENDING);
         startTimeField.setSortable(true);
 
-        endTimeField.setSortType(TableColumn.SortType.ASCENDING); // TODO : Write the custom sorting comparator
+        endTimeField.setSortType(TableColumn.SortType.ASCENDING);
         endTimeField.setSortable(true);
     }
 }

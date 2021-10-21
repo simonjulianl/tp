@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import gomedic.commons.exceptions.IllegalValueException;
 import gomedic.commons.util.JsonUtil;
 import gomedic.model.AddressBook;
+import gomedic.model.activity.exceptions.ConflictingActivityException;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalPersons;
 
@@ -37,14 +38,13 @@ public class JsonSerializableAddressBookTest {
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 
-    // TODO : Uncomment this once the data is already correct
-    //    @Test
-    //    public void toModelType_conflictingActivity_throwsConflictingActivityException() throws Exception {
-    //        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(CONFLICTING_ACTIVITY_FILE,
-    //                JsonSerializableAddressBook.class).get();
-    //
-    //        Assert.assertThrows(ConflictingActivityException.class, dataFromFile::toModelType);
-    //    }
+    @Test
+    public void toModelType_conflictingActivity_throwsConflictingActivityException() throws Exception {
+        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(CONFLICTING_ACTIVITY_FILE,
+                JsonSerializableAddressBook.class).get();
+
+        Assert.assertThrows(ConflictingActivityException.class, dataFromFile::toModelType);
+    }
 
     @Test
     public void toModelType_duplicateActivity_throwsIllegalValueException() throws Exception {
@@ -88,16 +88,16 @@ public class JsonSerializableAddressBookTest {
     @Test
     public void toModelType_invalidPatientFile_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_PATIENT_FILE,
-            JsonSerializableAddressBook.class).get();
+                JsonSerializableAddressBook.class).get();
         Assert.assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicatePatients_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PATIENT_FILE,
-            JsonSerializableAddressBook.class).get();
+                JsonSerializableAddressBook.class).get();
         Assert.assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PATIENT,
-            dataFromFile::toModelType);
+                dataFromFile::toModelType);
     }
 
 }

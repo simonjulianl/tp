@@ -42,7 +42,7 @@ public class AddAppointmentCommand extends Command {
             + PREFIX_ID + "P001 "
             + PREFIX_START_TIME + "15/09/2022 14:00 "
             + PREFIX_END_TIME + "15/09/2022 15:00 "
-            + PREFIX_TITLE + "Appointment with POO1 "
+            + PREFIX_TITLE + "Appointment with P001 "
             + PREFIX_DESCRIPTION + "Follow-up from tuesday's appointment.";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";

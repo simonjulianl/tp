@@ -1,7 +1,9 @@
 package gomedic.ui.view;
 
 import java.util.Comparator;
+import java.util.logging.Logger;
 
+import gomedic.commons.core.LogsCenter;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.patient.Patient;
 import gomedic.ui.UiPart;
@@ -18,7 +20,7 @@ import javafx.scene.layout.Region;
  */
 public class PatientView extends UiPart<Region> {
     private static final String FXML = "PatientView.fxml";
-
+    private static final Logger logger = LogsCenter.getLogger(PatientView.class);
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -54,7 +56,7 @@ public class PatientView extends UiPart<Region> {
 
     /**
      * Creates a {@code PatientCode} with the given {@code ObservableValue<Patient>} and
-     * {@Code ObservableList<Activity>} to display.
+     * {@code ObservableList<Activity>} to display.
      */
     public PatientView(ObservableValue<Patient> object, ObservableList<Activity> activityList) {
         super(FXML);
@@ -68,13 +70,30 @@ public class PatientView extends UiPart<Region> {
             gender.setText(newVal.getGender().toString());
             height.setText(newVal.getHeight().toString());
             weight.setText(newVal.getWeight().toString());
+
             medicalConditions.getChildren().clear();
+
             newVal.getMedicalConditions().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> medicalConditions.getChildren().add(new Label(tag.tagName)));
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> medicalConditions.getChildren().add(new Label(tag.tagName)));
+
             appointments.getChildren().clear();
-            activityList.filtered(activity -> activity.getPatientId().equals(newVal.getId()))
-                .forEach(activity -> appointments.getChildren().add(new Label(activity.getStartTime().toString())));
+
+            medicalConditions.setPrefWrapLength(300f);
+            medicalConditions.setPrefHeight(0f);
+            medicalConditions.setMaxWidth(300f);
+
+            logger.info("Getting associated appointments");
+
+            try {
+                activityList.stream()
+                        .filter(activity -> newVal.getId().equals(activity.getPatientId()))
+                        .forEach(activity -> appointments
+                                .getChildren()
+                                .add(new Label(activity.getStartTime().toString())));
+            } catch (Exception e) {
+                logger.severe("Unable to fetch associated appointments");
+            }
         });
     }
 
