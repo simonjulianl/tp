@@ -161,7 +161,7 @@ public class MainWindow extends UiPart<Stage> {
         activityTable = new ActivityTable(logic.getFilteredActivityListById());
         doctorTable = new DoctorTable(logic.getFilteredDoctorList());
         patientTable = new PatientTable(logic.getFilteredPatientList());
-        patientView = new PatientView(logic.getViewPatient());
+        patientView = new PatientView(logic.getViewPatient(), logic.getFilteredActivityListById());
 
         // fill in the side window
         sideWindow = new SideWindow(logic.getModelBeingShown());

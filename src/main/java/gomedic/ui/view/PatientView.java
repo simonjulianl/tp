@@ -2,15 +2,16 @@ package gomedic.ui.view;
 
 import java.util.Comparator;
 
+import gomedic.model.activity.Activity;
 import gomedic.model.person.patient.Patient;
 import gomedic.ui.UiPart;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 
 /**
  * An UI component that displays information of a {@code Patient}.
@@ -28,8 +29,6 @@ public class PatientView extends UiPart<Region> {
 
     private final Patient patient;
 
-//    @FXML
-//    private StackPane cardPane;
     @FXML
     private GridPane patientGrid;
     @FXML
@@ -54,9 +53,10 @@ public class PatientView extends UiPart<Region> {
     private FlowPane appointments;
 
     /**
-     * Creates a {@code PatientCode} with the given {@code ObservableValue<Patient>} and index to display.
+     * Creates a {@code PatientCode} with the given {@code ObservableValue<Patient>} and
+     * {@Code ObservableList<Activity>} to display.
      */
-    public PatientView(ObservableValue<Patient> object) {
+    public PatientView(ObservableValue<Patient> object, ObservableList<Activity> activityList) {
         super(FXML);
         patient = object.getValue();
         object.addListener((add, oldVal, newVal) -> {
@@ -73,9 +73,8 @@ public class PatientView extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> medicalConditions.getChildren().add(new Label(tag.tagName)));
             appointments.getChildren().clear();
-            newVal.getMedicalConditions().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> appointments.getChildren().add(new Label(tag.tagName)));
+            activityList.filtered(activity -> activity.getPatientId().equals(newVal.getId()))
+                .forEach(activity -> appointments.getChildren().add(new Label(activity.getStartTime().toString())));
         });
     }
 
