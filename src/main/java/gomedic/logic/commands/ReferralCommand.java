@@ -33,6 +33,9 @@ import gomedic.model.commonfield.Id;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 
+/**
+ * Referral command that is able to create a new pdf referral.
+ */
 public class ReferralCommand extends Command {
     public static final String COMMAND_WORD = "referral";
 
@@ -61,6 +64,14 @@ public class ReferralCommand extends Command {
     private final Description description;
     private final Path path;
 
+    /**
+     * Creates a new referral command.
+     *
+     * @param title Title of the doc to be used as filename.
+     * @param doctorId referred doctor.
+     * @param patientId referred patient.
+     * @param description description to be added.
+     */
     public ReferralCommand(Title title, Id doctorId, Id patientId, Description description) {
         this.doctorId = doctorId;
         this.patientId = patientId;
@@ -89,16 +100,16 @@ public class ReferralCommand extends Command {
 
     private Patient getSpecifiedPatient(Model model) {
         return model.getFilteredPatientList()
-                .filtered(patient -> patient.getId().equals(patientId))
                 .stream()
+                .filter(patient -> patient.getId().equals(patientId))
                 .findFirst()
                 .orElse(null);
     }
 
     private Doctor getSpecifiedDoctor(Model model) {
         return model.getFilteredDoctorList()
-                .filtered(doctor -> doctor.getId().equals(doctorId))
                 .stream()
+                .filter(doctor -> doctor.getId().equals(doctorId))
                 .findFirst()
                 .orElse(null);
     }
@@ -176,8 +187,8 @@ public class ReferralCommand extends Command {
                 + "I am afraid that I do not have the necessary resources "
                 + "to treat %s as %s requires according to %s condition. \n";
 
-        String secondParaTemplate = "\n %s \n" +
-                "\n Please kindly look into %s case and give %s the treatment required.";
+        String secondParaTemplate = "\n %s \n"
+                + "\n Please kindly look into %s case and give %s the treatment required.";
 
         String medicalConditions = specifiedPatient
                 .getMedicalConditions()

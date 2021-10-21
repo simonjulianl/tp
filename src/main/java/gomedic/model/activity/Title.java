@@ -9,7 +9,7 @@ import gomedic.commons.util.AppUtil;
 public class Title extends Description {
     public static final int MAX_CHAR = 60; // max char in title
     public static final String MESSAGE_CONSTRAINTS =
-            "Description is at most " + MAX_CHAR + " chars including whitespaces";
+            "Description is at most " + MAX_CHAR + " chars including whitespaces and cannot be empty";
 
     /**
      * Constructs an {@code Title}.

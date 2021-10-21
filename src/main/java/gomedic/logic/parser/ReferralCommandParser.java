@@ -3,7 +3,6 @@ package gomedic.logic.parser;
 import java.util.stream.Stream;
 
 import gomedic.commons.core.Messages;
-import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.ReferralCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.activity.Description;
