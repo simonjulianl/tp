@@ -29,6 +29,9 @@ public class ActivityTable extends UiPart<Region> {
     private TableColumn<Activity, String> titleField;
 
     @FXML
+    private TableColumn<Activity, String> patientField;
+
+    @FXML
     private TableColumn<Activity, String> period;
 
     @FXML
@@ -41,7 +44,7 @@ public class ActivityTable extends UiPart<Region> {
     private TableColumn<Activity, String> descriptionField;
 
     /**
-     * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
+     * Creates a {@code ActivityTable} with the given {@code ObservableList}.
      */
     public ActivityTable(ObservableList<Activity> activityList) {
         super(FXML);

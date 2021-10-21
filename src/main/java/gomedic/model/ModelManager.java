@@ -12,6 +12,7 @@ import gomedic.commons.util.CollectionUtil;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.person.patient.PatientId;
 import gomedic.model.userprofile.UserProfile;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -231,6 +232,16 @@ public class ModelManager implements Model {
     @Override
     public void deleteActivity(Activity target) {
         addressBook.removeActivity(target);
+    }
+
+    @Override
+    public void deletePatientAssociatedAppointments(Patient associatedPatient) {
+        PatientId id = associatedPatient.getId();
+        FilteredList<Activity> associatedAppointments = addressBook.getActivityListSortedById()
+                .filtered(x -> id.equals(x.getPatientId()));
+        while (!associatedAppointments.isEmpty()) {
+            deleteActivity(associatedAppointments.get(0));
+        }
     }
 
     @Override

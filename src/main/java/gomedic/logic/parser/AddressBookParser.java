@@ -10,6 +10,7 @@ import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.ProfileCommand;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
+import gomedic.logic.commands.addcommand.AddAppointmentCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.addcommand.AddPatientCommand;
 import gomedic.logic.commands.clearcommand.ClearActivityCommand;
@@ -26,6 +27,7 @@ import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPatientCommand;
 import gomedic.logic.parser.addcommandparser.AddActivityCommandParser;
+import gomedic.logic.parser.addcommandparser.AddAppointmentCommandParser;
 import gomedic.logic.parser.addcommandparser.AddDoctorCommandParser;
 import gomedic.logic.parser.addcommandparser.AddPatientCommandParser;
 import gomedic.logic.parser.deletecommandparser.DeleteActivityParser;
@@ -78,6 +80,9 @@ public class AddressBookParser {
         }
 
         switch (commandWord) {
+
+        case AddAppointmentCommand.COMMAND_WORD:
+            return new AddAppointmentCommandParser().parse(arguments);
 
         case AddActivityCommand.COMMAND_WORD:
             return new AddActivityCommandParser().parse(arguments);

@@ -50,6 +50,7 @@ public class DeletePatientCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_ID);
         }
         model.deletePatient(patientToDelete);
+        model.deletePatientAssociatedAppointments(patientToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete));
     }
 
