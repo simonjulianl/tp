@@ -23,6 +23,35 @@ public class Messages {
     public static final String MESSAGE_ITEMS_LISTED_OVERVIEW = "%1$d items listed!";
     public static final String MESSAGE_HELP_COMMANDS = generateHelpText();
 
+    // pool of command suggestions
+    private static final List<String> listOfCommands = Arrays.asList(
+            "help",
+            "add t/patient",
+            "view t/patient",
+            "delete t/patient",
+            "edit t/patient",
+            "list t/patient",
+            "clear t/patient",
+            "add t/doctor",
+            "view t/doctor",
+            "delete t/doctor",
+            "edit t/doctor",
+            "list t/doctor",
+            "clear t/doctor",
+            "find",
+            "add t/appointment",
+            "add t/activity",
+            "delete t/activity",
+            "list t/activity",
+            "clear t/activity",
+            "exit");
+    // list of command targets
+    private static final List<String> listOfTargets = Arrays.asList("t/patient", "t/doctor",
+            "t/activity", "t/appointment");
+    // get hashset of types for checking
+    private static final HashSet<String> listOfTypes = new HashSet<>(listOfCommands.stream()
+            .map(x -> x.split(" ")[0])
+            .collect(Collectors.toList()));
     /**
      * Returns the 5 most similar commands calculated using Levenshtein Distance Algorithm.
      *
@@ -31,45 +60,16 @@ public class Messages {
      */
     public static String getSuggestions(String command) {
 
-        // pool of command suggestions
-        List<String> listOfCommands = Arrays.asList(
-                "help",
-                "add t/patient",
-                "view t/patient",
-                "delete t/patient",
-                "edit t/patient",
-                "list t/patient",
-                "clear t/patient",
-                "add t/doctor",
-                "view t/doctor",
-                "delete t/doctor",
-                "edit t/doctor",
-                "list t/doctor",
-                "clear t/doctor",
-                "find",
-                "add t/appointment",
-                "add t/activity",
-                "delete t/activity",
-                "list t/activity",
-                "clear t/activity",
-                "exit");
-        // list of command targets
-        List<String> listOfTargets = Arrays.asList("t/patient", "t/doctor", "t/activity", "t/appointment");
-        // get hashset of types for checking
-        HashSet<String> listOfTypes = new HashSet<>(listOfCommands.stream()
-                .map(x -> x.split(" ")[0])
-                .collect(Collectors.toList()));
-
         String[] commandArgs = command.split(" ", 2);
         List<String> approvedSuggestions = null;
 
         // if wrong command is too short, the command type is probably wrong
         if (commandArgs.length == 1) {
-            approvedSuggestions = generateTypeSuggestions(command, listOfTypes, listOfTargets);
+            approvedSuggestions = generateTypeSuggestions(command);
         // if wrong command has two parts, check both parts
         } else {
-            List<String> approvedTypes = generateTypeSuggestions(commandArgs[0], listOfTypes, listOfTargets);
-            List<String> approvedTargets = generateTargetSuggestions(commandArgs[1], listOfTypes, listOfTargets);
+            List<String> approvedTypes = generateTypeSuggestions(commandArgs[0]);
+            List<String> approvedTargets = generateTargetSuggestions(commandArgs[1]);
             HashSet<String> set1 = new HashSet<>(approvedTypes);
             HashSet<String> set2 = new HashSet<>(approvedTargets);
             set1.retainAll(set2);
@@ -80,9 +80,9 @@ public class Messages {
         String reply = String.format(MESSAGE_UNKNOWN_COMMAND, command);
         Iterator<String> iterator = approvedSuggestions.iterator();
         if (iterator.hasNext()) {
-            String additionalReply = " You can choose from these commands instead: \n";
+            StringBuilder additionalReply = new StringBuilder(" You can choose from these commands instead: \n");
             while (iterator.hasNext()) {
-                additionalReply += iterator.next() + "    ";
+                additionalReply.append(iterator.next()).append("    ");
             }
             reply += additionalReply;
         }
@@ -94,12 +94,9 @@ public class Messages {
      * Returns a list of string approved command suggestions based on type.
      *
      * @param command First part of erroneous command input.
-     * @param listOfTypes Hashset of command types to refer to.
-     * @param listOfTargets List of command targets to be appended to approved suggestions.
      * @return A list of approved suggestions.
      */
-    private static List<String> generateTypeSuggestions(String command, HashSet<String> listOfTypes,
-                                                    List<String> listOfTargets) {
+    private static List<String> generateTypeSuggestions(String command) {
         List<Pair<Integer, String>> closestStrings;
         LevenshteinDistance stringChecker = new LevenshteinDistance();
         HashSet<String> singleWordCommands = new HashSet<>(Arrays.asList("exit", "help"));
@@ -135,12 +132,9 @@ public class Messages {
      * Returns a list of approved string command suggestions based on target.
      *
      * @param command Second part of erroneous input.
-     * @param listOfTypes
-     * @param listOfTargets
      * @return A list of command suggestions.
      */
-    private static List<String> generateTargetSuggestions(String command, HashSet<String> listOfTypes,
-                                                        List<String> listOfTargets) {
+    private static List<String> generateTargetSuggestions(String command) {
         List<Pair<Integer, String>> closestStrings;
         LevenshteinDistance stringChecker = new LevenshteinDistance();
         HashSet<String> singleWordCommands = new HashSet<>(Arrays.asList("exit", "help"));
@@ -156,13 +150,14 @@ public class Messages {
                 .collect(Collectors.toList());
         // prepend first part of command to available command target
         return validTargets.stream()
-                .flatMap(x -> x.getValue() != "t/appointment"
+                .flatMap(x -> !Objects.equals(x.getValue(), "t/appointment")
                         ? listOfTypes
                         .stream()
                         .map(y -> !singleWordCommands.contains(y)
                                 ? y + " " + x.getValue()
                                 : y)
                         : Stream.of("add t/appointment"))
+                .limit(5)
                 .collect(Collectors.toList());
     }
     /**
