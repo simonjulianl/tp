@@ -27,18 +27,6 @@ class ReferralCommandTest {
     }
 
     @Test
-    public void execute_referralCommand_success() {
-        ReferralCommand referralCommand = new ReferralCommand(
-                new Title("test"),
-                new DoctorId(1),
-                new PatientId(1),
-                new Description("test")
-        );
-
-        assertDoesNotThrow(() -> referralCommand.execute(model));
-    }
-
-    @Test
     public void execute_nonExistentPatient_throwsCommandException() {
         ReferralCommand referralCommand = new ReferralCommand(
                 new Title("test"),
@@ -69,18 +57,6 @@ class ReferralCommandTest {
                 new PatientId(1),
                 new Description("test")
         ));
-    }
-
-    @Test
-    public void execute_emptyDesc_success() {
-        ReferralCommand referralCommand = new ReferralCommand(
-                new Title("test"),
-                new DoctorId(1),
-                new PatientId(1),
-                new Description("")
-        );
-
-        assertDoesNotThrow(() -> referralCommand.execute(model));
     }
 
     @Test
