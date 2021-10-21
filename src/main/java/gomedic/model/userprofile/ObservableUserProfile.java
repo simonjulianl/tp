@@ -6,17 +6,14 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 
 /**
- * A singleton list of the user profile.
- * <p>
- * Supports a minimal set of list operations.
- *
+ * An observable of the user profile.
  */
 public class ObservableUserProfile {
     private final ObjectProperty<UserProfile> internalUserProfile = new SimpleObjectProperty<>();
     private final ObservableValue<UserProfile> unmodifiableUserProfile = internalUserProfile;
 
     /**
-     * Replaces the user profile in the list with {@code editedUserProfile}.
+     * Replaces the user profile with {@code editedUserProfile}.
      */
     public void setUserProfile(UserProfile editedUserProfile) {
         CollectionUtil.requireAllNonNull(editedUserProfile);
@@ -35,7 +32,7 @@ public class ObservableUserProfile {
     }
 
     /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     * Returns the backing value as an unmodifiable {@code ObservableValue}.
      */
     public ObservableValue<UserProfile> getUnmodifiableUserProfile() {
         return unmodifiableUserProfile;

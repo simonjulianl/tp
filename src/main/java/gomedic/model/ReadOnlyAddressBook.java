@@ -17,7 +17,7 @@ public interface ReadOnlyAddressBook {
     UserProfile getUserProfile();
 
     /**
-     * Returns an observable singleton list of the user profile.
+     * Returns an observable of the user profile.
      */
     ObservableValue<UserProfile> getObservableUserProfile();
 

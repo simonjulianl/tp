@@ -31,7 +31,7 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedPatient> patients = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given activities, doctors and patients
+     * Constructs a {@code JsonSerializableAddressBook} with the given activities, doctors and patients and user profile
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("userProfile") JsonAdaptedUserProfile userProfile,

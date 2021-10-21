@@ -172,7 +172,7 @@ public interface Model {
     /** Returns a copy of the user profile */
     UserProfile getUserProfile();
 
-    /** Returns an unmodifiable singleton list of the user profile */
+    /** Returns an unmodifiable observable of the user profile */
     ObservableValue<UserProfile> getObservableUserProfile();
 
     /** Returns an unmodifiable view of the filtered doctor list */
