@@ -29,6 +29,7 @@ import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.person.patient.Patient;
 import gomedic.model.person.patient.PatientId;
+import gomedic.model.userprofile.UserProfile;
 import gomedic.testutil.TypicalPersons;
 import gomedic.testutil.editdescriptorbuilder.EditActivityDescriptorBuilder;
 import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
@@ -58,6 +59,18 @@ public class CommandTestUtil {
     public static final String VALID_DESC_PHONE_OTHER_DOCTOR = " " + CliSyntax.PREFIX_PHONE + "77777777";
     public static final String VALID_DESC_DEPARTMENT_MAIN_DOCTOR = " " + CliSyntax.PREFIX_DEPARTMENT + "Pediatrics";
     public static final String VALID_DESC_DEPARTMENT_OTHER_DOCTOR = " " + CliSyntax.PREFIX_DEPARTMENT + "ENT";
+
+    /* valid constant declarations for user profile related fields */
+    public static final String VALID_DESC_NAME_MAIN_PROFILE = " " + CliSyntax.PREFIX_NAME + "John Smith";
+    public static final String VALID_DESC_POSITION_MAIN_PROFILE = " " + CliSyntax.PREFIX_POSITION + "Senior Resident";
+    public static final String VALID_DESC_DEPARTMENT_MAIN_PROFILE = " " + CliSyntax.PREFIX_DEPARTMENT + "Cardiology";
+    public static final String VALID_DESC_ORGANIZATION_MAIN_PROFILE = " " + CliSyntax.PREFIX_ORGANIZATION + "NUH";
+    public static final String VALID_DESC_NAME_OTHER_PROFILE = " " + CliSyntax.PREFIX_NAME + "new name";
+    public static final String VALID_DESC_POSITION_OTHER_PROFILE = " " + CliSyntax.PREFIX_POSITION + "new position";
+    public static final String VALID_DESC_DEPARTMENT_OTHER_PROFILE =
+            " " + CliSyntax.PREFIX_DEPARTMENT + "new department";
+    public static final String VALID_DESC_ORGANIZATION_OTHER_PROFILE =
+            " " + CliSyntax.PREFIX_ORGANIZATION + "new organization";
 
     /* invalid constants declarations for doctor related fields */
     public static final String INVALID_DESC_NAME_MAIN_DOCTOR = " " + CliSyntax.PREFIX_NAME + "John** Doe";
@@ -157,6 +170,14 @@ public class CommandTestUtil {
     public static final String INVALID_DESC_DESCRIPTION =
             " " + CliSyntax.PREFIX_DESCRIPTION + "SOME LONG DESCRIPTION".repeat(1000);
 
+    /* Referral tests utility */
+    public static final String VALID_PATIENT_REFERRAL_ID =
+            " " + CliSyntax.PREFIX_PATIENT_ID + "P001";
+    public static final String VALID_DOCTOR_REFERRAL_ID =
+            " " + CliSyntax.PREFIX_DOCTOR_ID + "D001";
+    public static final String INVALID_PATIENT_REFERRAL_ID =
+            " " + CliSyntax.PREFIX_PATIENT_ID + "X001";
+
     public static final EditDoctorCommand.EditDoctorDescriptor DESC_MAIN_DOCTOR;
     public static final EditDoctorCommand.EditDoctorDescriptor DESC_OTHER_DOCTOR;
 
@@ -165,6 +186,7 @@ public class CommandTestUtil {
 
     public static final EditActivityCommand.EditActivityDescriptor DESC_MEETING;
     public static final EditActivityCommand.EditActivityDescriptor DESC_PAPER_REVIEW;
+
 
     static {
         DESC_MAIN_DOCTOR = new EditDoctorDescriptorBuilder().withName(TypicalPersons.MAIN_DOCTOR.getName().fullName)
@@ -322,6 +344,21 @@ public class CommandTestUtil {
         }
 
         @Override
+        public void setUserProfile(UserProfile userProfile) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UserProfile getUserProfile() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableValue<UserProfile> getObservableUserProfile() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addDoctor(Doctor doctor) {
             throw new AssertionError("This method should not be called.");
         }
@@ -468,6 +505,16 @@ public class CommandTestUtil {
 
         @Override
         public void setModelBeingShown(ModelItem modelItem) {
+            // noop
+        }
+
+        @Override
+        public ObservableValue<Patient> getViewPatient() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void viewPatient(Patient target) {
             // noop
         }
     }

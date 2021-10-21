@@ -17,6 +17,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("ta/");
     public static final Prefix PREFIX_ID = new Prefix("i/");
 
+    /* Prefix definitions for user profile */
+    public static final Prefix PREFIX_POSITION = new Prefix("p/");
+    public static final Prefix PREFIX_ORGANIZATION = new Prefix("o/");
+
+
     /* Prefix definitions for a doctor */
     public static final Prefix PREFIX_DEPARTMENT = new Prefix("de/");
 
@@ -37,4 +42,8 @@ public class CliSyntax {
     /* Prefix definitions for listing */
     public static final Prefix PREFIX_SORT_FLAG = new Prefix("s/");
     public static final Prefix PREFIX_PERIOD_FLAG = new Prefix("p/");
+
+    /* Specific id prefixes for Referral*/
+    public static final Prefix PREFIX_DOCTOR_ID = new Prefix("di/");
+    public static final Prefix PREFIX_PATIENT_ID = new Prefix("pi/");
 }

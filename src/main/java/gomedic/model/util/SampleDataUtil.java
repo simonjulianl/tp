@@ -12,11 +12,20 @@ import gomedic.model.person.doctor.Department;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.tag.Tag;
+import gomedic.model.userprofile.Organization;
+import gomedic.model.userprofile.Position;
+import gomedic.model.userprofile.UserProfile;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+    public static UserProfile getSampleUserProfile() {
+        return new UserProfile(new Name("Dr Rosalind Soo"),
+                new Position("Associate Consultant"),
+                new Department("Department of Cardiology"),
+                new Organization("National University Hospital"));
+    }
     public static Doctor[] getSampleDoctors() {
         int idx = 1;
         return new Doctor[]{
@@ -37,6 +46,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
+        sampleAb.setUserProfile(getSampleUserProfile());
+
         for (Doctor sampleDoctor : getSampleDoctors()) {
             if (!sampleAb.hasDoctor(sampleDoctor)) {
                 sampleAb.addDoctor(sampleDoctor);

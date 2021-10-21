@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import gomedic.commons.core.LogsCenter;
+import gomedic.model.userprofile.UserProfile;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -37,7 +38,7 @@ public class SideWindow extends UiPart<Region> {
     @FXML
     private Label myDepartment;
     @FXML
-    private Label myOrganisation;
+    private Label myOrganization;
     @FXML
     private Label activityLabel;
     @FXML
@@ -69,13 +70,26 @@ public class SideWindow extends UiPart<Region> {
     /**
      * Creates a new SideWindow.
      */
-    public SideWindow(ObservableValue<Integer> modelItemBeingShown) {
+    public SideWindow(ObservableValue<Integer> modelItemBeingShown, ObservableValue<UserProfile> userProfile) {
         super(FXML);
 
         resetStyle();
 
         // by default, activity is chosen
         setActivityIndicator();
+
+        // set user profile and add listener for it
+        myName.setText(userProfile.getValue().getName().fullName);
+        myPosition.setText(userProfile.getValue().getPosition().positionName);
+        myDepartment.setText(userProfile.getValue().getDepartment().departmentName);
+        myOrganization.setText(userProfile.getValue().getOrganization().organizationName);
+
+        userProfile.addListener((add, oldVal, newVal) -> {
+            myName.setText(newVal.getName().fullName);
+            myPosition.setText(newVal.getPosition().positionName);
+            myDepartment.setText(newVal.getDepartment().departmentName);
+            myOrganization.setText(newVal.getOrganization().organizationName);
+        });
 
         // 0 -> Activity, 1 -> Activity by Start Time, 2 -> Doctor, 3 -> Patient
         modelItemBeingShown.addListener((obs, oldVal, newVal) -> {
@@ -90,6 +104,8 @@ public class SideWindow extends UiPart<Region> {
                 setDoctorIndicator();
                 break;
             case 3:
+                // fall through
+            case 4:
                 setPatientIndicator();
                 break;
             default:

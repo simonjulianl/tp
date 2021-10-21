@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="ALWAYS" fitToWidth="true">
+    <VBox id="vboxPatient" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+        <HBox spacing="5" alignment="CENTER_LEFT" styleClass="view_header">
+            <Label fx:id="id" styleClass="view_big_label">
+                <minWidth>
+                    <!-- Ensures that the label text is never truncated -->
+                    <Region fx:constant="USE_PREF_SIZE" />
+                </minWidth>
+            </Label>
+            <Label fx:id="name" text="\$first" styleClass="view_big_label" />
+        </HBox>
+        <GridPane fx:id="hroot" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT" styleClass="view_hbox" prefWidth="900">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10" percentWidth="50" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10" percentWidth="50" />
+            </columnConstraints>
+            <VBox fx:id="left" alignment="CENTER_LEFT" GridPane.columnIndex="0" HBox.hgrow="ALWAYS">
+                <HBox spacing="5" alignment="CENTER_LEFT" styleClass="view_hbox">
+                    <Label styleClass="cell_view_label_title" text="Contact: "/>
+                    <Label fx:id="phone" styleClass="cell_view_label" text="\$phone" />
+                </HBox>
+                <HBox spacing="5" alignment="CENTER_LEFT" styleClass="view_hbox">
+                    <Label styleClass="cell_view_label_title" text="Age: "/>
+                    <Label fx:id="age" styleClass="cell_view_label" text="\$age" />
+                </HBox>
+                <HBox spacing="5" alignment="CENTER_LEFT" styleClass="view_hbox">
+                    <Label styleClass="cell_view_label_title" text="Blood Type: "/>
+                    <Label fx:id="bloodType" styleClass="cell_view_label" text="\$bloodType" />
+                </HBox>
+                <HBox spacing="5" alignment="CENTER_LEFT" styleClass="view_hbox">
+                    <Label styleClass="cell_view_label_title" text="Gender: "/>
+                    <Label fx:id="gender" styleClass="cell_view_label" text="\$gender" />
+                </HBox>
+                <HBox spacing="5" alignment="CENTER_LEFT" styleClass="view_hbox">
+                    <Label styleClass="cell_view_label_title" text="Height: "/>
+                    <Label fx:id="height" styleClass="cell_view_label" text="\$height" />
+                </HBox>
+                <HBox spacing="5" alignment="CENTER_LEFT" styleClass="view_hbox">
+                    <Label styleClass="cell_view_label_title" text="Weight: "/>
+                    <Label fx:id="weight" styleClass="cell_view_label" text="\$weight" />
+                </HBox>
+                <HBox spacing="5" alignment="TOP_LEFT" styleClass="view_hbox" VBox.vgrow="SOMETIMES">
+                    <Label styleClass="cell_view_label_title" text="Medical Conditions: "/>
+                    <FlowPane fx:id="medicalConditions" orientation="vertical"/>
+                </HBox>
+            </VBox>
+            <VBox alignment="TOP_LEFT" GridPane.columnIndex="1" HBox.hgrow="ALWAYS">
+                <HBox spacing="5" alignment="TOP_LEFT" styleClass="view_hbox" HBox.hgrow="SOMETIMES">
+                    <Label styleClass="cell_view_label_title" text="Appointments: "/>
+                    <FlowPane fx:id="appointments" orientation="vertical"/>
+                </HBox>
+            </VBox>
+        </GridPane>
+    </VBox>
+</ScrollPane>

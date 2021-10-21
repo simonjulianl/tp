@@ -1,6 +1,7 @@
 package gomedic.logic.commands.deletecommand;
 
 import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
+import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
+import gomedic.model.ModelItem;
 import gomedic.model.commonfield.Id;
 import gomedic.model.person.patient.Patient;
 
@@ -50,6 +52,9 @@ public class DeletePatientCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_ID);
         }
         model.deletePatient(patientToDelete);
+        model.viewPatient(null);
+        model.setModelBeingShown(ModelItem.PATIENT);
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
         model.deletePatientAssociatedAppointments(patientToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete));
     }

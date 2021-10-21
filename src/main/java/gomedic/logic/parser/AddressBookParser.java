@@ -8,6 +8,8 @@ import gomedic.logic.commands.Command;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
+import gomedic.logic.commands.ProfileCommand;
+import gomedic.logic.commands.ReferralCommand;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddAppointmentCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
@@ -25,6 +27,7 @@ import gomedic.logic.commands.editcommand.EditPatientCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPatientCommand;
+import gomedic.logic.commands.viewcommand.ViewPatientCommand;
 import gomedic.logic.parser.addcommandparser.AddActivityCommandParser;
 import gomedic.logic.parser.addcommandparser.AddAppointmentCommandParser;
 import gomedic.logic.parser.addcommandparser.AddDoctorCommandParser;
@@ -37,6 +40,7 @@ import gomedic.logic.parser.editcommandparser.EditDoctorCommandParser;
 import gomedic.logic.parser.editcommandparser.EditPatientCommandParser;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.logic.parser.listcommandparser.ListActivityParser;
+import gomedic.logic.parser.viewcommandparser.ViewPatientParser;
 
 /**
  * Parses user input.
@@ -134,11 +138,20 @@ public class AddressBookParser {
         case ListPatientCommand.COMMAND_WORD:
             return new ListPatientCommand();
 
+        case ProfileCommand.COMMAND_WORD:
+            return new ProfileCommandParser().parse(arguments);
+
+        case ViewPatientCommand.COMMAND_WORD:
+            return new ViewPatientParser().parse(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ReferralCommand.COMMAND_WORD:
+            return new ReferralCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.getSuggestions(commandWord));
