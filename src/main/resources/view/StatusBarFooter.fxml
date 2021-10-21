@@ -11,10 +11,6 @@
   </columnConstraints>
   <HBox>
     <Label fx:id="saveLocationStatus" />
-    <Label fx:id="userName" />
-    <Label fx:id="userPosition" />
-    <Label fx:id="userDepartment" />
-    <Label fx:id="userOrganization" />
   </HBox>
 
 </GridPane>
