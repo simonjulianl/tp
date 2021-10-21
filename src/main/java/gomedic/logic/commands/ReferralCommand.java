@@ -115,7 +115,9 @@ public class ReferralCommand extends Command {
                 .orElse(null);
     }
 
-    private void generatePdf(Doctor specifiedDoctor, Patient specifiedPatient, UserProfile profile) throws CommandException {
+    private void generatePdf(Doctor specifiedDoctor,
+                             Patient specifiedPatient,
+                             UserProfile profile) throws CommandException {
         try {
             PdfWriter writer = new PdfWriter(path.toAbsolutePath().toString());
             PdfDocument referral = new PdfDocument(writer);
