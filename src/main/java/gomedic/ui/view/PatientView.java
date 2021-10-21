@@ -8,8 +8,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 
 /**
  * An UI component that displays information of a {@code Patient}.
@@ -27,8 +28,10 @@ public class PatientView extends UiPart<Region> {
 
     private final Patient patient;
 
+//    @FXML
+//    private StackPane cardPane;
     @FXML
-    private HBox cardPane;
+    private GridPane patientGrid;
     @FXML
     private Label id;
     @FXML
