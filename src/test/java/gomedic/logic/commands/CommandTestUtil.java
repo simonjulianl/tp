@@ -507,5 +507,15 @@ public class CommandTestUtil {
         public void setModelBeingShown(ModelItem modelItem) {
             // noop
         }
+
+        @Override
+        public ObservableValue<Patient> getViewPatient() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void viewPatient(Patient target) {
+            // noop
+        }
     }
 }

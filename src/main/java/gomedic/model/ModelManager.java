@@ -16,6 +16,7 @@ import gomedic.model.person.patient.PatientId;
 import gomedic.model.userprofile.UserProfile;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -36,6 +37,8 @@ public class ModelManager implements Model {
     private final ObservableValue<Integer> modelItemBeingShown = internalModelItemBeingShown; // immutable
     private final FilteredList<Activity> filteredActivitiesById;
     private final FilteredList<Activity> filteredActivitiesByStartTime;
+    private final ObjectProperty<Patient> internalPatientToView = new SimpleObjectProperty<>(null);
+    private final ObservableValue<Patient> patientToView = internalPatientToView;
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
@@ -257,6 +260,16 @@ public class ModelManager implements Model {
     @Override
     public void setPatient(Patient oldPatient, Patient replacementPatient) {
         addressBook.setPatient(oldPatient, replacementPatient);
+    }
+
+    @Override
+    public void viewPatient(Patient target) {
+        internalPatientToView.setValue(target);
+    }
+
+    @Override
+    public ObservableValue<Patient> getViewPatient() {
+        return patientToView;
     }
 
     @Override

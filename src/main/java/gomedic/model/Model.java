@@ -175,6 +175,20 @@ public interface Model {
     /** Returns an unmodifiable observable of the user profile */
     ObservableValue<UserProfile> getObservableUserProfile();
 
+    /**
+     * Returns patient to be viewed.
+     *
+     * @return Patient to be viewed.
+     */
+    ObservableValue<Patient> getViewPatient();
+
+    /**
+     * Sets patientToView with the correct patient details.
+     *
+     * @param target Target patient with the correct details.
+     */
+    void viewPatient(Patient target);
+
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
 

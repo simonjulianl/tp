@@ -20,14 +20,17 @@ import gomedic.logic.commands.clearcommand.ClearCommand;
 import gomedic.logic.commands.clearcommand.ClearDoctorCommand;
 import gomedic.logic.commands.clearcommand.ClearPatientCommand;
 import gomedic.logic.commands.deletecommand.DeleteDoctorCommand;
+import gomedic.logic.commands.deletecommand.DeletePatientCommand;
 import gomedic.logic.commands.editcommand.EditDoctorCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPatientCommand;
+import gomedic.logic.commands.viewcommand.ViewPatientCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.userprofile.UserProfile;
+import gomedic.model.person.patient.PatientId;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.CommandGenerationUtils;
 import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
@@ -71,7 +74,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
+    public void parseCommand_deleteDoctor() throws Exception {
         DoctorId testId = new DoctorId(1);
         DeleteDoctorCommand command = (DeleteDoctorCommand) parser.parseCommand(
                 DeleteDoctorCommand.COMMAND_WORD + " " + testId.toString());
@@ -79,12 +82,28 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_deletePatient() throws Exception {
+        PatientId testId = new PatientId(1);
+        DeletePatientCommand command = (DeletePatientCommand) parser.parseCommand(
+            DeletePatientCommand.COMMAND_WORD + " " + testId.toString());
+        assertEquals(new DeletePatientCommand(testId), command);
+    }
+
+    @Test
+    public void parseCommand_viewPatient() throws Exception {
+        PatientId testId = new PatientId(1);
+        ViewPatientCommand command = (ViewPatientCommand) parser.parseCommand(
+            ViewPatientCommand.COMMAND_WORD + " " + testId.toString());
+        assertEquals(new ViewPatientCommand(testId), command);
+    }
+
+    @Test
     public void parseCommand_editDoctor() throws Exception {
         Doctor doctor = new DoctorBuilder().build();
         EditDoctorCommand.EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder(doctor).build();
         EditDoctorCommand command = (EditDoctorCommand) parser.parseCommand(EditDoctorCommand.COMMAND_WORD
-                + " " + CliSyntax.PREFIX_ID + doctor.getId()
-                + " " + CommandGenerationUtils.getEditDoctorDescriptorDetails(descriptor));
+            + " " + CliSyntax.PREFIX_ID + doctor.getId()
+            + " " + CommandGenerationUtils.getEditDoctorDescriptorDetails(descriptor));
         assertEquals(new EditDoctorCommand(doctor.getId(), descriptor), command);
     }
 
