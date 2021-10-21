@@ -28,7 +28,10 @@ public class ObservableUserProfile {
      * Gets a copy of the current user profile.
      */
     public UserProfile getUserProfile() {
-        return internalUserProfile.getValue();
+        if (internalUserProfile.getValue() == null) {
+            return null;
+        }
+        return internalUserProfile.getValue().copy();
     }
 
     /**
