@@ -22,9 +22,9 @@ public class Title extends Description {
     }
 
     /**
-     * @return true for text that has less than max_char
+     * @return true for text that has less than max_char and cannot be empty.
      */
     public static boolean isValidTitle(String text) {
-        return text.length() <= MAX_CHAR;
+        return text.length() <= MAX_CHAR && text.length() > 0;
     }
 }
