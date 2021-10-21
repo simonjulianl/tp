@@ -1,7 +1,9 @@
 {
   "userProfile": {
-    "name" : "John Smith",
-    "description" : "This is my personal tracker for all work related activities and contacts"
+    "name" : "User profile name not set yet",
+    "position" : "User profile position not set yet",
+    "department" : "User profile department not set yet",
+    "organization" : "User profile organization not set yet"
   },
   "activities": [],
   "doctors": [],

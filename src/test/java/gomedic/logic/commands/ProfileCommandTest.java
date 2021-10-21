@@ -16,21 +16,24 @@ public class ProfileCommandTest {
     @Test
     public void constructor_nullValues_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                new ProfileCommand(null, null));
+                new ProfileCommand(null, null, null, null));
     }
 
     @Test
     public void execute_updateProfile_updateSuccessful() throws Exception {
         UserProfile updatedProfile = new UserProfileBuilder()
                 .withName("New name")
-                .withDescription("new description")
+                .withPosition("new position")
+                .withDepartment("new department")
+                .withOrganization("new organization")
                 .build();
 
         ProfileCommandTest.ModelStubWithValidUpdate modelStub =
                 new ProfileCommandTest.ModelStubWithValidUpdate(updatedProfile);
 
         CommandResult commandResult = new ProfileCommand(
-                updatedProfile.getName(), updatedProfile.getDescription()
+                updatedProfile.getName(), updatedProfile.getPosition(),
+                updatedProfile.getDepartment(), updatedProfile.getOrganization()
         ).execute(modelStub);
 
         assertEquals(String.format(
@@ -42,12 +45,16 @@ public class ProfileCommandTest {
     public void equals() {
         ProfileCommand profileCommand = new ProfileCommand(
                 MAIN_PROFILE.getName(),
-                MAIN_PROFILE.getDescription()
+                MAIN_PROFILE.getPosition(),
+                MAIN_PROFILE.getDepartment(),
+                MAIN_PROFILE.getOrganization()
         );
 
         ProfileCommand anotherProfileCommand = new ProfileCommand(
                 OTHER_PROFILE.getName(),
-                OTHER_PROFILE.getDescription()
+                OTHER_PROFILE.getPosition(),
+                OTHER_PROFILE.getDepartment(),
+                OTHER_PROFILE.getOrganization()
         );
 
         // same object -> returns true

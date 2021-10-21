@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import gomedic.commons.exceptions.IllegalValueException;
-import gomedic.model.activity.Description;
 import gomedic.model.commonfield.Name;
+import gomedic.model.person.doctor.Department;
+import gomedic.model.userprofile.Organization;
+import gomedic.model.userprofile.Position;
 import gomedic.model.userprofile.UserProfile;
 
 /**
@@ -15,15 +17,22 @@ public class JsonAdaptedUserProfile {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "User Profile's %s field is missing!";
 
     private final String name;
-    private final String description;
+    private final String position;
+    private final String department;
+    private final String organization;
 
     /**
      * Constructs a {@code JsonAdaptedUserProfile} with the given details.
      */
     @JsonCreator
-    public JsonAdaptedUserProfile(@JsonProperty("name") String name, @JsonProperty("description") String description) {
+    public JsonAdaptedUserProfile(@JsonProperty("name") String name,
+                                  @JsonProperty("position") String position,
+                                  @JsonProperty("department") String department,
+                                  @JsonProperty("organization") String organization) {
         this.name = name;
-        this.description = description;
+        this.organization = organization;
+        this.position = position;
+        this.department = department;
     }
 
     /**
@@ -31,7 +40,9 @@ public class JsonAdaptedUserProfile {
      */
     public JsonAdaptedUserProfile(UserProfile source) {
         name = source.getName().fullName;
-        description = source.getDescription().toString();
+        position = source.getPosition().positionName;
+        department = source.getDepartment().departmentName;
+        organization = source.getOrganization().organizationName;
     }
 
     /**
@@ -48,16 +59,36 @@ public class JsonAdaptedUserProfile {
         }
         final Name modelName = new Name(name);
 
-        if (description == null) {
+        if (position == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
+                    Position.class.getSimpleName()));
         }
 
-        if (!Description.isValidDescription(description)) {
-            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        if (!Position.isValidPositionName(position)) {
+            throw new IllegalValueException(Position.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(description);
+        final Position modelPosition = new Position(position);
 
-        return new UserProfile(modelName, modelDescription);
+        if (department == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Department.class.getSimpleName()));
+        }
+
+        if (!Department.isValidDepartmentName(department)) {
+            throw new IllegalValueException(Department.MESSAGE_CONSTRAINTS);
+        }
+        final Department modelDepartment = new Department(department);
+
+        if (organization == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Organization.class.getSimpleName()));
+        }
+
+        if (!Organization.isValidOrganizationName(organization)) {
+            throw new IllegalValueException(Organization.MESSAGE_CONSTRAINTS);
+        }
+        final Organization modelOrganization = new Organization(organization);
+
+        return new UserProfile(modelName, modelPosition, modelDepartment, modelOrganization);
     }
 }

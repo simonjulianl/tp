@@ -5,8 +5,10 @@ import java.util.stream.Stream;
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.ProfileCommand;
 import gomedic.logic.parser.exceptions.ParseException;
-import gomedic.model.activity.Description;
 import gomedic.model.commonfield.Name;
+import gomedic.model.person.doctor.Department;
+import gomedic.model.userprofile.Organization;
+import gomedic.model.userprofile.Position;
 
 /**
  * Parses input arguments and creates a new ProfileCommand object.
@@ -23,11 +25,15 @@ public class ProfileCommandParser implements Parser<ProfileCommand> {
                 ArgumentTokenizer.tokenize(
                         args,
                         CliSyntax.PREFIX_NAME,
-                        CliSyntax.PREFIX_DESCRIPTION);
+                        CliSyntax.PREFIX_POSITION,
+                        CliSyntax.PREFIX_DEPARTMENT,
+                        CliSyntax.PREFIX_ORGANIZATION);
 
         if (!arePrefixesPresent(argMultimap,
                 CliSyntax.PREFIX_NAME,
-                CliSyntax.PREFIX_DESCRIPTION)
+                CliSyntax.PREFIX_POSITION,
+                CliSyntax.PREFIX_DEPARTMENT,
+                CliSyntax.PREFIX_ORGANIZATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(
@@ -37,9 +43,12 @@ public class ProfileCommandParser implements Parser<ProfileCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).get());
+        Position position = ParserUtil.parsePosition(argMultimap.getValue(CliSyntax.PREFIX_POSITION).get());
+        Department department = ParserUtil.parseDepartment(argMultimap.getValue(CliSyntax.PREFIX_DEPARTMENT).get());
+        Organization organization =
+                ParserUtil.parseOrganization(argMultimap.getValue(CliSyntax.PREFIX_ORGANIZATION).get());
 
-        return new ProfileCommand(name, description);
+        return new ProfileCommand(name, position, department, organization);
     }
 
     /**

@@ -3,8 +3,8 @@ package gomedic.model.userprofile;
 import java.util.Objects;
 
 import gomedic.commons.util.CollectionUtil;
-import gomedic.model.activity.Description;
 import gomedic.model.commonfield.Name;
+import gomedic.model.person.doctor.Department;
 
 /**
  * Represents the user profile in the address book.
@@ -13,23 +13,35 @@ import gomedic.model.commonfield.Name;
 public class UserProfile {
     // user details
     private final Name name;
-    private final Description description;
+    private final Position position;
+    private final Department department;
+    private final Organization organization;
 
     /**
      * Every field must be present and not null.
      */
-    public UserProfile(Name name, Description description) {
-        CollectionUtil.requireAllNonNull(name, description);
+    public UserProfile(Name name, Position position, Department department, Organization organization) {
+        CollectionUtil.requireAllNonNull(name, organization, position, department);
         this.name = name;
-        this.description = description;
+        this.organization = organization;
+        this.position = position;
+        this.department = department;
     }
 
     public Name getName() {
         return name;
     }
 
-    public Description getDescription() {
-        return description;
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public Department getDepartment() {
+        return department;
     }
 
     /**
@@ -37,7 +49,11 @@ public class UserProfile {
      * @return a deep copy of a UserProfile instance.
      */
     public UserProfile copy() {
-        return new UserProfile(new Name(name.fullName), new Description(description.toString()));
+        return new UserProfile(
+                new Name(name.fullName),
+                new Position(position.positionName),
+                new Department(department.departmentName),
+                new Organization(organization.organizationName));
     }
 
     /**
@@ -55,12 +71,14 @@ public class UserProfile {
 
         UserProfile otherUserProfile = (UserProfile) other;
         return name.equals(otherUserProfile.getName())
-                && description.equals(otherUserProfile.getDescription());
+                && organization.equals(otherUserProfile.getOrganization())
+                && position.equals(otherUserProfile.getPosition())
+                && department.equals(otherUserProfile.getDepartment());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description);
+        return Objects.hash(name, position, department, organization);
     }
 
     /**
@@ -70,6 +88,11 @@ public class UserProfile {
      */
     @Override
     public String toString() {
-        return "Name: " + name + "; Description: " + description;
+        return "Name: " + name + "; Position: " + position
+                + "; Department: " + department + "; Organization: " + organization;
+    }
+
+    public String getIdentity() {
+        return name + ", " + position + ", " + department + ", " + organization;
     }
 }

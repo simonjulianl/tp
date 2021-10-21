@@ -1,8 +1,10 @@
 {
   "_comment": "AddressBook save file which contains the same values as in TypicalPersons and TypicalActivities",
   "userProfile": {
-    "name" : "User profile not set yet",
-    "description" : "Refer to profile command to set profile description"
+    "name" : "User profile name not set yet",
+    "position" : "User profile position not set yet",
+    "department" : "User profile department not set yet",
+    "organization" : "User profile organization not set yet"
   },
   "activities": [
     {

@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.CommandTestUtil;
 import gomedic.logic.commands.ProfileCommand;
-import gomedic.model.activity.Description;
 import gomedic.model.commonfield.Name;
+import gomedic.model.person.doctor.Department;
 import gomedic.model.userprofile.UserProfile;
 
 public class ProfileCommandParserTest {
@@ -22,25 +22,61 @@ public class ProfileCommandParserTest {
         CommandParserTestUtil.assertParseSuccess(parser,
                 CommandTestUtil.PREAMBLE_WHITESPACE
                         + CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE
-                        + CommandTestUtil.VALID_DESC_DESCRIPTION_MAIN_PROFILE, new ProfileCommand(
+                        + CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE, new ProfileCommand(
                         expectedUserProfile.getName(),
-                        expectedUserProfile.getDescription()));
+                        expectedUserProfile.getPosition(),
+                        expectedUserProfile.getDepartment(),
+                        expectedUserProfile.getOrganization()));
 
         // multiple name - last name will be accepted
         CommandParserTestUtil.assertParseSuccess(parser,
                 CommandTestUtil.VALID_DESC_NAME_OTHER_DOCTOR
                         + CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE
-                        + CommandTestUtil.VALID_DESC_DESCRIPTION_MAIN_PROFILE, new ProfileCommand(
+                        + CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE, new ProfileCommand(
                         expectedUserProfile.getName(),
-                        expectedUserProfile.getDescription()));
+                        expectedUserProfile.getPosition(),
+                        expectedUserProfile.getDepartment(),
+                        expectedUserProfile.getOrganization()));
 
-        // multiple descriptions - last descriptions accepted
+        // multiple position - last position accepted
         CommandParserTestUtil.assertParseSuccess(parser,
                 CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE
-                        + CommandTestUtil.VALID_DESC_DESCRIPTION_OTHER_PROFILE
-                        + CommandTestUtil.VALID_DESC_DESCRIPTION_MAIN_PROFILE, new ProfileCommand(
+                        + CommandTestUtil.VALID_DESC_POSITION_OTHER_PROFILE
+                        + CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE, new ProfileCommand(
                         expectedUserProfile.getName(),
-                        expectedUserProfile.getDescription()));
+                        expectedUserProfile.getPosition(),
+                        expectedUserProfile.getDepartment(),
+                        expectedUserProfile.getOrganization()));
+
+        // multiple department - last department accepted
+        CommandParserTestUtil.assertParseSuccess(parser,
+                CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_OTHER_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE, new ProfileCommand(
+                        expectedUserProfile.getName(),
+                        expectedUserProfile.getPosition(),
+                        expectedUserProfile.getDepartment(),
+                        expectedUserProfile.getOrganization()));
+
+        // multiple organization - last organization accepted
+        CommandParserTestUtil.assertParseSuccess(parser,
+                CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_OTHER_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE, new ProfileCommand(
+                        expectedUserProfile.getName(),
+                        expectedUserProfile.getPosition(),
+                        expectedUserProfile.getDepartment(),
+                        expectedUserProfile.getOrganization()));
 
     }
 
@@ -52,12 +88,30 @@ public class ProfileCommandParserTest {
 
         // missing name
         CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.VALID_DESC_DESCRIPTION_MAIN_PROFILE,
+                CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE,
                 expectedMessage);
 
-        // missing description
+        // missing position
         CommandParserTestUtil.assertParseFailure(parser,
-                CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE,
+                CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE,
+                expectedMessage);
+
+        // missing department
+        CommandParserTestUtil.assertParseFailure(parser,
+                CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE,
+                expectedMessage);
+
+        // missing organization
+        CommandParserTestUtil.assertParseFailure(parser,
+                CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_PROFILE,
                 expectedMessage);
     }
 
@@ -66,11 +120,15 @@ public class ProfileCommandParserTest {
         // invalid name
         CommandParserTestUtil.assertParseFailure(parser,
                 CommandTestUtil.INVALID_DESC_NAME_MAIN_DOCTOR
-                        + CommandTestUtil.VALID_DESC_DESCRIPTION_MAIN_PROFILE, Name.MESSAGE_CONSTRAINTS);
+                        + CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_DEPARTMENT_MAIN_PROFILE
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE, Name.MESSAGE_CONSTRAINTS);
 
-        // invalid description
+        // invalid department
         CommandParserTestUtil.assertParseFailure(parser,
                 CommandTestUtil.VALID_DESC_NAME_MAIN_PROFILE
-                        + CommandTestUtil.INVALID_DESC_DESCRIPTION, Description.MESSAGE_CONSTRAINTS);
+                        + CommandTestUtil.VALID_DESC_POSITION_MAIN_PROFILE
+                        + CommandTestUtil.INVALID_DESC_DEPARTMENT_MAIN_DOCTOR
+                        + CommandTestUtil.VALID_DESC_ORGANIZATION_MAIN_PROFILE, Department.MESSAGE_CONSTRAINTS);
     }
 }

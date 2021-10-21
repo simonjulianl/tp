@@ -132,8 +132,11 @@ public class AddressBookParserTest {
         ProfileCommand command =
                 (ProfileCommand) parser.parseCommand(ProfileCommand.COMMAND_WORD + " "
                         + CliSyntax.PREFIX_NAME + userProfile.getName() + " "
-                        + CliSyntax.PREFIX_DESCRIPTION + userProfile.getDescription());
-        assertEquals(new ProfileCommand(userProfile.getName(), userProfile.getDescription()), command);
+                        + CliSyntax.PREFIX_POSITION + userProfile.getPosition() + " "
+                        + CliSyntax.PREFIX_DEPARTMENT + userProfile.getDepartment() + " "
+                        + CliSyntax.PREFIX_ORGANIZATION + userProfile.getOrganization());
+        assertEquals(new ProfileCommand(userProfile.getName(), userProfile.getPosition(), userProfile.getDepartment(),
+                userProfile.getOrganization()), command);
     }
 
     @Test

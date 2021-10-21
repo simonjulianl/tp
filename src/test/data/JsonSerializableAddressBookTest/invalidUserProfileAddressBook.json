@@ -1,7 +1,9 @@
 {
   "userProfile": {
-    "name" : "There's a star in my name * LOL",
-    "description" : "This is my personal tracker for all work related activities and contacts"
+    "name" : "There is a * in  my name",
+    "position" : "User profile position not set yet",
+    "department" : "User profile department not set yet",
+    "organization" : "User profile organization not set yet"
   },
   "activities": [],
   "doctors": [],

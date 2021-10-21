@@ -6,13 +6,14 @@ import java.util.stream.Collectors;
 
 import gomedic.model.AddressBook;
 import gomedic.model.ReadOnlyAddressBook;
-import gomedic.model.activity.Description;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.doctor.Department;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
 import gomedic.model.tag.Tag;
+import gomedic.model.userprofile.Organization;
+import gomedic.model.userprofile.Position;
 import gomedic.model.userprofile.UserProfile;
 
 /**
@@ -20,8 +21,10 @@ import gomedic.model.userprofile.UserProfile;
  */
 public class SampleDataUtil {
     public static UserProfile getSampleUserProfile() {
-        return new UserProfile(new Name("User profile not set yet"),
-                new Description("Refer to profile command to set profile description"));
+        return new UserProfile(new Name("User profile name not set yet"),
+                new Position("User profile position not set yet"),
+                new Department("User profile department not set yet"),
+                new Organization("User profile organization not set yet"));
     }
     public static Doctor[] getSampleDoctors() {
         int idx = 1;
