@@ -140,7 +140,7 @@ public class AddressBookParser {
 
         case ProfileCommand.COMMAND_WORD:
             return new ProfileCommandParser().parse(arguments);
-            
+
         case ViewPatientCommand.COMMAND_WORD:
             return new ViewPatientParser().parse(arguments);
 
