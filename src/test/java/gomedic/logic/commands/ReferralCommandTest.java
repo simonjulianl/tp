@@ -1,7 +1,6 @@
 package gomedic.logic.commands;
 
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
