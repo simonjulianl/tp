@@ -1,8 +1,8 @@
 package gomedic.logic.commands;
 
-import static gomedic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static gomedic.model.UserPrefs.ROOT_FOLDER;
 import static gomedic.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,16 +32,15 @@ class ReferralCommandTest {
     }
 
     @Test
-    public void execute_listIsNotFiltered_success() {
-        assertCommandSuccess(new ReferralCommand(
-                        new Title("test"),
-                        new DoctorId(1),
-                        new PatientId(1),
-                        new Description("test")
-                ), model,
-                String.format(ReferralCommand.MESSAGE_SUCCESS, Paths.get(ROOT_FOLDER, "test" + ".pdf")
-                        .toAbsolutePath()),
-                expectedModel);
+    public void execute_referralCommand_success() {
+        ReferralCommand referralCommand = new ReferralCommand(
+                new Title("test"),
+                new DoctorId(1),
+                new PatientId(1),
+                new Description("test")
+        );
+
+        assertDoesNotThrow(() -> referralCommand.execute(model));
     }
 
     @Test
@@ -86,10 +85,7 @@ class ReferralCommandTest {
                 new Description("")
         );
 
-        assertCommandSuccess(referralCommand, model,
-                String.format(ReferralCommand.MESSAGE_SUCCESS, Paths.get(ROOT_FOLDER, "test" + ".pdf")
-                        .toAbsolutePath()),
-                expectedModel);
+        assertDoesNotThrow(() -> referralCommand.execute(model));
     }
 
     @Test
