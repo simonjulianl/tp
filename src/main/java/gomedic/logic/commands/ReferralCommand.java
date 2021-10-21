@@ -234,4 +234,25 @@ public class ReferralCommand extends Command {
                 .setFontSize(20f)
                 .setBold();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ReferralCommand)) {
+            return false;
+        }
+
+        // state check
+        ReferralCommand e = (ReferralCommand) other;
+
+        return doctorId.equals(e.doctorId)
+                && patientId.equals(e.patientId)
+                && path.equals(e.path)
+                && description.equals(e.description);
+    }
 }
