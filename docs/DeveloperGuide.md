@@ -192,6 +192,19 @@ Classes used by multiple components are in the `gomedic.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Suggestions feature
+
+#### Implementation
+
+The suggestions feature is facilitated by `Messages`. It is a class consisting of static immutable string messages for 
+various fixed error outputs for GoMedic. It implements the following operation:
+
+* `Messages#getSuggestions(String command)` — Returns suggested commands within GoMedic based on the incorrect command
+input.
+
+Given below is an activity diagram when a user provides an erroneous input.
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -451,6 +464,28 @@ _{Explain here how the data archiving feature will be implemented}_
 * 3a. User input an invalid command.
 
   Use case resumes at step 1.
+
+**Use Case: [UC4] - Adding a new appointment record**
+
+**MSS**
+
+1. User requests to add a new appointment record.
+2. GoMedic shows confirmation about the new appointment record being added, and displays details of the appointment and
+which patient it is scheduled with.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. Incomplete appointment details are given by users
+
+  * 1a1. GoMedic shows a feedback to the user about the missing data.
+
+    Use Case ends.
+* 1b. Patient which does not currently exist in the system is given.
+  * 1b1. GoMedic shows a feedback to the user about invalid patient
+  
+    Use Case ends.
 
 *{More to be added}*
 
