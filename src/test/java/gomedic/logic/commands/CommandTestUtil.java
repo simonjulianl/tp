@@ -478,7 +478,7 @@ public class CommandTestUtil {
 
         @Override
         public void viewPatient(Patient target) {
-            throw new AssertionError("This method should not be called.");
+            // noop
         }
     }
 }
