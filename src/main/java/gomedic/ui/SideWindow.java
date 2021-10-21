@@ -90,6 +90,8 @@ public class SideWindow extends UiPart<Region> {
                 setDoctorIndicator();
                 break;
             case 3:
+                // fall through
+            case 4:
                 setPatientIndicator();
                 break;
             default:

@@ -73,6 +73,7 @@ public class AddDoctorCommand extends Command {
         }
 
         model.addDoctor(toAdd);
+        model.viewPatient(null);
         model.setModelBeingShown(ModelItem.DOCTOR);
         model.updateFilteredDoctorList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

@@ -161,6 +161,20 @@ public interface Model {
      */
     boolean hasPatient(Patient patient);
 
+    /**
+     * Returns patient to be viewed.
+     *
+     * @return Patient to be viewed.
+     */
+    ObservableValue<Patient> getViewPatient();
+
+    /**
+     * Sets patientToView with the correct patient details.
+     *
+     * @param target Target patient with the correct details.
+     */
+    public void viewPatient(Patient target);
+
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
 

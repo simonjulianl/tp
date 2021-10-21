@@ -11,6 +11,7 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.ui.table.ActivityTable;
 import gomedic.ui.table.DoctorTable;
 import gomedic.ui.table.PatientTable;
+import gomedic.ui.view.PatientView;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private ActivityTable activityTable;
     private DoctorTable doctorTable;
     private PatientTable patientTable;
+    private PatientView patientView;
 
     private ResultDisplay resultDisplay;
     private SideWindow sideWindow;
@@ -105,6 +107,9 @@ public class MainWindow extends UiPart<Stage> {
             case 3:
                 modelListPanelPlaceholder.getChildren().add(patientTable.getRoot());
                 break;
+            case 4:
+                modelListPanelPlaceholder.getChildren().add(patientView.getRoot());
+                break;
             default:
                 // do nothing
                 break;
@@ -158,6 +163,7 @@ public class MainWindow extends UiPart<Stage> {
         activityTable = new ActivityTable(logic.getFilteredActivityListById());
         doctorTable = new DoctorTable(logic.getFilteredDoctorList());
         patientTable = new PatientTable(logic.getFilteredPatientList());
+        patientView = new PatientView(logic.getViewPatient(), logic.getFilteredActivityListByStartTime());
 
         // fill in the side window
         sideWindow = new SideWindow(logic.getModelBeingShown());
