@@ -8,6 +8,7 @@ import gomedic.logic.commands.Command;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
+import gomedic.logic.commands.ReferralCommand;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddAppointmentCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
@@ -144,6 +145,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ReferralCommand.COMMAND_WORD:
+            return new ReferralCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.getSuggestions(commandWord));

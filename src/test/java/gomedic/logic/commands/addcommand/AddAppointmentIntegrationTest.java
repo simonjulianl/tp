@@ -71,7 +71,7 @@ public class AddAppointmentIntegrationTest {
                         validAppointment.getTitle(),
                         validAppointment.getDescription()),
                 model,
-                AddAppointmentCommand.MESSAGE_MISSING_PATIENT
+                AddAppointmentCommand.MESSAGE_PATIENT_NOT_FOUND
         );
 
     }
