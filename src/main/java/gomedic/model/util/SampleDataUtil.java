@@ -21,10 +21,10 @@ import gomedic.model.userprofile.UserProfile;
  */
 public class SampleDataUtil {
     public static UserProfile getSampleUserProfile() {
-        return new UserProfile(new Name("User profile name not set yet"),
-                new Position("User profile position not set yet"),
-                new Department("User profile department not set yet"),
-                new Organization("User profile organization not set yet"));
+        return new UserProfile(new Name("Dr Rosalind Soo"),
+                new Position("Associate Consultant"),
+                new Department("Department of Cardiology"),
+                new Organization("National University Hospital"));
     }
     public static Doctor[] getSampleDoctors() {
         int idx = 1;
