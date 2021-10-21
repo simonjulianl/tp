@@ -13,6 +13,7 @@ import gomedic.commons.core.Messages;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
+import gomedic.logic.commands.ProfileCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.clearcommand.ClearActivityCommand;
 import gomedic.logic.commands.clearcommand.ClearCommand;
@@ -26,10 +27,12 @@ import gomedic.logic.commands.listcommand.ListPatientCommand;
 import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
+import gomedic.model.userprofile.UserProfile;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.CommandGenerationUtils;
 import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
 import gomedic.testutil.modelbuilder.DoctorBuilder;
+import gomedic.testutil.modelbuilder.UserProfileBuilder;
 
 public class AddressBookParserTest {
 
@@ -121,6 +124,16 @@ public class AddressBookParserTest {
     public void parseCommand_listActivity() throws Exception {
         assertTrue(parser.parseCommand(ListActivityCommand.COMMAND_WORD) instanceof ListActivityCommand);
         assertTrue(parser.parseCommand(ListActivityCommand.COMMAND_WORD + " 3") instanceof ListActivityCommand);
+    }
+
+    @Test
+    public void parseCommand_updateProfile() throws Exception {
+        UserProfile userProfile = new UserProfileBuilder().build();
+        ProfileCommand command =
+                (ProfileCommand) parser.parseCommand(ProfileCommand.COMMAND_WORD + " "
+                        + CliSyntax.PREFIX_NAME + userProfile.getName() + " "
+                        + CliSyntax.PREFIX_DESCRIPTION + userProfile.getDescription());
+        assertEquals(new ProfileCommand(userProfile.getName(), userProfile.getDescription()), command);
     }
 
     @Test

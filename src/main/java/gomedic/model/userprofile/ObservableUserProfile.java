@@ -46,7 +46,7 @@ public class ObservableUserProfile {
 
         if (other instanceof ObservableUserProfile) {
             ObservableUserProfile otherProfile = (ObservableUserProfile) other;
-            return internalUserProfile.equals(otherProfile.internalUserProfile);
+            return internalUserProfile.getValue().equals(otherProfile.internalUserProfile.getValue());
         }
 
         return false;
@@ -54,6 +54,6 @@ public class ObservableUserProfile {
 
     @Override
     public int hashCode() {
-        return internalUserProfile.hashCode();
+        return internalUserProfile.getValue().hashCode();
     }
 }

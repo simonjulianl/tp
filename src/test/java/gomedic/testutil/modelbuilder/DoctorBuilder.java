@@ -76,5 +76,4 @@ public class DoctorBuilder {
     public Doctor build() {
         return new Doctor(name, phone, did, department);
     }
-
 }

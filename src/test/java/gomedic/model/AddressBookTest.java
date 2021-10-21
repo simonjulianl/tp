@@ -16,6 +16,7 @@ import static gomedic.testutil.TypicalPersons.THIRD_DOCTOR;
 import static gomedic.testutil.TypicalPersons.THIRD_PATIENT;
 import static gomedic.testutil.TypicalPersons.getTypicalDoctors;
 import static gomedic.testutil.TypicalPersons.getTypicalPatients;
+import static gomedic.testutil.TypicalUserProfile.OTHER_PROFILE;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -74,6 +75,22 @@ public class AddressBookTest {
         AddressBook newData = TypicalPersons.getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
+    }
+
+    @Test
+    public void getUserProfile_defaultValue_success() {
+        assertEquals(addressBook.getUserProfile(), SampleDataUtil.getSampleUserProfile());
+    }
+
+    @Test
+    public void setUserProfile_newValue_valueUpdated() {
+        assertDoesNotThrow(() -> addressBook.setUserProfile(OTHER_PROFILE));
+        assertEquals(addressBook.getUserProfile(), OTHER_PROFILE);
+    }
+
+    @Test
+    public void getObservableUserProfile_defaultValue_isSame() {
+        assertEquals(addressBook.getObservableUserProfile().getValue(), SampleDataUtil.getSampleUserProfile());
     }
 
     @Test

@@ -308,6 +308,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
+                && getUserProfile().equals(((AddressBook) other).getUserProfile())
                 && getActivityListSortedById().equals(((AddressBook) other).getActivityListSortedById())
                 && getDoctorListSortedById().equals(((AddressBook) other).getDoctorListSortedById())
                 && getPatientListSortedById().equals(((AddressBook) other).getPatientListSortedById()));

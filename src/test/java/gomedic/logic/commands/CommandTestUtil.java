@@ -60,6 +60,15 @@ public class CommandTestUtil {
     public static final String VALID_DESC_DEPARTMENT_MAIN_DOCTOR = " " + CliSyntax.PREFIX_DEPARTMENT + "Pediatrics";
     public static final String VALID_DESC_DEPARTMENT_OTHER_DOCTOR = " " + CliSyntax.PREFIX_DEPARTMENT + "ENT";
 
+    /* valid constant declarations for profile related fields */
+    public static final String VALID_DESC_NAME_MAIN_PROFILE = " " + CliSyntax.PREFIX_NAME + "John Smith";
+    public static final String VALID_DESC_DESCRIPTION_MAIN_PROFILE =
+            " " + CliSyntax.PREFIX_DESCRIPTION
+                    + "This is my personal tracker for all work related activities and contacts";
+    public static final String VALID_DESC_NAME_OTHER_PROFILE = " " + CliSyntax.PREFIX_NAME + "new name";
+    public static final String VALID_DESC_DESCRIPTION_OTHER_PROFILE =
+            " " + CliSyntax.PREFIX_DESCRIPTION + "new description";
+
     /* invalid constants declarations for doctor related fields */
     public static final String INVALID_DESC_NAME_MAIN_DOCTOR = " " + CliSyntax.PREFIX_NAME + "John** Doe";
     public static final String INVALID_DESC_PHONE_MAIN_DOCTOR = " " + CliSyntax.PREFIX_PHONE + "not a number";

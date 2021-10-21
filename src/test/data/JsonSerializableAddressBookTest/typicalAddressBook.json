@@ -1,8 +1,8 @@
 {
   "_comment": "AddressBook save file which contains the same values as in TypicalPersons and TypicalActivities",
   "userProfile": {
-    "name" : "John Smith",
-    "description" : "This is my personal tracker for all work related activities and contacts"
+    "name" : "User profile not set yet",
+    "description" : "Refer to profile command to set profile description"
   },
   "activities": [
     {

@@ -25,7 +25,7 @@ public class ProfileCommand extends Command {
             + PREFIX_NAME + "John Smith "
             + PREFIX_DESCRIPTION + "This is my personal tracker for all work related activities and contacts";
 
-    public static final String MESSAGE_SUCCESS = "Profile updated!\n %1$s";
+    public static final String MESSAGE_SUCCESS = "Profile updated to:\n %1$s";
 
     private final Name name;
     private final Description description;
@@ -48,7 +48,7 @@ public class ProfileCommand extends Command {
 
         model.setUserProfile(replacementUserProfile);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, "From " + oldUserProfile + "\nTo " + replacementUserProfile));
+                String.format(MESSAGE_SUCCESS, replacementUserProfile));
     }
 
     @Override
