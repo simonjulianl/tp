@@ -55,6 +55,7 @@ public class DeletePatientCommand extends Command {
         model.viewPatient(null);
         model.setModelBeingShown(ModelItem.PATIENT);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
+        model.deletePatientAssociatedAppointments(patientToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete));
     }
 

@@ -13,10 +13,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import gomedic.model.commonfield.Time;
+import gomedic.model.person.patient.PatientId;
 
 class ActivityTest {
     private static Activity activity;
+    private static Activity appointment;
     private static ActivityId id;
+    private static PatientId patientId;
     private static Time startTime;
     private static Time endTime;
     private static Title title;
@@ -25,17 +28,24 @@ class ActivityTest {
     @BeforeAll
     public static void setUp() {
         id = new ActivityId(1);
+        patientId = new PatientId(1);
         startTime = new Time(LocalDateTime.of(2021, 10, 5, 5, 5));
         endTime = new Time(startTime.time.plusDays(1));
         title = new Title("Testing title");
         desc = new Description("Some dummy description");
 
         activity = new Activity(id, startTime, endTime, title, desc);
+        appointment = new Activity(id, patientId, startTime, endTime, title, desc);
     }
 
     @Test
-    void constructor_anyNull_throwsNullArgumentException() {
+    void constructor_anyActivityNull_throwsNullArgumentException() {
         assertThrows(NullPointerException.class, () -> new Activity(null, null, null, null, null));
+    }
+
+    @Test
+    void constructor_anyAppointmentNull_throwsNullArgumentException() {
+        assertThrows(NullPointerException.class, () -> new Activity(null, null, null, null, null, null));
     }
 
     @Test
@@ -46,6 +56,21 @@ class ActivityTest {
     @Test
     void constructor_sameTime_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new Activity(id, startTime, startTime, title, desc));
+    }
+
+    @Test
+    void getPatientId() {
+        assertEquals(patientId, appointment.getPatientId());
+    }
+
+    @Test
+    void checkIfAppointment() {
+        assertEquals(true, appointment.isAppointment());
+    }
+
+    @Test
+    void checkIfActivity() {
+        assertEquals(false, activity.isAppointment());
     }
 
     @Test
@@ -77,8 +102,11 @@ class ActivityTest {
     void testHashCode() {
         int hash = Objects.hash(id, startTime, endTime, desc, title);
         assertEquals(hash, activity.hashCode());
+        hash = Objects.hash(id, patientId, startTime, endTime, desc, title);
+        assertEquals(hash, appointment.hashCode());
     }
 
+    // should an activity and an appointment be equal?
     @Test
     void testEquals() {
         Activity otherAct = new Activity(new ActivityId(20), startTime, endTime, title, desc);
@@ -95,10 +123,16 @@ class ActivityTest {
     @Test
     void testToString() {
         assertEquals("A001; "
-                + "Title: Testing title;"
-                + " Desc: Some dummy description; "
-                + "Start Time: 05-10-2021 05:05"
-                + "; End Time: 06-10-2021 05:05", activity.toString());
+                + "Title: Testing title; "
+                + "Desc: Some dummy description; "
+                + "Start Time: 05-10-2021 05:05; "
+                + "End Time: 06-10-2021 05:05", activity.toString());
+        assertEquals("A001; "
+                + "Patient: P001; "
+                + "Title: Testing title; "
+                + "Desc: Some dummy description; "
+                + "Start Time: 05-10-2021 05:05; "
+                + "End Time: 06-10-2021 05:05", appointment.toString());
     }
 
     @Test

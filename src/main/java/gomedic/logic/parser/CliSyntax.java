@@ -9,6 +9,7 @@ public class CliSyntax {
     public static final String PREFIX_TYPE_DOCTOR = PREFIX_TYPE_AS_STRING + "doctor";
     public static final String PREFIX_TYPE_ACTIVITY = PREFIX_TYPE_AS_STRING + "activity";
     public static final String PREFIX_TYPE_PATIENT = PREFIX_TYPE_AS_STRING + "patient";
+    public static final String PREFIX_TYPE_APPOINTMENT = PREFIX_TYPE_AS_STRING + "appointment";
 
     /* General prefixes */
     public static final Prefix PREFIX_NAME = new Prefix("n/");

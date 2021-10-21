@@ -9,26 +9,32 @@ import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Time;
+import gomedic.model.person.patient.PatientId;
 
 public class JsonAdaptedActivity {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Activity's %s field is missing!";
 
     private final String id;
+    private final String patientId;
     private final String title;
     private final String description;
     private final String startTime;
     private final String endTime;
+    private final Boolean isAppointment;
 
     /**
-     * Constructs a {@code JsonAdaptedActivity} with the given activity details.
+     * Constructs a {@code JsonAdaptedActivity} with the given appointment details.
      */
     @JsonCreator
     public JsonAdaptedActivity(@JsonProperty("id") String id,
+                               @JsonProperty("patientId") String patientId,
                                @JsonProperty("title") String title,
                                @JsonProperty("description") String description,
                                @JsonProperty("startTime") String startTime,
                                @JsonProperty("endTime") String endTime) {
+        this.isAppointment = patientId != null;
         this.id = id;
+        this.patientId = patientId;
         this.title = title;
         this.description = description;
         this.startTime = startTime;
@@ -39,6 +45,13 @@ public class JsonAdaptedActivity {
      * Converts a given {@code Activity} into this class for Jackson use.
      */
     public JsonAdaptedActivity(Activity source) {
+        if (source.isAppointment()) {
+            patientId = source.getPatientId().toString();
+            isAppointment = true;
+        } else {
+            patientId = null;
+            isAppointment = false;
+        }
         id = source.getActivityId().toString();
         title = source.getTitle().toString();
         description = source.getDescription().toString();
@@ -107,6 +120,20 @@ public class JsonAdaptedActivity {
 
         final Time modelEndTime = new Time(endTime);
 
+        if (isAppointment) {
+            if (patientId == null) {
+                throw new IllegalValueException(String.format(
+                        MISSING_FIELD_MESSAGE_FORMAT, PatientId.class.getSimpleName()));
+            }
+
+            if (!PatientId.isValidPatientId(patientId)) {
+                throw new IllegalValueException(PatientId.MESSAGE_CONSTRAINTS);
+            }
+
+            final PatientId modelPatientId = new PatientId(patientId);
+
+            return new Activity(modelId, modelPatientId, modelStartTime, modelEndTime, modelTitle, modelDescription);
+        }
         return new Activity(modelId, modelStartTime, modelEndTime, modelTitle, modelDescription);
     }
 }

@@ -79,7 +79,6 @@ public class AddActivityParserTest {
                         expectedActivity.getEndTime(),
                         expectedActivity.getTitle(),
                         expectedActivity.getDescription()));
-
     }
 
     @Test

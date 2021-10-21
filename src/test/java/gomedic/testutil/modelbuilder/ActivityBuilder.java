@@ -5,6 +5,7 @@ import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Time;
+import gomedic.model.person.patient.PatientId;
 
 /**
  * A utility class to help with building Activity objects.
@@ -17,21 +18,25 @@ public class ActivityBuilder {
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
     public static final int DEFAULT_ID = 1;
 
-    private ActivityId aid;
+    private PatientId pId;
+    private ActivityId aId;
     private Time startTime;
     private Time endTime;
     private Title title;
     private Description description;
+    private boolean isAppointment;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code ActivityBuilder} with the default details. Default state is activity, unless specified.
      */
     public ActivityBuilder() {
-        aid = new ActivityId(DEFAULT_ID);
+        aId = new ActivityId(DEFAULT_ID);
         startTime = new Time(DEFAULT_START_TIME);
         endTime = new Time(DEFAULT_END_TIME);
         title = new Title(DEFAULT_TITLE);
         description = new Description(DEFAULT_DESCRIPTION);
+        pId = null;
+        isAppointment = false;
     }
 
 
@@ -71,12 +76,27 @@ public class ActivityBuilder {
      * Sets the {@code ActivityId} of the {@code id} that we are building.
      */
     public ActivityBuilder withId(int id) {
-        aid = new ActivityId(id);
+        aId = new ActivityId(id);
         return this;
     }
 
+    /**
+     * Sets the {@code ActivityId} of the {@code id} that we are building.
+     */
+    public ActivityBuilder withPatientId(int id) {
+        pId = new PatientId(id);
+        isAppointment = true;
+        return this;
+    }
 
+    /**
+     * Returns an Activity object of type activity or appointment.
+     *
+     * @return Activity object.
+     */
     public Activity build() {
-        return new Activity(aid, startTime, endTime, title, description);
+        return isAppointment
+                ? new Activity(aId, pId, startTime, endTime, title, description)
+                : new Activity(aId, startTime, endTime, title, description);
     }
 }

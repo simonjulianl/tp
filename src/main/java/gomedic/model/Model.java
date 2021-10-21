@@ -112,6 +112,12 @@ public interface Model {
     void deleteActivity(Activity target);
 
     /**
+     * Deletes appointments associated with a deleted patient.
+     * The patient may or may not have an appointment registered.
+     */
+    void deletePatientAssociatedAppointments(Patient associatedPatient);
+
+    /**
      * Sets an activity in the model with another activity.
      * The activity must exist in the address book.
      */
