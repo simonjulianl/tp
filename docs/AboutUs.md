@@ -7,9 +7,9 @@ We are a team based in the [School of Computing, National University of Singapor
 
 You can reach us at the email `seer[at]comp.nus.edu.sg`
 
-## Project team
+# Project team
 
-### Simon Julian Lauw
+## Simon Julian Lauw
 
 <img src="images/simonjulianl.png" width="200px">
 
@@ -20,7 +20,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead 
 * Responsibilities: Deliverables and deadlines  
 
-### Radian Krisno
+## Radian Krisno
 
 <img src="images/radiankrisno.png" width="200px">
 
@@ -30,7 +30,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Program structure
 
-### Yap Yuhang
+## Yap Yuhang
 
 <img src="images/yyhangz.png" width="200px">
 
@@ -39,7 +39,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Code quality
 
-### Ng Seng Leng
+## Ng Seng Leng
 
 <img src="images/ngsengleng.png" width="200px">
 
@@ -49,7 +49,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### Rama Venkatesh
+## Rama Venkatesh
 
 <img src="images/ramaven.png" width="200px">
 
