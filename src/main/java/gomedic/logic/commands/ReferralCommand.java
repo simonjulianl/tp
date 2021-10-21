@@ -13,19 +13,23 @@ import static java.util.Objects.requireNonNull;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.TextAlignment;
 
 import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Id;
-import gomedic.model.commonfield.Time;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 
@@ -34,6 +38,8 @@ public class ReferralCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Referral has been created at %s";
 
+    // TODO : Add my profile into the pdf
+    public static final Paragraph NEWLINE = new Paragraph("\n");
     private static final String EXAMPLE_MESSAGE =
             "It looks like there may be a small tear in his aorta.";
 
@@ -53,14 +59,12 @@ public class ReferralCommand extends Command {
     private final Id doctorId;
     private final Id patientId;
     private final Description description;
-    private final Title title;
     private final Path path;
 
     public ReferralCommand(Title title, Id doctorId, Id patientId, Description description) {
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.description = description;
-        this.title = title;
         path = Paths.get(ROOT_FOLDER, title + ".pdf");
     }
 
@@ -79,10 +83,8 @@ public class ReferralCommand extends Command {
             throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
         }
 
-        Time today = new Time(LocalDateTime.now());
-
-        generatePdf();
-        return new CommandResult(MESSAGE_SUCCESS);
+        generatePdf(specifiedDoctor, specifiedPatient);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, path.toAbsolutePath()));
     }
 
     private Patient getSpecifiedPatient(Model model) {
@@ -101,25 +103,135 @@ public class ReferralCommand extends Command {
                 .orElse(null);
     }
 
-    private void generatePdf() throws CommandException {
+    private void generatePdf(Doctor specifiedDoctor, Patient specifiedPatient) throws CommandException {
         try {
             PdfWriter writer = new PdfWriter(path.toAbsolutePath().toString());
             PdfDocument referral = new PdfDocument(writer);
 
+            referral.setTagged();
             referral.addNewPage();
 
-            createPdf(referral);
+            createPdf(referral, specifiedDoctor, specifiedPatient);
 
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_FAIL_TO_GENERATE_REFERRAL);
         }
     }
 
-    private void createPdf(PdfDocument referral) {
+    private void createPdf(PdfDocument referral,
+                           Doctor specifiedDoctor,
+                           Patient specifiedPatient) {
         Document document = new Document(referral);
-        String test = "Welcome to Tutorialspoint.";
-        Paragraph para = new Paragraph(test);
-        document.add(para);
+        document.setMargins(30f, 50f, 30f, 50f);
+
+        Paragraph title = getTitle();
+        title.getAccessibilityProperties().setRole(StandardRoles.H1);
+        document.add(title);
+        document.add(NEWLINE);
+
+        Paragraph date = getDate();
+        document.add(date);
+        document.add(NEWLINE);
+
+        Paragraph identity = getIdentity();
+        document.add(identity);
+        document.add(NEWLINE);
+
+        Paragraph salutation = getSalutation(specifiedDoctor);
+        document.add(salutation);
+        document.add(NEWLINE);
+
+        Paragraph bodyTemplate = getBodyTemplate(specifiedPatient);
+        document.add(bodyTemplate);
+        document.add(NEWLINE);
+
+        Paragraph signOff = getSignOff();
+        document.add(signOff);
+
         document.close();
+    }
+
+    private Paragraph getSignOff() {
+        // TODO : Edit the identity here
+        String signOff = "Thank you, \n" + "Simon Julian Lauw";
+        return new Paragraph(signOff)
+                .setFontSize(14f);
+    }
+
+    private Paragraph getSalutation(Doctor specifiedDoctor) {
+        String salutation = "Dear Dr." + specifiedDoctor.getName();
+        return new Paragraph(salutation)
+                .setFontSize(14f);
+    }
+
+    private Paragraph getBodyTemplate(Patient specifiedPatient) {
+        String objectPronoun = specifiedPatient.getGender().gender.equals("M") ? "Him" : "Her";
+        String subjectPronoun = specifiedPatient.getGender().gender.equals("M") ? "He" : "She";
+        String possessivePronoun = specifiedPatient.getGender().gender.equals("M") ? "His" : "Her";
+        String salutation = specifiedPatient.getGender().gender.equals("M") ? "Mr" : "Mrs/Ms";
+
+        String firstParaTemplate = "I would like to refer %s. %s to your clinic for a "
+                + "check-up as well as urgent treatment. "
+                + "%s is a %s years old with %s. "
+                + "I am afraid that I do not have the necessary resources "
+                + "to treat %s as %s requires according to %s condition. \n";
+
+        String secondParaTemplate = "\n %s \n" +
+                "\n Please kindly look into %s case and give %s the treatment required.";
+
+        String medicalConditions = specifiedPatient
+                .getMedicalConditions()
+                .stream()
+                .map(tag -> tag.toString().substring(1, tag.toString().length() - 1))
+                .collect(Collectors.joining(","));
+
+        String firstPara = String.format(firstParaTemplate,
+                salutation,
+                specifiedPatient.getName().fullName,
+                subjectPronoun,
+                specifiedPatient.getAge().age,
+                medicalConditions.toLowerCase(),
+                objectPronoun.toLowerCase(),
+                subjectPronoun.toLowerCase(),
+                possessivePronoun.toLowerCase()
+        );
+
+        String secondPara = String.format(secondParaTemplate,
+                description.toString(),
+                possessivePronoun.toLowerCase(),
+                objectPronoun.toLowerCase()
+        );
+
+        String overall = firstPara + secondPara;
+
+        return new Paragraph(overall)
+                .setFontSize(14f);
+    }
+
+    private Paragraph getIdentity() {
+        // TODO : add the identity from the profile later
+        String identity = "Simon Julian Lauw \n"
+                + "Software Engineers \n"
+                + "Department of Dermatology \n"
+                + "National University Hospital \n";
+
+        return new Paragraph(identity)
+                .setFontSize(14f);
+    }
+
+    private Paragraph getDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.ENGLISH);
+        String date = LocalDate.now().format(formatter);
+
+        return new Paragraph(date).setFontSize(14f);
+    }
+
+    private Paragraph getTitle() {
+        String title = "Medical Referral Letter";
+
+        return new Paragraph(title)
+                .setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(20f)
+                .setBold();
     }
 }
