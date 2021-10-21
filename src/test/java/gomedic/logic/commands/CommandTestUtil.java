@@ -170,6 +170,14 @@ public class CommandTestUtil {
     public static final String INVALID_DESC_DESCRIPTION =
             " " + CliSyntax.PREFIX_DESCRIPTION + "SOME LONG DESCRIPTION".repeat(1000);
 
+    /* Referral tests utility */
+    public static final String VALID_PATIENT_REFERRAL_ID =
+            " " + CliSyntax.PREFIX_PATIENT_ID + "P001";
+    public static final String VALID_DOCTOR_REFERRAL_ID =
+            " " + CliSyntax.PREFIX_DOCTOR_ID + "D001";
+    public static final String INVALID_PATIENT_REFERRAL_ID =
+            " " + CliSyntax.PREFIX_PATIENT_ID + "X001";
+
     public static final EditDoctorCommand.EditDoctorDescriptor DESC_MAIN_DOCTOR;
     public static final EditDoctorCommand.EditDoctorDescriptor DESC_OTHER_DOCTOR;
 
@@ -178,6 +186,7 @@ public class CommandTestUtil {
 
     public static final EditActivityCommand.EditActivityDescriptor DESC_MEETING;
     public static final EditActivityCommand.EditActivityDescriptor DESC_PAPER_REVIEW;
+
 
     static {
         DESC_MAIN_DOCTOR = new EditDoctorDescriptorBuilder().withName(TypicalPersons.MAIN_DOCTOR.getName().fullName)

@@ -42,4 +42,8 @@ public class CliSyntax {
     /* Prefix definitions for listing */
     public static final Prefix PREFIX_SORT_FLAG = new Prefix("s/");
     public static final Prefix PREFIX_PERIOD_FLAG = new Prefix("p/");
+
+    /* Specific id prefixes for Referral*/
+    public static final Prefix PREFIX_DOCTOR_ID = new Prefix("di/");
+    public static final Prefix PREFIX_PATIENT_ID = new Prefix("pi/");
 }

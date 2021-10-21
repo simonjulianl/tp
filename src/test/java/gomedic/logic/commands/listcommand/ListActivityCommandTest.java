@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import gomedic.logic.commands.Command;
-import gomedic.logic.commands.exceptions.CommandException;
 import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.UserPrefs;
@@ -41,7 +40,7 @@ class ListActivityCommandTest {
     }
 
     @Test
-    public void execute_listIsFilteredByStartTime_showsEverything() throws CommandException {
+    public void execute_listIsFilteredByStartTime_showsEverything() {
         showActivityAtIndex(model, INDEX_FIRST);
         Command command = new ListActivityCommand(ListActivityCommand.Sort.START,
                 ListActivityCommand.Period.ALL);
@@ -75,6 +74,6 @@ class ListActivityCommandTest {
         command = new ListActivityCommand(ListActivityCommand.Sort.START,
                 ListActivityCommand.Period.YEAR);
         Command finalCommand4 = command;
-        assertDoesNotThrow(() -> finalCommand3.execute(model));
+        assertDoesNotThrow(() -> finalCommand4.execute(model));
     }
 }
