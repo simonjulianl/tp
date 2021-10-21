@@ -20,12 +20,10 @@ import gomedic.model.person.patient.PatientId;
 
 class ReferralCommandTest {
     private Model model;
-    private Model expectedModel;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
     @Test
