@@ -79,6 +79,8 @@ public class MainWindow extends UiPart<Stage> {
         // 0 -> Activity, 1 -> Doctor, 2 -> Patient
         ObservableValue<Integer> modelItemBeingShown = logic.getModelBeingShown();
         modelItemBeingShown.addListener((obs, oldVal, newVal) -> {
+            logger.info("Request to show other models");
+
             modelListPanelPlaceholder.getChildren().clear();
             switch (newVal) {
             case 0:

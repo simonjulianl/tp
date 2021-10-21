@@ -48,6 +48,8 @@ public class ActivityTable extends UiPart<Region> {
      */
     public ActivityTable(ObservableList<Activity> activityList) {
         super(FXML);
+        logger.info("Setting up the activity table");
+
         activityTable.setItems(activityList);
         activityTable.setPlaceholder(new Label("No activities to display"));
 
