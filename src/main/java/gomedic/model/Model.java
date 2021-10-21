@@ -7,6 +7,7 @@ import gomedic.commons.core.GuiSettings;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.userprofile.UserProfile;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
@@ -54,6 +55,13 @@ public interface Model {
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
+
+    /**
+     * Replaces the user profile with the profile supplied {@code userProfile}.
+     *
+     * @param userProfile the new user profile to be set.
+     */
+    void setUserProfile(UserProfile userProfile);
 
     /**
      * Adds the given doctor.
@@ -161,6 +169,12 @@ public interface Model {
      */
     boolean hasPatient(Patient patient);
 
+    /** Returns a copy of the user profile */
+    UserProfile getUserProfile();
+
+    /** Returns an unmodifiable observable of the user profile */
+    ObservableValue<UserProfile> getObservableUserProfile();
+
     /**
      * Returns patient to be viewed.
      *
@@ -173,7 +187,7 @@ public interface Model {
      *
      * @param target Target patient with the correct details.
      */
-    public void viewPatient(Patient target);
+    void viewPatient(Patient target);
 
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();

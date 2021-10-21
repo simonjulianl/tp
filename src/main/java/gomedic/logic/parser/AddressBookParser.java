@@ -8,6 +8,7 @@ import gomedic.logic.commands.Command;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
+import gomedic.logic.commands.ProfileCommand;
 import gomedic.logic.commands.ReferralCommand;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
 import gomedic.logic.commands.addcommand.AddAppointmentCommand;
@@ -136,6 +137,9 @@ public class AddressBookParser {
 
         case ListPatientCommand.COMMAND_WORD:
             return new ListPatientCommand();
+
+        case ProfileCommand.COMMAND_WORD:
+            return new ProfileCommandParser().parse(arguments);
 
         case ViewPatientCommand.COMMAND_WORD:
             return new ViewPatientParser().parse(arguments);

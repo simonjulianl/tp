@@ -8,12 +8,11 @@
       xmlns:fx="http://javafx.com/fxml/1">
     <VBox fx:id="myId" VBox.vgrow="NEVER" minWidth="200" maxWidth="200">
         <Label style="-fx-font-size: 14pt;-fx-padding: 10 0 0 0;" fx:id="myName" alignment="BASELINE_CENTER"
-               text="Hi there! Nice to meet you!" wrapText="true"
+               wrapText="true" styleClass="label-bright"/>
+        <Label style="-fx-padding: 10 0 0 0;" fx:id="myPosition" wrapText="true"
                styleClass="label-bright"/>
-        <Label style="-fx-padding: 10 0 0 0;" fx:id="myPosition" text="Skin Specialist" wrapText="true"
-               styleClass="label-bright"/>
-        <Label fx:id="myDepartment" text="Department of Dermatology" wrapText="true" styleClass="label-bright"/>
-        <Label style="-fx-padding: 0 0 10 0;" fx:id="myOrganisation" text="National University Hospital" wrapText="true"
+        <Label fx:id="myDepartment" wrapText="true" styleClass="label-bright"/>
+        <Label style="-fx-padding: 0 0 10 0;" fx:id="myOrganization" wrapText="true"
                styleClass="label-bright"/>
     </VBox>
 

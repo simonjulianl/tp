@@ -1,18 +1,11 @@
 {
   "userProfile": {
-    "name" : "User profile name not set yet",
+    "name" : "There is a * in  my name",
     "position" : "User profile position not set yet",
     "department" : "User profile department not set yet",
     "organization" : "User profile organization not set yet"
   },
   "activities": [],
-  "doctors": [
-    {
-      "name": "There's a star in my name * LOL",
-      "phone": "99999999",
-      "id": "D001",
-      "department": "Cardiology"
-    }
-  ],
+  "doctors": [],
   "patients": []
 }

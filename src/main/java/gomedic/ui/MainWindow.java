@@ -166,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
         patientView = new PatientView(logic.getViewPatient(), logic.getFilteredActivityListByStartTime());
 
         // fill in the side window
-        sideWindow = new SideWindow(logic.getModelBeingShown());
+        sideWindow = new SideWindow(logic.getModelBeingShown(), logic.getObservableUserProfile());
         sideWindowPlaceholder.getChildren().add(sideWindow.getRoot());
 
         // by default, show the activity first
@@ -175,7 +175,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookRootFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(
+                logic.getAddressBookRootFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);

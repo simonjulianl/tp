@@ -1,5 +1,11 @@
 {
   "_comment": "AddressBook save file which contains the same values as in TypicalPersons and TypicalActivities",
+  "userProfile": {
+    "name" : "Dr Rosalind Soo",
+    "position" : "Associate Consultant",
+    "department" : "Department of Cardiology",
+    "organization" : "National University Hospital"
+  },
   "activities": [
     {
       "id": "A001",

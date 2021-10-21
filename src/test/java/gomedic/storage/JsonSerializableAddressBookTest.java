@@ -17,6 +17,8 @@ public class JsonSerializableAddressBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_ADDRESS_BOOK_FILE = TEST_DATA_FOLDER.resolve("typicalAddressBook.json");
+    private static final Path INVALID_USER_PROFILE_FILE =
+            TEST_DATA_FOLDER.resolve("invalidUserProfileAddressBook.json");
     private static final Path INVALID_PATIENT_FILE = TEST_DATA_FOLDER.resolve("invalidPatientAddressBook.json");
     private static final Path INVALID_DOCTOR_FILE = TEST_DATA_FOLDER.resolve("invalidDoctorAddressBook.json");
     private static final Path INVALID_ACTIVITY_FILE = TEST_DATA_FOLDER.resolve("invalidActivityAddressBook.json");
@@ -55,6 +57,14 @@ public class JsonSerializableAddressBookTest {
     @Test
     public void toModelType_invalidActivity_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_ACTIVITY_FILE,
+                JsonSerializableAddressBook.class).get();
+
+        Assert.assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidUserProfile_throwsIllegalValueException() throws Exception {
+        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_USER_PROFILE_FILE,
                 JsonSerializableAddressBook.class).get();
 
         Assert.assertThrows(IllegalValueException.class, dataFromFile::toModelType);

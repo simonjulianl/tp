@@ -16,6 +16,7 @@ import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.userprofile.UserProfile;
 import gomedic.storage.Storage;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -61,6 +62,16 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
+    }
+
+    @Override
+    public UserProfile getUserProfile() {
+        return model.getUserProfile().copy();
+    }
+
+    @Override
+    public ObservableValue<UserProfile> getObservableUserProfile() {
+        return model.getObservableUserProfile();
     }
 
     @Override
