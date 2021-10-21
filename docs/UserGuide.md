@@ -36,7 +36,7 @@ formatting, etc.
     * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O p/12345678 o/heart-failure o/diabetes`** : Adds a contact
       named `John Doe` to the Address Book.
 
-    * **`delete t/patient i/P001`** : Deletes the patient whose id is P001.
+    * **`delete t/patient P001`** : Deletes the patient whose id is P001.
 
     * **`clear`** : Deletes all contacts including patients, doctors, and activities.
 
@@ -128,11 +128,11 @@ Examples:
 
 Deletes a patient from the GoMedic application.
 
-Format: `delete t/patient i/PATIENT_ID`
+Format: `delete t/patient PATIENT_ID`
 
 The parameters are :
 
-* `i/PATIENT_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
+* `PATIENT_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
 
 Notes: 
 
@@ -143,7 +143,7 @@ Notes:
 
 Examples:
 
-* `delete t/patient i/P001`
+* `delete t/patient P001`
 
 ### Updating an existing patient: `edit t/patient`
 
@@ -215,11 +215,11 @@ Examples:
 
 Deletes a doctor from the GoMedic application.
 
-Format: `delete t/doctor i/DOCTOR_ID`
+Format: `delete t/doctor DOCTOR_ID`
 
 The parameters are:
 
-* `i/DOCTOR_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
+* `DOCTOR_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
 
 Notes: 
 
@@ -230,7 +230,7 @@ Notes:
 
 Examples:
 
-* `delete t/doctor i/D001`
+* `delete t/doctor D001`
 
 ### Updating an existing doctor: `edit t/doctor`
 
@@ -292,10 +292,10 @@ Examples:
 
 Delete a certain existing activity
 
-Format: `delete t/activity i/ACTIVITY_ID`
+Format: `delete t/activity ACTIVITY_ID`
 
 The parameters are: 
-* `i/ACTIVITY_ID` indicates the ID number of the activity which is assigned when a new activity is added.
+* `ACTIVITY_ID` indicates the ID number of the activity which is assigned when a new activity is added.
 
 Note: 
 * Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time
@@ -306,7 +306,7 @@ Note:
 
 Examples:
 
-* `delete t/activity i/A123`
+* `delete t/activity A123`
 
 ### List all activities: `list t/activity`
 
@@ -433,7 +433,7 @@ the data of your previous GoMedic home folder.
 Action        | Format                                            | Examples                                             |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 **Add**       | `add {type} {PARAMETERS}`                         | `add t/doctor n/Timmy Tom p/98765432 de/neurology`   |
-**Delete**    | `delete {type} i/{type}_ID`                       | `delete t/patient i/P003`                            |
+**Delete**    | `delete {type} {type}_ID`                         | `delete t/patient P003`                              |
 **Edit**      | `edit {type} i/{type}_ID [OPTIONAL PARAMETER]...` | `edit t/patient i/P123 n/John Doe a/30 g/M`          |
 **Find**      | `find [OPTIONAL_PARAMATERS]...`                   | `find ta/important ti/tutorial`                      |
 **View**      | `view t/patient i/PATIENT_ID`                     | `view t/patient i/P003`                              |
