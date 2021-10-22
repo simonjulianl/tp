@@ -30,7 +30,7 @@ return doctorList
 
 return doctor
 
-ReferralCommand -> ReferralCommand : getSpecifiedDoctor()
+ReferralCommand -> ReferralCommand : getSpecifiedPatient()
 activate ReferralCommand
 
 ReferralCommand -> Model : getFilteredPatientList()
@@ -45,7 +45,7 @@ activate ReferralCommand
 create Document
 ReferralCommand -> Document
 activate Document
-return pdfDocument
+return
 
 ReferralCommand -> Document: writeData(doctor, patient)
 
@@ -55,14 +55,23 @@ note over Model, CommandResult
 end note
 
 activate Document
-return pdfDocument
+return
+
+ReferralCommand -> Document : close()
+activate Document
+deactivate Document
 
 'Show destructor'
 ReferralCommand -[hidden]-> Document
 destroy Document
 return
 
+create CommandResult
+ReferralCommand -> CommandResult
+activate CommandResult
 return
+
+return command result
 
 'Show destructor'
 LogicManager -[hidden]-> ReferralCommand
