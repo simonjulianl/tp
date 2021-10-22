@@ -11,6 +11,7 @@ import gomedic.logic.parser.exceptions.ParseException;
 import gomedic.ui.table.ActivityTable;
 import gomedic.ui.table.DoctorTable;
 import gomedic.ui.table.PatientTable;
+import gomedic.ui.view.PatientView;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -39,8 +41,10 @@ public class MainWindow extends UiPart<Stage> {
     private ActivityTable activityTable;
     private DoctorTable doctorTable;
     private PatientTable patientTable;
+    private PatientView patientView;
 
     private ResultDisplay resultDisplay;
+    private SideWindow sideWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -57,6 +61,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane sideWindowPlaceholder;
+
+    @FXML
+    private HBox mainWindow;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -76,9 +86,11 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
 
         // Value to indicate what model is currently being shown.
-        // 0 -> Activity, 1 -> Doctor, 2 -> Patient
+        // 0 -> Activity, 1 -> Activity by Start Time, 2 -> Doctor, 3 -> Patient
         ObservableValue<Integer> modelItemBeingShown = logic.getModelBeingShown();
         modelItemBeingShown.addListener((obs, oldVal, newVal) -> {
+            logger.info("Request to show other models");
+
             modelListPanelPlaceholder.getChildren().clear();
             switch (newVal) {
             case 0:
@@ -94,6 +106,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case 3:
                 modelListPanelPlaceholder.getChildren().add(patientTable.getRoot());
+                break;
+            case 4:
+                modelListPanelPlaceholder.getChildren().add(patientView.getRoot());
                 break;
             default:
                 // do nothing
@@ -148,6 +163,11 @@ public class MainWindow extends UiPart<Stage> {
         activityTable = new ActivityTable(logic.getFilteredActivityListById());
         doctorTable = new DoctorTable(logic.getFilteredDoctorList());
         patientTable = new PatientTable(logic.getFilteredPatientList());
+        patientView = new PatientView(logic.getViewPatient(), logic.getFilteredActivityListByStartTime());
+
+        // fill in the side window
+        sideWindow = new SideWindow(logic.getModelBeingShown(), logic.getObservableUserProfile());
+        sideWindowPlaceholder.getChildren().add(sideWindow.getRoot());
 
         // by default, show the activity first
         modelListPanelPlaceholder.getChildren().add(activityTable.getRoot());
@@ -155,7 +175,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookRootFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(
+                logic.getAddressBookRootFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);

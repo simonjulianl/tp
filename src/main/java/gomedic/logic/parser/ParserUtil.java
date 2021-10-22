@@ -27,6 +27,8 @@ import gomedic.model.person.patient.Height;
 import gomedic.model.person.patient.PatientId;
 import gomedic.model.person.patient.Weight;
 import gomedic.model.tag.Tag;
+import gomedic.model.userprofile.Organization;
+import gomedic.model.userprofile.Position;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -92,6 +94,36 @@ public class ParserUtil {
             throw new ParseException(Department.MESSAGE_CONSTRAINTS);
         }
         return new Department(trimmedDepartment);
+    }
+
+    /**
+     * Parses a {@code String position} into a {@code Position}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code position} is invalid.
+     */
+    public static Position parsePosition(String position) throws ParseException {
+        requireNonNull(position);
+        String trimmedPosition = position.trim();
+        if (!Position.isValidPositionName(trimmedPosition)) {
+            throw new ParseException(Position.MESSAGE_CONSTRAINTS);
+        }
+        return new Position(trimmedPosition);
+    }
+
+    /**
+     * Parses a {@code String organization} into a {@code Organization}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code organization} is invalid.
+     */
+    public static Organization parseOrganization(String organization) throws ParseException {
+        requireNonNull(organization);
+        String trimmedOrganization = organization.trim();
+        if (!Organization.isValidOrganizationName(trimmedOrganization)) {
+            throw new ParseException(Organization.MESSAGE_CONSTRAINTS);
+        }
+        return new Organization(trimmedOrganization);
     }
 
     /**

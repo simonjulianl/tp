@@ -48,6 +48,8 @@ public class ActivityTable extends UiPart<Region> {
      */
     public ActivityTable(ObservableList<Activity> activityList) {
         super(FXML);
+        logger.info("Setting up the activity table");
+
         activityTable.setItems(activityList);
         activityTable.setPlaceholder(new Label("No activities to display"));
 
@@ -56,10 +58,10 @@ public class ActivityTable extends UiPart<Region> {
         idField.setSortable(true);
 
         // make the startTime and endTime sortable
-        startTimeField.setSortType(TableColumn.SortType.ASCENDING); // TODO : Write the custom sorting comparator
+        startTimeField.setSortType(TableColumn.SortType.ASCENDING);
         startTimeField.setSortable(true);
 
-        endTimeField.setSortType(TableColumn.SortType.ASCENDING); // TODO : Write the custom sorting comparator
+        endTimeField.setSortType(TableColumn.SortType.ASCENDING);
         endTimeField.setSortable(true);
     }
 }

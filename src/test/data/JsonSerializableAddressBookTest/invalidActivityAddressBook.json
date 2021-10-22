@@ -1,4 +1,10 @@
 {
+  "userProfile": {
+    "name" : "User profile name not set yet",
+    "position" : "User profile position not set yet",
+    "department" : "User profile department not set yet",
+    "organization" : "User profile organization not set yet"
+  },
   "activities": [
     {
       "id": "A001",

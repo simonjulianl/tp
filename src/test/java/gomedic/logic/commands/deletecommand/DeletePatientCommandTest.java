@@ -56,7 +56,7 @@ public class DeletePatientCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePatient(patientToDelete);
         expectedModel.deletePatientAssociatedAppointments(patientToDelete);
-        showNoPatient(expectedModel);
+
         CommandTestUtil.assertCommandSuccess(deletePatientCommand, model, expectedMessage, expectedModel);
     }
 

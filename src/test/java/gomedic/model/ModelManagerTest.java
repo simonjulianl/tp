@@ -4,6 +4,7 @@ import static gomedic.testutil.TypicalPersons.MAIN_DOCTOR;
 import static gomedic.testutil.TypicalPersons.MAIN_PATIENT;
 import static gomedic.testutil.TypicalPersons.OTHER_DOCTOR;
 import static gomedic.testutil.TypicalPersons.OTHER_PATIENT;
+import static gomedic.testutil.TypicalUserProfile.OTHER_PROFILE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -23,6 +24,7 @@ import gomedic.model.commonfield.exceptions.MaxAddressBookCapacityReached;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 import gomedic.model.util.NameContainsKeywordsPredicate;
+import gomedic.model.util.SampleDataUtil;
 import gomedic.testutil.AddressBookBuilder;
 import gomedic.testutil.Assert;
 import gomedic.testutil.TypicalActivities;
@@ -290,5 +292,21 @@ public class ModelManagerTest {
     @Test
     void setModelBeingShown_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setModelBeingShown(null));
+    }
+
+    @Test
+    void getObservableUserProfile_defaultValue() {
+        assertEquals(SampleDataUtil.getSampleUserProfile(), modelManager.getObservableUserProfile().getValue());
+    }
+
+    @Test
+    void setUserProfile_validInput_testPassed() {
+        modelManager.setUserProfile(OTHER_PROFILE);
+        assertEquals(OTHER_PROFILE, modelManager.getObservableUserProfile().getValue());
+    }
+
+    @Test
+    void setUserProfile_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setUserProfile(null));
     }
 }

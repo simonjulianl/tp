@@ -11,6 +11,7 @@ import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.userprofile.UserProfile;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
@@ -34,6 +35,12 @@ public interface Logic {
      * @see Model#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns a copy of the user profile */
+    UserProfile getUserProfile();
+
+    /** Returns an unmodifiable singleton list of the user profile */
+    ObservableValue<UserProfile> getObservableUserProfile();
 
     /** Returns an unmodifiable view of the filtered list of patients */
     ObservableList<Patient> getFilteredPatientList();
@@ -69,4 +76,11 @@ public interface Logic {
      * 2 -> patient
      */
     ObservableValue<Integer> getModelBeingShown();
+
+    /**
+     * Returns patient to be viewed.
+     *
+     * @return Patient to be viewed.
+     */
+    ObservableValue<Patient> getViewPatient();
 }
