@@ -4,5 +4,6 @@ public enum ModelItem {
     ACTIVITY_ID,
     ACTIVITY_START_TIME,
     DOCTOR,
-    PATIENT
+    PATIENT,
+    VIEW_PATIENT
 }

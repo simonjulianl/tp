@@ -148,6 +148,6 @@ public class PatientTest {
             + " Gender: M;"
             + " Height: 175;"
             + " Weight: 70;"
-            + " Medical conditions: [heart failure]", patient.toString());
+            + " Medical conditions: heart failure", patient.toString());
     }
 }

@@ -3,7 +3,7 @@ layout: page
 title: Developer Guide
 ---
 
-* Table of Contents 
+* Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -117,15 +117,15 @@ Here's a (partial) class diagram of the `Logic` component:
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
-2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is
-   executed by the `LogicManager`.
-3. The command can communicate with the `Model` when it is executed (e.g. to add a person).
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddPatientCommand`
+   which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
-The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API
-call.
+The Sequence Diagram below illustrates the interactions within the `Logic` component for the
+`execute("delete t/patient P001")` API call.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `delete t/patient P001` Command](images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
@@ -205,6 +205,47 @@ input.
 Given below is a sequence diagram when a user provides an erroneous input, "adl t/patent".
 
 ![SuggestionsSequenceDiagram](images/SuggestionsSequenceDiagram.png)
+
+### Generating Medical Referral Feature 
+
+This feature allows GoMedic users to generate medical referral for a uniquely identified patient identified by his/her `PatientId` to other
+doctor that is already saved in the GoMedic application and would be uniquely identified by his/her 
+`DoctorId`.
+
+This feature can be accessed using `referral` command which has parameters of `ti/Title`, `di/DoctorId`, `pi/PatiendId` and optional 
+description which can be added using `d/Description` flag. 
+
+_This feature uses **iText Java Pdf writer library** to generate the medical referral document._  
+
+**Workflow**
+
+For illustration purposes, suppose the user enters the command:
+
+`referral ti/Referral of Patient A di/D001 pi/P001 d/He is having internal bleeding, need urgent attention.`
+
+<div markdown="span" class="alert alert-info">:information_source:
+**Note:** the doctor id and patient id does not need to conform the `DXXX` and `PXXX` format in this case. However, should the supplied ids are invalid,
+GoMedic would be unable to find the doctor and the patient, and would show the feedback patient/doctor not found message to the user.
+</div>
+
+Once the user enter the command is entered:
+
+1. The `LogicManager` class would execute the input as `String`
+2. The `AddressBookParser` is responsible for calling the relevant parser (in this case, `ReferralCommandParser`) according to the command keyword (which is `referral`)
+3. The `ReferralCommandParser` would parse and check the parameters being supplied and eventually returning in to `LogicManager` 
+
+![ReferralCommandCreation](images/referral/ReferralCommandCreation.png)
+
+After the `LogicManager` receives the new `ReferralCommand` object, 
+
+1. The `LogicManager` would calle the execute method of `ReferralCommand` and passes the `Model` 
+2. The `ReferralCommand` then would call the appropriate data from the `Model` such as the `Doctor` and `Patient`
+3. After the patient and doctor data are ready, the `Document` provided by the `iText` library would be created and `Doctor` and `Patient` field would replaces 
+the placeholders in the medical referral template. 
+
+![ReferralCommandCreation](images/referral/ReferralCommandExecution.png)
+
+Finally, the pdf object is written into the `data/` folder whose filename is the same of that of the `title` (i.e. _title_.pdf
 
 ### \[Proposed\] Undo/redo feature
 
@@ -301,7 +342,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
+## \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
 
@@ -342,8 +383,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### User stories
 
-#### Priorities:
-
+**Priorities:**
 * **High (must have)** - `* * *`
 * **Medium (nice to have)** - `* *`
 * **Low (unlikely to have)** - `*`
@@ -368,22 +408,20 @@ _{Explain here how the data archiving feature will be implemented}_
 | `* * *`  | busy user                                  | add new activities such as meeting with colleagues         |  so that I can remember my schedules today with and be reminded of them in the future
 | `* * *`  | user                                       | delete existing appointments with my patients              | remove appointments that are no longer happening                |
 | `* * *`  | user                                       | delete any existing activity                               | remove activities that are no longer happening and free my schedules up                                                 |
-| `* * *`  | organized user                                  | list all my future appointments with a certain patient     | plan my schedules and track the appointments                                                 |
+| `* *  `  | organized user                             | list all my future appointments with a certain patient     | plan my schedules and track the appointments                                                 |
 | `* * *`  | organized user                             | list all my future activities                              | know my schedules and plan future activities accordingly                           |
-| `* * *`  | busy user                                  | be reminded of my patients' appointment 15 minutes before the schedule             | prepare myself for the appointment                         |
-| `* * *`  | busy user                                  | be reminded of my daily schedule when the app is started / at the start of the day |   know what I will be doing for the day and plan ahead                          |
-| `* * *`  | forgetful user                             | search for specific activities and appointments within a specific time frame       | plan ahead and focus on those time slots only                         |
-| `* * `   | organized user                             | change the reminder settings (minutes)                     | tailor it according to my preference                         |
+| `*    `  | busy user                                  | be reminded of my patients' appointment 15 minutes before the schedule             | prepare myself for the appointment                         |
+| `*    `  | busy user                                  | be reminded of my daily schedule when the app is started / at the start of the day |   know what I will be doing for the day and plan ahead                          |
+| `* *  `  | forgetful user                             | search for specific activities and appointments within a specific time frame       | plan ahead and focus on those time slots only                         |
+| `*    `  | organized user                             | change the reminder settings (minutes)                     | tailor it according to my preference                         |
 
 #### [EPIC] Information Retrieval and Organization
 
 | Priority | As a …​                                 | I want to …​                                                        | So that I can…​                                                        |
 | -------- | ------------------------------------------ | -----------------------------------------------------------------------| --------------------------------------------------------------------------|
-| `* * *`  | experienced user                           | write custom tags for activities stored                                | group the activities according to my choices
-| `* * *`  | experienced user                           | search for activities based on tags                                    | retrieve certain grouped activities very fast such as meetings and visitations
+| `*    `  | experienced user                           | search for activities based on its title and description               | retrieve certain grouped activities very fast such as meetings and visitations
 | `* * *`  | busy user                                  | search for patients whose details contain a user-specified substring   | retrieve certain patients that I don't really remember which fields where the details are stored at
 | `* * *`  | busy user                                  | search for doctors whose details contain a user-specified substring    | retrieve my colleague details without any need to remember which fields the data are stored at
-| `* * `   | forgetful user                             | compare patients with similar medical histories                        | refer to them when I make new diagnosis on future patients
 
 #### [EPIC] Misc Helpful Features
 
@@ -392,7 +430,7 @@ _{Explain here how the data archiving feature will be implemented}_
 | `* * *`  | new and forgetful user                     | pull up a list of commands                                             | pick the right commands quickly
 | `* * *`  | new user                                   | sample entries in the app                                              | know how the app would look like when I would populate it with my data
 | `* * *`  | new user                                   | have suggestions on typo that I made on commands                       | learn from my mistakes and correct it quickly
-| `* *`  | fickle user                                | have the app accept multiple fixed ways to write dates and times       | do not need to remember the correct format all the time
+| `* *`    | fickle user                                | have the app accept multiple fixed ways to write dates and times       | do not need to remember the correct format all the time
 
 *{More to be added}*
 
@@ -525,7 +563,7 @@ which patient it is scheduled with.
 * **DBMS** : Database Management System such as MySQL, Oracle, PSQL, MongoDB, etc.
 * **JAR** : Java Archive file format, which is typically used to aggregate many Java class files and associated metadata
   into one file for distribution.
-* **typical usage/searches** : Finding by keyword, name, medical histories, and any combination of the field manually.
+* **Typical usage/searches** : Finding by keyword, name, medical histories, and any combination of the field manually.
 * **Object-Oriented Paradigm** : programming paradigm that organizes software design around objects rather than
   functions and logic. For complete list of Features that OO design should have,
   please [visit this wikipedia page](https://en.wikipedia.org/wiki/Object-oriented_programming)
@@ -576,6 +614,21 @@ testers are expected to do more *exploratory* testing.
        Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Finding a patient, doctor or activity
+1. Searching for a person
+    1. Prerequisite: List the patients, doctors, or activities based on which one you wish to see, using the `list` command.
+    eg. `list t/doctor` or `list t/patient` or `list t/activity`.
+       
+    2. Test case: eg. `find t/patient n/Joe`
+        Expected: All patients whose names contain the substring "Joe" (case-insensitive) will be displayed.
+       
+    3. Test case: eg. `find t/activity ti/Meeting`
+        Expected: All activities whose title or description contains the substring "Meeting" (case-insensitive) will be displayed. 
+       
+    4. Other incorrect find commands to try: `find t\patient Joe` 
+        Expected: Error message as a flag is not specified prior to the keyword. 
+   
 
 ### Saving data
 

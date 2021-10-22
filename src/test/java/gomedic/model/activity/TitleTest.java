@@ -20,6 +20,11 @@ class TitleTest {
     }
 
     @Test
+    public void invalidTitle_empty_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Title(""));
+    }
+
+    @Test
     public void toString_validString_testPassed() {
         String text = "test";
         assertEquals(new Title(text).toString(), text);

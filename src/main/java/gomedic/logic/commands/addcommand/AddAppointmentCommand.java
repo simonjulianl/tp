@@ -42,7 +42,7 @@ public class AddAppointmentCommand extends Command {
             + PREFIX_ID + "P001 "
             + PREFIX_START_TIME + "15/09/2022 14:00 "
             + PREFIX_END_TIME + "15/09/2022 15:00 "
-            + PREFIX_TITLE + "Appointment with POO1 "
+            + PREFIX_TITLE + "Appointment with P001 "
             + PREFIX_DESCRIPTION + "Follow-up from tuesday's appointment.";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
@@ -50,8 +50,12 @@ public class AddAppointmentCommand extends Command {
             "This Activity already exists in the address book, duplicate id";
     public static final String MESSAGE_CONFLICTING_ACTIVITY =
             "There exists an activity that overlaps with this activity's timing of this activity.";
-    public static final String MESSAGE_MISSING_PATIENT =
+    public static final String MESSAGE_PATIENT_NOT_FOUND =
             "No such patient exists within your records.";
+    public static final String MESSAGE_DOCTOR_NOT_FOUND =
+            "No such doctor exists within your records.";
+    public static final String MESSAGE_FAIL_TO_GENERATE_REFERRAL =
+            "So sorry, GoMedic cannot generate the referral :(";
 
     private final PatientId patientId;
     private final Time startTime;
@@ -81,7 +85,7 @@ public class AddAppointmentCommand extends Command {
         // patient does not exist in directory
         if (listOfPatients.isEmpty()
                 || listOfPatients.filtered(x -> x.getId().getIdNumber() == patientId.getIdNumber()).isEmpty()) {
-            throw new CommandException(MESSAGE_MISSING_PATIENT);
+            throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
         }
 
         Activity toAdd = new Activity(
@@ -101,6 +105,7 @@ public class AddAppointmentCommand extends Command {
         }
 
         model.addActivity(toAdd);
+        model.viewPatient(null);
         model.setModelBeingShown(ModelItem.ACTIVITY_ID);
         model.updateFilteredActivitiesList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

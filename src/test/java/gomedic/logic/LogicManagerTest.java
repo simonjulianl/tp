@@ -27,6 +27,7 @@ import gomedic.model.UserPrefs;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.util.SampleDataUtil;
 import gomedic.storage.JsonAddressBookStorage;
 import gomedic.storage.JsonUserPrefsStorage;
 import gomedic.storage.StorageManager;
@@ -239,6 +240,11 @@ public class LogicManagerTest {
         String listCommand = ListDoctorCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListDoctorCommand.MESSAGE_SUCCESS, model);
         assertEquals(ModelItem.DOCTOR.ordinal(), logic.getModelBeingShown().getValue());
+    }
+
+    @Test
+    void getUserProfile_defaultValue_testPassed() {
+        assertEquals(SampleDataUtil.getSampleUserProfile(), logic.getUserProfile());
     }
 
     /**

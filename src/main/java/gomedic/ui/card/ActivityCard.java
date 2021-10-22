@@ -12,7 +12,6 @@ import javafx.scene.layout.Region;
  */
 public class ActivityCard extends UiPart<Region> {
 
-    // TODO: this class is an artifact and should be deleted
     private static final String FXML = "ActivityListCard.fxml";
 
     /**

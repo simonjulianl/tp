@@ -13,8 +13,10 @@ import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
 import gomedic.model.person.patient.PatientId;
+import gomedic.model.userprofile.UserProfile;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -35,6 +37,8 @@ public class ModelManager implements Model {
     private final ObservableValue<Integer> modelItemBeingShown = internalModelItemBeingShown; // immutable
     private final FilteredList<Activity> filteredActivitiesById;
     private final FilteredList<Activity> filteredActivitiesByStartTime;
+    private final ObjectProperty<Patient> internalPatientToView = new SimpleObjectProperty<>(null);
+    private final ObservableValue<Patient> patientToView = internalPatientToView;
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
@@ -125,6 +129,22 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredActivitiesById.setPredicate(predicate);
         filteredActivitiesByStartTime.setPredicate(predicate);
+    }
+
+    @Override
+    public void setUserProfile(UserProfile userProfile) {
+        requireNonNull(userProfile);
+        addressBook.setUserProfile(userProfile.copy());
+    }
+
+    @Override
+    public UserProfile getUserProfile() {
+        return addressBook.getUserProfile();
+    }
+
+    @Override
+    public ObservableValue<UserProfile> getObservableUserProfile() {
+        return addressBook.getObservableUserProfile();
     }
 
     @Override
@@ -240,6 +260,16 @@ public class ModelManager implements Model {
     @Override
     public void setPatient(Patient oldPatient, Patient replacementPatient) {
         addressBook.setPatient(oldPatient, replacementPatient);
+    }
+
+    @Override
+    public void viewPatient(Patient target) {
+        internalPatientToView.setValue(target);
+    }
+
+    @Override
+    public ObservableValue<Patient> getViewPatient() {
+        return patientToView;
     }
 
     @Override

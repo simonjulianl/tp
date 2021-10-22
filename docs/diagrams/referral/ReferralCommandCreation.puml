@@ -1,0 +1,48 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ReferralCommandParser" as ReferralCommandParser LOGIC_COLOR
+participant "r:ReferralCommand" as ReferralCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("referral ...")
+note right
+  the ... implies the parameters being supplied
+end note
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("referral ...")
+activate AddressBookParser
+
+create ReferralCommandParser
+AddressBookParser -> ReferralCommandParser
+activate ReferralCommandParser
+
+ReferralCommandParser --> AddressBookParser
+deactivate ReferralCommandParser
+
+AddressBookParser -> ReferralCommandParser : parse("...")
+activate ReferralCommandParser
+
+create ReferralCommand
+ReferralCommandParser -> ReferralCommand
+activate ReferralCommand
+
+ReferralCommand --> ReferralCommandParser : r
+deactivate ReferralCommand
+
+ReferralCommandParser --> AddressBookParser : r
+deactivate ReferralCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ReferralCommandParser -[hidden]-> AddressBookParser
+destroy ReferralCommandParser
+
+AddressBookParser --> LogicManager : r
+deactivate AddressBookParser
+
+ref over LogicManager, ReferralCommand : Referral Command Creation
+
+@enduml
