@@ -1,6 +1,11 @@
 package gomedic.commons.core;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,7 +26,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_DOCTOR_ID = "The doctor id doesn't exist in the list";
     public static final String MESSAGE_INVALID_PATIENT_ID = "The patient id doesn't exist in the list";
     public static final String MESSAGE_ITEMS_LISTED_OVERVIEW = "%1$d items listed!";
-    public static final String MESSAGE_HELP_COMMANDS = generateHelpText();
 
     // pool of command suggestions
     private static final List<String> listOfCommands = Arrays.asList(
@@ -32,18 +36,20 @@ public class Messages {
             "edit t/patient",
             "list t/patient",
             "clear t/patient",
+            "find t/patient",
             "add t/doctor",
             "view t/doctor",
             "delete t/doctor",
             "edit t/doctor",
             "list t/doctor",
             "clear t/doctor",
-            "find",
+            "find t/doctor",
             "add t/appointment",
             "add t/activity",
             "delete t/activity",
             "list t/activity",
             "clear t/activity",
+            "find t/activity",
             "exit");
     // list of command targets
     private static final List<String> listOfTargets = Arrays.asList("t/patient", "t/doctor",
@@ -52,6 +58,8 @@ public class Messages {
     private static final HashSet<String> listOfTypes = new HashSet<>(listOfCommands.stream()
             .map(x -> x.split(" ")[0])
             .collect(Collectors.toList()));
+    private static final HashSet<String> singleWordCommands = new HashSet<>(Arrays.asList("exit", "help"));
+
     /**
      * Returns the 5 most similar commands calculated using Levenshtein Distance Algorithm.
      *
@@ -73,7 +81,7 @@ public class Messages {
             HashSet<String> set1 = new HashSet<>(approvedTypes);
             HashSet<String> set2 = new HashSet<>(approvedTargets);
             set1.retainAll(set2);
-            approvedSuggestions = new ArrayList<>(set1);
+            approvedSuggestions = set1.stream().limit(5).collect(Collectors.toList());
         }
 
         // if there are matches in the suggested items
@@ -82,7 +90,11 @@ public class Messages {
         if (iterator.hasNext()) {
             StringBuilder additionalReply = new StringBuilder(" You can choose from these commands instead: \n");
             while (iterator.hasNext()) {
-                additionalReply.append(iterator.next()).append("    ");
+                String nextCommand = iterator.next();
+                if (nextCommand.equals("invalid")) {
+                    continue;
+                }
+                additionalReply.append(nextCommand).append("    ");
             }
             reply += additionalReply;
         }
@@ -99,7 +111,6 @@ public class Messages {
     private static List<String> generateTypeSuggestions(String command) {
         List<Pair<Integer, String>> closestStrings;
         LevenshteinDistance stringChecker = new LevenshteinDistance();
-        HashSet<String> singleWordCommands = new HashSet<>(Arrays.asList("exit", "help"));
 
         // get a list of pairs of (levenshtein distance, type suggestion) sorted by distance
         closestStrings = listOfTypes.stream()
@@ -119,12 +130,14 @@ public class Messages {
                             if (Objects.equals(y, "t/appointment")) {
                                 if (Objects.equals(x.getValue(), "add")) {
                                     return x.getValue() + " " + y;
+                                } else {
+                                    return "invalid";
                                 }
+                            } else {
+                                return x.getValue() + " " + y;
                             }
-                            return x.getValue() + " " + y;
                         })
                         : Stream.of(x.getValue()))
-                .limit(5)
                 .collect(Collectors.toList());
     }
 
@@ -137,7 +150,6 @@ public class Messages {
     private static List<String> generateTargetSuggestions(String command) {
         List<Pair<Integer, String>> closestStrings;
         LevenshteinDistance stringChecker = new LevenshteinDistance();
-        HashSet<String> singleWordCommands = new HashSet<>(Arrays.asList("exit", "help"));
 
         // get a list of pairs of (levenshtein distance, target suggestion) sorted by distance
         closestStrings = listOfTargets.stream()
@@ -157,7 +169,6 @@ public class Messages {
                                 ? y + " " + x.getValue()
                                 : y)
                         : Stream.of("add t/appointment"))
-                .limit(5)
                 .collect(Collectors.toList());
     }
     /**
@@ -165,23 +176,71 @@ public class Messages {
      *
      * @return a string of command descriptions.
      */
-    private static String generateHelpText() {
-        String addDescription = "add:\n   Adds a patient, doctor or activity to the address book.\n\n";
-        String clearDescription = "clear:\n  Empties all data in GoMedic.\n\n";
-        String deleteDescription = "delete:\n    Deletes the patient, doctor or activity identified "
+    public static String generateHelpText() {
+
+        String addTemplate = "add %s:\n   Adds a %s to the address book.\n\n";
+        String clearTemplate = "clear %s:\n  Empties all %ss in GoMedic.\n\n";
+        String deleteTemplate = "delete %s:\n    Deletes the %s identified "
                 + "by the index number used in their respective list.\n\n";
-        String editDescription = "edit:\n    Edits the details of the patient, doctor or activity identified "
+        String editTemplate = "edit %s:\n    Edits the details of the %ss identified "
                 + "by the index number used in the displayed list.\n"
                 + "    Existing values will be overwritten by the input values.\n\n";
-        String exitDescription = "exit:\n    Exits GoMedic and closes the window.\n\n";
-        String findDescription = "find:\n    Finds entries that contain the given keyword as substring "
+        String findTemplate = "find %s:\n    Finds entries in %ss that contain the given keyword as substring "
                 + "in their entry attributes.\n\n";
+        String listTemplate = "list %s:\n    List all %s as specified by the user.\n\n";
+
+        String addDescription = listOfTargets.stream()
+                .map(target -> helpStringBuilder(addTemplate, target))
+                .collect(Collectors.joining());
+        String clearDescription = "clear:\n Empties all data in GoMedic.\n\n";
+        clearDescription += listOfTargets.stream()
+                .map(target -> !target.equals("t/appointment")
+                        ? helpStringBuilder(clearTemplate, target)
+                        : "")
+                .collect(Collectors.joining());
+        String deleteDescription = listOfTargets.stream()
+                .map(target -> !target.equals("t/appointment")
+                        ? helpStringBuilder(deleteTemplate, target)
+                        : "")
+                .collect(Collectors.joining());
+        String editDescription = listOfTargets.stream()
+                .map(target -> !target.equals("t/appointment")
+                        ? helpStringBuilder(editTemplate, target)
+                        : "")
+                .collect(Collectors.joining());
+        String exitDescription = "exit:\n    Exits GoMedic and closes the window.\n\n";
+        String findDescription = "find:\n    Finds entries in GoMedic that contain the given keyword as substring "
+                + "in their entry attributes.\n\n";
+        findDescription += listOfTargets.stream()
+                .map(target -> !target.equals("t/appointment")
+                        ? helpStringBuilder(findTemplate, target)
+                        : "")
+                .collect(Collectors.joining());
         String listDescription = "list:\n    List all patients, doctors or activities "
                 + "as specified by the user.\n\n";
+        listDescription += listOfTargets.stream()
+                .map(target -> !target.equals("t/appointment")
+                        ? helpStringBuilder(listTemplate, target)
+                        : "")
+                .collect(Collectors.joining());
         String helpDescription = "help:\n    Returns a list of commands and a "
                 + "brief description on what they do.\n\n";
 
-        return addDescription + clearDescription + deleteDescription + editDescription + exitDescription
-                + findDescription + listDescription + helpDescription;
+        return addDescription + clearDescription + deleteDescription + editDescription
+                + findDescription + listDescription + helpDescription + exitDescription;
+    }
+
+    /**
+     * Returns a filled-in help template with appropriate types and targets.
+     *
+     * @param commandTemplate String help template.
+     * @param commandTarget Command target to be filled in.
+     * @return Completed String help template.
+     */
+    private static String helpStringBuilder(String commandTemplate, String commandTarget) {
+        String cleanCommandTarget = commandTarget.endsWith("y")
+                ? commandTarget.substring(2).replace("y", "ie")
+                : commandTarget.substring(2);
+        return String.format(commandTemplate, commandTarget, cleanCommandTarget);
     }
 }

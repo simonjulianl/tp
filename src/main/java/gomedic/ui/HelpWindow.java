@@ -36,7 +36,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(Messages.MESSAGE_HELP_COMMANDS);
+        helpMessage.setText(Messages.generateHelpText());
         helpMessage1.setText(String.format("For more information, refer to %s        ", USERGUIDE_URL));
     }
 
