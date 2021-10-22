@@ -202,8 +202,9 @@ various fixed error outputs for GoMedic. It implements the following operation:
 * `Messages#getSuggestions(String command)` — Returns suggested commands within GoMedic based on the incorrect command
 input.
 
-Given below is an activity diagram when a user provides an erroneous input.
+Given below is a sequence diagram when a user provides an erroneous input, "adl t/patent".
 
+![SuggestionsSequenceDiagram](images/SuggestionsSequenceDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
