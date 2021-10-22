@@ -30,6 +30,8 @@ public class Messages {
     // pool of command suggestions
     private static final List<String> listOfCommands = Arrays.asList(
             "help",
+            "referral",
+            "profile",
             "add t/patient",
             "view t/patient",
             "delete t/patient",
@@ -58,7 +60,8 @@ public class Messages {
     private static final HashSet<String> listOfTypes = new HashSet<>(listOfCommands.stream()
             .map(x -> x.split(" ")[0])
             .collect(Collectors.toList()));
-    private static final HashSet<String> singleWordCommands = new HashSet<>(Arrays.asList("exit", "help"));
+    private static final HashSet<String> singleWordCommands = new HashSet<>(Arrays.asList("exit", "help",
+            "profile", "referral"));
 
     /**
      * Returns the 5 most similar commands calculated using Levenshtein Distance Algorithm.
@@ -225,9 +228,12 @@ public class Messages {
                 .collect(Collectors.joining());
         String helpDescription = "help:\n    Returns a list of commands and a "
                 + "brief description on what they do.\n\n";
+        String referralDescription = "referral:\n    Generates a pdf referral for a patient.\n\n";
+        String profileDescription = "profile:\n    Helps to set the user's profile in GoMedic.\n\n";
 
         return addDescription + clearDescription + deleteDescription + editDescription
-                + findDescription + listDescription + helpDescription + exitDescription;
+                + findDescription + listDescription + profileDescription
+                + referralDescription + helpDescription + exitDescription;
     }
 
     /**
