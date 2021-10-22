@@ -225,14 +225,17 @@ Once the user enter the command is entered:
 After the `LogicManager` receives the new `ReferralCommand` object, 
 
 1. The `LogicManager` would call the `execute` method of `ReferralCommand` and passes the `Model` 
-2. The `ReferralCommand` then would call the appropriate data from the `Model` such as the `Doctor` and `Patient`
-3. After the patient and doctor data are ready, the `Document` provided by the `iText` library would be created and `Doctor` and `Patient` field would replace
-the placeholders in the medical referral template. 
-4. The `ReferralCommand` would call `Document`'s `close` method which will automatically write the pdf file into the `data/` folder.
-5. Finally, the `ReferralCommand` would then create `CommandResult` object and returns it to the `LogicManager` whose feedback would be displayed back to the user.
+2. The `ReferralCommand` then would call the appropriate methods from the `Model` to obtain the `DoctorList` and `PatientList`
+3. Based on the illustration, `ReferralCommand` then would filter and check for the existence of patient whose id is `P001` and doctor whose id is `D001`.
+4. After the patient and doctor data are ready, the `Document` provided by the `iText` library would be created and then the specific `Doctor` and `Patient` identified by their ids 
+would be used to replace all the placeholders in the medical referral template. Also, the `Description` would be written onto the pdf file.  
+5. The `ReferralCommand` would call `Document`'s `close` method which will automatically write the pdf file into the `data/` folder.
+6. Finally, the `ReferralCommand` would then create `CommandResult` object and returns it to the `LogicManager` whose feedback would be displayed back to the user.
+
 ![ReferralCommandCreation](images/referral/ReferralCommandExecution.png)
 
-Finally, the pdf object is written into the `data/` folder whose filename is the same of that of the `title` (i.e. _title_.pdf) 
+Finally, the pdf object is written into the `data/` folder whose filename is the same of that of the `title` (i.e. _title_.pdf). 
+For this illustration, the file then would be `Referral of Patient A.pdf`.
 
 ### \[Proposed\] Undo/redo feature
 
