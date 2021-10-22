@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage"
+
+<fx:root minHeight="800" minWidth="1300" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/address_book_32.png"/>
@@ -35,33 +36,48 @@
                     </Menu>
                 </MenuBar>
 
-                <HBox style="-fx-padding: 10 0 10 20;" spacing="5" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                    <Label styleClass="title-label" minWidth="100" maxWidth="100" prefWidth="100" alignment="BASELINE_CENTER">Input</Label>
-                    <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" prefWidth="800" HBox.hgrow="ALWAYS">
+                <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                    <StackPane fx:id="sideWindowPlaceholder" minWidth="200" prefWidth="200"
+                               VBox.vgrow="ALWAYS" HBox.hgrow="NEVER">
                         <padding>
                             <Insets bottom="5" left="10" right="10" top="5"/>
                         </padding>
                     </StackPane>
+                    <VBox VBox.vgrow="ALWAYS" prefWidth="2000">
+                        <HBox style="-fx-padding: 10 0 10 20;" spacing="5" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                            <Label styleClass="title-label" minWidth="100" maxWidth="100" prefWidth="100"
+                                   alignment="BASELINE_CENTER">Input
+                            </Label>
+                            <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" prefWidth="800"
+                                       HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets bottom="5" left="10" right="10" top="5"/>
+                                </padding>
+                            </StackPane>
+                        </HBox>
+
+                        <HBox style="-fx-padding: 10 0 10 20;" spacing="5" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                            <Label styleClass="title-label" minWidth="100" maxWidth="100" prefWidth="100"
+                                   alignment="BASELINE_CENTER">Feedback
+                            </Label>
+                            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
+                                       VBox.vgrow="NEVER" HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets bottom="5" left="10" right="10" top="5"/>
+                                </padding>
+                            </StackPane>
+                        </HBox>
+
+                        <VBox fx:id="modelList" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="10" left="10" right="10" top="10"/>
+                            </padding>
+                            <StackPane fx:id="modelListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        </VBox>
+                    </VBox>
                 </HBox>
 
-                <HBox style="-fx-padding: 10 0 10 20;" spacing="5" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                    <Label styleClass="title-label" minWidth="100" maxWidth="100" prefWidth="100" alignment="BASELINE_CENTER">Feedback</Label>
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
-                               VBox.vgrow="NEVER" HBox.hgrow="ALWAYS">
-                        <padding>
-                            <Insets bottom="5" left="10" right="10" top="5"/>
-                        </padding>
-                    </StackPane>
-                </HBox>
-
-                <VBox fx:id="modelList" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-                    <padding>
-                        <Insets bottom="10" left="10" right="10" top="10"/>
-                    </padding>
-                    <StackPane fx:id="modelListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                </VBox>
-
-                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" style="-fx-padding: 0 0 -1 0;"/>
             </VBox>
         </Scene>
     </scene>

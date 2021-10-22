@@ -3,7 +3,6 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.FlowPane?>
 <TableView fx:id="patientTable" xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            prefHeight="400.0" prefWidth="600.0">
@@ -28,7 +27,7 @@
                 <PropertyValueFactory property="age"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="GenderField" styleClass="header-right-border" text="Gender" prefWidth="300">
+        <TableColumn fx:id="GenderField" styleClass="header-right-border" text="Gender" prefWidth="300" maxWidth="2000">
             <cellValueFactory>
                 <PropertyValueFactory property="gender"/>
             </cellValueFactory>

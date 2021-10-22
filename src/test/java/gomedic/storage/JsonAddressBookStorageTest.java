@@ -75,7 +75,6 @@ public class JsonAddressBookStorageTest {
             DataConversionException.class, () -> readAddressBook("invalidAndValidDoctorAddressBook.json"));
     }
 
-    // TODO: add more tests for the activities
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");

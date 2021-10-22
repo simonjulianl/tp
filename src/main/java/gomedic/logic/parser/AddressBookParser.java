@@ -7,7 +7,10 @@ import gomedic.commons.core.Messages;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.ExitCommand;
 import gomedic.logic.commands.HelpCommand;
+import gomedic.logic.commands.ProfileCommand;
+import gomedic.logic.commands.ReferralCommand;
 import gomedic.logic.commands.addcommand.AddActivityCommand;
+import gomedic.logic.commands.addcommand.AddAppointmentCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
 import gomedic.logic.commands.addcommand.AddPatientCommand;
 import gomedic.logic.commands.clearcommand.ClearActivityCommand;
@@ -26,7 +29,9 @@ import gomedic.logic.commands.findcommand.FindPatientCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPatientCommand;
+import gomedic.logic.commands.viewcommand.ViewPatientCommand;
 import gomedic.logic.parser.addcommandparser.AddActivityCommandParser;
+import gomedic.logic.parser.addcommandparser.AddAppointmentCommandParser;
 import gomedic.logic.parser.addcommandparser.AddDoctorCommandParser;
 import gomedic.logic.parser.addcommandparser.AddPatientCommandParser;
 import gomedic.logic.parser.deletecommandparser.DeleteActivityParser;
@@ -40,6 +45,7 @@ import gomedic.logic.parser.findcommandparser.FindActivityCommandParser;
 import gomedic.logic.parser.findcommandparser.FindDoctorCommandParser;
 import gomedic.logic.parser.findcommandparser.FindPatientCommandParser;
 import gomedic.logic.parser.listcommandparser.ListActivityParser;
+import gomedic.logic.parser.viewcommandparser.ViewPatientParser;
 
 /**
  * Parses user input.
@@ -82,6 +88,9 @@ public class AddressBookParser {
         }
 
         switch (commandWord) {
+
+        case AddAppointmentCommand.COMMAND_WORD:
+            return new AddAppointmentCommandParser().parse(arguments);
 
         case AddActivityCommand.COMMAND_WORD:
             return new AddActivityCommandParser().parse(arguments);
@@ -140,11 +149,20 @@ public class AddressBookParser {
         case ListPatientCommand.COMMAND_WORD:
             return new ListPatientCommand();
 
+        case ProfileCommand.COMMAND_WORD:
+            return new ProfileCommandParser().parse(arguments);
+
+        case ViewPatientCommand.COMMAND_WORD:
+            return new ViewPatientParser().parse(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ReferralCommand.COMMAND_WORD:
+            return new ReferralCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.getSuggestions(commandWord));

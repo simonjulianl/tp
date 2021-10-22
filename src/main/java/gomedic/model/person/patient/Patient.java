@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.commonfield.Name;
@@ -155,7 +156,11 @@ public class Patient extends Person {
         Set<Tag> medicalConditions = getMedicalConditions();
         if (!medicalConditions.isEmpty()) {
             builder.append("; Medical conditions: ");
-            medicalConditions.forEach(builder::append);
+            var string = medicalConditions
+                    .stream()
+                    .map(it -> it.toString().substring(1, it.toString().length() - 1))
+                    .collect(Collectors.joining(","));
+            builder.append(string);
         }
 
         return builder.toString();

@@ -6,9 +6,10 @@ import java.util.function.Predicate;
 import gomedic.commons.util.AppUtil;
 import gomedic.commons.util.CollectionUtil;
 import gomedic.model.commonfield.Time;
+import gomedic.model.person.patient.PatientId;
 
 /**
- * Represents an Activity in the address book.
+ * Represents an Activity or Appointment in the address book.
  * Guarantees: immutable; details are present and not null, all fields are validated and immutable.
  * Is valid as declared in {@link #isValidActivity(Time, Time)}.
  */
@@ -19,6 +20,7 @@ public class Activity {
 
     // Identity fields
     private final ActivityId activityId;
+    private final Boolean isAppointment;
 
     // Data fields
     private final Time startTime;
@@ -26,6 +28,8 @@ public class Activity {
     private final Title title;
     private final Description description;
 
+    // Appointment data field
+    private final PatientId patientId;
     /**
      * Constructs a {@code Activity} class
      * Every field must be present and not null.
@@ -38,6 +42,30 @@ public class Activity {
                     Description description) {
         CollectionUtil.requireAllNonNull(activityId, startTime, endTime, title, description);
         AppUtil.checkArgument(isValidActivity(startTime, endTime), MESSAGE_CONSTRAINTS);
+        isAppointment = false;
+        this.patientId = null;
+        this.activityId = activityId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.title = title;
+        this.description = description;
+    }
+
+    /**
+     * Constructs a {@code Activity} class as Appointment
+     * Every field must be present and not null.
+     * startTime must be before endTime strictly (not equal).
+     */
+    public Activity(ActivityId activityId,
+                    PatientId patientId,
+                    Time startTime,
+                    Time endTime,
+                    Title title,
+                    Description description) {
+        CollectionUtil.requireAllNonNull(activityId, patientId, startTime, endTime, title, description);
+        AppUtil.checkArgument(isValidActivity(startTime, endTime), MESSAGE_CONSTRAINTS);
+        isAppointment = true;
+        this.patientId = patientId;
         this.activityId = activityId;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -47,6 +75,10 @@ public class Activity {
 
     public ActivityId getActivityId() {
         return activityId;
+    }
+
+    public PatientId getPatientId() {
+        return patientId;
     }
 
     public Time getStartTime() {
@@ -65,12 +97,17 @@ public class Activity {
         return description;
     }
 
+    public Boolean isAppointment() {
+        return isAppointment;
+    }
     /**
-     * @return hashcode in the order of id, start time, end time, desc, title.
+     * @return hashcode in the order of id, (optional) patientId, start time, end time, desc, title.
      */
     @Override
     public int hashCode() {
-        return Objects.hash(activityId, startTime, endTime, description, title);
+        return isAppointment
+                ? Objects.hash(activityId, patientId, startTime, endTime, description, title)
+                : Objects.hash(activityId, startTime, endTime, description, title);
     }
 
     /**
@@ -92,11 +129,13 @@ public class Activity {
 
     @Override
     public String toString() {
-        return activityId
-                + "; Title: " + title
+        String commonString = "; Title: " + title
                 + "; Desc: " + description
                 + "; Start Time: " + startTime
                 + "; End Time: " + endTime;
+        return isAppointment
+                ? activityId + "; Patient: " + patientId + commonString
+                : activityId + commonString;
     }
 
     /**

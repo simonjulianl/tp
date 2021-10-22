@@ -1,18 +1,28 @@
 {
+  "userProfile": {
+    "name" : "User profile name not set yet",
+    "position" : "User profile position not set yet",
+    "department" : "User profile department not set yet",
+    "organization" : "User profile organization not set yet"
+  },
   "activities": [
     {
       "id": "A001",
       "title": "testing activity",
       "description": "meeting someone at Jurong east",
       "startTime": "15/09/2022 13:00",
-      "endTime": "15/09/2022 14:00"
+      "endTime": "15/09/2022 14:00",
+      "patientId": null,
+      "isAppointment": false
     },
     {
       "id": "A001",
       "title": "another activity",
       "description": "meeting someone at Jurong east",
       "startTime": "15/09/2022 15:00",
-      "endTime": "15/09/2022 18:00"
+      "endTime": "15/09/2022 18:00",
+      "patientId": null,
+      "isAppointment": false
     }
   ],
   "doctors": [],

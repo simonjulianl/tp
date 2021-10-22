@@ -25,17 +25,20 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_DOCTOR = "Doctors list contains duplicate doctors(s).";
     public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patients(s).";
 
+    private final JsonAdaptedUserProfile userProfile;
     private final List<JsonAdaptedActivity> activities = new ArrayList<>();
     private final List<JsonAdaptedDoctor> doctors = new ArrayList<>();
     private final List<JsonAdaptedPatient> patients = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given activities, doctors and patients
+     * Constructs a {@code JsonSerializableAddressBook} with the given activities, doctors and patients and user profile
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("activities") List<JsonAdaptedActivity> activities,
+    public JsonSerializableAddressBook(@JsonProperty("userProfile") JsonAdaptedUserProfile userProfile,
+                                       @JsonProperty("activities") List<JsonAdaptedActivity> activities,
                                        @JsonProperty("doctors") List<JsonAdaptedDoctor> doctors,
                                        @JsonProperty("patients") List<JsonAdaptedPatient> patients) {
+        this.userProfile = userProfile;
         this.activities.addAll(activities);
         this.doctors.addAll(doctors);
         this.patients.addAll(patients);
@@ -47,6 +50,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+        this.userProfile = new JsonAdaptedUserProfile(source.getUserProfile());
         activities.addAll(source
                 .getActivityListSortedById()
                 .stream()
@@ -68,6 +72,8 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+
+        addressBook.setUserProfile(userProfile.toModelType());
 
         for (JsonAdaptedDoctor jsonAdaptedDoctor: doctors) {
             Doctor doctor = jsonAdaptedDoctor.toModelType();

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox style="-fx-padding: -6.5 0 0 0;" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/11.0.2"
+      xmlns:fx="http://javafx.com/fxml/1">
+    <VBox fx:id="myId" VBox.vgrow="NEVER" minWidth="200" maxWidth="200">
+        <Label style="-fx-font-size: 14pt;-fx-padding: 10 0 0 0;" fx:id="myName" alignment="BASELINE_CENTER"
+               wrapText="true" styleClass="label-bright"/>
+        <Label style="-fx-padding: 10 0 0 0;" fx:id="myPosition" wrapText="true"
+               styleClass="label-bright"/>
+        <Label fx:id="myDepartment" wrapText="true" styleClass="label-bright"/>
+        <Label style="-fx-padding: 0 0 10 0;" fx:id="myOrganization" wrapText="true"
+               styleClass="label-bright"/>
+    </VBox>
+
+    <VBox spacing="20" style="-fx-padding: 40 0 0 35;">
+        <HBox>
+            <ImageView style="-fx-margin: 10 0 0 0;" fx:id="displayPictureActivity" fitHeight="22.0" fitWidth="22.0"
+                       preserveRatio="true"/>
+            <Label fx:id="activityLabel" alignment="CENTER" maxWidth="100" minWidth="100" prefWidth="100"
+                   text="Activities" styleClass="label-dark"/>
+        </HBox>
+        <HBox>
+            <ImageView fx:id="displayPicturePatient" fitHeight="22.0" fitWidth="22.0"
+                       preserveRatio="true"/>
+            <Label fx:id="patientLabel" alignment="CENTER" maxWidth="100" minWidth="100" prefWidth="100"
+                   text="Patients" styleClass="label-dark"/>
+        </HBox>
+        <HBox>
+            <ImageView fx:id="displayPictureDoctor" fitHeight="22.0" fitWidth="22.0" preserveRatio="true"/>
+            <Label fx:id="doctorLabel" alignment="CENTER" maxWidth="100" minWidth="100" prefWidth="100"
+                   text="Doctors" styleClass="label-dark"/>
+        </HBox>
+    </VBox>
+</VBox>

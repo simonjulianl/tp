@@ -378,11 +378,17 @@
 
 #cardPane {
     -fx-background-color: transparent;
-    -fx-border-width: 1;
-    -fx-border-color: black;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-color: transparent;
+    -fx-border-radius: 20 20 20 20;
+}
+
+#vboxPatient {
+    -fx-background-color: #ffffff;
+    -fx-border-width: 5;
+    -fx-border-radius: 20 20 20 20;
     -fx-text-fill: white;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 4;
+    -fx-background-radius: 20 20 20 20;
 }
 
 #commandTypeLabel {
@@ -434,7 +440,7 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: derive(#ADD8E6, 35%);
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
@@ -447,12 +453,14 @@
 }
 
 #medicalConditions .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-text-fill: black;
+    -fx-background-color: derive(#ADD8E6, 35%);
     -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
     -fx-font-size: 11;
+    -fx-font-family: "Lato Regular";
+    -fx-font-size: 20px;
 }
 
 .list-cell:empty {
@@ -568,9 +576,88 @@
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: -180;
+    -fx-rotate: -180;
 }
 
 .scroll-bar:vertical:focused,
 .scroll-bar:horizontal:focused {
     -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+}
+
+.view_big_label {
+    -fx-font-family: "Lato Semibold";
+    -fx-font-size: 30px;
+    -fx-text-fill: #010504;
+    -fx-padding: 15px;
+}
+
+.view_header {
+    -fx-background-color: derive(#ADD8E6, 35%);
+    -fx-background-radius: 20 20 0 0;
+}
+
+.view_hbox {
+    -fx-padding: 0.3em 0.3em 0.3em 0.6em;
+}
+
+.cell_view_label_title {
+    -fx-font-family: "Lato Regular";
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-text-fill: #4da8ed;
+    -fx-min-width: 200;
+}
+
+.cell_view_label {
+    -fx-font-family: "Lato Regular";
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+}
+
+#appointments {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#appointments .label {
+    -fx-text-fill: black;
+    -fx-background-color: derive(#ADD8E6, 35%);
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-font-size: 11;
+    -fx-font-family: "Lato Regular";
+    -fx-font-size: 20px;
+}
+
+#appointments .label {
+    -fx-font-family: "Lato Regular";
+    -fx-font-size: 20px;
+}
+
+
+#sideWindowPlaceholder {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+}
+
+#myId {
+    -fx-background-color: derive(#0b7887, 30%);
+    -fx-border-color: transparent;
+    -fx-padding: 0 5 0 10;
+}
+
+.label-bright {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Lato bold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-dark {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Lato bold";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
 }
