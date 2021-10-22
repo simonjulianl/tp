@@ -120,7 +120,7 @@ How the `Logic` component works:
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddPatientCommand`
    which is executed by the `LogicManager`.
 3. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
-4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the
 `execute("delete t/patient P001")` API call.
@@ -224,11 +224,12 @@ Once the user enter the command is entered:
 
 After the `LogicManager` receives the new `ReferralCommand` object, 
 
-1. The `LogicManager` would calle the execute method of `ReferralCommand` and passes the `Model` 
+1. The `LogicManager` would call the `execute` method of `ReferralCommand` and passes the `Model` 
 2. The `ReferralCommand` then would call the appropriate data from the `Model` such as the `Doctor` and `Patient`
-3. After the patient and doctor data are ready, the `Document` provided by the `iText` library would be created and `Doctor` and `Patient` field would replaces 
+3. After the patient and doctor data are ready, the `Document` provided by the `iText` library would be created and `Doctor` and `Patient` field would replace
 the placeholders in the medical referral template. 
-
+4. The `ReferralCommand` would call `Document`'s `close` method which will automatically write the pdf file into the `data/` folder.
+5. Finally, the `ReferralCommand` would then create `CommandResult` object and returns it to the `LogicManager` whose feedback would be displayed back to the user.
 ![ReferralCommandCreation](images/referral/ReferralCommandExecution.png)
 
 Finally, the pdf object is written into the `data/` folder whose filename is the same of that of the `title` (i.e. _title_.pdf) 
@@ -328,7 +329,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-## \[Proposed\] Data archiving
+### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
 
