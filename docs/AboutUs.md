@@ -28,7 +28,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/radiankrisno.md)]
 
 * Role: Developer
-* Responsibilities: Program structure
+* Responsibilities: Program structure, Release manager
 
 ## Yap Yuhang
 
