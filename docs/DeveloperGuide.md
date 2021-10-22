@@ -411,7 +411,7 @@ _{Explain here how the data archiving feature will be implemented}_
 | `* * *`  | busy user                                  | search for doctors whose details contain a user-specified substring    | retrieve my colleague details without any need to remember which fields the data are stored at
 | `*    `  | forgetful user                             | compare patients with similar medical histories                        | refer to them when I make new diagnosis on future patients
 
-##### [EPIC] Misc Helpful Features
+#### [EPIC] Misc Helpful Features
 
 | Priority | As a …​                                 | I want to …​                                                        | So that I can…​                                                        |
 | -------- | ------------------------------------------ | -----------------------------------------------------------------------| --------------------------------------------------------------------------|
