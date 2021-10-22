@@ -365,11 +365,9 @@ _{Explain here how the data archiving feature will be implemented}_
 
 | Priority | As a …​                                 | I want to …​                                                        | So that I can…​                                                        |
 | -------- | ------------------------------------------ | -----------------------------------------------------------------------| --------------------------------------------------------------------------|
-| `* *  `  | experienced user                           | write custom tags for activities stored                                | group the activities according to my choices
-| `*    `  | experienced user                           | search for activities based on tags                                    | retrieve certain grouped activities very fast such as meetings and visitations
+| `*    `  | experienced user                           | search for activities based on its title and description               | retrieve certain grouped activities very fast such as meetings and visitations
 | `* * *`  | busy user                                  | search for patients whose details contain a user-specified substring   | retrieve certain patients that I don't really remember which fields where the details are stored at
 | `* * *`  | busy user                                  | search for doctors whose details contain a user-specified substring    | retrieve my colleague details without any need to remember which fields the data are stored at
-| `*    `  | forgetful user                             | compare patients with similar medical histories                        | refer to them when I make new diagnosis on future patients
 
 #### [EPIC] Misc Helpful Features
 
@@ -540,6 +538,21 @@ testers are expected to do more *exploratory* testing.
        Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Finding a patient, doctor or activity
+1. Searching for a person
+    1. Prerequisite: List the patients, doctors, or activities based on which one you wish to see, using the `list` command.
+    eg. `list t/doctor` or `list t/patient` or `list t/activity`.
+       
+    2. Test case: eg. `find t/patient n/Joe`
+        Expected: All patients whose names contain the substring "Joe" (case-insensitive) will be displayed.
+       
+    3. Test case: eg. `find t/activity ti/Meeting`
+        Expected: All activities whose title or description contains the substring "Meeting" (case-insensitive) will be displayed. 
+       
+    4. Other incorrect find commands to try: `find t\patient Joe` 
+        Expected: Error message as a flag is not specified prior to the keyword. 
+   
 
 ### Saving data
 
