@@ -8,20 +8,20 @@ title: Developer Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
-# **Acknowledgements**
+## **Acknowledgements**
  * The project is bootstrapped from [SE-EDU Address Book 3]("https://se-education.org/addressbook-level3/)
  * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
    original source as well}
 
 --------------------------------------------------------------------------------------------------------------------
 
-# **Setting up, getting started**
+## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
-# **Design**
+## **Design**
 
 <div markdown="span" class="alert alert-primary">
 
@@ -31,7 +31,7 @@ Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.h
 diagrams.
 </div>
 
-## Architecture
+### Architecture
 
 <img src="images/ArchitectureDiagram.png" width="280" />
 
@@ -106,7 +106,7 @@ The `UI` component,
 
 The original Figma design for the `UI` component can be found [here](https://www.figma.com/file/zqo6peKfu0Wxeay679eVq9/cs2103t-tp?node-id=0%3A1)
 
-## Logic component
+### Logic component
 
 **API** : [`Logic.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main/java/gomedic/logic/Logic.java)
 
@@ -143,7 +143,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser`
   interface so that they can be treated similarly where possible e.g, during testing.
 
-## Model component
+### Model component
 
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main/java/gomedic/model/Model.java)
 
@@ -167,7 +167,7 @@ The `Model` component,
 
 </div>
 
-## Storage component
+### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main/java/gomedic/storage/Storage.java)
 
@@ -182,19 +182,60 @@ The `Storage` component,
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects
   that belong to the `Model`)
 
-## Common classes
+### Common classes
 
 Classes used by multiple components are in the `gomedic.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-# **Implementation**
+## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
 
-## \[Proposed\] Undo/redo feature
+### Generating Medical Referral Feature 
 
-### Proposed Implementation
+This feature allows GoMedic users to generate medical referral for a uniquely identified patient identified by his/her `PatientId` to other
+doctor that is already saved in the GoMedic application and would be uniquely identified by his/her 
+`DoctorId`.
+
+This feature can be accessed using `referral` command which has parameters of `ti/Title`, `di/DoctorId`, `pi/PatiendId` and optional 
+description which can be added using `d/Description` flag. 
+
+_This feature uses **iText Java Pdf writer library** to generate the medical referral document._  
+
+**Workflow**
+
+For illustration purposes, suppose the user enters the command:
+
+`referral ti/Referral of Patient A di/D001 pi/P001 d/He is having internal bleeding, need urgent attention.`
+
+<div markdown="span" class="alert alert-info">:information_source:
+**Note:** the doctor id and patient id does not need to conform the `DXXX` and `PXXX` format in this case. However, should the supplied ids are invalid,
+GoMedic would be unable to find the doctor and the patient, and would show the feedback patient/doctor not found message to the user.
+</div>
+
+Once the user enter the command is entered:
+
+1. The `LogicManager` class would execute the input as `String`
+2. The `AddressBookParser` is responsible for calling the relevant parser (in this case, `ReferralCommandParser`) according to the command keyword (which is `referral`)
+3. The `ReferralCommandParser` would parse and check the parameters being supplied and eventually returning in to `LogicManager` 
+
+![ReferralCommandCreation](images/referral/ReferralCommandCreation.png)
+
+After the `LogicManager` receives the new `ReferralCommand` object, 
+
+1. The `LogicManager` would calle the execute method of `ReferralCommand` and passes the `Model` 
+2. The `ReferralCommand` then would call the appropriate data from the `Model` such as the `Doctor` and `Patient`
+3. After the patient and doctor data are ready, the `Document` provided by the `iText` library would be created and `Doctor` and `Patient` field would replaces 
+the placeholders in the medical referral template. 
+
+![ReferralCommandCreation](images/referral/ReferralCommandExecution.png)
+
+Finally, the pdf object is written into the `data/` folder whose filename is the same of that of the `title` (i.e. _title_.pdf) 
+
+### \[Proposed\] Undo/redo feature
+
+#### Proposed Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo
 history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the
@@ -294,7 +335,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 --------------------------------------------------------------------------------------------------------------------
 
-# **Documentation, logging, testing, configuration, dev-ops**
+## **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
 * [Testing guide](Testing.md)
@@ -304,9 +345,9 @@ _{Explain here how the data archiving feature will be implemented}_
 
 --------------------------------------------------------------------------------------------------------------------
 
-# **Appendix: Requirements**
+## **Appendix: Requirements**
 
-## Product scope
+### Product scope
 
 **Target user profile**:
 
@@ -326,15 +367,14 @@ _{Explain here how the data archiving feature will be implemented}_
 * able to remind user of upcoming activities and appointments
 * easy to use and would give suggestion on the closest command whenever typo is made
 
-## User stories
+### User stories
 
-### Priorities:
-
+**Priorities:**
 * **High (must have)** - `* * *`
 * **Medium (nice to have)** - `* *`
 * **Low (unlikely to have)** - `*`
 
-### [EPIC] Basic CRUD Functionality for patients and doctors
+#### [EPIC] Basic CRUD Functionality for patients and doctors
 
 | Priority | As a …​                                 | I want to …​                             | So that I can…​                                                        |
 | -------- | ------------------------------------------ | --------------------------------------------| ---------------------------------------------------------------------- |
@@ -346,7 +386,7 @@ _{Explain here how the data archiving feature will be implemented}_
 | `* * *`  | user                                       | view all my patient details in a list       | know my entire list of patients at a glance
 | `* * *`  | user                                       | view all my colleague details in a list     | know my entire list of colleague at a glance
 
-### [EPIC] Scheduling
+#### [EPIC] Scheduling
 
 | Priority | As a …​                                 | I want to …​                                            | So that I can…​                                                        |
 | -------- | ------------------------------------------ | -----------------------------------------------------------| ---------------------------------------------------------------------- |
@@ -361,7 +401,7 @@ _{Explain here how the data archiving feature will be implemented}_
 | `* *  `  | forgetful user                             | search for specific activities and appointments within a specific time frame       | plan ahead and focus on those time slots only                         |
 | `*    `  | organized user                             | change the reminder settings (minutes)                     | tailor it according to my preference                         |
 
-### [EPIC] Information Retrieval and Organization
+#### [EPIC] Information Retrieval and Organization
 
 | Priority | As a …​                                 | I want to …​                                                        | So that I can…​                                                        |
 | -------- | ------------------------------------------ | -----------------------------------------------------------------------| --------------------------------------------------------------------------|
@@ -371,7 +411,7 @@ _{Explain here how the data archiving feature will be implemented}_
 | `* * *`  | busy user                                  | search for doctors whose details contain a user-specified substring    | retrieve my colleague details without any need to remember which fields the data are stored at
 | `*    `  | forgetful user                             | compare patients with similar medical histories                        | refer to them when I make new diagnosis on future patients
 
-#### [EPIC] Misc Helpful Features
+##### [EPIC] Misc Helpful Features
 
 | Priority | As a …​                                 | I want to …​                                                        | So that I can…​                                                        |
 | -------- | ------------------------------------------ | -----------------------------------------------------------------------| --------------------------------------------------------------------------|
@@ -489,7 +529,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * **DBMS** : Database Management System such as MySQL, Oracle, PSQL, MongoDB, etc.
 * **JAR** : Java Archive file format, which is typically used to aggregate many Java class files and associated metadata
   into one file for distribution.
-* **typical usage/searches** : Finding by keyword, name, medical histories, and any combination of the field manually.
+* **Typical usage/searches** : Finding by keyword, name, medical histories, and any combination of the field manually.
 * **Object-Oriented Paradigm** : programming paradigm that organizes software design around objects rather than
   functions and logic. For complete list of Features that OO design should have,
   please [visit this wikipedia page](https://en.wikipedia.org/wiki/Object-oriented_programming)
