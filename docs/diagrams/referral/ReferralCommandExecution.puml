@@ -30,7 +30,7 @@ return doctorList
 
 return doctor
 
-ReferralCommand -> ReferralCommand : getSpecifiedDoctor()
+ReferralCommand -> ReferralCommand : getSpecifiedPatient()
 activate ReferralCommand
 
 ReferralCommand -> Model : getFilteredPatientList()
