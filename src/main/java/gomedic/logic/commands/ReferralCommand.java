@@ -32,6 +32,7 @@ import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Id;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.userprofile.UserProfile;
 
 /**
  * Referral command that is able to create a new pdf referral.
@@ -41,7 +42,6 @@ public class ReferralCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Referral has been created at %s";
 
-    // TODO : Add my profile into the pdf
     public static final Paragraph NEWLINE = new Paragraph("\n");
     private static final String EXAMPLE_MESSAGE =
             "It looks like there may be a small tear in his aorta.";
@@ -94,7 +94,8 @@ public class ReferralCommand extends Command {
             throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
         }
 
-        generatePdf(specifiedDoctor, specifiedPatient);
+        UserProfile profile = model.getUserProfile();
+        generatePdf(specifiedDoctor, specifiedPatient, profile);
         return new CommandResult(String.format(MESSAGE_SUCCESS, path.toAbsolutePath()));
     }
 
@@ -114,7 +115,9 @@ public class ReferralCommand extends Command {
                 .orElse(null);
     }
 
-    private void generatePdf(Doctor specifiedDoctor, Patient specifiedPatient) throws CommandException {
+    private void generatePdf(Doctor specifiedDoctor,
+                             Patient specifiedPatient,
+                             UserProfile profile) throws CommandException {
         try {
             PdfWriter writer = new PdfWriter(path.toAbsolutePath().toString());
             PdfDocument referral = new PdfDocument(writer);
@@ -122,7 +125,7 @@ public class ReferralCommand extends Command {
             referral.setTagged();
             referral.addNewPage();
 
-            createPdf(referral, specifiedDoctor, specifiedPatient);
+            createPdf(referral, specifiedDoctor, specifiedPatient, profile);
 
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_FAIL_TO_GENERATE_REFERRAL);
@@ -131,7 +134,8 @@ public class ReferralCommand extends Command {
 
     private void createPdf(PdfDocument referral,
                            Doctor specifiedDoctor,
-                           Patient specifiedPatient) {
+                           Patient specifiedPatient,
+                           UserProfile profile) {
         Document document = new Document(referral);
         document.setMargins(30f, 50f, 30f, 50f);
 
@@ -144,7 +148,7 @@ public class ReferralCommand extends Command {
         document.add(date);
         document.add(NEWLINE);
 
-        Paragraph identity = getIdentity();
+        Paragraph identity = getIdentity(profile);
         document.add(identity);
         document.add(NEWLINE);
 
@@ -156,15 +160,14 @@ public class ReferralCommand extends Command {
         document.add(bodyTemplate);
         document.add(NEWLINE);
 
-        Paragraph signOff = getSignOff();
+        Paragraph signOff = getSignOff(profile);
         document.add(signOff);
 
         document.close();
     }
 
-    private Paragraph getSignOff() {
-        // TODO : Edit the identity here
-        String signOff = "Thank you, \n" + "Simon Julian Lauw";
+    private Paragraph getSignOff(UserProfile profile) {
+        String signOff = "Thank you, \n" + profile.getName().fullName;
         return new Paragraph(signOff)
                 .setFontSize(14f);
     }
@@ -219,12 +222,11 @@ public class ReferralCommand extends Command {
                 .setFontSize(14f);
     }
 
-    private Paragraph getIdentity() {
-        // TODO : add the identity from the profile later
-        String identity = "Simon Julian Lauw \n"
-                + "Software Engineers \n"
-                + "Department of Dermatology \n"
-                + "National University Hospital \n";
+    private Paragraph getIdentity(UserProfile profile) {
+        String identity = profile.getName().fullName + "\n"
+                + profile.getPosition().positionName + "\n"
+                + profile.getDepartment().departmentName + "\n"
+                + profile.getOrganization().organizationName + "\n";
 
         return new Paragraph(identity)
                 .setFontSize(14f);
