@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to
-manage contacts and patient details**. We aim GoMedic to be used by someone who can type fast and take advantage of the
+manage contacts and patient details**. We aim for GoMedic to be used by someone who can type fast and take advantage of the
 optimized features for Command Line Interface.
 
 GoMedic is bootstrapped using SE-EDU Address Book 3 and inherits some of its features such as `clear`, parameter
@@ -33,8 +33,8 @@ formatting, etc.
 
     * **`list t/patient`** : Lists all patients.
 
-    * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O p/12345678 o/heart-failure o/diabetes`** : Adds a contact
-      named `John Doe` to the Address Book.
+    * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O p/12345678 o/heart-failure o/diabetes`** : Adds a patient
+      named `John Doe` to GoMedic.
 
     * **`delete t/patient P001`** : Deletes the patient whose id is P001.
 
@@ -91,7 +91,7 @@ formatting, etc.
 
 Adds a new patient into the GoMedic application.
 
-Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE p/PHONE_NUMBER [o/MEDICAL_CONDITION]...`
+Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE p/PHONE_NUMBER [m/MEDICAL_CONDITION]...`
 
 The parameters are :
 
@@ -108,17 +108,16 @@ The parameters are :
 Examples:
 
 * `add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart failure `
-* `add t/patient n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234`
 
 ### Display full details of a patient: `view t/patient`
 
-Displays the full details of a doctor
+Displays the full details of a particular patient.
 
 Format: `view t/patient i/PATIENT_ID`
 
 The parameters are :
 
-* `i/PATIENT_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
+* `i/PATIENT_ID` indicates the ID of the patient to be viewed.
 
 Examples:
 
@@ -126,17 +125,17 @@ Examples:
 
 ### Deleting an existing patient: `delete t/patient`
 
-Deletes a patient from the GoMedic application.
+Deletes a patient from GoMedic.
 
 Format: `delete t/patient PATIENT_ID`
 
 The parameters are :
 
-* `PATIENT_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
+* `PATIENT_ID` indicates the ID of the patient to be deleted.
 
 Notes:
 
-* Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
+* Patient ID can be obtained by listing all the patients or searching for a certain patient with available filters. (_See `find` command_)
 * Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
   1 `delete t/patient` command will not delete 2 patients at once).
 * Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
@@ -145,15 +144,18 @@ Examples:
 
 * `delete t/patient P001`
 
-### Updating an existing patient: `edit t/patient`
+### Updating an existing patient's details: `edit t/patient`
 
 Edits a patient's details from the GoMedic application.
 
 Format: `edit t/patient i/PATIENT_ID [OPTIONAL_PARAMETER]...`
 
-The parameters are:
+The compulsory parameter is:
+* `i/PATIENT_ID` indicates the ID of the patient to be edited.
 
-* `n/NAME` indicates the full name of the patient, first name and last name are separated by `-`.
+The optional parameters are:
+
+* `n/NAME` indicates the full name of the patient.
 * `a/AGE` is greater than or equal to 0.
 * `g/GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
 * `h/HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
@@ -196,15 +198,15 @@ Examples:
 
 ### Adding a new doctor's details: `add t/doctor`
 
-Adds a new doctor into the GoMedic application.
+Adds the details of a doctor into GoMedic.
 
 Format: `add t/doctor n/NAME p/PHONE_NUMBER de/DEPARTMENT`
 
 The parameters are:
 
-* `n/NAME` indicates the full name of the doctor, first name and last name are separated by `space`.
-* `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
-* `de/DEPARTMENT` is the name of the department where the doctor serves in String.
+* `n/NAME` indicates the full name of the doctor.
+* `p/PHONE_NUMBER` must be 8-digit phone number.
+* `de/DEPARTMENT` is the name of the doctor's department.
 
 Examples:
 
@@ -228,17 +230,17 @@ Examples:
 
 ### Deleting an existing doctor: `delete t/doctor`
 
-Deletes a doctor from the GoMedic application.
+Deletes a doctor from GoMedic.
 
 Format: `delete t/doctor DOCTOR_ID`
 
 The parameters are:
 
-* `DOCTOR_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
+* `DOCTOR_ID` indicates the ID of the doctor to be deleted.
 
 Notes:
 
-* Doctor ID can be obtained by listing all the doctors or search for a certain doctors with available filters.
+* Doctor ID can be obtained by listing all the doctors or searching for a certain doctor with the available filters. (_See `find` command_)
 * Doctor ID is **unique** (i.e. every doctor will be assigned to a unique ID, hence this guarantees 1 `delete t/doctor`
   command will not delete 2 doctors at once).
 * Invalid Doctor ID being supplied would be flagged by GoMedic, and do not cause changes to any existing doctors.
@@ -249,29 +251,29 @@ Examples:
 
 ### Updating an existing doctor: `edit t/doctor`
 
-Edits a doctor's details from the GoMedic application.
+Edits a doctor's details in GoMedic.
 
 Format: `edit t/doctor i/DOCTOR_ID [OPTIONAL_PARAMETER]...`
 
-The parameters are:
-* `i/DOCTOR_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
+The compulsory parameter is:
+* `i/DOCTOR_ID` indicates the ID of the doctor to be edited.
 
-The parameters are:
+The optional parameters are:
 
-* `n/NAME` indicates the full name of the doctor, first name and last name are separated by `-`.
-* `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
-* `d/DEPARTMENT` is the name of the department where the doctor serves in String.
+* `n/NAME` indicates the full name of the doctor.
+* `p/PHONE_NUMBER` must be 8-digit phone number.
+* `d/DEPARTMENT` is the name of the doctor's department.
 
 Examples:
 
-* `add t/doctor i/D123 p/11112222`
-* `add t/doctor i/D101 de/orthopaedics`
+* `edit t/doctor i/D123 p/11112222`
+* `edit t/doctor i/D101 de/orthopaedics`
 
 ### Viewing the list of doctors `list t/doctor`
 
 Format: `list t/doctor`
 
-List all existing patients’ previews in the GoMedic application.
+List all existing doctors’ previews in GoMedic.
 
 Examples:
 
@@ -312,11 +314,11 @@ Delete a certain existing activity
 Format: `delete t/activity ACTIVITY_ID`
 
 The parameters are: 
-* `ACTIVITY_ID` indicates the ID number of the activity which is assigned when a new activity is added.
+* `ACTIVITY_ID` indicates the ID of the activity to be deleted.
 
 Note: 
-* Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time
-  frame.
+* Activity ID can be obtained by listing all the activities or searching for a certain activities within a certain time
+  frame. (_See `list t/activity` command_)
 * Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
   1 `delete t/activity` command will not delete 2 activities at once).
 * Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
@@ -448,6 +450,26 @@ Examples:
 List all existing (past, present and future) activities that exist in GoMedic.
 ## General Utility Commands 
 
+### Customizing your own profile: `profile`
+
+Updates your profile on GoMedic.
+
+Format: `profile n/NAME p/POSITION de/DEPARTMENT o/ORGANIZATION`
+
+The parameters are:
+* `n/NAME` the name of the user.
+* `p/POSITION` the position held by the user. (E.g. Senior Consultant)
+* `de/DEPARTMENT` the department that the user works in. (E.g. Department of Cardiology)
+* `o/ORGANIZATION` the organization that the user works in. (E.g. National University Hospital)
+
+Note:
+* All parameters must be alphanumeric. Otherwise, it would be considered as an 
+invalid entry, and the command will not be executed.
+
+Example:
+* `profile n/Jon Snow p/Senior Consultant de/Department of Cardiology o/NUH`
+
+
 ### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -464,7 +486,9 @@ Format: `clear [{type}]`
 
 Examples: 
 
-* `clear t/patient`
+* `clear t/patient`: Clears all patient entries
+* `clear t/doctor`: Clears all doctor entries
+* `clear`: Clears all entries in GoMedic
 
 ### Exiting the program : `exit`
 
@@ -491,6 +515,7 @@ at `[JAR file location]/data/doctors.json`, and finally all activities at `[JAR 
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, GoMedic will discard all data and start with an empty data file at the next run.
+If the format for the user profile is invalid, the preset user profile will be used instead.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
