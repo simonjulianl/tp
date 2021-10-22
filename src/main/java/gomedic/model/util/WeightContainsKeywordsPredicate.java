@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import gomedic.commons.util.StringUtil;
-import gomedic.model.person.Person;
+import gomedic.model.person.patient.Patient;
 
 /**
- * Tests that a Patient's or Doctor's name matches any of the keywords given.
+ * Tests that a Patient's weight matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate<T extends Person> implements Predicate<T> {
+public class WeightContainsKeywordsPredicate<T extends Patient> implements Predicate<T> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public WeightContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -20,7 +20,7 @@ public class NameContainsKeywordsPredicate<T extends Person> implements Predicat
     @Override
     public boolean test(T person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getWeight().toString(), keyword));
     }
 
     @Override
@@ -29,9 +29,9 @@ public class NameContainsKeywordsPredicate<T extends Person> implements Predicat
             return true;
         }
 
-        if (other instanceof NameContainsKeywordsPredicate) {
+        if (other instanceof WeightContainsKeywordsPredicate) {
             @SuppressWarnings("unchecked")
-            NameContainsKeywordsPredicate<T> otherKeywords = (NameContainsKeywordsPredicate<T>) other;
+            WeightContainsKeywordsPredicate<T> otherKeywords = (WeightContainsKeywordsPredicate<T>) other;
 
             return keywords.equals(otherKeywords.keywords);
         }
