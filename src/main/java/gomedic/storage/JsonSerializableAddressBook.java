@@ -14,6 +14,7 @@ import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.util.SampleDataUtil;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -73,7 +74,14 @@ class JsonSerializableAddressBook {
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
 
-        addressBook.setUserProfile(userProfile.toModelType());
+        // If there is no user profile detected, load the sample data instead
+        if (userProfile == null) {
+            addressBook.setUserProfile(SampleDataUtil.getSampleUserProfile());
+        } else {
+            addressBook.setUserProfile(userProfile.toModelType());
+        }
+
+
 
         for (JsonAdaptedDoctor jsonAdaptedDoctor: doctors) {
             Doctor doctor = jsonAdaptedDoctor.toModelType();
