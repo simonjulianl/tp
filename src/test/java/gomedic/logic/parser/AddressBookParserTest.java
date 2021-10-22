@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.ExitCommand;
-import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.ProfileCommand;
 import gomedic.logic.commands.addcommand.AddDoctorCommand;
@@ -22,15 +21,21 @@ import gomedic.logic.commands.clearcommand.ClearPatientCommand;
 import gomedic.logic.commands.deletecommand.DeleteDoctorCommand;
 import gomedic.logic.commands.deletecommand.DeletePatientCommand;
 import gomedic.logic.commands.editcommand.EditDoctorCommand;
+import gomedic.logic.commands.findcommand.FindActivityCommand;
+import gomedic.logic.commands.findcommand.FindDoctorCommand;
+import gomedic.logic.commands.findcommand.FindPatientCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPatientCommand;
 import gomedic.logic.commands.viewcommand.ViewPatientCommand;
 import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.model.activity.Activity;
 import gomedic.model.person.doctor.Doctor;
 import gomedic.model.person.doctor.DoctorId;
+import gomedic.model.person.patient.Patient;
 import gomedic.model.person.patient.PatientId;
 import gomedic.model.userprofile.UserProfile;
+import gomedic.model.util.ActivityTitleContainsKeywordsPredicate;
 import gomedic.model.util.NameContainsKeywordsPredicate;
 import gomedic.testutil.CommandGenerationUtils;
 import gomedic.testutil.editdescriptorbuilder.EditDoctorDescriptorBuilder;
@@ -114,11 +119,27 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_findDoctor() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + String.join(" ", keywords));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate<>(keywords)), command);
+        FindDoctorCommand command = (FindDoctorCommand) parser.parseCommand(
+                FindDoctorCommand.COMMAND_WORD + " " + "n/" + String.join(" ", keywords));
+        assertEquals(new FindDoctorCommand(new NameContainsKeywordsPredicate<Doctor>(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findPatient() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindPatientCommand command = (FindPatientCommand) parser.parseCommand(
+                FindPatientCommand.COMMAND_WORD + " " + "n/" + String.join(" ", keywords));
+        assertEquals(new FindPatientCommand(new NameContainsKeywordsPredicate<Patient>(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findActivity() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindActivityCommand command = (FindActivityCommand) parser.parseCommand(
+                FindActivityCommand.COMMAND_WORD + " " + "ti/" + String.join(" ", keywords));
+        assertEquals(new FindActivityCommand(new ActivityTitleContainsKeywordsPredicate<Activity>(keywords)), command);
     }
 
     @Test

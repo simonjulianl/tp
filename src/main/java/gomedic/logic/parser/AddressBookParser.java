@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.ExitCommand;
-import gomedic.logic.commands.FindCommand;
 import gomedic.logic.commands.HelpCommand;
 import gomedic.logic.commands.ProfileCommand;
 import gomedic.logic.commands.ReferralCommand;
@@ -24,6 +23,9 @@ import gomedic.logic.commands.deletecommand.DeletePatientCommand;
 import gomedic.logic.commands.editcommand.EditActivityCommand;
 import gomedic.logic.commands.editcommand.EditDoctorCommand;
 import gomedic.logic.commands.editcommand.EditPatientCommand;
+import gomedic.logic.commands.findcommand.FindActivityCommand;
+import gomedic.logic.commands.findcommand.FindDoctorCommand;
+import gomedic.logic.commands.findcommand.FindPatientCommand;
 import gomedic.logic.commands.listcommand.ListActivityCommand;
 import gomedic.logic.commands.listcommand.ListDoctorCommand;
 import gomedic.logic.commands.listcommand.ListPatientCommand;
@@ -39,6 +41,9 @@ import gomedic.logic.parser.editcommandparser.EditActivityCommandParser;
 import gomedic.logic.parser.editcommandparser.EditDoctorCommandParser;
 import gomedic.logic.parser.editcommandparser.EditPatientCommandParser;
 import gomedic.logic.parser.exceptions.ParseException;
+import gomedic.logic.parser.findcommandparser.FindActivityCommandParser;
+import gomedic.logic.parser.findcommandparser.FindDoctorCommandParser;
+import gomedic.logic.parser.findcommandparser.FindPatientCommandParser;
 import gomedic.logic.parser.listcommandparser.ListActivityParser;
 import gomedic.logic.parser.viewcommandparser.ViewPatientParser;
 
@@ -126,8 +131,14 @@ public class AddressBookParser {
         case ClearPatientCommand.COMMAND_WORD:
             return new ClearPatientCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case FindActivityCommand.COMMAND_WORD:
+            return new FindActivityCommandParser().parse(arguments);
+
+        case FindDoctorCommand.COMMAND_WORD:
+            return new FindDoctorCommandParser().parse(arguments);
+
+        case FindPatientCommand.COMMAND_WORD:
+            return new FindPatientCommandParser().parse(arguments);
 
         case ListActivityCommand.COMMAND_WORD:
             return new ListActivityParser().parse(arguments);

@@ -1,5 +1,5 @@
 ---
-layout: page 
+layout: page
 title: User Guide
 ---
 
@@ -10,7 +10,7 @@ optimized features for Command Line Interface.
 GoMedic is bootstrapped using SE-EDU Address Book 3 and inherits some of its features such as `clear`, parameter
 formatting, etc.
 
-* Table of Contents 
+* Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -24,9 +24,9 @@ formatting, etc.
 3. Copy the file to the folder you want to use as the _home folder_ for your GoMedic.
 
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app
-   contains some sample data.<br> 
+   contains some sample data.<br>
    ![Ui-activity](images/Ui-activity.png)
-   
+
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
    Some example commands you can try:
@@ -41,7 +41,7 @@ formatting, etc.
     * **`clear`** : Deletes all contacts including patients, doctors, and activities.
 
     * **`exit`** : Exits the app.
-6. **Address Book, GoMedic Address Book, and GoMedic** refers to the same term, which is just the application itself. 
+6. **Address Book, GoMedic Address Book, and GoMedic** refers to the same term, which is just the application itself.
 7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ Adds a new patient into the GoMedic application.
 
 Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE p/PHONE_NUMBER [m/MEDICAL_CONDITION]...`
 
-The parameters are : 
+The parameters are :
 
 * `n/NAME` indicates the full name of the patient, first name and last name are separated by `space`.
 * `a/AGE` is greater than or equal to 0.
@@ -101,14 +101,13 @@ The parameters are :
 * `h/HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
 * `w/WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
 * `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
-* `p/PHONE_NUMBER` must be 8-digit phone number.
+* `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
 * `m/MEDICAL_CONDITION` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
-  words, use `space` to combine the words, e.g. `heart failure`. 
+  words, use `space` to combine the words, e.g. `heart failure`.
 
 Examples:
 
-* `add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart failure m/diabetes`
-* `add t/patient n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234`
+* `add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart failure `
 
 ### Display full details of a patient: `view t/patient`
 
@@ -116,7 +115,7 @@ Displays the full details of a particular patient.
 
 Format: `view t/patient i/PATIENT_ID`
 
-The parameters are : 
+The parameters are :
 
 * `i/PATIENT_ID` indicates the ID of the patient to be viewed.
 
@@ -134,7 +133,7 @@ The parameters are :
 
 * `PATIENT_ID` indicates the ID of the patient to be deleted.
 
-Notes: 
+Notes:
 
 * Patient ID can be obtained by listing all the patients or searching for a certain patient with available filters. (_See `find` command_)
 * Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
@@ -165,13 +164,13 @@ The optional parameters are:
 * `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
 
 NOTE: TO COMPLETE - when you edit tags, you will replace all of the current tags
-The optional parameters are: 
+The optional parameters are:
 * `o/description` is the list of patient's past/pre-existing medical conditions to be **added**. For medical condition that has
   multiple words, use `space` to combine the words, e.g. `heart failure`. To separate between conditions, use more tags `o/`.
 * `do/description` is the list of patient's past/pre-existing medical conditions to be **deleted**. For medical
-  condition that has multiple words, use `space` to combine the words, e.g. `heart failure`. 
+  condition that has multiple words, use `space` to combine the words, e.g. `heart failure`.
 
-Notes: 
+Notes:
 * Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
 * Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
   1 `delete t/patient` command will not delete 2 patients at once).
@@ -203,7 +202,7 @@ Adds the details of a doctor into GoMedic.
 
 Format: `add t/doctor n/NAME p/PHONE_NUMBER de/DEPARTMENT`
 
-The parameters are: 
+The parameters are:
 
 * `n/NAME` indicates the full name of the doctor.
 * `p/PHONE_NUMBER` must be 8-digit phone number.
@@ -213,6 +212,21 @@ Examples:
 
 * `add t/doctor n/Timmy Tom p/98765432 de/neurology`
 * `add t/doctor n/John White p/12312312 de/cardiology`
+
+### Display full details of a doctor: `view t/doctor`
+
+Displays the full details of a doctor
+
+Format: `view t/doctor i/DOCTOR_ID`
+
+The parameters are:
+
+* `i/DOCTOR_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
+
+Examples:
+
+* `view t/doctor i/D001`
+
 
 ### Deleting an existing doctor: `delete t/doctor`
 
@@ -224,7 +238,7 @@ The parameters are:
 
 * `DOCTOR_ID` indicates the ID of the doctor to be deleted.
 
-Notes: 
+Notes:
 
 * Doctor ID can be obtained by listing all the doctors or searching for a certain doctor with the available filters. (_See `find` command_)
 * Doctor ID is **unique** (i.e. every doctor will be assigned to a unique ID, hence this guarantees 1 `delete t/doctor`
@@ -270,6 +284,8 @@ Examples:
 ### Adding a new activity: `add t/activity`
 
 Adds a new activity into your GoMedic scheduler.
+
+The parameters are:
 
 Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
 
@@ -328,6 +344,7 @@ Examples:
 
 * `list t/activity`
 
+### Find results that contain keyword: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
 ## Finding entries: `find [OPTIONAL_PARAMETERS]...`
 
 Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
@@ -338,9 +355,18 @@ Users can specify additional optional parameters to limit the keyword matching t
 flag. Parameters will only match results that contain the associated field (E.g. n/Hans will not return any `activities`
 since `activities` do not have a `name` field.)
 
-Format: `find [OPTIONAL_PARAMETERS]...`
+Format: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
 
 The parameters are:
+* `t/CATEGORY`: Searches for matches within this category.
+    * Valid values are:
+        * doctor
+        * patient
+        * activity
+        * all
+
+
+The optional parameters are:
 
 * `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
 * `p/PHONE_NUMBER`: Matches the phone number field (Valid for: `Patients`, `Doctors`)
@@ -353,15 +379,17 @@ The parameters are:
 * `o/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
   for: `Patients`)
 * `de/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
-* `ti/TITLE`: Matches the title field (Valid for: `Activities`)
+* `ti/TITLE`: Matches the title field or description field (Valid for: `Activities`)
 * `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`,
   _Tagging for `Doctors` and `Patients` coming soon_)
+
+* `all/KEYWORD` : Matches any field with the keyword specified
 
 Note:
 * Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
   condition as “Diabetes”)
 * Parameters can be repeated (e.g. `find n/Hans n/Bo` will return both `Hans Gruber` and `Bo Yang`)
-* If the optional parameters is not specified, the keyword will match any fields. E.g. `find dia` will return:
+* If the optional parameters `all` is  specified, the keyword will match any fields. E.g. `find t/all all/dia` will return:
     1. Doctor Claudia, whose name matches `dia`
     2. Patient Jaryl, whose medical condition, `diabetes`, matches `dia`
     3. Doctor Tom, whose specialty, `Pediatrics`, matches `dia`
@@ -369,10 +397,57 @@ Note:
 
 Examples:
 
-* `find o/diabetes a/42 n/Jaryl`
-* `find ta/important ti/tutorial`
-* `find dia`
+* `find t/all o/diabetes a/42 n/Jaryl`
+* `find t/activity ta/important ti/tutorial`
+* `find t/all all/dia`
 
+### Adding a new activity: `add t/activity`
+
+Adds a new activity into your GoMedic scheduler.
+
+Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
+
+The parameters are:
+* `s/START_TIME` the starting time of the activity, must be one of the accepted date time format.
+* `e/END_TIME` the ending time of the activity, must be one of the accepted date time format.
+* `ti/TITLE` the title of the activity.
+* `d/DESCRIPTION` the description of the activity.
+
+Note:
+* `START_TIME` and `END_TIME` must follow one of the formats specified.
+* `START_TIME` is strictly less than `END_TIME`.
+* Clashing activity (including partial overlap with other activities) would be considered as invalid
+  activity (i.e. not to be added).
+* `TITLE` ideally should be very short so that it can be displayed in the list without being truncated.
+
+Examples:
+
+* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
+* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
+
+### Deleting an existing activity: `delete t/activity`
+
+Delete a certain existing activity
+
+Format: `delete t/activity i/ACTIVITY_ID`
+
+The parameters are:
+* `i/ACTIVITY_ID` indicates the ID number of the activity which is assigned when a new activity is added.
+
+Note:
+* Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time
+  frame.
+* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
+  1 `delete t/activity` command will not delete 2 activities at once).
+* Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
+
+Examples:
+
+* `delete t/activity i/A123`
+
+### List all activities: `list t/activity`
+
+List all existing (past, present and future) activities that exist in GoMedic.
 ## General Utility Commands 
 
 ### Customizing your own profile: `profile`

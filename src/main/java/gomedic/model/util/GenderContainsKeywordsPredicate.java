@@ -4,23 +4,22 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import gomedic.commons.util.StringUtil;
-import gomedic.model.person.Person;
+import gomedic.model.person.patient.Patient;
 
 /**
- * Tests that a Patient's or Doctor's name matches any of the keywords given.
+ * Tests that a Patient's gender matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate<T extends Person> implements Predicate<T> {
+public class GenderContainsKeywordsPredicate<T extends Patient> implements Predicate<T> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public GenderContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
-
 
     @Override
     public boolean test(T person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getGender().toString(), keyword));
     }
 
     @Override
@@ -29,9 +28,9 @@ public class NameContainsKeywordsPredicate<T extends Person> implements Predicat
             return true;
         }
 
-        if (other instanceof NameContainsKeywordsPredicate) {
+        if (other instanceof GenderContainsKeywordsPredicate) {
             @SuppressWarnings("unchecked")
-            NameContainsKeywordsPredicate<T> otherKeywords = (NameContainsKeywordsPredicate<T>) other;
+            GenderContainsKeywordsPredicate<T> otherKeywords = (GenderContainsKeywordsPredicate<T>) other;
 
             return keywords.equals(otherKeywords.keywords);
         }
