@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+
+mainframe **sd** Profile Command Execution
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "p:ProfileCommand" as ProfileCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box UserProfile UI_COLOR_T1
+participant ":UserProfile" as UserProfile UI_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR_T3
+end box
+
+activate LogicManager
+LogicManager -> ProfileCommand :execute(":Model")
+activate ProfileCommand
+
+create UserProfile
+ProfileCommand -> UserProfile
+activate UserProfile
+return updatedProfile
+
+ProfileCommand -> Model :setUserProfile(updatedProfile)
+activate Model
+return
+
+create CommandResult
+ProfileCommand -> CommandResult
+activate CommandResult
+return profileCommandResult
+
+return profileCommandResult
+
+LogicManager -[hidden]-> ProfileCommand
+destroy ProfileCommand
+
+note over ProfileCommand, Model
+  The lower-level details of how :Model obtains
+  addressBook are omitted
+end note
+
+LogicManager -> Model :getAddressBook()
+activate Model
+return addressBook
+
+LogicManager -> Storage: saveAddressBook(addressBook)
+activate Storage
+return
+
+[<--LogicManager
+
+deactivate LogicManager
+
+@endpuml
