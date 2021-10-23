@@ -1,5 +1,9 @@
 #copyButton, #helpMessage {
+<<<<<<< HEAD
     -fx-font-family: "Open Sans Light";
+=======
+    -fx-font-family: "Lato Light";
+>>>>>>> master
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
@@ -9,7 +13,7 @@
 }
 
 #helpMessage1 {
-    -fx-font-family: "Open Sans";
+    -fx-font-family: "Lato";
     -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
