@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "<<Class>>\nMessages" as Messages LOGIC_COLOR
+end box
+
+
+[-> AddressBookParser : parseCommand("adl t/patent")
+activate AddressBookParser
+
+AddressBookParser -> Messages : getSuggestions("adl t/patent")
+activate Messages
+
+alt input tokens length is 1
+    Messages -> Messages : generateTypeSuggestions(command, listOfTypes, listOfTargets)
+    activate Messages
+    return approvedTypes
+else input tokens length is 2
+    Messages -> Messages : generateTypeSuggestions(commandArgs[0], listOfTypes, listOfTargets)
+    activate Messages
+    return approvedTypes
+
+    Messages -> Messages : generateTargetSuggestions(commandArgs[0], listOfTypes, listOfTargets)
+    activate Messages
+    return approvedTargets
+end
+return reply
+@enduml

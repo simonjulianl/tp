@@ -63,6 +63,7 @@ public class Messages {
     private static final HashSet<String> singleWordCommands = new HashSet<>(Arrays.asList("exit", "help",
             "profile", "referral"));
 
+
     /**
      * Returns the 5 most similar commands calculated using Levenshtein Distance Algorithm.
      *
@@ -234,6 +235,7 @@ public class Messages {
         return addDescription + clearDescription + deleteDescription + editDescription
                 + findDescription + listDescription + profileDescription
                 + referralDescription + helpDescription + exitDescription;
+
     }
 
     /**
