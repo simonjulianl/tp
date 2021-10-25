@@ -569,13 +569,18 @@ which patient it is scheduled with.
    and a field to which that substring should be matched to. 
    
 2. GoMedic shows a response message with the number of matches that have been found, and
-displays the matching records
+displays the matching records.
+   
+    Use case ends.
    
 **Extensions**
 * 1a. GoMedic gives feedback to user that no matches are found if there are no matching
-entries corresponding to the user's input
+entries corresponding to the user's input.
   
-* 1b GoMedic displays an error when user input is in incorrect format
+  Return.
+  
+* 1b GoMedic displays an error when user input is in incorrect format.
+    Return.
 
 *{More to be added}*
 
