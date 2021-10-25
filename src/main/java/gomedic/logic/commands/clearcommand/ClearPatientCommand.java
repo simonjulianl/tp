@@ -10,9 +10,11 @@ import gomedic.model.AddressBook;
 import gomedic.model.Model;
 import gomedic.model.ModelItem;
 import gomedic.model.ReadOnlyAddressBook;
+import gomedic.model.person.patient.Patient;
+import javafx.collections.ObservableList;
 
 /**
- * Clears the address book.
+ * Clears the address book of patients and associated activities.
  */
 public class ClearPatientCommand extends Command {
 
@@ -23,6 +25,10 @@ public class ClearPatientCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        ObservableList<Patient> listOfPatients = model.getFilteredPatientList();
+        for (Patient patient : listOfPatients) {
+            model.deletePatientAssociatedAppointments(patient);
+        }
         AddressBook newAddressBook = new AddressBook();
         ReadOnlyAddressBook oldAddressBook = model.getAddressBook();
         newAddressBook.setActivities(oldAddressBook.getActivityListSortedById());

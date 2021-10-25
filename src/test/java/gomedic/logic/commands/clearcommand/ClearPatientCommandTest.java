@@ -10,6 +10,9 @@ import gomedic.model.Model;
 import gomedic.model.ModelManager;
 import gomedic.model.ReadOnlyAddressBook;
 import gomedic.model.UserPrefs;
+import gomedic.model.activity.Activity;
+import gomedic.testutil.modelbuilder.ActivityBuilder;
+import javafx.collections.ObservableList;
 
 public class ClearPatientCommandTest {
 
@@ -28,7 +31,18 @@ public class ClearPatientCommandTest {
         AddressBook newAddressBook = new AddressBook();
         ReadOnlyAddressBook oldAddressBook = model.getAddressBook();
         newAddressBook.setDoctors(oldAddressBook.getDoctorListSortedById());
-        newAddressBook.setActivities(oldAddressBook.getActivityListSortedById());
+        Activity activityWithMatchingPatient = new ActivityBuilder()
+                .withId(5)
+                .withPatientId(1)
+                .withTitle("Meeting me")
+                .withDescription("today at somewhere")
+                .withStartTime("20/09/2022 13:00")
+                .withEndTime("21/09/2022 15:00")
+                .build();
+        ObservableList<Activity> remainingActivities = oldAddressBook.getActivityListSortedById()
+                .filtered(x -> !x.equals(activityWithMatchingPatient));
+        newAddressBook.setActivities(remainingActivities);
+
         expectedModel.setAddressBook(newAddressBook);
 
         assertCommandSuccess(new ClearPatientCommand(), model, ClearPatientCommand.MESSAGE_SUCCESS, expectedModel);
