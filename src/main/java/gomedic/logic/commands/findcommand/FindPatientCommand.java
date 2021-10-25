@@ -25,8 +25,9 @@ public class FindPatientCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all patients whose specified"
             + "fields contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: t/patient [FIELD]/KEYWORDS ...\n"
+            + "Example: " + COMMAND_WORD + " n/alice lee"
+            + "Options for FIELD: n, p, a, g, h, w, b, m";
 
     private final Predicate<Patient> predicate;
 
