@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -186,14 +187,14 @@ public class ReferralCommand extends Command {
 
         String firstParaTemplate = "I would like to refer %s. %s to your clinic for a "
                 + "check-up as well as urgent treatment. "
-                + "%s is a %s years old with %s. "
+                + "%s is a %s years old%s. "
                 + "I am afraid that I do not have the necessary resources "
                 + "to treat %s as %s requires according to %s condition. \n";
 
         String secondParaTemplate = "\n %s \n"
                 + "\n Please kindly look into %s case and give %s the treatment required.";
 
-        String medicalConditions = specifiedPatient
+        String medicalConditions = " with " + specifiedPatient
                 .getMedicalConditions()
                 .stream()
                 .map(tag -> tag.toString().substring(1, tag.toString().length() - 1))
@@ -204,7 +205,7 @@ public class ReferralCommand extends Command {
                 specifiedPatient.getName().fullName,
                 subjectPronoun,
                 specifiedPatient.getAge().age,
-                medicalConditions.toLowerCase(),
+                specifiedPatient.getMedicalConditions().size() > 0 ? medicalConditions.toLowerCase() : "",
                 objectPronoun.toLowerCase(),
                 subjectPronoun.toLowerCase(),
                 possessivePronoun.toLowerCase()
