@@ -562,6 +562,21 @@ which patient it is scheduled with.
   
     Use Case ends.
 
+**Use Case: [UC4] - Searching for specific records based on a specific field**
+
+**MSS**
+1. User requests to search within either the Patient, Doctor, or Activity category, specifying a substring 
+   and a field to which that substring should be matched to. 
+   
+2. GoMedic shows a response message with the number of matches that have been found, and
+displays the matching records
+   
+**Extensions**
+* 1a. GoMedic gives feedback to user that no matches are found if there are no matching
+entries corresponding to the user's input
+  
+* 1b GoMedic displays an error when user input is in incorrect format
+
 *{More to be added}*
 
 ### Non-Functional Requirements
