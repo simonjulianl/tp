@@ -16,7 +16,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
