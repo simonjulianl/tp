@@ -186,7 +186,7 @@ public class ReferralCommand extends Command {
 
         String firstParaTemplate = "I would like to refer %s. %s to your clinic for a "
                 + "check-up as well as urgent treatment. "
-                + "%s is a %s years old%s. "
+                + "%s is %s years old%s. "
                 + "I am afraid that I do not have the necessary resources "
                 + "to treat %s as %s requires according to %s condition. \n";
 
