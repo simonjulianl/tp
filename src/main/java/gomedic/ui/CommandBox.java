@@ -7,6 +7,7 @@ import gomedic.logic.parser.exceptions.ParseException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
 /**
@@ -16,6 +17,7 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
+    private static final CommandHistory HISTORY = new CommandHistory();
 
     private final CommandExecutor commandExecutor;
 
@@ -30,6 +32,35 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+
+        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+            switch (event.getCode()) {
+            case UP:
+                getPreviousCommand();
+                event.consume();
+                break;
+            case DOWN:
+                getNextCommand();
+                event.consume();
+                break;
+            default:
+                break;
+            }
+        });
+    }
+
+    private void getPreviousCommand() {
+        if (HISTORY.hasPreviousCommand()) {
+            String command = HISTORY.getPreviousCommand();
+            commandTextField.setText(command);
+        }
+    }
+
+    private void getNextCommand() {
+        if (HISTORY.hasNextCommand()) {
+            String command = HISTORY.getNextCommand();
+            commandTextField.setText(command);
+        }
     }
 
     /**
@@ -43,6 +74,7 @@ public class CommandBox extends UiPart<Region> {
         }
 
         try {
+            HISTORY.addToHistory(commandText);
             commandExecutor.execute(commandText);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
