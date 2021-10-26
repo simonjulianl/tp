@@ -17,7 +17,7 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final CommandHistory HISTORY = new CommandHistory();
+    private static final CommandHistory history = new CommandHistory();
 
     private final CommandExecutor commandExecutor;
 
@@ -50,15 +50,15 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void getPreviousCommand() {
-        if (HISTORY.hasPreviousCommand()) {
-            String command = HISTORY.getPreviousCommand();
+        if (history.hasPreviousCommand()) {
+            String command = history.getPreviousCommand();
             commandTextField.setText(command);
         }
     }
 
     private void getNextCommand() {
-        if (HISTORY.hasNextCommand()) {
-            String command = HISTORY.getNextCommand();
+        if (history.hasNextCommand()) {
+            String command = history.getNextCommand();
             commandTextField.setText(command);
         }
     }
@@ -74,7 +74,7 @@ public class CommandBox extends UiPart<Region> {
         }
 
         try {
-            HISTORY.addToHistory(commandText);
+            history.addToHistory(commandText);
             commandExecutor.execute(commandText);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
