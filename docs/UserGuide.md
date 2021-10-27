@@ -344,8 +344,8 @@ Parameters    |  Explanation                                      | Constraints 
 * Partial overlap activity is still considered as conflicting activity.
 
 </div>
+<div style="page-break-after: always;"></div>
 
---- 
 Example:
 
 &#8291;1. Type the command `add t/activity s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper` into
@@ -362,8 +362,6 @@ In this case, the error is because we are using invalid time format, which is in
 Now the command should work correctly!
 
 ![tut-activity-error](images/activityug/tut_activity_error.png)
-
----
 
 <div style="page-break-after: always;"></div>
 
@@ -390,7 +388,8 @@ Parameters    |  Explanation                                      | Constraints 
 
 The [activity constraints](#activity_extra_constraint) are still applicable here. 
 
----
+<div style="page-break-after: always;"></div>
+
 <a name="appointment_tutorial"></a>
 Examples:
 
@@ -408,8 +407,6 @@ Examples:
 and press `Enter` again, the command should work correctly now!
 
 ![tut-appt-error](images/activityug/tut_appt_error.png)
-
-___
 
 <div style="page-break-after: always;"></div>
 
@@ -432,7 +429,8 @@ Parameters    |  Explanation                                      | Constraints 
 :bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
 or search the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
 
----
+<div style="page-break-after: always;"></div>
+
 Example:
 
 &#8291;1. Type the command `delete t/activity A001` into the command box.
@@ -447,8 +445,6 @@ Example:
 feedback box shown at **2**. Fix the issue and the command should work correctly now!
 
 ![tut-delete-activity-error](images/activityug/tut_delete_activity_error.png)
-
----
 
 <div style="page-break-after: always;"></div>
 
@@ -470,7 +466,8 @@ Parameters    |  Explanation                                                    
 `s/SORT_FLAG`  | Options to sort the activity table by a certain column (case-insensitive)                 | - **START** : sort by start time <br/> - **ID** : sort by ID
 `p/PERIOD_FLAG`| Options to show the activities within the specified time frame (case-insensitive)           | - **ALL** : show all activities <br/> - **TODAY** : show today's activities <br/> - **WEEK** : show all activities within the next week  <br/> - **MONTH** : show all activities within the next month <br/> - **YEAR** : show all activities within the next year
 
----
+<div style="page-break-after: always;"></div>
+
 Examples:
 
 &#8291;1. Type the command `list t/activity p/today` into the command box. For example, the today's date is 28 October 2021. Note that the flag is case-insensitive!
@@ -486,7 +483,7 @@ Examples:
 
 ![tut-list-activity-error](images/activityug/tut_activitylist_error.png)
 
----
+<div style="page-break-after: always;"></div>
 
 ### Reordering Columns in The Display Table 
 
@@ -503,7 +500,6 @@ Examples:
 &#8291;3. Release the left click, and the columns should be reordered now!
 
 ![tut-reorder3](images/activityug/tut_reorder_col3.png)
-
 
 <div style="page-break-after: always;"></div>
 
