@@ -23,6 +23,7 @@ import gomedic.model.activity.Activity;
 import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
+import gomedic.model.activity.exceptions.ConflictingActivityException;
 import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Time;
 
@@ -38,12 +39,12 @@ public class EditActivityCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "[" + PREFIX_ID + "ID] "
-            + "[" + PREFIX_START_TIME + "NAME] "
-            + "[" + PREFIX_END_TIME + "PHONE] "
+            + "[" + PREFIX_START_TIME + "START_TIME] "
+            + "[" + PREFIX_END_TIME + "END_TIME] "
             + "[" + PREFIX_TITLE + "TITLE] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ID + " A001 "
+            + PREFIX_ID + "A001 "
             + PREFIX_START_TIME + "17/10/2021 14:00 "
             + PREFIX_END_TIME + "17/10/2021 15:00 "
             + PREFIX_TITLE + "Another new title";
@@ -98,7 +99,13 @@ public class EditActivityCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_ID);
         }
 
-        Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
+        Activity editedActivity;
+
+        try {
+            editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
+        } catch (Exception e) {
+            throw new CommandException(e.getMessage());
+        }
 
         boolean anyConflicting = model
                 .getFilteredActivityListById()

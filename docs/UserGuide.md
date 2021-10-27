@@ -236,7 +236,7 @@ Examples:
 
 Edits a doctor's details in GoMedic.
 
-Format: `edit t/doctor i/DOCTOR_ID [OPTIONAL_PARAMETER]...`
+**Format**: `edit t/doctor i/DOCTOR_ID [OPTIONAL_PARAMETER]...`
 
 The compulsory parameter is:
 * `i/DOCTOR_ID` indicates the ID of the doctor to be edited.
@@ -284,8 +284,8 @@ an existing activity.
     3. yyyy-MM-dd HH:mm (e.g. 2022-09-15 13:00)
 </div>
 
-Each activity is **uniquely** identified by its ID in the form of `AXXX` where `XXX` is a 3-digit integer. 
-Therefore, two activities with exactly same title and descriptions with different ID are considered distinct. 
+Each activity is **uniquely** identified by its `ACTIVITY_ID` in the form of `AXXX` where `XXX` is a 3-digit integer. 
+Therefore, two activities with exactly same `TITLE` and `DESCRIPTION` with different `ACTIVITY_ID` are considered distinct. 
 
 ---
 **Current Activities Related Features That Are Not Supported by GoMedic**
@@ -310,11 +310,11 @@ Therefore, two activities with exactly same title and descriptions with differen
 
 Adds a new activity into your **GoMedic** scheduler. 
 
-Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
+**Format**: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
 
-**GoMedic** would create a new activity based on the smallest Activity ID available. This example is shown [here](#appointment_tutorial), where
+**GoMedic** would create a new activity based on the smallest `ACTIVITY_ID` available. This example is shown [here](#appointment_tutorial), where
 a new activity is being added and get assigned ID **A006** and not A008 which makes it not displayed at the last entry in the list
-as the table is sorted by ID by default.
+as the table is sorted by `ACTIVITY_ID` by default.
 
 <a name="activity_check"></a>
 
@@ -328,8 +328,8 @@ The parameters are:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#overview)                           |
-`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#overview)                           |
+`s/START_TIME`| the starting time of the appointment.             | Please refer to [this](#overview)                           |
+`e/END_TIME`  | the ending time of the activity.                  | Please refer to [this](#overview)                           |
 `ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
 `d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
 
@@ -369,9 +369,9 @@ Now the command should work correctly!
 
 Adds a new appointment into your GoMedic scheduler.
 
-Format: `add t/activity i/PATIENT_ID s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
+**Format**: `add t/activity i/PATIENT_ID s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
 
-An Appointment is still an activity, it just has a single Patient ID associated with it as **GoMedic** currently only supports 
+An Appointment is still an activity, it just has a single `PATIENT_ID` associated with it as **GoMedic** currently only supports 
 having a one-to-one appointment only. Besides the [checks](#activity_check) performed on usual activity, **GoMedic** would also check
 * if the Patient identified by Patient ID exists. If not, GoMedic would immediately notify the user and the new appointment would not be added
 to the list. 
@@ -381,8 +381,8 @@ The parameters are:
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `i/PATIENT_ID`| the Patient Id associated with the appointment    | Patient Id must in the form of `PXXX`, where `XXX` is 3 digit number   |
-`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#overview)                           |
-`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#overview)                           |
+`s/START_TIME`| the starting time of the appointment.             | Please refer to [this](#overview)                           |
+`e/END_TIME`  | the ending time of the activity.                  | Please refer to [this](#overview)                           |
 `ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
 `d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
 
@@ -414,7 +414,7 @@ and press `Enter` again, the command should work correctly now!
 
 Delete a certain existing activity from **GoMedic**. 
 
-Format: `delete t/activity ACTIVITY_ID`
+**Format**: `delete t/activity ACTIVITY_ID`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 the `ACTIVITY_ID` does not require additional flags such as `i/`! supplying those flags would render the command invalid!
@@ -424,7 +424,7 @@ The parameter is:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Refer to [this](#overview) |
+`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Must be in the form of `AXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
 
 :bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
 or search the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
@@ -452,7 +452,7 @@ feedback box shown at **2**. Fix the issue and the command should work correctly
 
 List all activities that is stored in **GoMedic**.
 
-Format: `list t/activity s/SORT_FLAG p/PERIOD_FLAG`
+**Format**: `list t/activity s/SORT_FLAG p/PERIOD_FLAG`
 
 By default, all activities would be displayed in ascending order of ID. 
 
@@ -485,21 +485,47 @@ Parameters    |  Explanation                                                    
 
 <div style="page-break-after: always;"></div>
 
-### Reordering Columns in The Display Table 
+### Updating an existing activity's details: `edit t/activity`
 
-:bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
+Edits an activity's details from the **GoMedic** application.
 
-&#8291;1. Left click and hold any header of the table, the column would turn blue and can be dragged.
+**Format**: `edit t/patient i/ACTIVITY_ID [OPTIONAL PARAMETERS]...`
 
-![tut-reorder](images/activityug/tut_reorder_col.png)
+During editing an existing activity, all the parameters are optional except `ACTIVITY_ID`! However, 
+* If there are no parameters being supplied at all besides the `ACTIVITY_ID`, **GoMedic** would return an error. 
+* **GoMedic** would check for any conflicting activity when the `START_TIME` or the `END_TIME` is modified. 
 
-&#8291;2. Drag the header into the location of other columns as indicated as **1**, the column would be inserted at the line indicated by **2**.
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
 
-![tut-reorder2](images/activityug/tut_reorder_col2.png)
+* The `PATIENT_ID` of an appointment cannot be modified! You need to delete and create a new appointment to modify the `PATIENT_ID`
 
-&#8291;3. Release the left click, and the columns should be reordered now!
+* The `ACTIVITY_ID` is also assigned by **GoMedic** and cannot be modified at all once created.
+</div>
 
-![tut-reorder3](images/activityug/tut_reorder_col3.png)
+The parameters are: 
+
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`i/ACTIVITY_ID`| the unique identifier of an activity.            | Must be in the form of `AXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)                           |
+`s/START_TIME`| the starting time of the appointment.             | Please refer to [this](#overview)                           |
+`e/END_TIME`  | the ending time of the activity.                  | Please refer to [this](#overview)                           |
+`ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
+`d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
+
+**Example:**
+
+&#8291;1. Type the command `edit t/activity i/A002 ti/My Edited Activity` into the command box. Ensure that the edited activity as identified by its `ACTIVITY_ID` exists! 
+
+![tut-list-activity-1](images/activityug/tut_activitylist_1.png)
+
+&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, the activity table only shows today's activities.
+
+![tut-list-activity-2](images/activityug/tut_activitylist_2.png)
+
+&#8291;3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the
+feedback box shown at **2**. Please check that the flags available are only those specified in constraints [above](#list-all-activities-list-tactivity)! Fix the issue and the command should work correctly now!
+
+![tut-list-activity-error](images/activityug/tut_activitylist_error.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -666,6 +692,28 @@ at `[JAR file location]/data/doctors.json`, and finally all activities at `[JAR 
 If your changes to the data file makes its format invalid, GoMedic will discard all data and start with an empty data file at the next run.
 If the format for the user profile is invalid, the preset user profile will be used instead.
 </div>
+
+--------------------------------------------------------------------------------------------------------------------
+
+# Tips and Tricks
+
+### Reordering Columns in The Display Table
+
+:bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
+
+&#8291;1. Left click and hold any header of the table, the column would turn blue and can be dragged.
+
+![tut-reorder](images/activityug/tut_reorder_col.png)
+
+&#8291;2. Drag the header into the location of other columns as indicated as **1**, the column would be inserted at the line indicated by **2**.
+
+![tut-reorder2](images/activityug/tut_reorder_col2.png)
+
+&#8291;3. Release the left click, and the columns should be reordered now!
+
+![tut-reorder3](images/activityug/tut_reorder_col3.png)
+
+<div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
 
