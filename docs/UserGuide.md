@@ -76,11 +76,6 @@ formatting, etc.
   ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* There are fixed multiple valid date and time formats (GMT+8 24-Hour Time format):
-    1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00)
-    2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00)
-    3. yyyy-MM-dd HH:mm (e.g. 2022-09-15 13:00)
-
 * `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
 
 </div>
@@ -279,29 +274,127 @@ Examples:
 
 * `list t/doctor`
 
+<div style="page-break-after: always;"></div>
+
 ## Activities Related Features
+
+### Overview 
+
+Activities related features allow you to store, edit and list events and appointments with patients. 
+
+Using activities, you can track down your daily, weekly or even monthly schedules. **GoMedic** would also automatically 
+check for any conflicting activities and notify you immediately every time you try to create a new activity or update 
+an existing activity.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Notes about the Time format:**<br>
+
+* There are three accepted datetime formats (GMT+8 24-Hour Time format):
+    1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00)
+    2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00)
+    3. yyyy-MM-dd HH:mm (e.g. 2022-09-15 13:00)
+</div>
+
+Each activity is **uniquely** identified by its ID in the form of `AXXX` where `XXX` is a 3-digit integer. 
+Therefore, two activities with exactly same title and descriptions with different ID are considered distinct. 
+
+---
+**Current Activities Related Features That Are Not Supported by GoMedic**
+
+* Creating and editing recurrent events. 
+* Associating other doctors for an event.
+* Listing the activity in a Calendar style. 
+
+---
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Reminder on Command Notation:**<br>
+
+* Some important notation in reading the commands
+    * `[flag/KEYWORD]` indicates optional parameters
+    * `flag/KEYWORD` indicates mandatory parameters
+</div>
+
+<div style="page-break-after: always;"></div>
 
 ### Adding a new activity: `add t/activity`
 
-Adds a new activity into your GoMedic scheduler.
+Adds a new activity into your **GoMedic** scheduler. 
+
+* GoMedic would check for any partial or full **conflicting activities** if any and notify you immediately. Should there be any,
+the current appointment will not be added. 
+* GoMedic would also check for any invalid field as specified [here](#activity_constraint). Should there be any, the new activity will not be added. 
 
 The parameters are:
 
 Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
 
 The parameters are:
-* `s/START_TIME` the starting time of the activity, must be one of the accepted date time format. 
-* `e/END_TIME` the ending time of the activity, must be one of the accepted date time format.
-* `ti/TITLE` the title of the activity.
-* `d/DESCRIPTION` the description of the activity.
 
-Note: 
-* `START_TIME` and `END_TIME` must follow one of the formats specified.
-* `START_TIME` is strictly less than `END_TIME`.
-* Clashing activity (including partial overlap with other activities) would be considered as invalid
-  activity (i.e. not to be added).
-* `TITLE` ideally should be very short so that it can be displayed in the list without being truncated.
+<a name="activity_constraint"></a>
 
+<p style="text-align: center;">
+
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#Overview)                           |
+`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#Overview)                           |
+`ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
+`d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
+
+</p>
+
+<a name="activity_extra_constraint"></a>
+
+<div markdown="span" class="alert alert-warning">
+:exclamation: **Constraints:**
+
+* `START_TIME` must be **strictly less** than `END_TIME`.
+* Partial overlap activity is still considered as conflicting activity.
+* `TITLE` is constrained to
+* `DESCRIPTION` is constrained to maximum of 500 characters.
+
+</div>
+
+--- 
+Example:
+1. Type the command `add t/activity s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper` into
+the command box.
+   ![tut-activity-1](images/activityug/tut_activity_1.png)
+2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID.
+   ![tut-activity-1](images/activityug/tut_activity_2.png)
+3. If there is any error, the command would turn red as indicated by **1** and the feedback would be given in the feedback box at **2**.
+In this case, the error is because we are using invalid time format, which is in the form of `2022-09-15-14-00`. Fix the issue and press enter again!
+Now the command should work correctly!
+![tut-activity-error](images/activityug/tut_activity_error.png)
+
+---
+
+<div style="page-break-after: always;"></div>
+
+### Adding a new appointment: `add t/appointment`
+
+Adds a new activity into your GoMedic scheduler.
+
+Format: `add t/activity i/PATIENT_ID s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
+
+The parameters are:
+
+<p style="text-align: center;">
+
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`i/PATIENT_ID`| the Patient Id associated with the appointment    | Patient Id must in the form of `PXXX`, where `XXX` is 3 digit number   |
+`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#Overview)                           |
+`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#Overview)                           |
+`ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
+`d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
+
+</p>
+
+The [activity constraints](#activity_extra_constraint) are still applicable here. 
+
+---
 Examples:
 
 * `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
@@ -531,6 +624,8 @@ the data of your previous GoMedic home folder.
 # Command summary
 * `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#features) section.
 
+<p style="text-align: center;">
+
 Action        | Format                                            | Examples                                             |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 **Add**       | `add {type} {PARAMETERS}`                         | `add t/doctor n/Timmy Tom p/98765432 de/neurology`   |
@@ -544,3 +639,4 @@ Action        | Format                                            | Examples    
 **Exit**      | `exit`                                            |                                                      |
 **Help**      | `help`                                            |                                                      |
 
+</p>
