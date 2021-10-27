@@ -403,7 +403,7 @@ The [activity constraints](#activity_extra_constraint) are still applicable here
 
 ![tut-appt-2](images/activityug/tut_appt_2.png)
 
-&#8291;3. If there is any error, the command would turn ren as shown by **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
+&#8291;3. If there is any error, the command would turn red as shown by **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
 and press `Enter` again, the command should work correctly now!
 
 ![tut-appt-error](images/activityug/tut_appt_error.png)
@@ -441,7 +441,7 @@ or search the specific activity using [`find t/activity` command](#finding-entri
 
 ![tut-delete-activity-2](images/activityug/tut_delete_activity_2.png)
 
-&#8291;3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the 
+&#8291;3. If there is any error, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the 
 feedback box shown at **2**. Fix the issue and the command should work correctly now!
 
 ![tut-delete-activity-error](images/activityug/tut_delete_activity_error.png)
@@ -478,7 +478,7 @@ Parameters    |  Explanation                                                    
 
 ![tut-list-activity-2](images/activityug/tut_activitylist_2.png)
 
-&#8291;3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the
+&#8291;3. If there is any error, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the
    feedback box shown at **2**. Please check that the flags available are only those specified in constraints [above](#list-all-activities-list-tactivity)! Fix the issue and the command should work correctly now!
 
 ![tut-list-activity-error](images/activityug/tut_activitylist_error.png)
@@ -502,6 +502,8 @@ During editing an existing activity, all the parameters are optional except `ACT
 * The `ACTIVITY_ID` is also assigned by **GoMedic** and cannot be modified at all once created.
 </div>
 
+:bulb: **Tip:** You can update multiple fields at the same time !
+
 The parameters are: 
 
 Parameters    |  Explanation                                      | Constraints                                          |                
@@ -516,16 +518,16 @@ Parameters    |  Explanation                                      | Constraints 
 
 &#8291;1. Type the command `edit t/activity i/A002 ti/My Edited Activity` into the command box. Ensure that the edited activity as identified by its `ACTIVITY_ID` exists! 
 
-![tut-list-activity-1](images/activityug/tut_activitylist_1.png)
+![tut-edit-1](images/activityug/tut_edit_1.png)
 
-&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, the activity table only shows today's activities.
+&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, activity `A002` has its title updated!
 
-![tut-list-activity-2](images/activityug/tut_activitylist_2.png)
+![tut-edit-2](images/activityug/tut_edit_2.png)
 
-&#8291;3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the
-feedback box shown at **2**. Please check that the flags available are only those specified in constraints [above](#list-all-activities-list-tactivity)! Fix the issue and the command should work correctly now!
+&#8291;3. If there is any error, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the
+feedback box shown at **2**. In this case, the error is that `START_TIME` of the edited activity exceeds its `END_TIME`. Fix the issue and the command should work correctly now!
 
-![tut-list-activity-error](images/activityug/tut_activitylist_error.png)
+![tut-edit-error](images/activityug/tut_edit_error.png)
 
 <div style="page-break-after: always;"></div>
 
