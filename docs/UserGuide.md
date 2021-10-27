@@ -336,11 +336,12 @@ Parameters    |  Explanation                                      | Constraints 
 <a name="activity_extra_constraint"></a>
 
 <div markdown="span" class="alert alert-warning">
-:exclamation: **Extra Constraints:**
-<ul>
- <li> `START_TIME` must be **strictly less** than `END_TIME`. </li>
- <li> Partial overlap activity is still considered as conflicting activity. </li>
-</ul>
+
+:exclamation: **Extra Constraints:** <br>
+
+* `START_TIME` must be **strictly less** than `END_TIME`. 
+
+* Partial overlap activity is still considered as conflicting activity.
 
 </div>
 
