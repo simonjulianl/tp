@@ -412,7 +412,7 @@ Examples:
 2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID and hence note that 
    the new entry is not displayed at the last entry!
    ![tut-appt-2](images/activityug/tut_appt_2.png)
-3. If there is any error, the command would turn ren as shown in **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
+3. If there is any error, the command would turn ren as shown by **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
 and press `Enter` again, the command should work correctly now!
    ![tut-appt-error](images/activityug/tut_appt_error.png)
 ___
@@ -431,9 +431,13 @@ the `ACTIVITY_ID` does not require additional flags such as `i/`! supplying thos
 
 The parameter is:
 
+<p style="text-align: center;">
+
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`ACTIVITY_ID` | the Activity Id as shown in the Activity table     | Refer to [this](#Overview)] |
+`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Refer to [this](#Overview) |
+
+</p>
 
 :bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
 or search the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
@@ -444,7 +448,7 @@ Example:
      ![tut-delete-activity-1](images/activityug/tut_delete_activity_1.png)
 2. Press `Enter` and you will get confirmation that the activity is indeed deleted. Check the activity table and the activity identified by the deleted ID should not be there. 
    ![tut-delete-activity-2](images/activityug/tut_delete_activity_2.png)
-3. If there is any error, the command would turn ren as shown in **1**. Also, the feedback about the error is shown in the 
+3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the 
 feedback box shown at **2**. Fix the issue and the command should work correctly now!
    ![tut-delete-activity-error](images/activityug/tut_delete_activity_error.png)
 
@@ -454,22 +458,51 @@ feedback box shown at **2**. Fix the issue and the command should work correctly
 
 ### List all activities: `list t/activity`
 
-List all existing (past, present and future) activities that exist in GoMedic.
+List all activities that is stored in **GoMedic**.
 
-:bulb: **Tip:** _There are other upcoming `list` commands that can list future activities only and past activities only._
+Format: `list t/activity s/SORT_FLAG p/PERIOD_FLAG`
 
-Format: `list t/activity`
+By default, all activities would be displayed in ascending order of ID. 
 
-* Activities would be displayed in ascending `START_TIME` (The past activities would be at the top if any and Future
-  activities at the bottom).
-* The summary or description that are too long would be truncated.
-* The `START_TIME` and `END_TIME` would be displayed in `dd-MM-yyyy HH:mm` GMT+8 24-Hour format.
+* Regardless on the input format of the `start_time` and `end_time` field, it would be displayed in `dd-MM-yyyy HH:mm` GMT+8 24-Hour format.
+* Titles and Descriptions that are too long would be truncated. 
 
-:bulb: **Tip:** _There are other upcoming `list` commands that can list future activities only and past activities only._
+The parameters are : 
 
+<p style="text-align: center;">
+
+Parameters    |  Explanation                                                              | Constraints                                          |                
+--------------|---------------------------------------------------------------------------|----------------------------------------------------- |
+`s/SORT_FLAG`  | Options to sort the activity table by a certain column (case-insensitive)                 | - **START** : sort by start time <br/> - **ID** : sort by ID
+`p/PERIOD_FLAG`| Options to show the activities within the specified time frame (case-insensitive)           | - **ALL** : show all activities <br/> - **TODAY** : show today's activities <br/> - **WEEK** : show all activities within the next week  <br/> - **MONTH** : show all activities within the next month <br/> - **YEAR** : show all activities within the next year
+
+</p>
+
+---
 Examples:
 
-* `list t/activity`
+1. Type the command `list t/activity p/today` into the command box. For example, the today's date is 28 October 2021. Note that the flag is case-insensitive!
+   ![tut-list-activity-1](images/activityug/tut_activitylist_1.png)
+2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, the activity table only shows today's activities.
+   ![tut-list-activity-2](images/activityug/tut_activitylist_2.png)
+3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the
+   feedback box shown at **2**. Please check that the flags available are only those specified in constraints [above](#list-all-activities-list-tactivity)! Fix the issue and the command should work correctly now!
+   ![tut-list-activity-error](images/activityug/tut_activitylist_error.png)
+
+---
+
+### Reordering Columns in The Display Table 
+
+:bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
+1. Left click and hold any header of the table, the column would turn blue and can be dragged.
+   ![tut-reorder](images/activityug/tut_reorder_col.png)
+2. Drag the header into the location of other columns as indicated as **1**, the column would be inserted at the line indicated by **2**.
+   ![tut-reorder2](images/activityug/tut_reorder_col2.png)
+3. Release the left click, and the columns should be reordered now!
+   ![tut-reorder3](images/activityug/tut_reorder_col3.png)
+
+
+<div style="page-break-after: always;"></div>
 
 ## Finding entries: `find [OPTIONAL_PARAMETERS]...`
 
