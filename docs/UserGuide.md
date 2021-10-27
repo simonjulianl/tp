@@ -417,6 +417,8 @@ and press `Enter` again, the command should work correctly now!
    ![tut-appt-error](images/activityug/tut_appt_error.png)
 ___
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting an existing activity: `delete t/activity`
 
 Delete a certain existing activity from **GoMedic**. 
@@ -437,9 +439,13 @@ Examples:
 
 * `delete t/activity A123`
 
+<div style="page-break-after: always;"></div>
+
 ### List all activities: `list t/activity`
 
 List all existing (past, present and future) activities that exist in GoMedic.
+
+:bulb: **Tip:** _There are other upcoming `list` commands that can list future activities only and past activities only._
 
 Format: `list t/activity`
 
@@ -454,8 +460,9 @@ Examples:
 
 * `list t/activity`
 
-### Find results that contain keyword: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
 ## Finding entries: `find [OPTIONAL_PARAMETERS]...`
+
+### Find results that contain keyword: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
 
 Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
 If more than 1 keyword is specified, results that contain at least 1 of the keywords will be returned (i.e. `OR` search)
@@ -511,53 +518,6 @@ Examples:
 * `find t/activity ta/important ti/tutorial`
 * `find t/all all/dia`
 
-### Adding a new activity: `add t/activity`
-
-Adds a new activity into your GoMedic scheduler.
-
-Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
-
-The parameters are:
-* `s/START_TIME` the starting time of the activity, must be one of the accepted date time format.
-* `e/END_TIME` the ending time of the activity, must be one of the accepted date time format.
-* `ti/TITLE` the title of the activity.
-* `d/DESCRIPTION` the description of the activity.
-
-Note:
-* `START_TIME` and `END_TIME` must follow one of the formats specified.
-* `START_TIME` is strictly less than `END_TIME`.
-* Clashing activity (including partial overlap with other activities) would be considered as invalid
-  activity (i.e. not to be added).
-* `TITLE` ideally should be very short so that it can be displayed in the list without being truncated.
-
-Examples:
-
-* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
-* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
-
-### Deleting an existing activity: `delete t/activity`
-
-Delete a certain existing activity
-
-Format: `delete t/activity i/ACTIVITY_ID`
-
-The parameters are:
-* `i/ACTIVITY_ID` indicates the ID number of the activity which is assigned when a new activity is added.
-
-Note:
-* Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time
-  frame.
-* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
-  1 `delete t/activity` command will not delete 2 activities at once).
-* Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
-
-Examples:
-
-* `delete t/activity i/A123`
-
-### List all activities: `list t/activity`
-
-List all existing (past, present and future) activities that exist in GoMedic.
 ## General Utility Commands 
 
 ### Customizing your own profile: `profile`
