@@ -6,7 +6,7 @@ title: GoMedic
 [![CI Status](https://github.com/AY2122S1-CS2103T-T15-1/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2122S1-CS2103T-T15-1/tp/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/gh/AY2122S1-CS2103T-T15-1/tp/branch/master/graph/badge.svg?token=PY49G4GN2U)](https://codecov.io/gh/AY2122S1-CS2103T-T15-1/tp)
 
-![Ui](images/Ui.png)
+![Ui](images/Ui-activity.png)
 
 **GoMedic is a desktop application for managing your contact details.** While it has a GUI, most of the user
 interactions happen using a CLI (Command Line Interface).
@@ -20,4 +20,4 @@ interactions happen using a CLI (Command Line Interface).
 
 * Project bootstrapped from: [SE-EDU Address Book 3](https://se-education.org/addressbook-level3/)
 * Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson)
-  , [JUnit5](https://github.com/junit-team/junit5)
+  , [JUnit5](https://github.com/junit-team/junit5), [iTextPdf](https://itextpdf.com/en)
