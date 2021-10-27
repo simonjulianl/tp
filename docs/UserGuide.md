@@ -328,8 +328,8 @@ The parameters are:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#Overview)                           |
-`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#Overview)                           |
+`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#overview)                           |
+`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#overview)                           |
 `ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
 `d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
 
@@ -347,16 +347,17 @@ Parameters    |  Explanation                                      | Constraints 
 
 --- 
 Example:
-1. Type the command `add t/activity s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper` into
+
+&#8291;1. Type the command `add t/activity s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper` into
 the command box.
 
 ![tut-activity-1](images/activityug/tut_activity_1.png)
 
-2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID.
+&#8291;2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID.
 
 ![tut-activity-2](images/activityug/tut_activity_2.png)
 
-3. If there is any error, the command would turn red as indicated by **1** and the feedback would be given in the feedback box at **2**.
+&#8291;3. If there is any error, the command would turn red as indicated by **1** and the feedback would be given in the feedback box at **2**.
 In this case, the error is because we are using invalid time format, which is in the form of `2022-09-15-14-00`. Fix the issue and press enter again!
 Now the command should work correctly!
 
@@ -382,8 +383,8 @@ The parameters are:
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `i/PATIENT_ID`| the Patient Id associated with the appointment    | Patient Id must in the form of `PXXX`, where `XXX` is 3 digit number   |
-`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#Overview)                           |
-`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#Overview)                           |
+`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#overview)                           |
+`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#overview)                           |
 `ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
 `d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
 
@@ -392,17 +393,18 @@ The [activity constraints](#activity_extra_constraint) are still applicable here
 ---
 <a name="appointment_tutorial"></a>
 Examples:
-1. Type the command `add t/appointment i/P001 s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Appointment with Patient X` into
+
+&#8291;1. Type the command `add t/appointment i/P001 s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Appointment with Patient X` into
    the command box.
 
 ![tut-appt-1](images/activityug/tut_appt_1.png)
 
-2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID and hence note that 
+&#8291;2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID and hence note that 
    the new entry is not displayed at the last entry!
 
 ![tut-appt-2](images/activityug/tut_appt_2.png)
 
-3. If there is any error, the command would turn ren as shown by **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
+&#8291;3. If there is any error, the command would turn ren as shown by **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
 and press `Enter` again, the command should work correctly now!
 
 ![tut-appt-error](images/activityug/tut_appt_error.png)
@@ -424,22 +426,23 @@ The parameter is:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Refer to [this](#Overview) |
+`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Refer to [this](#overview) |
 
 :bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
 or search the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
 
 ---
 Example:
-1. Type the command `delete t/activity A001` into the command box.
+
+&#8291;1. Type the command `delete t/activity A001` into the command box.
 
 ![tut-delete-activity-1](images/activityug/tut_delete_activity_1.png)
 
-2. Press `Enter` and you will get confirmation that the activity is indeed deleted. Check the activity table and the activity identified by the deleted ID should not be there. 
+&#8291;2. Press `Enter` and you will get confirmation that the activity is indeed deleted. Check the activity table and the activity identified by the deleted ID should not be there. 
 
 ![tut-delete-activity-2](images/activityug/tut_delete_activity_2.png)
 
-3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the 
+&#8291;3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the 
 feedback box shown at **2**. Fix the issue and the command should work correctly now!
 
 ![tut-delete-activity-error](images/activityug/tut_delete_activity_error.png)
@@ -469,15 +472,15 @@ Parameters    |  Explanation                                                    
 ---
 Examples:
 
-1. Type the command `list t/activity p/today` into the command box. For example, the today's date is 28 October 2021. Note that the flag is case-insensitive!
+&#8291;1. Type the command `list t/activity p/today` into the command box. For example, the today's date is 28 October 2021. Note that the flag is case-insensitive!
 
 ![tut-list-activity-1](images/activityug/tut_activitylist_1.png)
 
-2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, the activity table only shows today's activities.
+&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, the activity table only shows today's activities.
 
 ![tut-list-activity-2](images/activityug/tut_activitylist_2.png)
 
-3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the
+&#8291;3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the
    feedback box shown at **2**. Please check that the flags available are only those specified in constraints [above](#list-all-activities-list-tactivity)! Fix the issue and the command should work correctly now!
 
 ![tut-list-activity-error](images/activityug/tut_activitylist_error.png)
@@ -487,15 +490,16 @@ Examples:
 ### Reordering Columns in The Display Table 
 
 :bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
-1. Left click and hold any header of the table, the column would turn blue and can be dragged.
+
+&#8291;1. Left click and hold any header of the table, the column would turn blue and can be dragged.
 
 ![tut-reorder](images/activityug/tut_reorder_col.png)
 
-2. Drag the header into the location of other columns as indicated as **1**, the column would be inserted at the line indicated by **2**.
+&#8291;2. Drag the header into the location of other columns as indicated as **1**, the column would be inserted at the line indicated by **2**.
 
 ![tut-reorder2](images/activityug/tut_reorder_col2.png)
 
-4. Release the left click, and the columns should be reordered now!
+&#8291;3. Release the left click, and the columns should be reordered now!
 
 ![tut-reorder3](images/activityug/tut_reorder_col3.png)
 
