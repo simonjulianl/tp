@@ -6,7 +6,7 @@ We aim GoMedic to be used by someone who can type fast and take advantage of the
 Command Line Interface.
 
 # User Interface
-![Ui](docs/images/Ui.png)
+![Ui](docs/images/Ui-activity.png)
 
 # Acknowledgement
 * This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org/).

@@ -79,11 +79,6 @@ formatting, etc.
   ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* There are fixed multiple valid date and time formats (GMT+8 24-Hour Time format):
-    1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00)
-    2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00)
-    3. yyyy-MM-dd HH:mm (e.g. 2022-09-15 13:00)
-
 * `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
 
 </div>
@@ -268,73 +263,239 @@ Examples:
 
 * `list t/doctor`
 
+<div style="page-break-after: always;"></div>
+
 ## Activities Related Features
+
+### Overview 
+
+Activities related features allow you to store, edit and list events and appointments with patients. 
+
+Using activities, you can track down your daily, weekly or even monthly schedules. **GoMedic** would also automatically 
+check for any conflicting activities and notify you immediately every time you try to create a new activity or update 
+an existing activity.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Notes about the Time format:**<br>
+
+* There are three accepted datetime formats (GMT+8 24-Hour Time format):
+    1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00)
+    2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00)
+    3. yyyy-MM-dd HH:mm (e.g. 2022-09-15 13:00)
+</div>
+
+Each activity is **uniquely** identified by its ID in the form of `AXXX` where `XXX` is a 3-digit integer. 
+Therefore, two activities with exactly same title and descriptions with different ID are considered distinct. 
+
+---
+**Current Activities Related Features That Are Not Supported by GoMedic**
+
+* Creating and editing recurrent events. 
+* Associating other doctors for an event.
+* Listing the activity in a Calendar style. 
+
+---
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Reminder on Command Notation:**<br>
+
+* Some important notation in reading the commands
+    * `[flag/KEYWORD]` indicates optional parameters
+    * `flag/KEYWORD` indicates mandatory parameters
+</div>
+
+<div style="page-break-after: always;"></div>
 
 ### Adding a new activity: `add t/activity`
 
-Adds a new activity into your GoMedic scheduler.
-
-The parameters are:
+Adds a new activity into your **GoMedic** scheduler. 
 
 Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
 
+**GoMedic** would create a new activity based on the smallest Activity ID available. This example is shown [here](#appointment_tutorial), where
+a new activity is being added and get assigned ID **A006** and not A008 which makes it not displayed at the last entry in the list
+as the table is sorted by ID by default.
+
+<a name="activity_check"></a>
+
+* GoMedic would check for any partial or full **conflicting activities** if any and notify you immediately. Should there be any,
+the current appointment will not be added. 
+* GoMedic would also check for any invalid field as specified [here](#activity_constraint). Should there be any, the new activity will not be added. 
+
 The parameters are:
-* `s/START_TIME` the starting time of the activity, must be one of the accepted date time format. 
-* `e/END_TIME` the ending time of the activity, must be one of the accepted date time format.
-* `ti/TITLE` the title of the activity.
-* `d/DESCRIPTION` the description of the activity.
 
-Note: 
-* `START_TIME` and `END_TIME` must follow one of the formats specified.
-* `START_TIME` is strictly less than `END_TIME`.
-* Clashing activity (including partial overlap with other activities) would be considered as invalid
-  activity (i.e. not to be added).
-* `TITLE` ideally should be very short so that it can be displayed in the list without being truncated.
+<a name="activity_constraint"></a>
 
+<p style="text-align: center;">
+
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#Overview)                           |
+`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#Overview)                           |
+`ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
+`d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
+
+</p>
+
+<a name="activity_extra_constraint"></a>
+
+<div markdown="span" class="alert alert-warning">
+:exclamation: **Extra Constraints:**
+
+* `START_TIME` must be **strictly less** than `END_TIME`.
+* Partial overlap activity is still considered as conflicting activity.
+* `TITLE` is constrained to
+* `DESCRIPTION` is constrained to maximum of 500 characters.
+
+</div>
+
+--- 
+Example:
+1. Type the command `add t/activity s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper` into
+the command box.
+   ![tut-activity-1](images/activityug/tut_activity_1.png)
+2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID.
+   ![tut-activity-2](images/activityug/tut_activity_2.png)
+3. If there is any error, the command would turn red as indicated by **1** and the feedback would be given in the feedback box at **2**.
+In this case, the error is because we are using invalid time format, which is in the form of `2022-09-15-14-00`. Fix the issue and press enter again!
+Now the command should work correctly!
+![tut-activity-error](images/activityug/tut_activity_error.png)
+
+---
+
+<div style="page-break-after: always;"></div>
+
+### Adding a new appointment: `add t/appointment`
+
+Adds a new appointment into your GoMedic scheduler.
+
+Format: `add t/activity i/PATIENT_ID s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
+
+An Appointment is still an activity, it just has a single Patient ID associated with it as **GoMedic** currently only supports 
+having a one-to-one appointment only. Besides the [checks](#activity_check) performed on usual activity, **GoMedic** would also check
+* if the Patient identified by Patient ID exists. If not, GoMedic would immediately notify the user and the new appointment would not be added
+to the list. 
+
+The parameters are:
+
+<p style="text-align: center;">
+
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`i/PATIENT_ID`| the Patient Id associated with the appointment    | Patient Id must in the form of `PXXX`, where `XXX` is 3 digit number   |
+`s/START_TIME`| the starting time of the appointment.             | Refer to [this](#Overview)                           |
+`e/END_TIME`  | the ending time of the activity.                  | Refer to [this](#Overview)                           |
+`ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
+`d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
+
+</p>
+
+The [activity constraints](#activity_extra_constraint) are still applicable here. 
+
+---
+<a name="appointment_tutorial"></a>
 Examples:
+1. Type the command `add t/appointment i/P001 s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Appointment with Patient X` into
+   the command box.
+   ![tut-appt-1](images/activityug/tut_appt_1.png)
+2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID and hence note that 
+   the new entry is not displayed at the last entry!
+   ![tut-appt-2](images/activityug/tut_appt_2.png)
+3. If there is any error, the command would turn ren as shown by **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
+and press `Enter` again, the command should work correctly now!
+   ![tut-appt-error](images/activityug/tut_appt_error.png)
+___
 
-* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
-* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
+<div style="page-break-after: always;"></div>
 
 ### Deleting an existing activity: `delete t/activity`
 
-Delete a certain existing activity
+Delete a certain existing activity from **GoMedic**. 
 
 Format: `delete t/activity ACTIVITY_ID`
 
-The parameters are: 
-* `ACTIVITY_ID` indicates the ID of the activity to be deleted.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+the `ACTIVITY_ID` does not require additional flags such as `i/`! supplying those flags would render the command invalid!
+</div>
 
-Note: 
-* Activity ID can be obtained by listing all the activities or searching for a certain activities within a certain time
-  frame. (_See `list t/activity` command_)
-* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
-  1 `delete t/activity` command will not delete 2 activities at once).
-* Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
+The parameter is:
 
-Examples:
+<p style="text-align: center;">
 
-* `delete t/activity A123`
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Refer to [this](#Overview) |
+
+</p>
+
+:bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
+or search the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
+
+---
+Example:
+1. Type the command `delete t/activity A001` into the command box.
+     ![tut-delete-activity-1](images/activityug/tut_delete_activity_1.png)
+2. Press `Enter` and you will get confirmation that the activity is indeed deleted. Check the activity table and the activity identified by the deleted ID should not be there. 
+   ![tut-delete-activity-2](images/activityug/tut_delete_activity_2.png)
+3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the 
+feedback box shown at **2**. Fix the issue and the command should work correctly now!
+   ![tut-delete-activity-error](images/activityug/tut_delete_activity_error.png)
+
+---
+
+<div style="page-break-after: always;"></div>
 
 ### List all activities: `list t/activity`
 
-List all existing (past, present and future) activities that exist in GoMedic.
+List all activities that is stored in **GoMedic**.
 
-Format: `list t/activity`
+Format: `list t/activity s/SORT_FLAG p/PERIOD_FLAG`
 
-* Activities would be displayed in ascending `START_TIME` (The past activities would be at the top if any and Future
-  activities at the bottom).
-* The summary or description that are too long would be truncated.
-* The `START_TIME` and `END_TIME` would be displayed in `dd-MM-yyyy HH:mm` GMT+8 24-Hour format.
+By default, all activities would be displayed in ascending order of ID. 
 
-:bulb: **Tip:** _There are other upcoming `list` commands that can list future activities only and past activities only._
+* Regardless on the input format of the `start_time` and `end_time` field, it would be displayed in `dd-MM-yyyy HH:mm` GMT+8 24-Hour format.
+* Titles and Descriptions that are too long would be truncated. 
 
+The parameters are : 
+
+<p style="text-align: center;">
+
+Parameters    |  Explanation                                                              | Constraints                                          |                
+--------------|---------------------------------------------------------------------------|----------------------------------------------------- |
+`s/SORT_FLAG`  | Options to sort the activity table by a certain column (case-insensitive)                 | - **START** : sort by start time <br/> - **ID** : sort by ID
+`p/PERIOD_FLAG`| Options to show the activities within the specified time frame (case-insensitive)           | - **ALL** : show all activities <br/> - **TODAY** : show today's activities <br/> - **WEEK** : show all activities within the next week  <br/> - **MONTH** : show all activities within the next month <br/> - **YEAR** : show all activities within the next year
+
+</p>
+
+---
 Examples:
 
-* `list t/activity`
+1. Type the command `list t/activity p/today` into the command box. For example, the today's date is 28 October 2021. Note that the flag is case-insensitive!
+   ![tut-list-activity-1](images/activityug/tut_activitylist_1.png)
+2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, the activity table only shows today's activities.
+   ![tut-list-activity-2](images/activityug/tut_activitylist_2.png)
+3. If there is any error, the command would turn ren as shown by **1**. Also, the feedback about the error is shown by the
+   feedback box shown at **2**. Please check that the flags available are only those specified in constraints [above](#list-all-activities-list-tactivity)! Fix the issue and the command should work correctly now!
+   ![tut-list-activity-error](images/activityug/tut_activitylist_error.png)
+
+---
+
+### Reordering Columns in The Display Table 
+
+:bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
+1. Left click and hold any header of the table, the column would turn blue and can be dragged.
+   ![tut-reorder](images/activityug/tut_reorder_col.png)
+2. Drag the header into the location of other columns as indicated as **1**, the column would be inserted at the line indicated by **2**.
+   ![tut-reorder2](images/activityug/tut_reorder_col2.png)
+3. Release the left click, and the columns should be reordered now!
+   ![tut-reorder3](images/activityug/tut_reorder_col3.png)
+
+
+<div style="page-break-after: always;"></div>
+
+## Finding entries: `find [OPTIONAL_PARAMETERS]...`
 
 ### Find results that contain keyword: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
-## Finding entries: `find [OPTIONAL_PARAMETERS]...`
 
 Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
 If more than 1 keyword is specified, results that contain at least 1 of the keywords will be returned (i.e. `OR` search)
@@ -390,53 +551,6 @@ Examples:
 * `find t/activity ta/important ti/tutorial`
 * `find t/all all/dia`
 
-### Adding a new activity: `add t/activity`
-
-Adds a new activity into your GoMedic scheduler.
-
-Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
-
-The parameters are:
-* `s/START_TIME` the starting time of the activity, must be one of the accepted date time format.
-* `e/END_TIME` the ending time of the activity, must be one of the accepted date time format.
-* `ti/TITLE` the title of the activity.
-* `d/DESCRIPTION` the description of the activity.
-
-Note:
-* `START_TIME` and `END_TIME` must follow one of the formats specified.
-* `START_TIME` is strictly less than `END_TIME`.
-* Clashing activity (including partial overlap with other activities) would be considered as invalid
-  activity (i.e. not to be added).
-* `TITLE` ideally should be very short so that it can be displayed in the list without being truncated.
-
-Examples:
-
-* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
-* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
-
-### Deleting an existing activity: `delete t/activity`
-
-Delete a certain existing activity
-
-Format: `delete t/activity i/ACTIVITY_ID`
-
-The parameters are:
-* `i/ACTIVITY_ID` indicates the ID number of the activity which is assigned when a new activity is added.
-
-Note:
-* Activity ID can be obtained by listing all the activities or search for a certain activities within a certain time
-  frame.
-* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
-  1 `delete t/activity` command will not delete 2 activities at once).
-* Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
-
-Examples:
-
-* `delete t/activity i/A123`
-
-### List all activities: `list t/activity`
-
-List all existing (past, present and future) activities that exist in GoMedic.
 ## General Utility Commands 
 
 ### Generating a referral: `referral`
@@ -554,17 +668,21 @@ the data of your previous GoMedic home folder.
 --------------------------------------------------------------------------------------------------------------------
 
 # Command summary
-* `{PARAMETERS}` indicates the mandatory parameters as specified in the [Features](#features) section.
+* `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#features) section.
+
+<p style="text-align: center;">
 
 Action        | Format                                            | Examples                                             |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 **Add**       | `add {type} {PARAMETERS}`                         | `add t/doctor n/Timmy Tom p/98765432 de/neurology`   |
 **Delete**    | `delete {type} {type}_ID`                         | `delete t/patient P003`                              |
-**Edit**      | `edit {type} i/{type}_ID [OPTIONAL PARAMETER]...` | `edit t/patient i/P123 n/John Doe a/30 g/M`          |
-**Find**      | `find [OPTIONAL_PARAMATERS]...`                   | `find ta/important ti/tutorial`                      |
+**Edit**      | `edit {type} i/{type}_ID ...`                     | `edit t/patient i/P123 n/John Doe a/30 g/M`          |
+**Find**      | `find {type} ...`                                 | `find ta/important ti/tutorial`                      |
 **View**      | `view t/patient i/PATIENT_ID`                     | `view t/patient i/P003`                              |
-**Clear**     | `clear`                                           |                                                      |
-**List**      | `list {type}`                                     | `list t/patient`                                     |
+**Referral**  | `referral {PARAMETERS}`                           | `referral ti/Referral of Patient A di/D001 pi/P001`  |
+**Clear**     | `clear` or `clear {type}`                         | `clear t/activity`                                   |
+**List**      | `list {type} {PARAMETERS}`                        | `list t/patient`, `list t/activity s/START`          |
 **Exit**      | `exit`                                            |                                                      |
 **Help**      | `help`                                            |                                                      |
 
+</p>
