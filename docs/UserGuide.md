@@ -205,28 +205,13 @@ Format: `add t/doctor n/NAME p/PHONE_NUMBER de/DEPARTMENT`
 The parameters are:
 
 * `n/NAME` indicates the full name of the doctor.
-* `p/PHONE_NUMBER` must be 8-digit phone number.
-* `de/DEPARTMENT` is the name of the doctor's department.
+* `p/PHONE_NUMBER` must be a numeric phone number that contains at least 3 digits.
+* `de/DEPARTMENT` indicates the doctor's department.
 
 Examples:
 
 * `add t/doctor n/Timmy Tom p/98765432 de/neurology`
 * `add t/doctor n/John White p/12312312 de/cardiology`
-
-### Display full details of a doctor: `view t/doctor`
-
-Displays the full details of a doctor
-
-Format: `view t/doctor i/DOCTOR_ID`
-
-The parameters are:
-
-* `i/DOCTOR_ID` indicates the ID number of the doctor which is assigned when a new doctor is added.
-
-Examples:
-
-* `view t/doctor i/D001`
-
 
 ### Deleting an existing doctor: `delete t/doctor`
 
@@ -240,10 +225,10 @@ The parameters are:
 
 Notes:
 
-* Doctor ID can be obtained by listing all the doctors or searching for a certain doctor with the available filters. (_See `find` command_)
+* Doctor ID can be obtained by listing all the doctors or searching for a certain doctor. (_See `list` and `find` command_)
 * Doctor ID is **unique** (i.e. every doctor will be assigned to a unique ID, hence this guarantees 1 `delete t/doctor`
   command will not delete 2 doctors at once).
-* Invalid Doctor ID being supplied would be flagged by GoMedic, and do not cause changes to any existing doctors.
+* Invalid Doctor IDs supplied would be flagged by GoMedic, and do not cause changes to any existing doctors.
 
 Examples:
 
@@ -261,13 +246,14 @@ The compulsory parameter is:
 The optional parameters are:
 
 * `n/NAME` indicates the full name of the doctor.
-* `p/PHONE_NUMBER` must be 8-digit phone number.
-* `d/DEPARTMENT` is the name of the doctor's department.
+* `p/PHONE_NUMBER` must be a numeric phone number that contains at least 3 digits.
+* `d/DEPARTMENT` indicates the doctor's department.
 
+**Note: At least one parameter other than the Doctor ID has to be specified, but not all have to be present**
 Examples:
 
 * `edit t/doctor i/D123 p/11112222`
-* `edit t/doctor i/D101 de/orthopaedics`
+* `edit t/doctor i/D101 n/Jone Stone de/orthopaedics`
 
 ### Viewing the list of doctors `list t/doctor`
 
@@ -468,6 +454,7 @@ invalid entry, and the command will not be executed.
 
 Example:
 * `profile n/Jon Snow p/Senior Consultant de/Department of Cardiology o/NUH`
+* `profile n/Joan Saow p/Consultant de/Department of Neurology o/TTSH`
 
 
 ### Viewing help : `help`
@@ -502,8 +489,7 @@ GoMedic will suggest up to the 5 closest command to be executed if you make a ty
 
 ### Saving the data
 
-GoMedic data are saved in the hard disk automatically after any command that changes the data. There is no need to save
-manually.
+GoMedic saves the data on the hard disk automatically after every command. There is no need to save manually.
 
 ### Editing the data file
 
