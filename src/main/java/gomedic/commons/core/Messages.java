@@ -1,5 +1,6 @@
 package gomedic.commons.core;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -72,7 +73,7 @@ public class Messages {
     public static String getSuggestions(String command) {
 
         String[] commandArgs = command.split(" ", 2);
-        List<String> approvedSuggestions = null;
+        List<String> approvedSuggestions;
 
         // if wrong command is too short, the command type is probably wrong
         if (commandArgs.length == 1) {
@@ -84,19 +85,19 @@ public class Messages {
             HashSet<String> set1 = new HashSet<>(approvedTypes);
             HashSet<String> set2 = new HashSet<>(approvedTargets);
             set1.retainAll(set2);
-            approvedSuggestions = set1.stream().limit(5).collect(Collectors.toList());
+            approvedSuggestions = new ArrayList<>(set1);
         }
 
         // if there are matches in the suggested items
         String reply = String.format(MESSAGE_UNKNOWN_COMMAND, command);
-        Iterator<String> iterator = approvedSuggestions.iterator();
+        if (approvedSuggestions.stream().anyMatch(x -> x.contains("clear"))) {
+            approvedSuggestions.add("clear");
+        }
+        Iterator<String> iterator = approvedSuggestions.stream().limit(5).iterator();
         if (iterator.hasNext()) {
             StringBuilder additionalReply = new StringBuilder(" You can choose from these commands instead: \n");
             while (iterator.hasNext()) {
                 String nextCommand = iterator.next();
-                if (nextCommand == null) {
-                    continue;
-                }
                 additionalReply.append(nextCommand).append("    ");
             }
             reply += additionalReply;
@@ -147,6 +148,7 @@ public class Messages {
                             }
                         })
                         : Stream.of(x.getValue()))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
@@ -187,6 +189,7 @@ public class Messages {
                             return y + " " + x.getValue();
                         })
                         : Stream.of("add t/appointment"))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
     /**
