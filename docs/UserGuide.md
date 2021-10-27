@@ -335,9 +335,9 @@ Parameters    |  Explanation                                      | Constraints 
 
 <a name="activity_extra_constraint"></a>
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="block" class="alert alert-warning">
 
-:exclamation: **Extra Constraints:** <br>
+:exclamation: **Extra Constraints** <br>
 
 * `START_TIME` must be **strictly less** than `END_TIME`. 
 
@@ -408,6 +408,7 @@ Examples:
 and press `Enter` again, the command should work correctly now!
 
 ![tut-appt-error](images/activityug/tut_appt_error.png)
+
 ___
 
 <div style="page-break-after: always;"></div>
