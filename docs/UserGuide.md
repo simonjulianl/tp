@@ -321,13 +321,17 @@ Therefore, two activities with exactly same title and descriptions with differen
 
 Adds a new activity into your **GoMedic** scheduler. 
 
+Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
+
+**GoMedic** would create a new activity based on the smallest Activity ID available. This example is shown [here](#appointment_tutorial), where
+a new activity is being added and get assigned ID **A006** and not A008 which makes it not displayed at the last entry in the list
+as the table is sorted by ID by default.
+
+<a name="activity_check"></a>
+
 * GoMedic would check for any partial or full **conflicting activities** if any and notify you immediately. Should there be any,
 the current appointment will not be added. 
 * GoMedic would also check for any invalid field as specified [here](#activity_constraint). Should there be any, the new activity will not be added. 
-
-The parameters are:
-
-Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
 
 The parameters are:
 
@@ -347,7 +351,7 @@ Parameters    |  Explanation                                      | Constraints 
 <a name="activity_extra_constraint"></a>
 
 <div markdown="span" class="alert alert-warning">
-:exclamation: **Constraints:**
+:exclamation: **Extra Constraints:**
 
 * `START_TIME` must be **strictly less** than `END_TIME`.
 * Partial overlap activity is still considered as conflicting activity.
@@ -362,7 +366,7 @@ Example:
 the command box.
    ![tut-activity-1](images/activityug/tut_activity_1.png)
 2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID.
-   ![tut-activity-1](images/activityug/tut_activity_2.png)
+   ![tut-activity-2](images/activityug/tut_activity_2.png)
 3. If there is any error, the command would turn red as indicated by **1** and the feedback would be given in the feedback box at **2**.
 In this case, the error is because we are using invalid time format, which is in the form of `2022-09-15-14-00`. Fix the issue and press enter again!
 Now the command should work correctly!
@@ -374,9 +378,14 @@ Now the command should work correctly!
 
 ### Adding a new appointment: `add t/appointment`
 
-Adds a new activity into your GoMedic scheduler.
+Adds a new appointment into your GoMedic scheduler.
 
 Format: `add t/activity i/PATIENT_ID s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
+
+An Appointment is still an activity, it just has a single Patient ID associated with it as **GoMedic** currently only supports 
+having a one-to-one appointment only. Besides the [checks](#activity_check) performed on usual activity, **GoMedic** would also check
+* if the Patient identified by Patient ID exists. If not, GoMedic would immediately notify the user and the new appointment would not be added
+to the list. 
 
 The parameters are:
 
@@ -395,14 +404,22 @@ Parameters    |  Explanation                                      | Constraints 
 The [activity constraints](#activity_extra_constraint) are still applicable here. 
 
 ---
+<a name="appointment_tutorial"></a>
 Examples:
-
-* `add t/activity s/2022-09-15-14-00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper`
-* `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y`
+1. Type the command `add t/appointment i/P001 s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Appointment with Patient X` into
+   the command box.
+   ![tut-appt-1](images/activityug/tut_appt_1.png)
+2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID and hence note that 
+   the new entry is not displayed at the last entry!
+   ![tut-appt-2](images/activityug/tut_appt_2.png)
+3. If there is any error, the command would turn ren as shown in **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
+and press `Enter` again, the command should work correctly now!
+   ![tut-appt-error](images/activityug/tut_appt_error.png)
+___
 
 ### Deleting an existing activity: `delete t/activity`
 
-Delete a certain existing activity
+Delete a certain existing activity from **GoMedic**. 
 
 Format: `delete t/activity ACTIVITY_ID`
 
