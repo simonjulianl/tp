@@ -425,19 +425,30 @@ Delete a certain existing activity from **GoMedic**.
 
 Format: `delete t/activity ACTIVITY_ID`
 
-The parameters are: 
-* `ACTIVITY_ID` indicates the ID of the activity to be deleted.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+the `ACTIVITY_ID` does not require additional flags such as `i/`! supplying those flags would render the command invalid!
+</div>
 
-Note: 
-* Activity ID can be obtained by listing all the activities or searching for a certain activities within a certain time
-  frame. (_See `list t/activity` command_)
-* Activity ID is **unique** (i.e. every activity will be assigned to a unique ID, hence this guarantees
-  1 `delete t/activity` command will not delete 2 activities at once).
-* Invalid Activity ID being supplied would be flagged by GoMedic, and do not cause changes to any existing activities.
+The parameter is:
 
-Examples:
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`ACTIVITY_ID` | the Activity Id as shown in the Activity table     | Refer to [this](#Overview)] |
 
-* `delete t/activity A123`
+:bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
+or search the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
+
+---
+Example:
+1. Type the command `delete t/activity A001` into the command box.
+     ![tut-delete-activity-1](images/activityug/tut_delete_activity_1.png)
+2. Press `Enter` and you will get confirmation that the activity is indeed deleted. Check the activity table and the activity identified by the deleted ID should not be there. 
+   ![tut-delete-activity-2](images/activityug/tut_delete_activity_2.png)
+3. If there is any error, the command would turn ren as shown in **1**. Also, the feedback about the error is shown in the 
+feedback box shown at **2**. Fix the issue and the command should work correctly now!
+   ![tut-delete-activity-error](images/activityug/tut_delete_activity_error.png)
+
+---
 
 <div style="page-break-after: always;"></div>
 
