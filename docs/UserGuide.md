@@ -529,17 +529,18 @@ the data of your previous GoMedic home folder.
 --------------------------------------------------------------------------------------------------------------------
 
 # Command summary
-* `{PARAMETERS}` indicates the mandatory parameters as specified in the [Features](#features) section.
+* `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#features) section.
 
 Action        | Format                                            | Examples                                             |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 **Add**       | `add {type} {PARAMETERS}`                         | `add t/doctor n/Timmy Tom p/98765432 de/neurology`   |
 **Delete**    | `delete {type} {type}_ID`                         | `delete t/patient P003`                              |
-**Edit**      | `edit {type} i/{type}_ID [OPTIONAL PARAMETER]...` | `edit t/patient i/P123 n/John Doe a/30 g/M`          |
-**Find**      | `find [OPTIONAL_PARAMATERS]...`                   | `find ta/important ti/tutorial`                      |
+**Edit**      | `edit {type} i/{type}_ID ...`                     | `edit t/patient i/P123 n/John Doe a/30 g/M`          |
+**Find**      | `find {type} ...`                                 | `find ta/important ti/tutorial`                      |
 **View**      | `view t/patient i/PATIENT_ID`                     | `view t/patient i/P003`                              |
-**Clear**     | `clear`                                           |                                                      |
-**List**      | `list {type}`                                     | `list t/patient`                                     |
+**Referral**  | `referral {PARAMETERS}`                           | `referral ti/Referral of Patient A di/D001 pi/P001`  |
+**Clear**     | `clear` or `clear {type}`                         | `clear t/activity`                                   |
+**List**      | `list {type} {PARAMETERS}`                        | `list t/patient`, `list t/activity s/START`          |
 **Exit**      | `exit`                                            |                                                      |
 **Help**      | `help`                                            |                                                      |
 
