@@ -527,13 +527,17 @@ Behaviour of each erroneous command is assumed to follow the convention specifie
 
 There will be up to 5 suggested commands for each erroneous input.
 
-#### For single word commands in format `{command}`:
+#### For errors that follow the format `{mispelt command}`:
 
-* errors such as `exi` will return `exit`,`edit t/patient`,`edit t/doctor`,`edit t/activity` in no particular order of importance.
+* errors such as `exi` will return `exit`,`edit t/patient`,`edit t/doctor`,`edit t/activity` ranked using a word similarity metric.
 
-#### For two word commands in format `{command} {type}`:
+* for such errors, single word commands like `help` or two word commands like `add t/patient` may be suggested.
 
-* errors such as `adl t/patit` will return `add t/patient`, `add t/activity` in no particular order of importance.
+#### For errors that follow the format `{command} {mispelt type}`, `{mispelt command} {type}` or `{mispelt command} {mispelt type}`:
+
+* errors such as `adl t/patit` will return `add t/patient`, `add t/activity` ranked using a word similarity metric.
+
+* for such errors, only two word commands like `add t/patient` can be suggested.
 
 ### Saving the data
 
