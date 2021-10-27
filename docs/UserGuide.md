@@ -52,6 +52,9 @@ formatting, etc.
 
 **:information_source: Notes about the command format:**<br>
 
+* Any mention of `{command}` refers to one of these values `add`, `delete`, `list`, `edit`, `clear`, `find`, `view`, `help`,
+`profile`, `referral`, `help`, `exit`
+
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
@@ -450,6 +453,24 @@ Examples:
 List all existing (past, present and future) activities that exist in GoMedic.
 ## General Utility Commands 
 
+### Generating a referral: `referral`
+
+Generates a referral letter for a patient in PDF format.
+
+Format: `referral ti/TITLE di/DOCTOR_ID pi/PATIENT_ID [d/DESCRIPTION]`
+
+The parameters are:
+
+* `ti/TITLE` title of the referral document.
+* `di/DOCTOR_ID` id of the doctor to be referred to.
+* `pi/PATIENT_ID` id of the patient being referred.
+* `d/DESCRIPTION` description of the patient's condition and further details.
+
+Note: 
+
+* the patient and doctor must both be present in the GoMedic App as a valid entry or the referral will not be
+generated.
+
 ### Customizing your own profile: `profile`
 
 Updates your profile on GoMedic.
@@ -472,7 +493,8 @@ Example:
 
 ### Viewing help : `help`
 
-Shows a message explaining how to access the help page.
+Shows a message giving a brief explanation of each command term and the ability to copy the link to the user guide for 
+more information.
 
 ![help message](images/helpMessage.png)
 
@@ -486,8 +508,9 @@ Format: `clear [{type}]`
 
 Examples: 
 
-* `clear t/patient`: Clears all patient entries
+* `clear t/patient`: Clears all patient entries and the appointments associated with them
 * `clear t/doctor`: Clears all doctor entries
+* `clear t/activity`: Clears all activity and appointment entries
 * `clear`: Clears all entries in GoMedic
 
 ### Exiting the program : `exit`
@@ -498,7 +521,19 @@ Format: `exit`
 
 ### Suggestions
 
-GoMedic will suggest up to the 5 closest command to be executed if you make a typo and send an invalid command.
+There are two types of erroneous inputs that we are expecting, one for single worded commands and one for two word commands.
+Behaviour of each erroneous command is assumed to follow the convention specified above.
+
+
+There will be up to 5 suggested commands for each erroneous input.
+
+#### For single word commands in format `{command}`:
+
+* errors such as `exi` will return `exit`,`edit t/patient`,`edit t/doctor`,`edit t/activity` in no particular order of importance.
+
+#### For two word commands in format `{command} {type}`:
+
+* errors such as `adl t/patit` will return `add t/patient`, `add t/activity` in no particular order of importance.
 
 ### Saving the data
 

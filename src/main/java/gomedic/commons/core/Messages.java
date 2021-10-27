@@ -248,8 +248,8 @@ public class Messages {
         String viewDescription = "view t/patient:\n    Views all the details of a specific patient in one page.\n\n";
 
         return addDescription + clearDescription + deleteDescription + editDescription
-                + findDescription + listDescription + profileDescription
-                + referralDescription + helpDescription + exitDescription + viewDescription;
+                + findDescription + listDescription + profileDescription + viewDescription
+                + referralDescription + helpDescription + exitDescription;
 
     }
 
