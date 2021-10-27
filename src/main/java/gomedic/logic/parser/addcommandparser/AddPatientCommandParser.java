@@ -38,17 +38,17 @@ public class AddPatientCommandParser implements Parser<AddPatientCommand> {
                 CliSyntax.PREFIX_NAME,
                 CliSyntax.PREFIX_PHONE,
                 CliSyntax.PREFIX_AGE,
-                CliSyntax.PREFIX_BLOODTYPE,
+                CliSyntax.PREFIX_BLOOD_TYPE,
                 CliSyntax.PREFIX_GENDER,
                 CliSyntax.PREFIX_HEIGHT,
                 CliSyntax.PREFIX_WEIGHT,
-                CliSyntax.PREFIX_MEDICALCONDITIONS);
+                CliSyntax.PREFIX_MEDICAL_CONDITIONS);
 
         if (!arePrefixesPresent(argMultimap,
             CliSyntax.PREFIX_NAME,
             CliSyntax.PREFIX_PHONE,
             CliSyntax.PREFIX_AGE,
-            CliSyntax.PREFIX_BLOODTYPE,
+            CliSyntax.PREFIX_BLOOD_TYPE,
             CliSyntax.PREFIX_GENDER,
             CliSyntax.PREFIX_HEIGHT,
             CliSyntax.PREFIX_WEIGHT)
@@ -63,12 +63,12 @@ public class AddPatientCommandParser implements Parser<AddPatientCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get());
         Age age = ParserUtil.parseAge(argMultimap.getValue(CliSyntax.PREFIX_AGE).get());
-        BloodType bloodType = ParserUtil.parseBloodType(argMultimap.getValue(CliSyntax.PREFIX_BLOODTYPE).get());
+        BloodType bloodType = ParserUtil.parseBloodType(argMultimap.getValue(CliSyntax.PREFIX_BLOOD_TYPE).get());
         Gender gender = ParserUtil.parseGender(argMultimap.getValue(CliSyntax.PREFIX_GENDER).get());
         Height height = ParserUtil.parseHeight(argMultimap.getValue(CliSyntax.PREFIX_HEIGHT).get());
         Weight weight = ParserUtil.parseWeight(argMultimap.getValue(CliSyntax.PREFIX_WEIGHT).get());
         Set<Tag> medicalConditions = ParserUtil.parseMedicalConditions(argMultimap
-            .getAllValues(CliSyntax.PREFIX_MEDICALCONDITIONS));
+            .getAllValues(CliSyntax.PREFIX_MEDICAL_CONDITIONS));
 
         return new AddPatientCommand(name, phone, age, bloodType, gender, height, weight, medicalConditions);
     }

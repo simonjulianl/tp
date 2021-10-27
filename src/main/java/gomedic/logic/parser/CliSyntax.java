@@ -29,11 +29,11 @@ public class CliSyntax {
 
     /* Prefix definitions for a patient */
     public static final Prefix PREFIX_AGE = new Prefix("a/");
-    public static final Prefix PREFIX_BLOODTYPE = new Prefix("b/");
+    public static final Prefix PREFIX_BLOOD_TYPE = new Prefix("b/");
     public static final Prefix PREFIX_GENDER = new Prefix("g/");
     public static final Prefix PREFIX_HEIGHT = new Prefix("h/");
     public static final Prefix PREFIX_WEIGHT = new Prefix("w/");
-    public static final Prefix PREFIX_MEDICALCONDITIONS = new Prefix("m/");
+    public static final Prefix PREFIX_MEDICAL_CONDITIONS = new Prefix("m/");
 
     /* Prefix definitions for an activity */
     public static final Prefix PREFIX_TITLE = new Prefix("ti/");
