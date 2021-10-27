@@ -346,7 +346,7 @@ Parameters    |  Explanation                                      | Constraints 
 </div>
 <div style="page-break-after: always;"></div>
 
-Example:
+**Example:**
 
 &#8291;1. Type the command `add t/activity s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper` into
 the command box.
@@ -391,7 +391,7 @@ The [activity constraints](#activity_extra_constraint) are still applicable here
 <div style="page-break-after: always;"></div>
 
 <a name="appointment_tutorial"></a>
-Examples:
+**Example:**
 
 &#8291;1. Type the command `add t/appointment i/P001 s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Appointment with Patient X` into
    the command box.
@@ -431,7 +431,7 @@ or search the specific activity using [`find t/activity` command](#finding-entri
 
 <div style="page-break-after: always;"></div>
 
-Example:
+**Example:**
 
 &#8291;1. Type the command `delete t/activity A001` into the command box.
 
@@ -468,7 +468,7 @@ Parameters    |  Explanation                                                    
 
 <div style="page-break-after: always;"></div>
 
-Examples:
+**Example:**
 
 &#8291;1. Type the command `list t/activity p/today` into the command box. For example, the today's date is 28 October 2021. Note that the flag is case-insensitive!
 
