@@ -84,28 +84,28 @@ public class CommandTestUtil {
     public static final String VALID_DESC_PHONE_OTHER_PATIENT = " " + CliSyntax.PREFIX_PHONE + "77777777";
     public static final String VALID_DESC_AGE_MAIN_PATIENT = " " + CliSyntax.PREFIX_AGE + "40";
     public static final String VALID_DESC_AGE_OTHER_PATIENT = " " + CliSyntax.PREFIX_AGE + "37";
-    public static final String VALID_DESC_BLOODTYPE_MAIN_PATIENT = " " + CliSyntax.PREFIX_BLOODTYPE + "AB";
-    public static final String VALID_DESC_BLOODTYPE_OTHER_PATIENT = " " + CliSyntax.PREFIX_BLOODTYPE + "B";
+    public static final String VALID_DESC_BLOODTYPE_MAIN_PATIENT = " " + CliSyntax.PREFIX_BLOOD_TYPE + "AB";
+    public static final String VALID_DESC_BLOODTYPE_OTHER_PATIENT = " " + CliSyntax.PREFIX_BLOOD_TYPE + "B";
     public static final String VALID_DESC_GENDER_MAIN_PATIENT = " " + CliSyntax.PREFIX_GENDER + "M";
     public static final String VALID_DESC_GENDER_OTHER_PATIENT = " " + CliSyntax.PREFIX_GENDER + "M";
     public static final String VALID_DESC_HEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "176";
     public static final String VALID_DESC_HEIGHT_OTHER_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "186";
     public static final String VALID_DESC_WEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "86";
     public static final String VALID_DESC_WEIGHT_OTHER_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "77";
-    public static final String VALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
+    public static final String VALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICAL_CONDITIONS
             + "heart failure";
-    public static final String VALID_DESC_MEDICALCONDITIONS_OTHER_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
+    public static final String VALID_DESC_MEDICALCONDITIONS_OTHER_PATIENT = " " + CliSyntax.PREFIX_MEDICAL_CONDITIONS
             + "diabetes";
 
     /* invalid constants declarations for patient related fields */
     public static final String INVALID_DESC_NAME_MAIN_PATIENT = " " + CliSyntax.PREFIX_NAME + "John** Doe";
     public static final String INVALID_DESC_PHONE_MAIN_PATIENT = " " + CliSyntax.PREFIX_PHONE + "not a number";
     public static final String INVALID_DESC_AGE_MAIN_PATIENT = " " + CliSyntax.PREFIX_AGE + "not a number";
-    public static final String INVALID_DESC_BLOODTYPE_MAIN_PATIENT = " " + CliSyntax.PREFIX_BLOODTYPE + "invalid";
+    public static final String INVALID_DESC_BLOODTYPE_MAIN_PATIENT = " " + CliSyntax.PREFIX_BLOOD_TYPE + "invalid";
     public static final String INVALID_DESC_GENDER_MAIN_PATIENT = " " + CliSyntax.PREFIX_GENDER + "invalid";
     public static final String INVALID_DESC_HEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_HEIGHT + "invalid";
     public static final String INVALID_DESC_WEIGHT_MAIN_PATIENT = " " + CliSyntax.PREFIX_WEIGHT + "invalid";
-    public static final String INVALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICALCONDITIONS
+    public static final String INVALID_DESC_MEDICALCONDITIONS_MAIN_PATIENT = " " + CliSyntax.PREFIX_MEDICAL_CONDITIONS
             + "invalid**";
 
     /* for listing activities */

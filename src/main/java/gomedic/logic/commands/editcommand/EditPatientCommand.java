@@ -1,11 +1,11 @@
 package gomedic.logic.commands.editcommand;
 
 import static gomedic.logic.parser.CliSyntax.PREFIX_AGE;
-import static gomedic.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
+import static gomedic.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
 import static gomedic.logic.parser.CliSyntax.PREFIX_GENDER;
 import static gomedic.logic.parser.CliSyntax.PREFIX_HEIGHT;
 import static gomedic.logic.parser.CliSyntax.PREFIX_ID;
-import static gomedic.logic.parser.CliSyntax.PREFIX_MEDICALCONDITIONS;
+import static gomedic.logic.parser.CliSyntax.PREFIX_MEDICAL_CONDITIONS;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
@@ -53,21 +53,21 @@ public class EditPatientCommand extends Command {
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_AGE + "AGE] "
-        + "[" + PREFIX_BLOODTYPE + "BLOODTYPE] "
+        + "[" + PREFIX_BLOOD_TYPE + "BLOODTYPE] "
         + "[" + PREFIX_GENDER + "GENDER] "
         + "[" + PREFIX_HEIGHT + "HEIGHT] "
         + "[" + PREFIX_WEIGHT + "WEIGHT] "
-        + "[" + PREFIX_MEDICALCONDITIONS + "MEDICALCONDITIONS] "
+        + "[" + PREFIX_MEDICAL_CONDITIONS + "MEDICALCONDITIONS] "
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_ID + "P001 "
         + PREFIX_NAME + "John Snow "
         + PREFIX_PHONE + "91234567 "
         + PREFIX_AGE + "30 "
-        + PREFIX_BLOODTYPE + "AB "
+        + PREFIX_BLOOD_TYPE + "AB "
         + PREFIX_GENDER + "M "
         + PREFIX_HEIGHT + "185 "
         + PREFIX_WEIGHT + "85 "
-        + PREFIX_MEDICALCONDITIONS + "diabetes";
+        + PREFIX_MEDICAL_CONDITIONS + "diabetes";
 
     public static final String MESSAGE_EDIT_PATIENT_SUCCESS = "Edited Patient: %1$s";
     public static final String MESSAGE_NOT_EDITED = "Must provide at least one field (other than ID).";

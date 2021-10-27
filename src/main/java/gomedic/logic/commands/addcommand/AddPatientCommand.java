@@ -1,10 +1,10 @@
 package gomedic.logic.commands.addcommand;
 
 import static gomedic.logic.parser.CliSyntax.PREFIX_AGE;
-import static gomedic.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
+import static gomedic.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
 import static gomedic.logic.parser.CliSyntax.PREFIX_GENDER;
 import static gomedic.logic.parser.CliSyntax.PREFIX_HEIGHT;
-import static gomedic.logic.parser.CliSyntax.PREFIX_MEDICALCONDITIONS;
+import static gomedic.logic.parser.CliSyntax.PREFIX_MEDICAL_CONDITIONS;
 import static gomedic.logic.parser.CliSyntax.PREFIX_NAME;
 import static gomedic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
@@ -43,21 +43,21 @@ public class AddPatientCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_AGE + "AGE "
-            + PREFIX_BLOODTYPE + "BLOODTYPE "
+            + PREFIX_BLOOD_TYPE + "BLOODTYPE "
             + PREFIX_GENDER + "GENDER "
             + PREFIX_HEIGHT + "HEIGHT "
             + PREFIX_WEIGHT + "WEIGHT "
-            + "[" + PREFIX_MEDICALCONDITIONS + "TAG]...\n"
+            + "[" + PREFIX_MEDICAL_CONDITIONS + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Smith "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_AGE + "45 "
-            + PREFIX_BLOODTYPE + "AB "
+            + PREFIX_BLOOD_TYPE + "AB "
             + PREFIX_GENDER + "M "
             + PREFIX_HEIGHT + "175 "
             + PREFIX_WEIGHT + "70 "
-            + PREFIX_MEDICALCONDITIONS + "heart failure "
-            + PREFIX_MEDICALCONDITIONS + "diabetes";
+            + PREFIX_MEDICAL_CONDITIONS + "heart failure "
+            + PREFIX_MEDICAL_CONDITIONS + "diabetes";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PATIENT =

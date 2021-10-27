@@ -38,11 +38,11 @@ public class EditPatientCommandParser implements Parser<EditPatientCommand> {
                 CliSyntax.PREFIX_NAME,
                 CliSyntax.PREFIX_PHONE,
                 CliSyntax.PREFIX_AGE,
-                CliSyntax.PREFIX_BLOODTYPE,
+                CliSyntax.PREFIX_BLOOD_TYPE,
                 CliSyntax.PREFIX_GENDER,
                 CliSyntax.PREFIX_HEIGHT,
                 CliSyntax.PREFIX_WEIGHT,
-                CliSyntax.PREFIX_MEDICALCONDITIONS);
+                CliSyntax.PREFIX_MEDICAL_CONDITIONS);
 
         Id targetId;
 
@@ -64,9 +64,9 @@ public class EditPatientCommandParser implements Parser<EditPatientCommand> {
             editPatientDescriptor
                 .setAge(ParserUtil.parseAge(argMultimap.getValue(CliSyntax.PREFIX_AGE).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_BLOODTYPE).isPresent()) {
+        if (argMultimap.getValue(CliSyntax.PREFIX_BLOOD_TYPE).isPresent()) {
             editPatientDescriptor
-                .setBloodType(ParserUtil.parseBloodType(argMultimap.getValue(CliSyntax.PREFIX_BLOODTYPE).get()));
+                .setBloodType(ParserUtil.parseBloodType(argMultimap.getValue(CliSyntax.PREFIX_BLOOD_TYPE).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_GENDER).isPresent()) {
             editPatientDescriptor
@@ -80,7 +80,7 @@ public class EditPatientCommandParser implements Parser<EditPatientCommand> {
             editPatientDescriptor
                 .setWeight(ParserUtil.parseWeight(argMultimap.getValue(CliSyntax.PREFIX_WEIGHT).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_MEDICALCONDITIONS))
+        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_MEDICAL_CONDITIONS))
             .ifPresent(editPatientDescriptor::setMedicalConditions);
 
         if (!editPatientDescriptor.isAnyFieldEdited()) {
