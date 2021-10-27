@@ -27,7 +27,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_PATIENT_ID = "The patient id doesn't exist in the list";
     public static final String MESSAGE_ITEMS_LISTED_OVERVIEW = "%1$d items listed!";
 
-    // pool of command suggestions
+    // pool of valid command suggestions for reference
     private static final List<String> listOfCommands = Arrays.asList(
             "help",
             "referral",
@@ -40,7 +40,6 @@ public class Messages {
             "clear t/patient",
             "find t/patient",
             "add t/doctor",
-            "view t/doctor",
             "delete t/doctor",
             "edit t/doctor",
             "list t/doctor",
@@ -95,7 +94,7 @@ public class Messages {
             StringBuilder additionalReply = new StringBuilder(" You can choose from these commands instead: \n");
             while (iterator.hasNext()) {
                 String nextCommand = iterator.next();
-                if (nextCommand.equals("invalid")) {
+                if (nextCommand == null) {
                     continue;
                 }
                 additionalReply.append(nextCommand).append("    ");
@@ -135,7 +134,13 @@ public class Messages {
                                 if (Objects.equals(x.getValue(), "add")) {
                                     return x.getValue() + " " + y;
                                 } else {
-                                    return "invalid";
+                                    return null;
+                                }
+                            } else if (Objects.equals(x.getValue(), "view")) {
+                                if (Objects.equals(y, "t/patient")) {
+                                    return x.getValue() + " " + y;
+                                } else {
+                                    return null;
                                 }
                             } else {
                                 return x.getValue() + " " + y;
@@ -169,9 +174,18 @@ public class Messages {
                 .flatMap(x -> !Objects.equals(x.getValue(), "t/appointment")
                         ? listOfTypes
                         .stream()
-                        .map(y -> !singleWordCommands.contains(y)
-                                ? y + " " + x.getValue()
-                                : y)
+                        .map(y -> {
+                            if (singleWordCommands.contains(y)) {
+                                return y;
+                            } else if (Objects.equals(y, "view")) {
+                                if (Objects.equals(x.getValue(), "t/patient")) {
+                                    return y + " " + x.getValue();
+                                } else {
+                                    return null;
+                                }
+                            }
+                            return y + " " + x.getValue();
+                        })
                         : Stream.of("add t/appointment"))
                 .collect(Collectors.toList());
     }
@@ -231,10 +245,11 @@ public class Messages {
                 + "brief description on what they do.\n\n";
         String referralDescription = "referral:\n    Generates a pdf referral for a patient.\n\n";
         String profileDescription = "profile:\n    Helps to set the user's profile in GoMedic.\n\n";
+        String viewDescription = "view t/patient:\n    Views all the details of a specific patient in one page.\n\n";
 
         return addDescription + clearDescription + deleteDescription + editDescription
                 + findDescription + listDescription + profileDescription
-                + referralDescription + helpDescription + exitDescription;
+                + referralDescription + helpDescription + exitDescription + viewDescription;
 
     }
 
