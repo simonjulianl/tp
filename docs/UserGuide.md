@@ -259,9 +259,9 @@ the `DOCTOR_ID` does not require additional flags such as `i/`! Supplying those 
 
 The parameter is:
 
-Parameters    |  Explanation                                      | Constraints                                          |                
+Parameter     |  Explanation                                      | Constraint                                           |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`DOCTOR_ID` | the Doctor Id as shown by the Doctor table          | Must be in the form of `DXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
+`DOCTOR_ID`   | the Doctor Id as shown by the Doctor table        | Must be in the form of `DXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
 
 :bulb: **Tip:** Doctor ID can be obtained by listing all the doctors using [`list t/doctor` command](#list-all-doctors-list-tdoctor) 
 or searching for the specific doctor using [`find t/doctor` command](#finding-entries-find-optional_parameters).  
@@ -500,7 +500,7 @@ the `ACTIVITY_ID` does not require additional flags such as `i/`! Supplying thos
 
 The parameter is:
 
-Parameters    |  Explanation                                      | Constraints                                          |                
+Parameter     |  Explanation                                      | Constraint                                           |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Must be in the form of `AXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
 
