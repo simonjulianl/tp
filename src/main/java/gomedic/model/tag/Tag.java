@@ -9,7 +9,7 @@ import gomedic.commons.util.AppUtil;
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
-    public static final int MAX_CHAR = 20; // max char in tags
+    public static final int MAX_CHAR = 30; // max char in tags
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric or space and at most "
         + MAX_CHAR + " chars";
     public static final String VALIDATION_REGEX = "[\\p{Alnum} ]+";
