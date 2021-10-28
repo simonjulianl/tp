@@ -78,7 +78,7 @@ public class Messages {
         // if wrong command is too short, the command type is probably wrong
         if (commandArgs.length == 1) {
             approvedSuggestions = generateTypeSuggestions(command);
-        // if wrong command has two parts, check both parts
+            // if wrong command has two parts, check both parts
         } else {
             List<String> approvedTypes = generateTypeSuggestions(commandArgs[0]);
             List<String> approvedTargets = generateTargetSuggestions(commandArgs[1]);
@@ -192,6 +192,7 @@ public class Messages {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
+
     /**
      * Returns a summary of what each command does in String format to be passed to JavaFX.
      *
