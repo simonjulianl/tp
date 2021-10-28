@@ -89,7 +89,7 @@ formatting, etc.
 
 Patients related features allow you to store, edit, view, and list patients.
 
-Using activities, you can store your patients' details and track all of the medical conditions that your patients are
+Using patients, you can store your patients' details and track all of the medical conditions that your patients are
 suffering from.
 
 Each patient is **uniquely** identified by its `PATIENT_ID` in the form of `PXXX` where `XXX` is a 3-digit integer.
@@ -108,7 +108,7 @@ and `MEDICAL_CONDITIONS` with different `PATIENT_ID` are considered distinct.
 
 ### Adding a new patient: `add t/patient`
 
-Adds a new patient into your **GoMedic** scheduler.
+Adds a new patient into your **GoMedic** application.
 
 **Format**: `add t/patient n/NAME p/PHONE_NUMBER a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE [m/MEDICAL_CONDITION]...`
 
@@ -148,7 +148,7 @@ Parameters    |  Explanation                                      | Constraints 
 
 **Example:**
 
-&#8291;1. Type the command `add t/patient s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper` into
+&#8291;1. Type the command `add t/patient n/John Smith p/98765432 a/45 b/AB g/M h/175 w/70 m/heart failure m/diabetes` into
 the command box.
 
 ![tut-activity-1](images/patientug/tut_patient_1.png)
@@ -188,7 +188,7 @@ or search the specific patient using [`find t/patient` command](#finding-entries
 
 ![tut-delete-patient-1](images/patientug/tut_delete_patient_1.png)
 
-&#8291;2. Press `Enter` and you will get confirmation that the patient is indeed deleted. Check the activity patient and the patient identified by the deleted ID should not be there.
+&#8291;2. Press `Enter` and you will get confirmation that the patient is indeed deleted. Check that the patient identified by the deleted ID should not be there.
 
 ![tut-delete-patient-2](images/patientug/tut_delete_patient_2.png)
 
