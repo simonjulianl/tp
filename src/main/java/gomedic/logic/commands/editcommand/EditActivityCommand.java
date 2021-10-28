@@ -23,7 +23,6 @@ import gomedic.model.activity.Activity;
 import gomedic.model.activity.ActivityId;
 import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
-import gomedic.model.activity.exceptions.ConflictingActivityException;
 import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Time;
 
