@@ -33,7 +33,7 @@ formatting, etc.
 
     * **`list t/patient`** : Lists all patients.
 
-    * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O p/12345678 o/heart-failure o/diabetes`** : Adds a patient
+    * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart-failure m/diabetes`** : Adds a patient
       named `John Doe` to GoMedic.
 
     * **`delete t/patient P001`** : Deletes the patient whose id is P001.
@@ -194,22 +194,64 @@ Examples:
 
 ## Doctors Related Features
 
+### Overview
+
+Doctor related features allow you to store, edit and list details of other doctors.
+
+These could be details of your colleagues, or other acquaintances that are important in your work.
+
+Each doctor is **uniquely** identified by his or her ID in to form `DXXX`, where `XXX` is a 3-digit integer.
+Therefore, **GoMedic** considers two doctors with the same details, such as their names, as two distinct and different
+doctors, as long as their IDs are different. 
+
 ### Adding a new doctor's details: `add t/doctor`
 
-Adds the details of a doctor into GoMedic.
+Adds the details of a doctor into **GoMedic**.
 
 Format: `add t/doctor n/NAME p/PHONE_NUMBER de/DEPARTMENT`
 
+**GoMedic** creates a new doctor based on the smallest Doctor ID available. This example is shown [here](#doctor_tutorial),
+where a new doctor is added and assigned the ID **D004** and not **D006**.
+ 
+ **NOTE:**
+* A new doctor added may not be displayed as the last entry as the table is sorted by ID. 
+* If there are any invalid fields specified, as specified [here](#doctor_constraint), the new doctor will not be added.
+
 The parameters are:
+
+<a name="doctor_constraint"></a>
+
+Parameters      |  Explanation                                      | Constraints                                          |                
+----------------|---------------------------------------------------|----------------------------------------------------- |
+`n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters            |
+`p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **numeric** and contain at least **3 digits**|
+`de/DEPARTMENT` | the title of the activity.                        | Must only contain alphanumeric characters            |
+
+
 
 * `n/NAME` indicates the full name of the doctor.
 * `p/PHONE_NUMBER` must be a numeric phone number that contains at least 3 digits.
 * `de/DEPARTMENT` indicates the doctor's department.
 
-Examples:
+<a name="doctor_tutorial"></a>
+**Example:**
 
-* `add t/doctor n/Timmy Tom p/98765432 de/neurology`
-* `add t/doctor n/John White p/12312312 de/cardiology`
+&#8291;1. Type the command `add t/doctor n/Timmy Tom p/98765432 de/neurology` into the command box.
+
+![tut-activity-1](images/activityug/tut_activity_1.png)
+
+&#8291;2. Press `Enter` and you should see the new entry being made in the Doctor table! 
+Note that the table is sorted by ID, hence, in this example, the new entry will not be displayed as the last entry!
+
+![tut-appt-2](images/activityug/tut_appt_2.png)
+
+&#8291;3. If there are any errors, the command would turn red as shown by **1**. 
+In the example below, the user has forgotten to include the **Department** of the doctor. 
+Fix the issue and press `Enter` again; The command should work correctly now!
+
+![tut-appt-error](images/activityug/tut_appt_error.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Deleting an existing doctor: `delete t/doctor`
 
@@ -284,7 +326,7 @@ an existing activity.
     3. yyyy-MM-dd HH:mm (e.g. 2022-09-15 13:00)
 </div>
 
-Each activity is **uniquely** identified by its ID in the form of `AXXX` where `XXX` is a 3-digit integer. 
+Each activity is **uniquely** identified by its ID in the form `AXXX`, where `XXX` is a 3-digit integer. 
 Therefore, two activities with exactly same title and descriptions with different ID are considered distinct. 
 
 ---
@@ -313,7 +355,7 @@ Adds a new activity into your **GoMedic** scheduler.
 Format: `add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]`
 
 **GoMedic** would create a new activity based on the smallest Activity ID available. This example is shown [here](#appointment_tutorial), where
-a new activity is being added and get assigned ID **A006** and not A008 which makes it not displayed at the last entry in the list
+a new activity is being added and get assigned ID **A006** and not **A008** which makes it not displayed at the last entry in the list
 as the table is sorted by ID by default.
 
 <a name="activity_check"></a>
@@ -403,7 +445,7 @@ The [activity constraints](#activity_extra_constraint) are still applicable here
 
 ![tut-appt-2](images/activityug/tut_appt_2.png)
 
-&#8291;3. If there is any error, the command would turn ren as shown by **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
+&#8291;3. If there is any error, the command would turn red as shown by **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
 and press `Enter` again, the command should work correctly now!
 
 ![tut-appt-error](images/activityug/tut_appt_error.png)
