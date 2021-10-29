@@ -33,7 +33,7 @@ formatting, etc.
 
     * **`list t/patient`** : Lists all patients.
 
-    * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O p/12345678 o/heart-failure o/diabetes`** : Adds a patient
+    * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart-failure m/diabetes`** : Adds a patient
       named `John Doe` to GoMedic.
 
     * **`delete t/patient P001`** : Deletes the patient whose id is P001.
@@ -58,7 +58,7 @@ formatting, etc.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-* Words in `LOWER_CASE` are required flags to be written together with the command. <br>
+* Words in `lower_case` are required flags to be written together with the command. <br>
   e.g. in `add t/activity`, `t/activity` is a flag that must be written as it is and should not be changed or treated as
   a parameter.
 
@@ -194,74 +194,152 @@ Examples:
 
 ## Doctors Related Features
 
+### Overview
+
+Doctor related features allow you to store, edit and list details of other doctors.
+
+These could be details of your colleagues, or other acquaintances that are important in your work.
+
+Each doctor is **uniquely** identified by his or her `DOCTOR_ID` in the form `DXXX`, where `XXX` is a 3-digit integer.
+Therefore, **GoMedic** considers two doctors with the same details (such as their names), as two distinct and different
+doctors, as long as their `DOCTOR_ID`s are different. 
+
 ### Adding a new doctor's details: `add t/doctor`
 
-Adds the details of a doctor into GoMedic.
+Adds the details of a doctor into **GoMedic**.
 
-Format: `add t/doctor n/NAME p/PHONE_NUMBER de/DEPARTMENT`
+**Format**: `add t/doctor n/NAME p/PHONE_NUMBER de/DEPARTMENT`
+
+**GoMedic** creates a new doctor based on the smallest Doctor ID available. This example is shown [here](#doctor_tutorial),
+where a new doctor is added and assigned the ID **D004** instead of **D006**.
+ 
+ **NOTE:**
+* A new doctor that is added may not be displayed as the last entry, as the table is sorted by ID. 
+* If there are any invalid fields, as specified [here](#doctor_constraint), the new doctor will not be added.
 
 The parameters are:
 
-* `n/NAME` indicates the full name of the doctor.
-* `p/PHONE_NUMBER` must be a numeric phone number that contains at least 3 digits.
-* `de/DEPARTMENT` indicates the doctor's department.
+<a name="doctor_constraint"></a>
 
-Examples:
+Parameters      |  Explanation                                      | Constraints                                          |                
+----------------|---------------------------------------------------|----------------------------------------------------- |
+`n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters            |
+`p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **numeric** and contain at least **3 digits**|
+`de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters            |
 
-* `add t/doctor n/Timmy Tom p/98765432 de/neurology`
-* `add t/doctor n/John White p/12312312 de/cardiology`
+<a name="doctor_tutorial"></a>
+**Example:**
+
+&#8291;1. Type the command `add t/doctor n/Timmy Tom p/98765432 de/neurology` into the command box.
+
+![tut-doctor-1](images/doctorug/tut_doctor_1.png)
+
+&#8291;2. Press `Enter` and you should see the new entry being made in the Doctor table! 
+Note that the table is sorted by ID. Hence, in this example, the new entry will not be displayed as the last entry!
+
+![tut-doctor-2](images/doctorug/tut_doctor_2.png)
+
+&#8291;3. If there are any errors, the command would turn red as shown by **1**. 
+In the example below, the user has forgotten to include the `Department` of the doctor. 
+Fix the issue by following the command format, shown in **2**, and press `Enter` again; The command should work correctly now!
+
+![tut-doctor-error](images/doctorug/tut_doctor_error.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Deleting an existing doctor: `delete t/doctor`
 
-Deletes a doctor from GoMedic.
+Deletes an existing doctor from GoMedic.
 
-Format: `delete t/doctor DOCTOR_ID`
+**Format**: `delete t/doctor DOCTOR_ID`
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+the `DOCTOR_ID` does not require additional flags such as `i/`! Supplying those flags would render the command invalid!
+</div>
+
+The parameter is:
+
+Parameter     |  Explanation                                      | Constraint                                           |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`DOCTOR_ID`   | the Doctor Id as shown by the Doctor table        | Must be in the form of `DXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
+
+:bulb: **Tip:** Doctor ID can be obtained by listing all the doctors using [`list t/doctor` command](#list-all-doctors-list-tdoctor) 
+or searching for the specific doctor using [`find t/doctor` command](#finding-entries-find-optional_parameters).  
+
+**Example:**
+
+&#8291;1. Type the command `delete t/doctor D001` into the command box.
+
+![tut-delete-doctor-1](images/doctorug/tut_delete_doctor_1.png)
+
+&#8291;2. Press `Enter` and you will get confirmation that the doctor is indeed deleted. 
+Check the doctor table. The doctor identified by the deleted ID should not be there. 
+
+![tut-delete-doctor-2](images/doctorug/tut_delete_doctor_2.png)
+
+&#8291;3. If there is any error, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the 
+feedback box shown at **2**. Fix the issue and the command should work correctly now!
+
+![tut-delete-doctor-error](images/doctorug/tut_delete_doctor_error.png)
+
+<div style="page-break-after: always;"></div>
+
+### List all doctors: `list t/doctor`
+
+List all doctors that are stored in **GoMedic**.
+
+**Format**: `list t/doctor`
+
+**Example:**
+
+&#8291;Type the command `list t/doctor` into the command box. Then, the list of doctors will be displayed, as shown below.
+
+![tut-list-doctor](images/doctorug/tut_doctorlist.png)
+
+<div style="page-break-after: always;"></div>
+
+### Updating an existing doctor's details: `edit t/doctor`
+
+Edits a doctor's details in **GoMedic**.
+
+**Format**: `edit t/doctor i/DOCTOR_ID [OPTIONAL_PARAMETERS]...`
+
+When editing an existing doctor, all parameters are optional except `DOCTOR_ID`! However, 
+* If there are no parameters being supplied at all besides the `DOCTOR_ID`, **GoMedic** would return an error. 
+* The new information supplied to the `edit t/doctor` command would still need to conform to the constraints as stated [above](#doctor_constraint).
+
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
+
+The `DOCTOR_ID` is assigned by **GoMedic** and cannot be modified at all once created.
+</div>
+
+:bulb: **Tip:** You can update multiple fields at the same time!
 
 The parameters are:
 
-* `DOCTOR_ID` indicates the ID of the doctor to be deleted.
+Parameters      |  Explanation                                      | Constraints                                          |                
+----------------|---------------------------------------------------|----------------------------------------------------- |
+`i/DOCTOR_ID`   | the unique identifier of a doctor.                | Must be in the form of `DXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview)                           |
+`n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters            |
+`p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **numeric** and contain at least **3 digits**|
+`de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters            |
 
-Notes:
+**Example:**
 
-* Doctor ID can be obtained by listing all the doctors or searching for a certain doctor. (_See `list` and `find` command_)
-* Doctor ID is **unique** (i.e. every doctor will be assigned to a unique ID, hence this guarantees 1 `delete t/doctor`
-  command will not delete 2 doctors at once).
-* Invalid Doctor IDs supplied would be flagged by GoMedic, and do not cause changes to any existing doctors.
+&#8291;1. Type the command `edit t/doctor i/D002 de/Radiology` into the command box. Ensure that the edited doctor, as identified by his or her `DOCTOR_ID`, exists! 
 
-Examples:
+![tut-doctor-edit-1](images/doctorug/tut_edit_doctor_1.png)
 
-* `delete t/doctor D001`
+&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. 
+Realize that as shown by **2**, doctor `D002`, Bernice, has her department updated!
 
-### Updating an existing doctor: `edit t/doctor`
+![tut-doctor-edit-2](images/doctorug/tut_edit_doctor_2.png)
 
-Edits a doctor's details in GoMedic.
+&#8291;3. If there are any errors, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the
+feedback box shown at **2**. In this case, the error is that the `NAME` of the edited doctor is not alphanumeric.
+Fix the issue and the command should work correctly now!
 
-**Format**: `edit t/doctor i/DOCTOR_ID [OPTIONAL_PARAMETER]...`
-
-The compulsory parameter is:
-* `i/DOCTOR_ID` indicates the ID of the doctor to be edited.
-
-The optional parameters are:
-
-* `n/NAME` indicates the full name of the doctor.
-* `p/PHONE_NUMBER` must be a numeric phone number that contains at least 3 digits.
-* `d/DEPARTMENT` indicates the doctor's department.
-
-**Note: At least one parameter other than the Doctor ID has to be specified, but not all have to be present**
-Examples:
-
-* `edit t/doctor i/D123 p/11112222`
-* `edit t/doctor i/D101 n/Jone Stone de/orthopaedics`
-
-### Viewing the list of doctors `list t/doctor`
-
-Format: `list t/doctor`
-
-List all existing doctors’ previews in GoMedic.
-
-Examples:
-
-* `list t/doctor`
+![tut-doctor-edit-error](images/doctorug/tut_edit_doctor_error.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -285,7 +363,7 @@ an existing activity.
 </div>
 
 Each activity is **uniquely** identified by its `ACTIVITY_ID` in the form of `AXXX` where `XXX` is a 3-digit integer. 
-Therefore, two activities with exactly same `TITLE` and `DESCRIPTION` with different `ACTIVITY_ID` are considered distinct. 
+Therefore, two activities with exactly same `TITLE` and `DESCRIPTION` with different `ACTIVITY_ID` are considered distinct.
 
 ---
 **Current Activities Related Features That Are Not Supported by GoMedic**
@@ -417,17 +495,17 @@ Delete a certain existing activity from **GoMedic**.
 **Format**: `delete t/activity ACTIVITY_ID`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-the `ACTIVITY_ID` does not require additional flags such as `i/`! supplying those flags would render the command invalid!
+the `ACTIVITY_ID` does not require additional flags such as `i/`! Supplying those flags would render the command invalid!
 </div>
 
 The parameter is:
 
-Parameters    |  Explanation                                      | Constraints                                          |                
+Parameter     |  Explanation                                      | Constraint                                           |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Must be in the form of `AXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
+`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Must be in the form of `AXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
 
 :bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
-or search the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
+or searching for the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
 
 <div style="page-break-after: always;"></div>
 
@@ -585,7 +663,7 @@ Note:
 
 Examples:
 
-* `find t/all o/diabetes a/42 n/Jaryl`
+* `find t/all m/diabetes a/42 n/Jaryl`
 * `find t/activity ta/important ti/tutorial`
 * `find t/all all/dia`
 
