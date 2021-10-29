@@ -83,6 +83,8 @@ formatting, etc.
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ## Patients Related Features
 
 ### Overview
@@ -144,24 +146,23 @@ Parameters    |  Explanation                                      | Constraints 
 * Duplicate of `MEDICAL_CONDITION` provided will be discarded.
 
 </div>
-<div style="page-break-after: always;"></div>
 
 **Example:**
 
 &#8291;1. Type the command `add t/patient n/John Smith p/98765432 a/45 b/AB g/M h/175 w/70 m/heart failure m/diabetes` into
 the command box.
 
-![tut-activity-1](images/patientug/tut_patient_1.png)
+![tut-patient-1](images/patientug/tut_patient_1.png)
 
 &#8291;2. Press `Enter` and you should see the new entry being made in the Patient table! By default, the table would be sorted by ID.
 
-![tut-activity-2](images/patientug/tut_patient_2.png)
+![tut-patient-2](images/patientug/tut_patient_2.png)
 
 &#8291;3. If there is any error, the command would turn red as indicated by **1** and the feedback would be given in the feedback box at **2**.
 In this case, the error is because we are putting invalid blood type. Fix the issue and press enter again!
 Now the command should work correctly!
 
-![tut-activity-2](images/patientug/tut_patient_error.png)
+![tut-patient-2](images/patientug/tut_patient_error.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -179,8 +180,6 @@ Parameters    |  Explanation                                      | Constraints 
 
 :bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
 or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
-
-<div style="page-break-after: always;"></div>
 
 **Example:**
 
@@ -204,8 +203,6 @@ feedback box shown at **2**. Fix the issue and the command should work correctly
 List all patients that is stored in **GoMedic**.
 
 **Format**: `list t/patient`
-
-<div style="page-break-after: always;"></div>
 
 **Example:**
 
@@ -253,7 +250,7 @@ Parameters    |  Explanation                                      | Constraints 
 
 ![tut-edit-patient-1](images/patientug/tut_edit_patient_1.png)
 
-&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, activity `P002` has its information updated!
+&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, patient `P002` has its information updated!
 
 ![tut-edit-patient-2](images/patientug/tut_edit_patient_2.png)
 
@@ -262,6 +259,8 @@ In this case, the error is because we are putting invalid blood type. Fix the is
 Fix the issue and the command should work correctly now!
 
 ![tut-edit-patient-error](images/patientug/tut_edit_patient_error.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Display full details of a patient: `view t/patient`
 
@@ -277,8 +276,6 @@ Parameters    |  Explanation                                      | Constraints 
 
 :bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
 or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
-
-<div style="page-break-after: always;"></div>
 
 **Example:**
 
@@ -522,7 +519,6 @@ Parameters    |  Explanation                                      | Constraints 
 * Partial overlap activity is still considered as conflicting activity.
 
 </div>
-<div style="page-break-after: always;"></div>
 
 **Example:**
 
@@ -566,8 +562,6 @@ Parameters    |  Explanation                                      | Constraints 
 
 The [activity constraints](#activity_extra_constraint) are still applicable here. 
 
-<div style="page-break-after: always;"></div>
-
 <a name="appointment_tutorial"></a>
 **Example:**
 
@@ -607,8 +601,6 @@ Parameter     |  Explanation                                      | Constraint  
 :bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
 or searching for the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
 
-<div style="page-break-after: always;"></div>
-
 **Example:**
 
 &#8291;1. Type the command `delete t/activity A001` into the command box.
@@ -643,8 +635,6 @@ Parameters    |  Explanation                                                    
 --------------|---------------------------------------------------------------------------|----------------------------------------------------- |
 `s/SORT_FLAG`  | Options to sort the activity table by a certain column (case-insensitive)                 | - **START** : sort by start time <br/> - **ID** : sort by ID
 `p/PERIOD_FLAG`| Options to show the activities within the specified time frame (case-insensitive)           | - **ALL** : show all activities <br/> - **TODAY** : show today's activities <br/> - **WEEK** : show all activities within the next week  <br/> - **MONTH** : show all activities within the next month <br/> - **YEAR** : show all activities within the next year
-
-<div style="page-break-after: always;"></div>
 
 **Example:**
 
