@@ -85,112 +85,212 @@ formatting, etc.
 
 ## Patients Related Features
 
-### Adding a new patient's details: `add t/patient`
+### Overview
 
-Adds a new patient into the GoMedic application.
+Patients related features allow you to store, edit, view, and list patients.
 
-Format: `add t/patient n/NAME a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE p/PHONE_NUMBER [m/MEDICAL_CONDITION]...`
+Using patients, you can store your patients' details and track all of the medical conditions that your patients are
+suffering from.
+
+Each patient is **uniquely** identified by its `PATIENT_ID` in the form of `PXXX` where `XXX` is a 3-digit integer.
+Therefore, two patients with exactly same `NAME`, `PHONE_NUMBER`, `AGE`, `GENDER`, `HEIGHT`, `WEIGHT`, `BLOOD_TYPE`, 
+and `MEDICAL_CONDITIONS` with different `PATIENT_ID` are considered distinct.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Reminder on Command Notation:**<br>
+
+* Some important notation in reading the commands
+    * `[flag/KEYWORD]` indicates optional parameters
+    * `flag/KEYWORD` indicates mandatory parameters
+</div>
+
+<div style="page-break-after: always;"></div>
+
+### Adding a new patient: `add t/patient`
+
+Adds a new patient into your **GoMedic** application.
+
+**Format**: `add t/patient n/NAME p/PHONE_NUMBER a/AGE g/GENDER h/HEIGHT w/WEIGHT b/BLOOD_TYPE [m/MEDICAL_CONDITION]...`
+
+**GoMedic** would create a new patient based on the smallest `PATIENT_ID` available.
+
+<a name="patient_check"></a>
+
+* GoMedic would check for any invalid field as specified [here](#patient_constraint). Should there be any, the new
+patient will not be added.
 
 The parameters are :
 
-* `n/NAME` indicates the full name of the patient, first name and last name are separated by `space`.
-* `a/AGE` is greater than or equal to 0.
-* `g/GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
-* `h/HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
-* `w/WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
-* `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
-* `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
-* `m/MEDICAL_CONDITION` is the list of patient's past/pre-existing medical conditions. For medical condition that has multiple
-  words, use `space` to combine the words, e.g. `heart failure`.
+<a name="patient_constraint"></a>
 
-Examples:
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
+`a/AGE     `  | age of the patient                                | must be integer between 0 to 150                     |
+`p/PHONE_NUMBER`| phone number of the patient                     | must be integer 8-digit Singapore phone number       |
+`g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others|
+`h/HEIGHT`    | height of the patient in centimeters              | must be integer between 0 to 300                     |
+`w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 0 to 700                     |
+`b/BLOOD_TYPE`| blood type of the patient                         | must be `A/B/AB/O`                                   |
+`m/MEDICAL_CONDITION`| list of patient's past/pre-existing medical conditions| must only contain alphanumeric characters and spaces, with maximum of *30* characters|
 
-* `add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart failure `
+<a name="patient_extra_constraint"></a>
+
+<div markdown="block" class="alert alert-warning">
+
+:exclamation: **Extra Constraints** <br>
+
+* `MEDICAL_CONDITION` is **unique**.
+* Duplicate of `MEDICAL_CONDITION` provided will be discarded.
+
+</div>
+<div style="page-break-after: always;"></div>
+
+**Example:**
+
+&#8291;1. Type the command `add t/patient n/John Smith p/98765432 a/45 b/AB g/M h/175 w/70 m/heart failure m/diabetes` into
+the command box.
+
+![tut-activity-1](images/patientug/tut_patient_1.png)
+
+&#8291;2. Press `Enter` and you should see the new entry being made in the Patient table! By default, the table would be sorted by ID.
+
+![tut-activity-2](images/patientug/tut_patient_2.png)
+
+&#8291;3. If there is any error, the command would turn red as indicated by **1** and the feedback would be given in the feedback box at **2**.
+In this case, the error is because we are putting invalid blood type. Fix the issue and press enter again!
+Now the command should work correctly!
+
+![tut-activity-2](images/patientug/tut_patient_error.png)
+
+<div style="page-break-after: always;"></div>
+
+### Deleting an existing patient: `delete t/patient`
+
+Deletes a certain existing patient from **GoMedic**.
+
+**Format**: `delete t/patient PATIENT_ID`
+
+The parameter is:
+
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`PATIENT_ID`  | the Patient Id as shown by the Patient table      | Must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
+
+:bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
+or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
+
+<div style="page-break-after: always;"></div>
+
+**Example:**
+
+&#8291;1. Type the command `delete t/patient P001` into the command box.
+
+![tut-delete-patient-1](images/patientug/tut_delete_patient_1.png)
+
+&#8291;2. Press `Enter` and you will get confirmation that the patient is indeed deleted. Check that the patient identified by the deleted ID should not be there.
+
+![tut-delete-patient-2](images/patientug/tut_delete_patient_2.png)
+
+&#8291;3. If there is any error, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the
+feedback box shown at **2**. Fix the issue and the command should work correctly now!
+
+![tut-delete-patient-error](images/patientug/tut_delete_patient_error.png)
+
+<div style="page-break-after: always;"></div>
+
+### List all patients: `list t/patient`
+
+List all patients that is stored in **GoMedic**.
+
+**Format**: `list t/patient`
+
+<div style="page-break-after: always;"></div>
+
+**Example:**
+
+&#8291;1. Type the command `list t/patient` into the command box.
+
+![tut-list-patient-1](images/patientug/tut_patientlist_1.png)
+
+&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that the patient table is shown by **2**.
+
+![tut-list-patient-2](images/patientug/tut_patientlist_2.png)
+
+<div style="page-break-after: always;"></div>
+
+### Updating an existing patient's details: `edit t/patient`
+
+Edits a patient's details from the **GoMedic** application.
+
+**Format**: `edit t/patient i/PATIENT_ID [OPTIONAL_PARAMETERS]...`
+
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
+* The `PATIENT_ID` is assigned by **GoMedic** and cannot be modified at all once created.
+
+* The `MEDICAL_CONDITIONS` will be replaced by the new `MEDICAL_CONDITIONS` supplied in the edit command.
+</div>
+
+:bulb: **Tip:** You can update multiple fields at the same time !
+
+The parameters are:
+
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`i/PATIENT_ID`| the unique identifier of a patient                | must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)
+`n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
+`a/AGE     `  | age of the patient                                | must be integer between 0 to 150                     |
+`p/PHONE_NUMBER`| phone number of the patient                     | must be integer 8-digit Singapore phone number       |
+`g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others|
+`h/HEIGHT`    | height of the patient in centimeters              | must be integer between 0 to 300                     |
+`w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 0 to 700                     |
+`b/BLOOD_TYPE`| blood type of the patient                         | must be `A/B/AB/O`                                   |
+`m/MEDICAL_CONDITION`| list of patient's past/pre-existing medical conditions| must only contain alphanumeric characters and spaces, with maximum of *30* characters|
+
+**Example:**
+
+&#8291;1. Type the command `edit t/patient i/P002 n/John Snow p/91234567 a/30 b/AB g/M h/185 w/85 m/cancer` into the command box. Ensure that the edited patient as identified by its `PATIENT_ID` exists!
+
+![tut-edit-patient-1](images/patientug/tut_edit_patient_1.png)
+
+&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, activity `P002` has its information updated!
+
+![tut-edit-patient-2](images/patientug/tut_edit_patient_2.png)
+
+&#8291;3. If there is any error, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the feedback box shown at **2**.
+In this case, the error is because we are putting invalid blood type. Fix the issue and press enter again!
+Fix the issue and the command should work correctly now!
+
+![tut-edit-patient-error](images/patientug/tut_edit_patient_error.png)
 
 ### Display full details of a patient: `view t/patient`
 
 Displays the full details of a particular patient.
 
-Format: `view t/patient i/PATIENT_ID`
+Format: `view t/patient PATIENT_ID`
 
-The parameters are :
+The parameter is:
 
-* `i/PATIENT_ID` indicates the ID of the patient to be viewed.
+Parameters    |  Explanation                                      | Constraints                                          |                
+--------------|---------------------------------------------------|----------------------------------------------------- |
+`PATIENT_ID`  | the Patient Id as shown by the Patient table      | Must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
 
-Examples:
+:bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
+or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
 
-* `view t/patient i/P001`
+<div style="page-break-after: always;"></div>
 
-### Deleting an existing patient: `delete t/patient`
+**Example:**
 
-Deletes a patient from GoMedic.
+&#8291;1. Type the command `view t/patient` into the command box.
 
-Format: `delete t/patient PATIENT_ID`
+![tut-view-patient-1](images/patientug/tut_view_patient_1.png)
 
-The parameters are :
+&#8291;2. Press `Enter` and the details of the patient will be shown in the screen.
 
-* `PATIENT_ID` indicates the ID of the patient to be deleted.
+![tut-view-patient-2](images/patientug/tut_view_patient_2.png)
 
-Notes:
-
-* Patient ID can be obtained by listing all the patients or searching for a certain patient with available filters. (_See `find` command_)
-* Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
-  1 `delete t/patient` command will not delete 2 patients at once).
-* Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
-
-Examples:
-
-* `delete t/patient P001`
-
-### Updating an existing patient's details: `edit t/patient`
-
-Edits a patient's details from the GoMedic application.
-
-Format: `edit t/patient i/PATIENT_ID [OPTIONAL_PARAMETER]...`
-
-The compulsory parameter is:
-* `i/PATIENT_ID` indicates the ID of the patient to be edited.
-
-The optional parameters are:
-
-* `n/NAME` indicates the full name of the patient.
-* `a/AGE` is greater than or equal to 0.
-* `g/GENDER` is chosen from one of 3 choices, `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others.
-* `h/HEIGHT` is the height of patient in centimeters rounded to the nearest integer.
-* `w/WEIGHT` is the weight of patient in kilograms rounded to the nearest integer.
-* `b/BLOOD_TYPE` is chosen from one of the 4 choices, `A/B/AB/O`.
-* `p/PHONE_NUMBER` must be 8-digit Singapore phone number.
-
-NOTE: TO COMPLETE - when you edit tags, you will replace all of the current tags
-The optional parameters are:
-* `o/description` is the list of patient's past/pre-existing medical conditions to be **added**. For medical condition that has
-  multiple words, use `space` to combine the words, e.g. `heart failure`. To separate between conditions, use more tags `o/`.
-* `do/description` is the list of patient's past/pre-existing medical conditions to be **deleted**. For medical
-  condition that has multiple words, use `space` to combine the words, e.g. `heart failure`.
-
-Notes:
-* Patient ID can be obtained by listing all the patients or search for a certain patients with available filters.
-* Patient ID is **unique** (i.e. every patient will be assigned to a unique ID, hence this guarantees
-  1 `delete t/patient` command will not delete 2 patients at once).
-* Invalid Patient ID being supplied would be flagged by GoMedic, and do not cause changes to any existing patients.
-* Invalid `OPTIONAL_TO_DELETE` conditions supplied would be flagged by GoMedic, and do not cause changes to the existing
-  patient.
-
-Examples:
-
-* `edit t/patient i/P123 n/John Doe a/30 g/M`
-* `edit t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234 do/diabetes`
-* `edit t/patient i/P003 n/Tom Doe a/20 g/M h/167 w/61 b/AB p/12341234 o/fever o/headache do/diabetes do/heart feailure`
-
-### Viewing the list of patients `list t/patient`
-
-List all existing patients’ previews in the GoMedic application.
-
-Format: `list t/patient`
-
-Examples:
-
-* `list t/patient`
+<div style="page-break-after: always;"></div>
 
 ## Doctors Related Features
 
