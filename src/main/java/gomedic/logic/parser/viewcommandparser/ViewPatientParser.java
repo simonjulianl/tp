@@ -20,7 +20,7 @@ public class ViewPatientParser implements Parser<ViewPatientCommand> {
      */
     public ViewPatientCommand parse(String args) throws ParseException {
         try {
-            Id id = ParserUtil.parseId(args);
+            Id id = ParserUtil.parseId(args.toUpperCase());
             return new ViewPatientCommand(id);
         } catch (ParseException pe) {
             throw new ParseException(

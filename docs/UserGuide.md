@@ -124,12 +124,9 @@ Patients related features allow you to store, edit, view, and list patients.
 Using patients, you can store your patients' details and track all of the medical conditions that your patients are
 suffering from.
 
-<div markdown="block" class="alert alert-info">
-**:information_source: Reminder on Command Notation:**<br>
 Each patient is **uniquely** identified by its `PATIENT_ID` in the form of `PXXX` where `XXX` is a 3-digit integer.
 Therefore, two patients with exactly same `NAME`, `PHONE_NUMBER`, `AGE`, `GENDER`, `HEIGHT`, `WEIGHT`, `BLOOD_TYPE`, 
 and `MEDICAL_CONDITIONS` with different `PATIENT_ID` are considered distinct.
-</div>
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Reminder on Command Notation:**<br>
@@ -210,7 +207,7 @@ The parameter is:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`PATIENT_ID`  | the Patient Id as shown by the Patient table      | Must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
+`PATIENT_ID`  | the Patient Id as shown by the Patient table  (case-insensitive)    | Must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
 
 :bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
 or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
@@ -270,7 +267,7 @@ The parameters are:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`i/PATIENT_ID`| the unique identifier of a patient                | must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
+`i/PATIENT_ID`| the unique identifier of a patient (case-insensitive)               | must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
 `a/AGE     `  | age of the patient                                | must be integer between 0 and 150 inclusive          |
 `p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and contain at least 3 digits|
@@ -310,7 +307,7 @@ The parameter is:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`PATIENT_ID`  | the Patient Id as shown by the Patient table      | Must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
+`PATIENT_ID`  | the Patient Id as shown by the Patient table (case-insensitive)     | Must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
 
 :bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
 or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
@@ -398,7 +395,7 @@ The parameter is:
 
 Parameter     |  Explanation                                      | Constraint                                           |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`DOCTOR_ID`   | the Doctor Id as shown by the Doctor table        | Must be in the form of `DXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
+`DOCTOR_ID`   | the Doctor Id as shown by the Doctor table (case-insensitive)       | Must be in the form of `DXXX` / `dXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
 
 :bulb: **Tip:** Doctor ID can be obtained by listing all the doctors using [`list t/doctor` command](#list-all-doctors-list-tdoctor) 
 or searching for the specific doctor using [`find t/doctor` command](#finding-entries-find-optional_parameters).  
@@ -458,7 +455,7 @@ The parameters are:
 
 Parameters      |  Explanation                                      | Constraints                                          |                
 ----------------|---------------------------------------------------|----------------------------------------------------- |
-`i/DOCTOR_ID`   | the unique identifier of a doctor.                | Must be in the form of `DXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview)                           |
+`i/DOCTOR_ID`   | the unique identifier of a doctor (case-insensitive). | Must be in the form of `DXXX` / `dXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview)                           |
 `n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters and spaces, and it should not be blank|
 `p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **entirely numeric** and contain at least 3 digits                      |
 `de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters and spaces, and it should not be blank|
@@ -600,7 +597,7 @@ The parameters are:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`i/PATIENT_ID`| the Patient Id associated with the appointment    | Patient Id must in the form of `PXXX`, where `XXX` is 3 digit number   |
+`i/PATIENT_ID`| the Patient Id associated with the appointment    | Patient Id must in the form of `PXXX` / `pXXX`, where `XXX` is 3 digit number   |
 `s/START_TIME`| the starting time of the appointment.             | Please refer to [this](#overview)                           |
 `e/END_TIME`  | the ending time of the activity.                  | Please refer to [this](#overview)                           |
 `ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
@@ -644,7 +641,7 @@ The parameter is:
 
 Parameter     |  Explanation                                      | Constraint                                           |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Must be in the form of `AXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
+`ACTIVITY_ID` | the Activity Id as shown by the Activity table (case-insensitive)  | Must be in the form of `AXXX` / `aXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
 
 :bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
 or searching for the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
@@ -728,7 +725,7 @@ The parameters are:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`i/ACTIVITY_ID`| the unique identifier of an activity.            | Must be in the form of `AXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)                           |
+`i/ACTIVITY_ID`| the unique identifier of an activity (case-insensitive).            | Must be in the form of `AXXX` / `aXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)                           |
 `s/START_TIME`| the starting time of the appointment.             | Please refer to [this](#overview)                           |
 `e/END_TIME`  | the ending time of the activity.                  | Please refer to [this](#overview)                           |
 `ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
@@ -753,63 +750,57 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-## Finding entries: `find [OPTIONAL_PARAMETERS]...`
+## Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`
 
-### Find results that contain keyword: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
+### Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`
 
-Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
-If more than 1 keyword is specified, results that contain at least 1 of the keywords will be returned (i.e. `OR` search)
-E.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Searches for doctors whose specified field contains one or more of the specified keywords as a substring.
+E.g. `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
 
-Users can specify additional optional parameters to limit the keyword matching to the fields that is associated with each
-flag. Parameters will only match results that contain the associated field (E.g. n/Hans will not return any `activities`
-since `activities` do not have a `name` field.)
+Format: `find t/doctor FIELD/[KEYWORDS]`
 
-Format: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
-
-The parameters are:
-* `t/CATEGORY`: Searches for matches within this category.
-    * Valid values are:
-        * doctor
-        * patient
-        * activity
-        * all
+The possible parameters for FIELD are:
+* `n/NAME`: Matches the name field
+* `p/PHONE_NUMBER`: Matches the phone number field
+* `de/DEPARTMENT`: Matches the department field
 
 
-The optional parameters are:
+### Finding a patient through a keyword `find t/patient FIELD/[KEYWORDS]`
 
-* `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
-* `p/PHONE_NUMBER`: Matches the phone number field (Valid for: `Patients`, `Doctors`)
-* `a/AGE`: Matches the age field (Valid for: `Patients`)
-* `g/GENDER`: Matches the gender field; The only valid keywords for this field are `M/F/O` (Valid for: `Patients`)
-* `h/HEIGHT`: Matches the height field (Valid for: `Patients`)
-* `w/WEIGHT`: Matches the weight field (Valid for: `Patients`)
-* `b/BLOOD_TYPE`: Matches the blood type field; The only valid keywords for this field are `A/B/AB/O`
-  (Valid for: `Patients`)
-* `o/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
-  for: `Patients`)
-* `de/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
-* `ti/TITLE`: Matches the title field or description field (Valid for: `Activities`)
-* `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`,
-  _Tagging for `Doctors` and `Patients` coming soon_)
+Searches for patients whose specified field contains one or more of the specified keywords as a substring.
+E.g. `find t/patient n/Hans Bo` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
 
-* `all/KEYWORD` : Matches any field with the keyword specified
+Format: `find t/patient FIELD/[KEYWORDS]`
 
-Note:
+The possible parameters for FIELD are:
+* `n/NAME`: Matches the name field
+* `p/PHONE_NUMBER`: Matches the phone number field
+* `a/AGE`: Matches the age field
+* `g/GENDER`: Matches the gender field (`M/F/O`)
+* `h/HEIGHT`: Matches the height field 
+* `w/WEIGHT`: Matches the weight field
+* `b/BLOOD_TYPE`: Matches the blood type field (`A/B/AB/O`)
+* `m/MEDICAL_CONDITION`: Matches the medical conditions field
+
+### Finding an activity through a keyword `find t/activity FIELD/[KEYWORDS]`
+
+Searches for activities whose specified field contains one or more of the specified keywords as a substring.
+E.g. `find t/activity ti/Hans Bo` will return activities whose titles are `Hans Gruber`, or `Bo Yang`.
+
+Format: `find t/activity FIELD/[KEYWORDS]`
+
+The possible parameters for FIELD are:
+* `ti/TITLE`: Matches the title field or description field
+
+Note for all finds:
 * Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
   condition as “Diabetes”)
-* Parameters can be repeated (e.g. `find n/Hans n/Bo` will return both `Hans Gruber` and `Bo Yang`)
-* If the optional parameters `all` is  specified, the keyword will match any fields. E.g. `find t/all all/dia` will return:
-    1. Doctor Claudia, whose name matches `dia`
-    2. Patient Jaryl, whose medical condition, `diabetes`, matches `dia`
-    3. Doctor Tom, whose specialty, `Pediatrics`, matches `dia`
-    4. Patient Lydia, whose name matches `dia`
-
+  
 Examples:
 
-* `find t/all m/diabetes a/42 n/Jaryl`
-* `find t/activity ta/important ti/tutorial`
-* `find t/all all/dia`
+* `find t/patient h/12`
+* `find t/doctor de/neuro`
+* `find t/activity ti/meeting tomorrow`
 
 ## General Utility Commands 
 
