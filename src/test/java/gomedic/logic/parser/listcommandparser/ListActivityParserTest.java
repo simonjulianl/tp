@@ -64,17 +64,17 @@ public class ListActivityParserTest {
         // invalid sort flag
         CommandParserTestUtil.assertParseFailure(parser,
                 CommandTestUtil.INVALID_SORT_FLAG,
-                ListActivityCommand.Sort.MESSAGE_CONSTRAINTS + "\n" + ListActivityCommand.MESSAGE_USAGE);
+                ListActivityCommand.Sort.MESSAGE_CONSTRAINTS);
 
         // invalid period flag
         CommandParserTestUtil.assertParseFailure(parser,
                 CommandTestUtil.INVALID_PERIOD_FLAG,
-                ListActivityCommand.Period.MESSAGE_CONSTRAINTS + "\n" + ListActivityCommand.MESSAGE_USAGE);
+                ListActivityCommand.Period.MESSAGE_CONSTRAINTS);
 
         // both invalid period and sort flag
         CommandParserTestUtil.assertParseFailure(parser,
                 CommandTestUtil.INVALID_SORT_FLAG
                         + CommandTestUtil.INVALID_PERIOD_FLAG,
-                ListActivityCommand.Sort.MESSAGE_CONSTRAINTS + "\n" + ListActivityCommand.MESSAGE_USAGE);
+                ListActivityCommand.Sort.MESSAGE_CONSTRAINTS);
     }
 }
