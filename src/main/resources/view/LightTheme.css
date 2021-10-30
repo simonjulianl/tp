@@ -72,6 +72,21 @@
 
 }
 
+/*
+ * Prevent selected table to be highlighted
+ * Author: James_D
+ * https://stackoverflow.com/questions/27013898/javafx8-remove-highlighting-of-selected-row
+ */
+.table-row-cell:filled:selected {
+  -fx-background: -fx-control-inner-background ;
+  -fx-background-color: -fx-table-cell-border-color, -fx-background ;
+  -fx-background-insets: 0, 0 0 1 0 ;
+  -fx-table-cell-border-color: derive(-fx-color, 5%);
+}
+.table-row-cell:odd:filled:selected {
+  -fx-background: -fx-control-inner-background-alt ;
+}
+
 .table-view .column-header-background .filler {
     -fx-background-color: transparent;
 }
@@ -92,10 +107,6 @@
     -fx-padding: 15 0 15 0px;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
-}
-
 /*
  * Styling Table View
  * Author: Ed Eden-Rump
@@ -109,11 +120,6 @@
 .table-view .virtual-flow .scroll-bar:horizontal .track,
 .table-view .virtual-flow .scroll-bar:horizontal .track-background {
     -fx-background-color: transparent;
-}
-
-.table-row-cell: hover {
-    -fx-background-color: derive(#90ee90, 20%);
-    -fx-text-background-color: yellow;
 }
 
 .table-view .virtual-flow .scroll-bar .increment-button,
