@@ -21,6 +21,4 @@ public class ConfigTest {
         assertNotNull(defaultConfig);
         assertEquals(defaultConfig, defaultConfig);
     }
-
-
 }

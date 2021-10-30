@@ -25,6 +25,7 @@ import gomedic.model.activity.Description;
 import gomedic.model.activity.Title;
 import gomedic.model.commonfield.Id;
 import gomedic.model.commonfield.Time;
+import gomedic.model.person.patient.PatientId;
 
 /**
  * Edits the details of an existing doctor in the address book.
@@ -80,6 +81,10 @@ public class EditActivityCommand extends Command {
         Title title = editActivityDescriptor.getTitle().orElse(activityToEdit.getTitle());
         Description description = editActivityDescriptor.getDescription().orElse(activityToEdit.getDescription());
 
+        if (activityToEdit.isAppointment()) {
+            PatientId patientId = activityToEdit.getPatientId();
+            return new Activity(activityId, patientId, startTime, endTime, title, description);
+        }
         return new Activity(activityId, startTime, endTime, title, description);
     }
 
