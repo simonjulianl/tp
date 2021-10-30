@@ -124,12 +124,9 @@ Patients related features allow you to store, edit, view, and list patients.
 Using patients, you can store your patients' details and track all of the medical conditions that your patients are
 suffering from.
 
-<div markdown="block" class="alert alert-info">
-**:information_source: Reminder on Command Notation:**<br>
 Each patient is **uniquely** identified by its `PATIENT_ID` in the form of `PXXX` where `XXX` is a 3-digit integer.
 Therefore, two patients with exactly same `NAME`, `PHONE_NUMBER`, `AGE`, `GENDER`, `HEIGHT`, `WEIGHT`, `BLOOD_TYPE`, 
 and `MEDICAL_CONDITIONS` with different `PATIENT_ID` are considered distinct.
-</div>
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Reminder on Command Notation:**<br>
@@ -210,7 +207,7 @@ The parameter is:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`PATIENT_ID`  | the Patient Id as shown by the Patient table      | Must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
+`PATIENT_ID`  | the Patient Id as shown by the Patient table  (case-insensitive)    | Must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
 
 :bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
 or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
@@ -270,7 +267,7 @@ The parameters are:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`i/PATIENT_ID`| the unique identifier of a patient                | must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
+`i/PATIENT_ID`| the unique identifier of a patient (case-insensitive)               | must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
 `a/AGE     `  | age of the patient                                | must be integer between 0 and 150 inclusive          |
 `p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and contain at least 3 digits|
@@ -310,7 +307,7 @@ The parameter is:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`PATIENT_ID`  | the Patient Id as shown by the Patient table      | Must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
+`PATIENT_ID`  | the Patient Id as shown by the Patient table (case-insensitive)     | Must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
 
 :bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
 or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
@@ -398,7 +395,7 @@ The parameter is:
 
 Parameter     |  Explanation                                      | Constraint                                           |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`DOCTOR_ID`   | the Doctor Id as shown by the Doctor table        | Must be in the form of `DXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
+`DOCTOR_ID`   | the Doctor Id as shown by the Doctor table (case-insensitive)       | Must be in the form of `DXXX` / `dXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
 
 :bulb: **Tip:** Doctor ID can be obtained by listing all the doctors using [`list t/doctor` command](#list-all-doctors-list-tdoctor) 
 or searching for the specific doctor using [`find t/doctor` command](#finding-entries-find-optional_parameters).  
@@ -458,7 +455,7 @@ The parameters are:
 
 Parameters      |  Explanation                                      | Constraints                                          |                
 ----------------|---------------------------------------------------|----------------------------------------------------- |
-`i/DOCTOR_ID`   | the unique identifier of a doctor.                | Must be in the form of `DXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview)                           |
+`i/DOCTOR_ID`   | the unique identifier of a doctor (case-insensitive). | Must be in the form of `DXXX` / `dXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview)                           |
 `n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters and spaces, and it should not be blank|
 `p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **entirely numeric** and contain at least 3 digits                      |
 `de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters and spaces, and it should not be blank|
@@ -600,7 +597,7 @@ The parameters are:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`i/PATIENT_ID`| the Patient Id associated with the appointment    | Patient Id must in the form of `PXXX`, where `XXX` is 3 digit number   |
+`i/PATIENT_ID`| the Patient Id associated with the appointment    | Patient Id must in the form of `PXXX` / `pXXX`, where `XXX` is 3 digit number   |
 `s/START_TIME`| the starting time of the appointment.             | Please refer to [this](#overview)                           |
 `e/END_TIME`  | the ending time of the activity.                  | Please refer to [this](#overview)                           |
 `ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
@@ -644,7 +641,7 @@ The parameter is:
 
 Parameter     |  Explanation                                      | Constraint                                           |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`ACTIVITY_ID` | the Activity Id as shown by the Activity table     | Must be in the form of `AXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
+`ACTIVITY_ID` | the Activity Id as shown by the Activity table (case-insensitive)  | Must be in the form of `AXXX` / `aXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
 
 :bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
 or searching for the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
@@ -728,7 +725,7 @@ The parameters are:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`i/ACTIVITY_ID`| the unique identifier of an activity.            | Must be in the form of `AXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)                           |
+`i/ACTIVITY_ID`| the unique identifier of an activity (case-insensitive).            | Must be in the form of `AXXX` / `aXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)                           |
 `s/START_TIME`| the starting time of the appointment.             | Please refer to [this](#overview)                           |
 `e/END_TIME`  | the ending time of the activity.                  | Please refer to [this](#overview)                           |
 `ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
