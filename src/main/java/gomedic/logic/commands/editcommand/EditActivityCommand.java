@@ -82,7 +82,7 @@ public class EditActivityCommand extends Command {
         Description description = editActivityDescriptor.getDescription().orElse(activityToEdit.getDescription());
 
         if (activityToEdit.isAppointment()) {
-            PatientId patientId = editActivityDescriptor.getPatientId().orElse(activityToEdit.getPatientId());
+            PatientId patientId = activityToEdit.getPatientId();
             return new Activity(activityId, patientId, startTime, endTime, title, description);
         }
         return new Activity(activityId, startTime, endTime, title, description);
@@ -159,7 +159,6 @@ public class EditActivityCommand extends Command {
         private Time endTime;
         private Title title;
         private Description description;
-        private PatientId patientId;
 
         public EditActivityDescriptor() {
         }
@@ -168,7 +167,6 @@ public class EditActivityCommand extends Command {
          * Copy constructor.
          */
         public EditActivityDescriptor(EditActivityDescriptor toCopy) {
-            setPatientId(toCopy.patientId);
             setStartTime(toCopy.startTime);
             setEndTime(toCopy.endTime);
             setTitle(toCopy.title);
@@ -180,14 +178,6 @@ public class EditActivityCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(startTime, endTime, title, description);
-        }
-
-        public Optional<PatientId> getPatientId() {
-            return Optional.ofNullable(patientId);
-        }
-
-        public void setPatientId(PatientId patientId) {
-            this.patientId = patientId;
         }
 
         public Optional<Time> getStartTime() {
@@ -240,8 +230,7 @@ public class EditActivityCommand extends Command {
             return getStartTime().equals(e.getStartTime())
                     && getEndTime().equals(e.getEndTime())
                     && getTitle().equals(e.getTitle())
-                    && getDescription().equals(e.getDescription())
-                    && getPatientId().equals(e.getPatientId());
+                    && getDescription().equals(e.getDescription());
         }
     }
 }
