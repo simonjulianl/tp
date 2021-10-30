@@ -200,95 +200,95 @@ public class Messages {
      */
     public static String generateHelpText() {
 
-        String addPatient = "add t/patient:\n    Adds a patient to GoMedic.\n" +
-                "    Format:   add t/patient n/NAME p/PHONE_NUMBER a/AGE g/GENDER h/HEIGHT " +
-                "w/WEIGHT b/BLOOD_TYPE [m/MEDICAL_CONDITION]...\n\n";
+        String addPatient = "add t/patient:\n    Adds a patient to GoMedic.\n"
+                + "    Format:   add t/patient n/NAME p/PHONE_NUMBER a/AGE g/GENDER h/HEIGHT "
+                + "w/WEIGHT b/BLOOD_TYPE [m/MEDICAL_CONDITION]...\n\n";
 
-        String deletePatient = "delete t/patient:\n    Deletes the patient identified by the index number " +
-                "used in their respective list.\n" +
-                "    Format:    delete t/patient PATIENT_ID\n\n";
+        String deletePatient = "delete t/patient:\n    Deletes the patient identified by the index number "
+                + "used in their respective list.\n"
+                + "    Format:    delete t/patient PATIENT_ID\n\n";
 
-        String listPatient = "list t/patient:\n    List all patients as specified by the user.\n" +
-                "    Format:    list t/patient\n\n";
+        String listPatient = "list t/patient:\n    List all patients as specified by the user.\n"
+                + "    Format:    list t/patient\n\n";
 
         String editPatient = "edit t/patient:\n    Edits the details of the patient identified "
                 + "by the index number used in the displayed list.\n"
-                + "    Existing values will be overwritten by the input values.\n" +
-                "    Format:    edit t/patient i/PATIENT_ID [OPTIONAL_PARAMETERS]...\n\n";
+                + "    Existing values will be overwritten by the input values.\n"
+                + "    Format:    edit t/patient i/PATIENT_ID [OPTIONAL_PARAMETERS]...\n\n";
 
-        String viewPatient = "view t/patient:\n    Views all the details of a specific patient in one page.\n" +
-                "    Format:    view t/patient PATIENT_ID\n\n";
+        String viewPatient = "view t/patient:\n    Views all the details of a specific patient in one page.\n"
+                + "    Format:    view t/patient PATIENT_ID\n\n";
 
-        String findPatient = "find t/patient:\n    Finds entries in patients that contain the given keyword(s) as substring "
-                + "in their entry attributes.\n" +
-                "    Format:    find t/patient [OPTIONAL_PARAMETERS]...\n\n";
+        String findPatient = "find t/patient:\n    Finds entries in patients that contain the given keyword(s) "
+                + "as substring in their entry attributes.\n"
+                + "    Format:    find t/patient [OPTIONAL_PARAMETERS]...\n\n";
 
-        String clearPatient = "clear t/patient:\n    Empties all patients in GoMedic." +
-                "    Also clears associated appointments.\n" +
-                "    Format:    clear t/patient\n\n";
+        String clearPatient = "clear t/patient:\n    Empties all patients in GoMedic."
+                + "    Also clears associated appointments.\n"
+                + "    Format:    clear t/patient\n\n";
 
-        String addDoctor = "add t/doctor:\n    Adds a doctor to GoMedic.\n" +
-                "    Format:   add t/doctor n/NAME p/PHONE_NUMBER de/DEPARTMENT\n\n";
+        String addDoctor = "add t/doctor:\n    Adds a doctor to GoMedic.\n"
+                + "    Format:   add t/doctor n/NAME p/PHONE_NUMBER de/DEPARTMENT\n\n";
 
-        String deleteDoctor = "delete t/doctor:\n    Deletes the doctor identified by the index number " +
-                "used in their respective list.\n" +
-                "    Format:    delete t/doctor DOCTOR_ID\n\n";
+        String deleteDoctor = "delete t/doctor:\n    Deletes the doctor identified by the index number "
+                + "used in their respective list.\n"
+                + "    Format:    delete t/doctor DOCTOR_ID\n\n";
 
-        String listDoctor = "list t/doctor:\n    List all doctors as specified by the user.\n" +
-                "    Format:    list t/doctor\n\n";
+        String listDoctor = "list t/doctor:\n    List all doctors as specified by the user.\n"
+                + "    Format:    list t/doctor\n\n";
 
         String editDoctor = "edit t/doctor:\n    Edits the details of the doctor identified "
                 + "by the index number used in the displayed list.\n"
-                + "    Existing values will be overwritten by the input values.\n" +
-                "    Format:    edit t/doctor i/DOCTOR_ID [OPTIONAL_PARAMETERS]...\n\n";
+                + "    Existing values will be overwritten by the input values.\n"
+                + "    Format:    edit t/doctor i/DOCTOR_ID [OPTIONAL_PARAMETERS]...\n\n";
 
-        String findDoctor = "find t/doctor:\n    Finds entries in doctors that contain the given keyword(s) as substring "
-                + "in their entry attributes.\n" +
-                "    Format:    find t/doctor [OPTIONAL_PARAMETERS]...\n\n";
+        String findDoctor = "find t/doctor:\n    Finds entries in doctors that contain the given keyword(s) as "
+                + "substring in their entry attributes.\n"
+                + "    Format:    find t/doctor [OPTIONAL_PARAMETERS]...\n\n";
 
-        String clearDoctor = "clear t/doctor:\n    Empties all doctors in GoMedic.\n" +
-                "    Format:    clear t/doctor\n\n";
+        String clearDoctor = "clear t/doctor:\n    Empties all doctors in GoMedic.\n"
+                + "    Format:    clear t/doctor\n\n";
 
-        String addActivity = "add t/activity:\n    Adds an activity to GoMedic.\n" +
-                "    Format:   add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]\n\n";
+        String addActivity = "add t/activity:\n    Adds an activity to GoMedic.\n"
+                + "    Format:   add t/activity s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]\n\n";
 
-        String addAppointment = "add t/appointment:\n    Adds an appointment to GoMedic.\n" +
-                "    Format:   add t/activity i/PATIENT_ID s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]\n" +
-                "    NOTE:    commands for activities also work for appointments.\n\n";
+        String addAppointment = "add t/appointment:\n    Adds an appointment to GoMedic.\n"
+                + "    Format:   add t/activity i/PATIENT_ID s/START_TIME e/END_TIME ti/TITLE [d/DESCRIPTION]\n"
+                + "    NOTE:    commands for activities also work for appointments.\n\n";
 
-        String deleteActivity = "delete t/activity:\n    Deletes the activity or appointment identified by the index number " +
-                "used in their respective list.\n" +
-                "    Format:    delete t/activity ACTIVITY_ID\n\n";
+        String deleteActivity = "delete t/activity:\n    Deletes the activity or appointment identified by the index "
+                + "number used in their respective list.\n"
+                + "    Format:    delete t/activity ACTIVITY_ID\n\n";
 
-        String listActivity = "list t/activity:\n    List all activities and appointments as specified by the user.\n" +
-                "    Format:    list t/activity s/SORT_FLAG p/PERIOD_FLAG\n\n";
+        String listActivity = "list t/activity:\n    List all activities and appointments as specified by the user.\n"
+                + "    Format:    list t/activity s/SORT_FLAG p/PERIOD_FLAG\n\n";
 
         String editActivity = "edit t/activity:\n    Edits the details of the activity identified "
                 + "by the index number used in the displayed list.\n"
-                + "    Existing values will be overwritten by the input values.\n" +
-                "    Format:    edit t/activity i/ACTIVITY_ID [OPTIONAL PARAMETERS]...\n\n";
+                + "    Existing values will be overwritten by the input values.\n"
+                + "    Format:    edit t/activity i/ACTIVITY_ID [OPTIONAL PARAMETERS]...\n\n";
 
-        String findActivity = "find t/activity:\n    Finds entries in activities or appointments that contain the " +
-                "given keyword(s) as substring in their entry attributes.\n" +
-                "    Format:    find t/activity [OPTIONAL_PARAMETERS]...\n\n";
+        String findActivity = "find t/activity:\n    Finds entries in activities or appointments that contain the "
+                + "given keyword(s) as substring in their entry attributes.\n"
+                + "    Format:    find t/activity [OPTIONAL_PARAMETERS]...\n\n";
 
-        String clearActivity = "clear t/activity:\n    Empties all activities and appointments in GoMedic.\n" +
-                "    Format:    clear t/activity\n\n";
+        String clearActivity = "clear t/activity:\n    Empties all activities and appointments in GoMedic.\n"
+                + "    Format:    clear t/activity\n\n";
 
-        String referral = "referral:\n    Generates a pdf referral for a patient.\n" +
-                "    Format:    referral ti/TITLE di/DOCTOR_ID pi/PATIENT_ID [d/DESCRIPTION]\n\n";
+        String referral = "referral:\n    Generates a pdf referral for a patient.\n"
+                + "    Format:    referral ti/TITLE di/DOCTOR_ID pi/PATIENT_ID [d/DESCRIPTION]\n\n";
 
-        String profile = "profile:\n    Helps to set the user's profile in GoMedic.\n" +
-                "    Format:    profile n/NAME p/POSITION de/DEPARTMENT o/ORGANIZATION\n\n";
+        String profile = "profile:\n    Helps to set the user's profile in GoMedic.\n"
+                + "    Format:    profile n/NAME p/POSITION de/DEPARTMENT o/ORGANIZATION\n\n";
 
-        String help = "help:\n    Returns a list of commands and a brief description on what they do.\n" +
-                "    Format:    help\n\n";
+        String help = "help:\n    Returns a list of commands and a brief description on what they do.\n"
+                + "    Format:    help\n\n";
 
-        String clear = "clear:\n    Empties all data in GoMedic except for the profile.\n" +
-                "    Format:    clear\n\n";
+        String clear = "clear:\n    Empties all data in GoMedic except for the profile.\n"
+                + "    Format:    clear\n\n";
 
-        String exit = "exit:\n    Exits GoMedic and closes the window.\n" +
-                "    Format:    exit\n\n";
+        String exit = "exit:\n    Exits GoMedic and closes the window.\n"
+                + "    Format:    exit\n\n";
 
         return addPatient + deletePatient + listPatient + editPatient + viewPatient + findPatient + clearPatient
                 + addDoctor + deleteDoctor + listDoctor + editDoctor + findDoctor + clearDoctor + addActivity
