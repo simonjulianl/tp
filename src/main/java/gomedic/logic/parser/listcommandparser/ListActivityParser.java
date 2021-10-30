@@ -47,10 +47,7 @@ public class ListActivityParser implements Parser<ListActivityCommand> {
                         .parsePeriodActivityFlags(argMultimap.getValue(CliSyntax.PREFIX_PERIOD_FLAG).get());
             }
         } catch (ParseException pe) {
-            throw new ParseException(
-                    ListActivityCommand.Period.MESSAGE_CONSTRAINTS
-                            + "\n"
-                            + ListActivityCommand.MESSAGE_USAGE);
+            throw new ParseException(ListActivityCommand.Period.MESSAGE_CONSTRAINTS);
         }
 
         return new ListActivityCommand(sortFlag, periodFlag);

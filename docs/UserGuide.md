@@ -46,24 +46,31 @@ formatting, etc.
 
 --------------------------------------------------------------------------------------------------------------------
 
-# Features
+# How To Use This Guide
 
+This user guide provides information to assist you in using **GoMedic** based on which features you are most interested in. 
+
+To get the most out of this user guide, it would be best to understand the terminologies and notations that would often be used in this user guide. 
+Some important notations would be repeated in the **Overview** section of each chapter (such as **Activity Related Feature**) to remind you of those notations again. 
+
+So don't worry if you forget some [notations](#about-the-commands) along the way, or after you have not touched this User Guide for a while, you can always check this page or the **Overview** section to find 
+the important notations that are used in that chapter. 
+
+## How GoMedic Looks Like 
+![gomedic-design](images/ui/segmentation.png)
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Notes about the command format:**<br>
+## About the Commands
+**:information_source: Understanding The Notations:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-
-* Words in `lower_case` are required flags to be written together with the command. <br>
-  e.g. in `add t/activity`, `t/activity` is a flag that must be written as it is and should not be changed or treated as
-  a parameter.
 
 * Items in square brackets are optional.<br>
   e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[o/MEDICAL_CONDITION]…​` can be used as ` ` (i.e. 0 times), `o/diabetes`, `o/fever o/flu` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -74,8 +81,28 @@ formatting, etc.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be
   ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+  e.g. if the command specifies `help 123` or `help x/123`, it will be interpreted as `help`.
 
+</div>
+
+## Error Messages
+
+1. Should you enter an **invalid** command that **GoMedic** cannot recognize, **GoMedic** would
+return some suggestions on the closest commands that you can choose from!
+
+   * For example, as `list` command is not available, **GoMedic** would return you the closest commands available which are 
+   `list t/acitivty`, `list t/patient`, and `list t/doctor`. 
+
+    To understand more how the suggestion works, please refer to [this](#suggestions) section.
+
+2. Should you enter an **valid** command but in its **invalid** format, meaning some parameters are missing.
+**GoMedic** would highlight the command in red and shows the correct usage in the feedback box. 
+3. Should you enter a **valid** command in a **valid** format, but there is a wrong parameter. 
+**GoMedic** would only flag the first invalid parameter as not to overwhelm you with the error messages. 
+   * Invalid parameters can be caused by constraints' violation, such as inputting blood type X for a patient, where such blood type does not exist.   
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+To fix the multiple parameters' errors in a command, you can fix them one by one based on the feedback that **GoMedic** give and use the [navigation](#navigating-past-commands) feature to get the previous command!
 </div>
 
 <div style="page-break-after: always;"></div>
@@ -94,12 +121,6 @@ suffering from.
 Each patient is **uniquely** identified by its `PATIENT_ID` in the form of `PXXX` where `XXX` is a 3-digit integer.
 Therefore, two patients with exactly same `NAME`, `PHONE_NUMBER`, `AGE`, `GENDER`, `HEIGHT`, `WEIGHT`, `BLOOD_TYPE`, 
 and `MEDICAL_CONDITIONS` with different `PATIENT_ID` are considered distinct.
-</div>
-
-For all the supplied fields, if there is any error in any of them. 
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-T
 </div>
 
 <div markdown="block" class="alert alert-info">
@@ -166,7 +187,9 @@ the command box.
 In this case, the error is because we are putting invalid blood type. Fix the issue and press enter again!
 Now the command should work correctly!
 
-![tut-patient-2](images/patientug/tut_patient_error.png)
+![tut-patient-3](images/patientug/tut_patient_error.png)
+
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
 
 <div style="page-break-after: always;"></div>
 
@@ -199,6 +222,8 @@ or search the specific patient using [`find t/patient` command](#finding-entries
 feedback box shown at **2**. Fix the issue and the command should work correctly now!
 
 ![tut-delete-patient-error](images/patientug/tut_delete_patient_error.png)
+
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
 
 <div style="page-break-after: always;"></div>
 
@@ -263,6 +288,8 @@ In this case, the error is because we are putting invalid blood type. Fix the is
 Fix the issue and the command should work correctly now!
 
 ![tut-edit-patient-error](images/patientug/tut_edit_patient_error.png)
+
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
 
 <div style="page-break-after: always;"></div>
 
@@ -346,6 +373,8 @@ Fix the issue by following the command format, shown in **2**, and press `Enter`
 
 ![tut-doctor-error](images/doctorug/tut_doctor_error.png)
 
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
+
 <div style="page-break-after: always;"></div>
 
 ### Deleting an existing doctor: `delete t/doctor`
@@ -382,6 +411,8 @@ Check the doctor table. The doctor identified by the deleted ID should not be th
 feedback box shown at **2**. Fix the issue and the command should work correctly now!
 
 ![tut-delete-doctor-error](images/doctorug/tut_delete_doctor_error.png)
+
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
 
 <div style="page-break-after: always;"></div>
 
@@ -441,6 +472,8 @@ feedback box shown at **2**. In this case, the error is that the `NAME` of the e
 Fix the issue and the command should work correctly now!
 
 ![tut-doctor-edit-error](images/doctorug/tut_edit_doctor_error.png)
+
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
 
 <div style="page-break-after: always;"></div>
 
@@ -541,6 +574,8 @@ Now the command should work correctly!
 
 ![tut-activity-error](images/activityug/tut_activity_error.png)
 
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
+
 <div style="page-break-after: always;"></div>
 
 ### Adding a new appointment: `add t/appointment`
@@ -584,6 +619,8 @@ and press `Enter` again, the command should work correctly now!
 
 ![tut-appt-error](images/activityug/tut_appt_error.png)
 
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
+
 <div style="page-break-after: always;"></div>
 
 ### Deleting an existing activity: `delete t/activity`
@@ -620,6 +657,8 @@ feedback box shown at **2**. Fix the issue and the command should work correctly
 
 ![tut-delete-activity-error](images/activityug/tut_delete_activity_error.png)
 
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
+
 <div style="page-break-after: always;"></div>
 
 ### List all activities: `list t/activity`
@@ -654,6 +693,8 @@ Parameters    |  Explanation                                                    
    feedback box shown at **2**. Please check that the flags available are only those specified in constraints [above](#list-all-activities-list-tactivity)! Fix the issue and the command should work correctly now!
 
 ![tut-list-activity-error](images/activityug/tut_activitylist_error.png)
+
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
 
 <div style="page-break-after: always;"></div>
 
@@ -700,6 +741,8 @@ Parameters    |  Explanation                                      | Constraints 
 feedback box shown at **2**. In this case, the error is that `START_TIME` of the edited activity exceeds its `END_TIME`. Fix the issue and the command should work correctly now!
 
 ![tut-edit-error](images/activityug/tut_edit_error.png)
+
+To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
 
 <div style="page-break-after: always;"></div>
 
@@ -874,7 +917,15 @@ If the format for the user profile is invalid, the preset user profile will be u
 
 # Tips and Tricks
 
-### Navigating Past Commands 
+## Navigating Past Commands 
+
+**GoMedic** is designed mainly for those who typed fast and prefer input the commands by typing them. 
+However, typing new commands over and over can be very frustrating even though you just want to fix one small error 
+in the previous commands. 
+
+**GoMedic** has you covered by having commands navigation feature which would allow you to navigate through all the commands
+that you have typed before!
+
 :bulb: **Tip:** You can navigate and check your previous commands by pressing the up or down arrow keys!
 
 GoMedic would store all the commands, whether its valid or invalid that you have typed from when you open the application! 
@@ -887,16 +938,27 @@ Previous and next is relative to the current command shown in the command box!
 * The **up** arrow key allows you to go back to the previous command typed if any
 * The **down** arrow key allows you to go forward to the next command typed if any 
 
+If there are no more commands after the current command in the command box, **GoMedic** would clear the command box for you! 
+
 Examples:
 
-&#8291;1. Open the app, and immediately type `list t/activity s/start` into the command box. The data shown in your table
-might differ from the screenshots based on what is currently stored in your GoMedic.
+&#8291;1. Open the app, and immediately type `list t/patient` into the command box. The data shown in your table
+might differ from the screenshots based on what data is currently stored in your **GoMedic**.
 
-![tut-reorder](images/activityug/tut_reorder_col.png)
+![tut-navigate](images/navigate/navigation1.png)
 
+&#8291;2. Press `Enter` and you would get the Patient table listed!
 
+![tut-navigate](images/navigate/navigation2.png)
 
-### Reordering Columns in The Display Table
+&#8291;3. To get the `list t/patient` command again, simply press **Up** arrow key in your keyboard, and you will get the `list t/patient` command
+in your command box again!
+
+![tut-navigate](images/navigate/navigation3.png)
+
+<div style="page-break-after: always;"></div>
+
+## Reordering Columns in The Display Table
 
 :bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
 
