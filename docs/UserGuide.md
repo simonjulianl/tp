@@ -49,6 +49,14 @@ formatting, etc.
 # How To Use This Guide
 
 This user guide provides information to assist you in using **GoMedic** based on which features you are most interested in. 
+The user guide is sectioned such that each chapter has an 
+* **Overview** : Explaining what the feature offers and some important reminders about the notations used in that particular chapter
+* **Features** : List of commands available within that section 
+  * **Format** : list of fields that need to be supplied for that particular command
+  * **Parameters** : Explanation about each field, together with its constraints
+  * **Examples** : tutorial with pictures on how to use the commands. 
+
+:bulb: **Tip:** You can always go back to the table of content page and just click on which feature you are currently interested at, as each feature has a very comprehensive tutorial !
 
 To get the most out of this user guide, it would be best to understand the terminologies and notations that would often be used in this user guide. 
 Some important notations would be repeated in the **Overview** section of each chapter (such as **Activity Related Feature**) to remind you of those notations again. 
