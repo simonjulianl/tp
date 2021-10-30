@@ -129,7 +129,7 @@ Parameters    |  Explanation                                      | Constraints 
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
 `a/AGE     `  | age of the patient                                | must be integer between 0 and 150 inclusive          |
-`p/PHONE_NUMBER`| phone number of the patient                     | must be 8-digit integer Singapore phone number       |
+`p/PHONE_NUMBER`| phone number of the patient                     | must be 8-digit integer phone number       |
 `g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others, all non capitalized letters will be capitalized, e.g. `m` input will be treated as `M`|
 `h/HEIGHT`    | height of the patient in centimeters              | must be integer between 1 and 300 inclusive          |
 `w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 1 and 700 inclusive          |
@@ -237,7 +237,7 @@ Parameters    |  Explanation                                      | Constraints 
 `i/PATIENT_ID`| the unique identifier of a patient                | must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
 `a/AGE     `  | age of the patient                                | must be integer between 0 and 150 inclusive          |
-`p/PHONE_NUMBER`| phone number of the patient                     | must be 8-digit integer Singapore phone number       |
+`p/PHONE_NUMBER`| phone number of the patient                     | must be 8-digit integer phone number       |
 `g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others, all non capitalized letters will be capitalized, e.g. `m` input will be treated as `M`|
 `h/HEIGHT`    | height of the patient in centimeters              | must be integer between 1 and 300 inclusive          |
 `w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 1 and 700 inclusive          |
@@ -321,7 +321,7 @@ The parameters are:
 Parameters      |  Explanation                                      | Constraints                                          |                
 ----------------|---------------------------------------------------|----------------------------------------------------- |
 `n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters            |
-`p/PHONE_NUMBER`| the phone number of the doctor.                   | must be 8-digit integer Singapore phone number|
+`p/PHONE_NUMBER`| the phone number of the doctor.                   | must be 8-digit integer phone number|
 `de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters            |
 
 <a name="doctor_tutorial"></a>
