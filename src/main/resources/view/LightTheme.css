@@ -72,6 +72,11 @@
 
 }
 
+/*
+ * Prevent selected table to be highlighted
+ * Author: James_D
+ * https://stackoverflow.com/questions/27013898/javafx8-remove-highlighting-of-selected-row
+ */
 .table-row-cell:filled:selected {
   -fx-background: -fx-control-inner-background ;
   -fx-background-color: -fx-table-cell-border-color, -fx-background ;
