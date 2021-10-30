@@ -62,26 +62,30 @@ public class PatientView extends UiPart<Region> {
         super(FXML);
         patient = object.getValue();
         object.addListener((add, oldVal, newVal) -> {
-            id.setText(newVal.getId().toString());
-            name.setText(newVal.getName().toString());
-            phone.setText(newVal.getPhone().toString());
-            age.setText(newVal.getAge().toString());
-            bloodType.setText(newVal.getBloodType().toString());
-            gender.setText(newVal.getGender().toString());
-            height.setText(newVal.getHeight().toString());
-            weight.setText(newVal.getWeight().toString());
+            try {
+                id.setText(newVal.getId().toString());
+                name.setText(newVal.getName().toString());
+                phone.setText(newVal.getPhone().toString());
+                age.setText(newVal.getAge().toString());
+                bloodType.setText(newVal.getBloodType().toString());
+                gender.setText(newVal.getGender().toString());
+                height.setText(newVal.getHeight().toString());
+                weight.setText(newVal.getWeight().toString());
 
-            medicalConditions.getChildren().clear();
+                medicalConditions.getChildren().clear();
 
-            newVal.getMedicalConditions().stream()
+                newVal.getMedicalConditions().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> medicalConditions.getChildren().add(new Label(tag.tagName)));
 
-            appointments.getChildren().clear();
+                appointments.getChildren().clear();
 
-            medicalConditions.setPrefWrapLength(300f);
-            medicalConditions.setPrefHeight(0f);
-            medicalConditions.setMaxWidth(300f);
+                medicalConditions.setPrefWrapLength(300f);
+                medicalConditions.setPrefHeight(0f);
+                medicalConditions.setMaxWidth(300f);
+            } catch (Exception e) {
+                return;
+            }
 
             logger.info("Getting associated appointments");
 
