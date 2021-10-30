@@ -30,7 +30,7 @@ public class CommandHistory {
         requireNonNull(command);
         logger.info("new command added to history: " + command);
         historyOfCommands.add(command);
-        pointer = historyOfCommands.size() - 1;
+        pointer = historyOfCommands.size();
     }
 
     /**
@@ -58,9 +58,17 @@ public class CommandHistory {
     }
 
     public boolean hasNextCommand() {
+        boolean isPointerAtLastCommand = pointer == historyOfCommands.size() - 1;
+        if (isPointerAtLastCommand) {
+            pointer++;
+        }
+
         return historyOfCommands.size() > 0 && pointer < historyOfCommands.size() - 1;
     }
 
+    /**
+     * Checks whether this history has any command.
+     */
     public boolean hasPreviousCommand() {
         return historyOfCommands.size() > 0 && pointer > 0;
     }

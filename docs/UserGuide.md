@@ -52,9 +52,6 @@ formatting, etc.
 
 **:information_source: Notes about the command format:**<br>
 
-* Any mention of `{command}` refers to one of these values `add`, `delete`, `list`, `edit`, `clear`, `find`, `view`, `help`,
-`profile`, `referral`, `help`, `exit`
-
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
@@ -75,11 +72,9 @@ formatting, etc.
   the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be
   ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-* `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
 
 </div>
 
@@ -94,9 +89,18 @@ Patients related features allow you to store, edit, view, and list patients.
 Using patients, you can store your patients' details and track all of the medical conditions that your patients are
 suffering from.
 
+<div markdown="block" class="alert alert-info">
+**:information_source: Reminder on Command Notation:**<br>
 Each patient is **uniquely** identified by its `PATIENT_ID` in the form of `PXXX` where `XXX` is a 3-digit integer.
 Therefore, two patients with exactly same `NAME`, `PHONE_NUMBER`, `AGE`, `GENDER`, `HEIGHT`, `WEIGHT`, `BLOOD_TYPE`, 
 and `MEDICAL_CONDITIONS` with different `PATIENT_ID` are considered distinct.
+</div>
+
+For all the supplied fields, if there is any error in any of them. 
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+T
+</div>
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Reminder on Command Notation:**<br>
@@ -807,11 +811,11 @@ more information.
 
 Format: `help`
 
-### Clearing all entries : `clear [{type}]`
+### Clearing all entries : `clear`
 
 Clears all entries from the address book related to the specified type. If there is no type that is specified, all the data would be cleared.
 
-Format: `clear [{type}]`
+Format: `clear`
 
 Examples: 
 
@@ -831,6 +835,9 @@ Format: `exit`
 There are two types of erroneous inputs that we are expecting, one for single worded commands and one for two word commands.
 Behaviour of each erroneous command is assumed to follow the convention specified above.
 
+* Any mention of `{command}` refers to one of these values `add`, `delete`, `list`, `edit`, `clear`, `find`, `view`, `help`,
+  `profile`, `referral`, `help`, `exit`
+* `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
 
 There will be up to 5 suggested commands for each erroneous input.
 
@@ -867,6 +874,28 @@ If the format for the user profile is invalid, the preset user profile will be u
 
 # Tips and Tricks
 
+### Navigating Past Commands 
+:bulb: **Tip:** You can navigate and check your previous commands by pressing the up or down arrow keys!
+
+GoMedic would store all the commands, whether its valid or invalid that you have typed from when you open the application! 
+
+Therefore, instead of typing a new command entirely, you can press the up or down arrow key to get the commands that you have typed, 
+and modify them accordingly!
+
+Previous and next is relative to the current command shown in the command box!
+
+* The **up** arrow key allows you to go back to the previous command typed if any
+* The **down** arrow key allows you to go forward to the next command typed if any 
+
+Examples:
+
+&#8291;1. Open the app, and immediately type `list t/activity s/start` into the command box. The data shown in your table
+might differ from the screenshots based on what is currently stored in your GoMedic.
+
+![tut-reorder](images/activityug/tut_reorder_col.png)
+
+
+
 ### Reordering Columns in The Display Table
 
 :bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
@@ -897,6 +926,7 @@ the data of your previous GoMedic home folder.
 
 # Command summary
 * `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#features) section.
+* `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
 
 Action        | Format                                            | Examples                                             |                
 --------------|---------------------------------------------------|----------------------------------------------------- |

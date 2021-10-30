@@ -60,6 +60,8 @@ public class CommandBox extends UiPart<Region> {
         if (history.hasNextCommand()) {
             String command = history.getNextCommand();
             commandTextField.setText(command);
+        } else {
+            commandTextField.setText("");
         }
     }
 
