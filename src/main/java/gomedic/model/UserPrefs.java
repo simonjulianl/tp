@@ -2,15 +2,11 @@ package gomedic.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 import gomedic.commons.core.GuiSettings;
-import gomedic.commons.core.LogsCenter;
 
 /**
  * Represents User's preferences.

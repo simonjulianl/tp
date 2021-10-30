@@ -5,16 +5,18 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
+import gomedic.model.UserPrefs;
+
 /**
  * Config values used by the app
  */
 public class Config {
 
-    public static final Path DEFAULT_CONFIG_FILE = Paths.get("data/config.json");
+    public static final Path DEFAULT_CONFIG_FILE = Paths.get(UserPrefs.ROOT_FOLDER, "config.json");
 
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
-    private Path userPrefsFilePath = Paths.get("data/preferences.json");
+    private Path userPrefsFilePath = Paths.get(UserPrefs.ROOT_FOLDER, "preferences.json");
 
     public Level getLogLevel() {
         return logLevel;
