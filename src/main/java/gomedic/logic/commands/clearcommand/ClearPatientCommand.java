@@ -31,6 +31,7 @@ public class ClearPatientCommand extends Command {
         }
         AddressBook newAddressBook = new AddressBook();
         ReadOnlyAddressBook oldAddressBook = model.getAddressBook();
+        newAddressBook.setUserProfile(oldAddressBook.getUserProfile());
         newAddressBook.setActivities(oldAddressBook.getActivityListSortedById());
         newAddressBook.setDoctors(oldAddressBook.getDoctorListSortedById());
         model.setAddressBook(newAddressBook);

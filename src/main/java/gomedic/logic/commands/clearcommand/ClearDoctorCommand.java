@@ -23,6 +23,7 @@ public class ClearDoctorCommand extends Command {
         requireNonNull(model);
         AddressBook newAddressBook = new AddressBook();
         ReadOnlyAddressBook oldAddressBook = model.getAddressBook();
+        newAddressBook.setUserProfile(oldAddressBook.getUserProfile());
         newAddressBook.setActivities(oldAddressBook.getActivityListSortedById());
         newAddressBook.setPatients(oldAddressBook.getPatientListSortedById());
         model.setAddressBook(newAddressBook);
