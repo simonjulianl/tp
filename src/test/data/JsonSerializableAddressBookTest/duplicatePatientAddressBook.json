@@ -10,10 +10,10 @@
   "patients": [
     {
       "name": "Tom Joe",
-      "phone": "9482424",
+      "phone": "94842424",
       "id": "P001",
       "age": "35",
-      "bloodtype": "AB",
+      "bloodtype": "AB+",
       "gender": "M",
       "height": "175",
       "weight": "76"
@@ -23,7 +23,7 @@
       "phone": "12345678",
       "id": "P001",
       "age": "25",
-      "bloodtype": "A",
+      "bloodtype": "A+",
       "gender": "M",
       "height": "178",
       "weight": "77"

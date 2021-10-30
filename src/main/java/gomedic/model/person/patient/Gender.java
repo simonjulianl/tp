@@ -10,12 +10,13 @@ import gomedic.commons.util.AppUtil;
  */
 public class Gender {
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should only contain M for Male, F for Female, or O for Others, and it should not be blank";
+            "Gender should only contain M for Male, F for Female, or O for Others, and it should not be blank. All non" +
+                " capitalized letters will be capitalized";
 
     /**
-     * Gender must only be either M, F, or O.
+     * Gender must only be either M, m, F, f, O, or o.
      */
-    public static final String VALIDATION_REGEX = "[MFO]";
+    public static final String VALIDATION_REGEX = "[MmFfOo]";
 
     public final String gender;
 
@@ -27,7 +28,7 @@ public class Gender {
     public Gender(String gender) {
         requireNonNull(gender);
         AppUtil.checkArgument(isValidGender(gender), MESSAGE_CONSTRAINTS);
-        this.gender = gender;
+        this.gender = gender.toUpperCase();
     }
 
     /**

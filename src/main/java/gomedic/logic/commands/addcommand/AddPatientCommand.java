@@ -52,7 +52,7 @@ public class AddPatientCommand extends Command {
             + PREFIX_NAME + "John Smith "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_AGE + "45 "
-            + PREFIX_BLOOD_TYPE + "AB "
+            + PREFIX_BLOOD_TYPE + "AB+ "
             + PREFIX_GENDER + "M "
             + PREFIX_HEIGHT + "175 "
             + PREFIX_WEIGHT + "70 "

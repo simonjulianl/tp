@@ -10,8 +10,8 @@ import gomedic.commons.util.AppUtil;
  */
 public class Phone {
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Phone numbers should only contain numbers, and it must be a valid Singapore phone number with 8 digits";
+    public static final String VALIDATION_REGEX = "\\d{8}";
     public final String value;
 
     /**

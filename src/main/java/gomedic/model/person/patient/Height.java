@@ -10,7 +10,7 @@ import gomedic.commons.util.AppUtil;
  */
 public class Height {
     public static final String MESSAGE_CONSTRAINTS =
-            "Height should only contain from 0 to 300";
+            "Height should be integer between 1 and 300 inclusive";
 
     /**
      * Height must only contain numeric characters.
@@ -31,13 +31,17 @@ public class Height {
     }
 
     /**
-     * Returns true if a given height is a valid height from 0 to 300.
+     * Returns true if a given height is a valid height from 1 to 300.
      *
      * @param test String number.
      * @return true if valid, else false.
      */
     public static boolean isValidHeight(String test) {
-        return test.matches(VALIDATION_REGEX) && (Integer.parseInt(test) >= 0 && Integer.parseInt(test) <= 300);
+        try {
+            return test.matches(VALIDATION_REGEX) && (Integer.parseInt(test) > 0 && Integer.parseInt(test) <= 300);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

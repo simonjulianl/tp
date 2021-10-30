@@ -21,7 +21,7 @@ public class PatientBuilder {
     public static final String DEFAULT_NAME = "Dohn Joe";
     public static final String DEFAULT_PHONE = "12345678";
     public static final String DEFAULT_AGE = "40";
-    public static final String DEFAULT_BLOODTYPE = "AB";
+    public static final String DEFAULT_BLOODTYPE = "AB+";
     public static final String DEFAULT_GENDER = "M";
     public static final String DEFAULT_HEIGHT = "176";
     public static final String DEFAULT_WEIGHT = "86";

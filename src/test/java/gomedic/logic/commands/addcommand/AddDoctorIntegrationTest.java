@@ -29,7 +29,7 @@ public class AddDoctorIntegrationTest {
         Doctor validDoctor = new DoctorBuilder()
                 .withId(model.getNewDoctorId())
                 .withName("a new name here")
-                .withPhone("123098")
+                .withPhone("12309811")
                 .withDepartment("testing")
                 .build();
 

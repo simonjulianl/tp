@@ -1,5 +1,6 @@
 package gomedic.model.person.patient;
 
+import java.util.Arrays;
 import static java.util.Objects.requireNonNull;
 
 import gomedic.commons.util.AppUtil;
@@ -10,29 +11,32 @@ import gomedic.commons.util.AppUtil;
  */
 public class BloodType {
     public static final String MESSAGE_CONSTRAINTS =
-            "BloodType should only contain A, B, AB, or O, and it should not be blank";
+            "BloodType should only contain A+, A-, B+, B-, AB+, AB-, O+, or O-, and it should not be blank. All non" +
+                " capital letterS will be capitalized";
 
     public final String bloodType;
 
     /**
      * Constructs a {@code BloodType}.
      *
-     * @param bloodType String A/B/AB/O.
+     * @param bloodType String A+/A-/B+/B-/AB+/AB-/O+/O-.
      */
     public BloodType(String bloodType) {
         requireNonNull(bloodType);
         AppUtil.checkArgument(isValidBloodType(bloodType), MESSAGE_CONSTRAINTS);
-        this.bloodType = bloodType;
+        this.bloodType = bloodType.toUpperCase();
     }
 
     /**
-     * Returns true if a given blood type is a valid blood type either A, B, AB, or O.
+     * Returns true if a given blood type is a valid blood type either A+, A-, B+, B-, AB+, AB-, O+, or O-.
      *
      * @param test String of the blood type.
      * @return true if valid, else false
      */
     public static boolean isValidBloodType(String test) {
-        return test.equals("A") || test.equals("B") || test.equals("AB") || test.equals("O");
+        String[] values = {"A+", "A-", "a+", "a-", "B+", "B-", "b+", "b-", "O+", "O-", "o+", "o-"
+                , "AB+", "AB-", "ab+", "ab-", "Ab+", "Ab-", "aB+", "aB-"};
+        return Arrays.stream(values).anyMatch(test::equals);
     }
 
     @Override

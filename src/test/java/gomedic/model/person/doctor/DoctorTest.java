@@ -23,7 +23,7 @@ public class DoctorTest {
     public static void setUp() {
         id = new DoctorId(1);
         name = new Name("John Doe version 2");
-        phone = new Phone("995");
+        phone = new Phone("99512312");
         department = new Department("Dermatology");
 
         doctor = new Doctor(name, phone, id, department);
@@ -85,7 +85,7 @@ public class DoctorTest {
     @Test
     void testToString() {
         assertEquals("Id: D001; Name: John Doe version 2;"
-                + " Phone: 995; "
+                + " Phone: 99512312; "
                 + "Department: Dermatology", doctor.toString());
     }
 }

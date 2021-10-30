@@ -13,7 +13,7 @@
       "phone": "9482424",
       "id": "P001",
       "age": "35",
-      "bloodtype": "AB",
+      "bloodtype": "AB+",
       "gender": "M",
       "height": "175",
       "weight": "76"
@@ -23,7 +23,7 @@
       "phone": "phone number is not numeric",
       "id": "P002",
       "age": "25",
-      "bloodtype": "A",
+      "bloodtype": "A+",
       "gender": "M",
       "height": "178",
       "weight": "77"
@@ -33,7 +33,7 @@
       "phone": "12345678",
       "id": "A002",
       "age": "25",
-      "bloodtype": "A",
+      "bloodtype": "A+",
       "gender": "M",
       "height": "178",
       "weight": "77"
@@ -43,7 +43,7 @@
       "phone": "12345678",
       "id": "P003",
       "age": "10000",
-      "bloodtype": "A",
+      "bloodtype": "A+",
       "gender": "M",
       "height": "178",
       "weight": "77"
@@ -63,7 +63,7 @@
       "phone": "12345678",
       "id": "P005",
       "age": "25",
-      "bloodtype": "A",
+      "bloodtype": "A+",
       "gender": "K",
       "height": "178",
       "weight": "77"
@@ -73,7 +73,7 @@
       "phone": "12345678",
       "id": "P006",
       "age": "25",
-      "bloodtype": "A",
+      "bloodtype": "A+",
       "gender": "M",
       "height": "1000",
       "weight": "77"
@@ -83,7 +83,7 @@
       "phone": "12345678",
       "id": "P007",
       "age": "25",
-      "bloodtype": "A",
+      "bloodtype": "A+",
       "gender": "M",
       "height": "178",
       "weight": "1000"

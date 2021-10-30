@@ -63,7 +63,7 @@ public class EditPatientCommand extends Command {
         + PREFIX_NAME + "John Snow "
         + PREFIX_PHONE + "91234567 "
         + PREFIX_AGE + "30 "
-        + PREFIX_BLOOD_TYPE + "AB "
+        + PREFIX_BLOOD_TYPE + "AB+ "
         + PREFIX_GENDER + "M "
         + PREFIX_HEIGHT + "185 "
         + PREFIX_WEIGHT + "85 "
