@@ -10,8 +10,8 @@ import gomedic.commons.util.AppUtil;
  */
 public class Gender {
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should only contain M for Male, F for Female, or O for Others, and it should not be blank. All non" +
-                " capitalized letters will be capitalized";
+            "Gender should only contain M for Male, F for Female, or O for Others, and it should not be blank. All non"
+                + " capitalized letters will be capitalized";
 
     /**
      * Gender must only be either M, m, F, f, O, or o.

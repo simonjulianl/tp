@@ -1,7 +1,8 @@
 package gomedic.model.person.patient;
 
-import java.util.Arrays;
 import static java.util.Objects.requireNonNull;
+
+import java.util.Arrays;
 
 import gomedic.commons.util.AppUtil;
 
@@ -11,8 +12,8 @@ import gomedic.commons.util.AppUtil;
  */
 public class BloodType {
     public static final String MESSAGE_CONSTRAINTS =
-            "BloodType should only contain A+, A-, B+, B-, AB+, AB-, O+, or O-, and it should not be blank. All non" +
-                " capital letterS will be capitalized";
+            "BloodType should only contain A+, A-, B+, B-, AB+, AB-, O+, or O-, and it should not be blank. All non"
+                + " capital letterS will be capitalized";
 
     public final String bloodType;
 
@@ -34,8 +35,8 @@ public class BloodType {
      * @return true if valid, else false
      */
     public static boolean isValidBloodType(String test) {
-        String[] values = {"A+", "A-", "a+", "a-", "B+", "B-", "b+", "b-", "O+", "O-", "o+", "o-"
-                , "AB+", "AB-", "ab+", "ab-", "Ab+", "Ab-", "aB+", "aB-"};
+        String[] values = {"A+", "A-", "a+", "a-", "B+", "B-", "b+", "b-", "O+", "O-", "o+", "o-",
+                "AB+", "AB-", "ab+", "ab-", "Ab+", "Ab-", "aB+", "aB-"};
         return Arrays.stream(values).anyMatch(test::equals);
     }
 
