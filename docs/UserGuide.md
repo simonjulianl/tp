@@ -128,8 +128,7 @@ The parameters are :
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
-`a/AGE     `  | age of the patient                                | must be integer between 0 and 150 inclusive          |
-`p/PHONE_NUMBER`| phone number of the patient                     | must be 8-digit integer phone number       |
+`p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and contain at least 3 digits       |
 `g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others, all non capitalized letters will be capitalized, e.g. `m` input will be treated as `M`|
 `h/HEIGHT`    | height of the patient in centimeters              | must be integer between 1 and 300 inclusive          |
 `w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 1 and 700 inclusive          |
@@ -237,7 +236,7 @@ Parameters    |  Explanation                                      | Constraints 
 `i/PATIENT_ID`| the unique identifier of a patient                | must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
 `a/AGE     `  | age of the patient                                | must be integer between 0 and 150 inclusive          |
-`p/PHONE_NUMBER`| phone number of the patient                     | must be 8-digit integer phone number       |
+`p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and contain at least 3 digits|
 `g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others, all non capitalized letters will be capitalized, e.g. `m` input will be treated as `M`|
 `h/HEIGHT`    | height of the patient in centimeters              | must be integer between 1 and 300 inclusive          |
 `w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 1 and 700 inclusive          |
@@ -298,8 +297,8 @@ Doctor related features allow you to store, edit and list details of other docto
 These could be details of your colleagues, or other acquaintances that are important in your work.
 
 Each doctor is **uniquely** identified by his or her `DOCTOR_ID` in the form `DXXX`, where `XXX` is a 3-digit integer.
-Therefore, **GoMedic** considers two doctors with the same details (such as their names), as two distinct and different
-doctors, as long as their `DOCTOR_ID`s are different. 
+Therefore, **GoMedic** considers two doctors with the same details (same `NAME`, `PHONE_NUMBER` and `DEPARTMENT`), 
+as two distinct and different doctors, as long as their `DOCTOR_ID`s are different.
 
 ### Adding a new doctor's details: `add t/doctor`
 
@@ -320,9 +319,9 @@ The parameters are:
 
 Parameters      |  Explanation                                      | Constraints                                          |                
 ----------------|---------------------------------------------------|----------------------------------------------------- |
-`n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters            |
-`p/PHONE_NUMBER`| the phone number of the doctor.                   | must be 8-digit integer phone number|
-`de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters            |
+`n/NAME`        | the name of the doctor.                           | must only contain alphanumeric characters and spaces, and it should not be blank|
+`p/PHONE_NUMBER`| the phone number of the doctor.                   | must be **entirely numeric** and contain at least 3 digits                      |
+`de/DEPARTMENT` | the department of the doctor.                     | must only contain alphanumeric characters and spaces, and it should not be blank|
 
 <a name="doctor_tutorial"></a>
 **Example:**
@@ -417,9 +416,9 @@ The parameters are:
 Parameters      |  Explanation                                      | Constraints                                          |                
 ----------------|---------------------------------------------------|----------------------------------------------------- |
 `i/DOCTOR_ID`   | the unique identifier of a doctor.                | Must be in the form of `DXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview)                           |
-`n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters            |
-`p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **numeric** and contain at least **3 digits**|
-`de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters            |
+`n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters and spaces, and it should not be blank|
+`p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **entirely numeric** and contain at least 3 digits                      |
+`de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters and spaces, and it should not be blank|
 
 **Example:**
 
@@ -790,8 +789,8 @@ The parameters are:
 * `o/ORGANIZATION` the organization that the user works in. (E.g. National University Hospital)
 
 Note:
-* All parameters must be alphanumeric. Otherwise, it would be considered as an 
-invalid entry, and the command will not be executed.
+* All parameters must only contain alphanumeric characters and spaces, and it should not be blank. 
+Otherwise, it would be considered as an invalid entry, and the command will not be executed.
 
 Example:
 * `profile n/Jon Snow p/Senior Consultant de/Department of Cardiology o/NUH`
@@ -818,7 +817,7 @@ Examples:
 * `clear t/patient`: Clears all patient entries and the appointments associated with them
 * `clear t/doctor`: Clears all doctor entries
 * `clear t/activity`: Clears all activity and appointment entries
-* `clear`: Clears all entries in GoMedic
+* `clear`: Clears all entries in GoMedic, and resets the user's profile to the default GoMedic profile
 
 ### Exiting the program : `exit`
 
@@ -906,6 +905,7 @@ Action        | Format                                            | Examples    
 **Find**      | `find {type} ...`                                 | `find ta/important ti/tutorial`                      |
 **View**      | `view t/patient i/PATIENT_ID`                     | `view t/patient i/P003`                              |
 **Referral**  | `referral {PARAMETERS}`                           | `referral ti/Referral of Patient A di/D001 pi/P001`  |
+**Profile**   | `profile {PARAMETERS}`                            | `profile n/Jon Snow p/Senior Consultant de/Department of Cardiology o/NUH`|
 **Clear**     | `clear` or `clear {type}`                         | `clear t/activity`                                   |
 **List**      | `list {type} {PARAMETERS}`                        | `list t/patient`, `list t/activity s/START`          |
 **Exit**      | `exit`                                            |                                                      |
