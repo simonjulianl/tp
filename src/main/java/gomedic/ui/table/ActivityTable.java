@@ -7,10 +7,13 @@ import gomedic.model.activity.Activity;
 import gomedic.ui.UiPart;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 
 /**
  * Panel containing the list of activities.
