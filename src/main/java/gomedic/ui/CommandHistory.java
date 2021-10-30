@@ -64,12 +64,13 @@ public class CommandHistory {
      * Check whether this history has any next command.
      */
     public boolean hasNextCommand() {
+        boolean hasNext = historyOfCommands.size() > 0 && pointer < historyOfCommands.size() - 1;
         boolean isPointerAtLastCommand = pointer == historyOfCommands.size() - 1;
         if (isPointerAtLastCommand) {
             pointer++;
         }
 
-        return historyOfCommands.size() > 0 && pointer < historyOfCommands.size() - 1;
+        return hasNext;
     }
 
     /**

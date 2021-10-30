@@ -2,6 +2,7 @@ package gomedic.ui;
 
 import static gomedic.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -16,15 +17,14 @@ public class CommandHistoryTest {
 
     @Test
     public void getPreviousCommand_validHistory_success() {
-        addCommands();
+        commandHistoryInstance.addToHistory(TEST_COMMAND_STRING_1);
         assertEquals(TEST_COMMAND_STRING_1, commandHistoryInstance.getPreviousCommand());
     }
 
     @Test
     public void getNextCommand_validHistory_success() {
         addCommands();
-        commandHistoryInstance.getPreviousCommand();
-        assertEquals(TEST_COMMAND_STRING_2, commandHistoryInstance.getNextCommand());
+        assertEquals(TEST_COMMAND_STRING_2, commandHistoryInstance.getPreviousCommand());
     }
 
     @Test
@@ -36,8 +36,8 @@ public class CommandHistoryTest {
     @Test
     public void ifHasNextCommand_hasCommands_success() {
         addCommands();
-        commandHistoryInstance.getPreviousCommand();
-        assertTrue(commandHistoryInstance.hasNextCommand());
+        commandHistoryInstance.getPreviousCommand(); // no next if there is only 1 command
+        assertFalse(commandHistoryInstance.hasNextCommand());
     }
 
     @Test
