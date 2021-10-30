@@ -20,7 +20,7 @@ public class DeleteActivityParser implements Parser<DeleteActivityCommand> {
      */
     public DeleteActivityCommand parse(String args) throws ParseException {
         try {
-            Id id = ParserUtil.parseId(args);
+            Id id = ParserUtil.parseId(args.toUpperCase());
             return new DeleteActivityCommand(id);
         } catch (ParseException pe) {
             throw new ParseException(

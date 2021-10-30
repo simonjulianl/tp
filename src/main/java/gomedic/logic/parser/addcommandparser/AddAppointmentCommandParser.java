@@ -48,7 +48,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                             AddAppointmentCommand.MESSAGE_USAGE
                     ));
         }
-        Id patientId = ParserUtil.parseId(argMultimap.getValue(CliSyntax.PREFIX_ID).get());
+        Id patientId = ParserUtil.parseId(argMultimap.getValue(CliSyntax.PREFIX_ID).get().toUpperCase());
         Time startTime = ParserUtil.parseTime(argMultimap.getValue(CliSyntax.PREFIX_START_TIME).get());
         Time endTime = ParserUtil.parseTime(argMultimap.getValue(CliSyntax.PREFIX_END_TIME).get());
         Title title = ParserUtil.parseTitle(argMultimap.getValue(CliSyntax.PREFIX_TITLE).get());
