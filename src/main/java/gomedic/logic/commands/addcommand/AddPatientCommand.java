@@ -38,7 +38,7 @@ import gomedic.model.tag.Tag;
 public class AddPatientCommand extends Command {
     public static final String COMMAND_WORD = "add" + " " + PREFIX_TYPE_PATIENT;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE_NUMBER "
@@ -52,7 +52,7 @@ public class AddPatientCommand extends Command {
             + PREFIX_NAME + "John Smith "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_AGE + "45 "
-            + PREFIX_BLOOD_TYPE + "AB "
+            + PREFIX_BLOOD_TYPE + "AB+ "
             + PREFIX_GENDER + "M "
             + PREFIX_HEIGHT + "175 "
             + PREFIX_WEIGHT + "70 "

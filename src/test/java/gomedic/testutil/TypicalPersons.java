@@ -29,7 +29,7 @@ public class TypicalPersons {
             new DoctorBuilder().withName("Midnight coding lol").withPhone("11111111")
                     .withDepartment("ENT 2").withId(4).build();
     public static final Doctor DUPLICATE_DOCTOR =
-            new DoctorBuilder().withName("Tom").withPhone("22222")
+            new DoctorBuilder().withName("Tom").withPhone("22222222")
                     .withDepartment("ENT 3").withId(1).build();
 
     /**
@@ -37,7 +37,7 @@ public class TypicalPersons {
      */
     public static final Patient MAIN_PATIENT = new PatientBuilder().build();
     public static final Patient OTHER_PATIENT =
-        new PatientBuilder().withName("Smith John").withPhone("77777777").withAge("41").withBloodType("O")
+        new PatientBuilder().withName("Smith John").withPhone("77777777").withAge("41").withBloodType("O+")
             .withGender("O").withHeight("166").withWeight("55").withId(2).build();
     public static final Patient THIRD_PATIENT =
         new PatientBuilder().withName("Joe Smith").withPhone("55555555").withAge("35").withId(3).build();

@@ -10,7 +10,7 @@ import gomedic.commons.util.AppUtil;
  */
 public class Weight {
     public static final String MESSAGE_CONSTRAINTS =
-            "Weight should only contain from 0 to 700";
+            "Weight should be integer between 1 and 700 inclusive";
 
     /**
      * Weight must only contain numeric characters.
@@ -31,13 +31,17 @@ public class Weight {
     }
 
     /**
-     * Returns true if a given weight is a valid weight from 0 to 700.
+     * Returns true if a given weight is a valid weight from 1 to 700.
      *
      * @param test Integer in String number.
      * @return true if valid, else false.
      */
     public static boolean isValidWeight(String test) {
-        return test.matches(VALIDATION_REGEX) && (Integer.parseInt(test) >= 0 && Integer.parseInt(test) <= 700);
+        try {
+            return test.matches(VALIDATION_REGEX) && (Integer.parseInt(test) > 0 && Integer.parseInt(test) <= 700);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

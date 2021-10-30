@@ -33,7 +33,7 @@ public class PatientTest {
         name = new Name("John Doe");
         phone = new Phone("12345678");
         age = new Age("31");
-        bloodType = new BloodType("A");
+        bloodType = new BloodType("A+");
         gender = new Gender("M");
         height = new Height("175");
         weight = new Weight("70");
@@ -106,7 +106,7 @@ public class PatientTest {
         Name diffName = new Name("Dohn Joe");
         Phone diffPhone = new Phone("99999999");
         Age diffAge = new Age("30");
-        BloodType diffBloodtype = new BloodType("O");
+        BloodType diffBloodtype = new BloodType("O+");
         Gender diffGender = new Gender("O");
         Height diffHeight = new Height("176");
         Weight diffWeight = new Weight("85");
@@ -144,7 +144,7 @@ public class PatientTest {
         assertEquals("Id: P001;" + " Name: John Doe;"
             + " Phone: 12345678;"
             + " Age: 31;"
-            + " Blood type: A;"
+            + " Blood type: A+;"
             + " Gender: M;"
             + " Height: 175;"
             + " Weight: 70;"

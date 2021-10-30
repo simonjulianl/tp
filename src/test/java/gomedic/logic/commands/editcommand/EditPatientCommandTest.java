@@ -43,7 +43,7 @@ public class EditPatientCommandTest {
                 .withName("Different Name")
                 .withPhone("00000000")
                 .withAge("140")
-                .withBloodType("A")
+                .withBloodType("A+")
                 .withGender("F")
                 .withHeight("173")
                 .withWeight("54")

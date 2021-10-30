@@ -128,12 +128,11 @@ The parameters are :
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
-`a/AGE     `  | age of the patient                                | must be integer between 0 to 150                     |
-`p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and contain at least 3 digits|
-`g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others|
-`h/HEIGHT`    | height of the patient in centimeters              | must be integer between 0 to 300                     |
-`w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 0 to 700                     |
-`b/BLOOD_TYPE`| blood type of the patient                         | must be `A/B/AB/O`                                   |
+`p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and contain at least 3 digits       |
+`g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others, all non capitalized letters will be capitalized, e.g. `m` input will be treated as `M`|
+`h/HEIGHT`    | height of the patient in centimeters              | must be integer between 1 and 300 inclusive          |
+`w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 1 and 700 inclusive          |
+`b/BLOOD_TYPE`| blood type of the patient                         | must be `A+/A-/B+/B-/AB+/AB-/O+/O-`, all non capitalized letters will be capitalized, e.g. `a+` input will be treated as `A+`|
 `m/MEDICAL_CONDITION`| list of patient's past/pre-existing medical conditions| must only contain alphanumeric characters and spaces, with maximum of *30* characters|
 
 <a name="patient_extra_constraint"></a>
@@ -234,14 +233,14 @@ The parameters are:
 
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
-`i/PATIENT_ID`| the unique identifier of a patient                | must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)
+`i/PATIENT_ID`| the unique identifier of a patient                | must be in the form of `PXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
-`a/AGE     `  | age of the patient                                | must be integer between 0 to 150                     |
+`a/AGE     `  | age of the patient                                | must be integer between 0 and 150 inclusive          |
 `p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and contain at least 3 digits|
-`g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others|
-`h/HEIGHT`    | height of the patient in centimeters              | must be integer between 0 to 300                     |
-`w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 0 to 700                     |
-`b/BLOOD_TYPE`| blood type of the patient                         | must be `A/B/AB/O`                                   |
+`g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others, all non capitalized letters will be capitalized, e.g. `m` input will be treated as `M`|
+`h/HEIGHT`    | height of the patient in centimeters              | must be integer between 1 and 300 inclusive          |
+`w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 1 and 700 inclusive          |
+`b/BLOOD_TYPE`| blood type of the patient                         | must be `A+/A-/B+/B-/AB+/AB-/O+/O-`, all non capitalized letters will be capitalized, e.g. `a+` input will be treated as `A+`|
 `m/MEDICAL_CONDITION`| list of patient's past/pre-existing medical conditions| must only contain alphanumeric characters and spaces, with maximum of *30* characters|
 
 **Example:**

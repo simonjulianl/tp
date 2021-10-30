@@ -21,13 +21,13 @@
     },
     {
       "name": "my id is invalid",
-      "phone": "9911",
+      "phone": "99111111",
       "id": "P003",
       "department": "Xray centre 2"
     },
     {
       "name": "son of john doe",
-      "phone": "912345",
+      "phone": "91234511",
       "id": "D004",
       "department": "Ca*rdiology is not spelt with a star"
     }

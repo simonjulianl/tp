@@ -10,7 +10,7 @@ import gomedic.commons.util.AppUtil;
  */
 public class Age {
     public static final String MESSAGE_CONSTRAINTS =
-        "Ages should only contain from 0 to 150";
+        "Age should be integer between 0 and 150 inclusive";
 
     /**
      * Age must only contain numeric characters.
@@ -37,7 +37,11 @@ public class Age {
      * @return true if valid, else false.
      */
     public static boolean isValidAge(String test) {
-        return test.matches(VALIDATION_REGEX) && (Integer.parseInt(test) >= 0 && Integer.parseInt(test) <= 150);
+        try {
+            return test.matches(VALIDATION_REGEX) && (Integer.parseInt(test) >= 0 && Integer.parseInt(test) <= 150);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

@@ -46,7 +46,7 @@ public class ParserUtilTest {
 
     public static final String VALID_AGE = "45";
     public static final String INVALID_AGE = "1000";
-    public static final String VALID_BLOODTYPE = "AB";
+    public static final String VALID_BLOODTYPE = "AB+";
     public static final String INVALID_BLOODTYPE = "ABC";
     public static final String VALID_GENDER = "M";
     public static final String INVALID_GENDER = "ABC";
@@ -64,7 +64,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_PHONE = "12345678";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";

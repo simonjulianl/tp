@@ -21,25 +21,25 @@ public class BloodTypeTest {
 
     @Test
     public void toString_validString_testPassed() {
-        String text = "AB";
+        String text = "AB+";
         assertEquals(new BloodType(text).toString(), text);
     }
 
     @Test
     void hashCode_inputs_testsPassed() {
-        String text = "AB";
+        String text = "AB+";
         assertEquals(new BloodType(text).hashCode(), text.hashCode());
     }
 
     @Test
     void equals_inputs_testsPassed() {
-        String text = "AB";
+        String text = "AB+";
         assertEquals(new BloodType(text), new BloodType(text));
     }
 
     @Test
     void isValidTitle_testsPassed() {
-        assertTrue(isValidBloodType("AB"));
+        assertTrue(isValidBloodType("AB+"));
         assertFalse(isValidBloodType("ABC"));
     }
 }

@@ -47,15 +47,15 @@ public class BloodTypeContainsKeywordsPredicateTest {
         // One keyword
         BloodTypeContainsKeywordsPredicate<Patient> predicate =
                 new BloodTypeContainsKeywordsPredicate<Patient>(Collections.singletonList("A"));
-        assertTrue(predicate.test(new PatientBuilder().withBloodType("AB").build()));
+        assertTrue(predicate.test(new PatientBuilder().withBloodType("AB+").build()));
 
         // Multiple keywords
         predicate = new BloodTypeContainsKeywordsPredicate<Patient>(Arrays.asList("A", "B"));
-        assertTrue(predicate.test(new PatientBuilder().withBloodType("AB").build()));
+        assertTrue(predicate.test(new PatientBuilder().withBloodType("AB+").build()));
 
         // Only one matching keyword
         predicate = new BloodTypeContainsKeywordsPredicate<Patient>(Arrays.asList("A", "B"));
-        assertTrue(predicate.test(new PatientBuilder().withBloodType("A").build()));
+        assertTrue(predicate.test(new PatientBuilder().withBloodType("A+").build()));
 
     }
 
@@ -64,15 +64,15 @@ public class BloodTypeContainsKeywordsPredicateTest {
         // Zero keywords
         BloodTypeContainsKeywordsPredicate<Patient> predicate =
                 new BloodTypeContainsKeywordsPredicate<Patient>(Collections.emptyList());
-        assertFalse(predicate.test(new PatientBuilder().withBloodType("A").build()));
+        assertFalse(predicate.test(new PatientBuilder().withBloodType("A+").build()));
 
         // Non-matching keyword
         predicate = new BloodTypeContainsKeywordsPredicate<Patient>(Arrays.asList("B"));
-        assertFalse(predicate.test(new PatientBuilder().withBloodType("A").build()));
+        assertFalse(predicate.test(new PatientBuilder().withBloodType("A+").build()));
 
         // Blood type in wrong format
         predicate = new BloodTypeContainsKeywordsPredicate<Patient>(Arrays.asList("APlus"));
-        assertFalse(predicate.test(new PatientBuilder().withBloodType("A").build()));
+        assertFalse(predicate.test(new PatientBuilder().withBloodType("A+").build()));
 
     }
 
