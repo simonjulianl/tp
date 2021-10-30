@@ -709,7 +709,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 Edits an activity's details from the **GoMedic** application.
 
-**Format**: `edit t/patient i/ACTIVITY_ID [OPTIONAL PARAMETERS]...`
+**Format**: `edit t/activity i/ACTIVITY_ID [OPTIONAL PARAMETERS]...`
 
 During editing an existing activity, all the parameters are optional except `ACTIVITY_ID`! However, 
 * If there are no parameters being supplied at all besides the `ACTIVITY_ID`, **GoMedic** would return an error. 
