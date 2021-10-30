@@ -699,63 +699,57 @@ feedback box shown at **2**. In this case, the error is that `START_TIME` of the
 
 <div style="page-break-after: always;"></div>
 
-## Finding entries: `find [OPTIONAL_PARAMETERS]...`
+## Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`
 
-### Find results that contain keyword: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
+### Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`
 
-Searches for doctors, patients and activities that contain the specified keyword as a substring in any of their details.
-If more than 1 keyword is specified, results that contain at least 1 of the keywords will be returned (i.e. `OR` search)
-E.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Searches for doctors whose specified field contains one or more of the specified keywords as a substring.
+E.g. `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
 
-Users can specify additional optional parameters to limit the keyword matching to the fields that is associated with each
-flag. Parameters will only match results that contain the associated field (E.g. n/Hans will not return any `activities`
-since `activities` do not have a `name` field.)
+Format: `find t/doctor FIELD/[KEYWORDS]`
 
-Format: `find t/CATEGORY [OPTIONAL_PARAMETERS]...`
-
-The parameters are:
-* `t/CATEGORY`: Searches for matches within this category.
-    * Valid values are:
-        * doctor
-        * patient
-        * activity
-        * all
+The possible parameters for FIELD are:
+* `n/NAME`: Matches the name field
+* `p/PHONE_NUMBER`: Matches the phone number field
+* `de/DEPARTMENT`: Matches the department field
 
 
-The optional parameters are:
+### Finding a patient through a keyword `find t/patient FIELD/[KEYWORDS]`
 
-* `n/NAME`: Matches the name field (Valid for: `Patients`, `Doctors`)
-* `p/PHONE_NUMBER`: Matches the phone number field (Valid for: `Patients`, `Doctors`)
-* `a/AGE`: Matches the age field (Valid for: `Patients`)
-* `g/GENDER`: Matches the gender field; The only valid keywords for this field are `M/F/O` (Valid for: `Patients`)
-* `h/HEIGHT`: Matches the height field (Valid for: `Patients`)
-* `w/WEIGHT`: Matches the weight field (Valid for: `Patients`)
-* `b/BLOOD_TYPE`: Matches the blood type field; The only valid keywords for this field are `A/B/AB/O`
-  (Valid for: `Patients`)
-* `o/MEDICAL_CONDITION`: Limits the keyword search to the list of medical conditions of a patient (Valid
-  for: `Patients`)
-* `de/DEPARTMENT`: Matches the department field (Valid for: `Doctors`)
-* `ti/TITLE`: Matches the title field or description field (Valid for: `Activities`)
-* `ta/TAG_DESCRIPTION`: Matches results that contain the specified tag in its list of tags (Valid for: `Activities`,
-  _Tagging for `Doctors` and `Patients` coming soon_)
+Searches for patients whose specified field contains one or more of the specified keywords as a substring.
+E.g. `find t/patient n/Hans Bo` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
 
-* `all/KEYWORD` : Matches any field with the keyword specified
+Format: `find t/patient FIELD/[KEYWORDS]`
 
-Note:
+The possible parameters for FIELD are:
+* `n/NAME`: Matches the name field
+* `p/PHONE_NUMBER`: Matches the phone number field
+* `a/AGE`: Matches the age field
+* `g/GENDER`: Matches the gender field (`M/F/O`)
+* `h/HEIGHT`: Matches the height field 
+* `w/WEIGHT`: Matches the weight field
+* `b/BLOOD_TYPE`: Matches the blood type field (`A/B/AB/O`)
+* `m/MEDICAL_CONDITION`: Matches the medical conditions field
+
+### Finding an activity through a keyword `find t/activity FIELD/[KEYWORDS]`
+
+Searches for activities whose specified field contains one or more of the specified keywords as a substring.
+E.g. `find t/activity ti/Hans Bo` will return activities whose titles are `Hans Gruber`, or `Bo Yang`.
+
+Format: `find t/activity FIELD/[KEYWORDS]`
+
+The possible parameters for FIELD are:
+* `ti/TITLE`: Matches the title field or description field
+
+Note for all finds:
 * Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
   condition as “Diabetes”)
-* Parameters can be repeated (e.g. `find n/Hans n/Bo` will return both `Hans Gruber` and `Bo Yang`)
-* If the optional parameters `all` is  specified, the keyword will match any fields. E.g. `find t/all all/dia` will return:
-    1. Doctor Claudia, whose name matches `dia`
-    2. Patient Jaryl, whose medical condition, `diabetes`, matches `dia`
-    3. Doctor Tom, whose specialty, `Pediatrics`, matches `dia`
-    4. Patient Lydia, whose name matches `dia`
-
+  
 Examples:
 
-* `find t/all m/diabetes a/42 n/Jaryl`
-* `find t/activity ta/important ti/tutorial`
-* `find t/all all/dia`
+* `find t/patient h/12`
+* `find t/doctor de/neuro`
+* `find t/activity ti/meeting tomorrow`
 
 ## General Utility Commands 
 
