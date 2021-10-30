@@ -38,7 +38,7 @@ public class EditActivityCommandParser implements Parser<EditActivityCommand> {
         Id targetId;
 
         try {
-            targetId = ParserUtil.parseId(argMultimap.getValue(CliSyntax.PREFIX_ID).orElse(INVALID_INPUT));
+            targetId = ParserUtil.parseId(argMultimap.getValue(CliSyntax.PREFIX_ID).orElse(INVALID_INPUT).toUpperCase());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE), pe);

@@ -19,7 +19,7 @@ public class DeleteDoctorParser implements Parser<DeleteDoctorCommand> {
      */
     public DeleteDoctorCommand parse(String args) throws ParseException {
         try {
-            Id id = ParserUtil.parseId(args);
+            Id id = ParserUtil.parseId(args.toUpperCase());
             return new DeleteDoctorCommand(id);
         } catch (ParseException pe) {
             throw new ParseException(
