@@ -854,10 +854,15 @@ Example:
 
 ### Viewing help : `help`
 
-Shows a message giving a brief explanation of each command term and the ability to copy the link to the user guide for 
-more information.
+Shows a message giving a brief explanation of each command term with formatting and the ability to copy the link to the user guide for 
+more information. 
 
 ![help message](images/helpMessage.png)
+
+**Note:**
+
+This is just a basic guideline on how to use commands. Making use of error messages from invalid commands or following
+the link to the user guide would give you a better understanding .
 
 Format: `help`
 
