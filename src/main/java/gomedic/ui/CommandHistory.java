@@ -8,6 +8,9 @@ import java.util.logging.Logger;
 
 import gomedic.commons.core.LogsCenter;
 
+/**
+ * Containers for all the commands that have been typed.
+ */
 public class CommandHistory {
     private final Logger logger = LogsCenter.getLogger(CommandHistory.class);
     private final List<String> historyOfCommands;
@@ -57,6 +60,9 @@ public class CommandHistory {
         return command;
     }
 
+    /**
+     * Check whether this history has any next command.
+     */
     public boolean hasNextCommand() {
         boolean isPointerAtLastCommand = pointer == historyOfCommands.size() - 1;
         if (isPointerAtLastCommand) {
@@ -67,7 +73,7 @@ public class CommandHistory {
     }
 
     /**
-     * Checks whether this history has any command.
+     * Check whether this history has any prev command.
      */
     public boolean hasPreviousCommand() {
         return historyOfCommands.size() > 0 && pointer > 0;
