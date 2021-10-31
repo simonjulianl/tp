@@ -1,7 +1,9 @@
 package gomedic;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -50,6 +52,7 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
+        createAddressBookIfNotExists();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
@@ -78,10 +81,11 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            if (addressBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            storage.saveAddressBook(initialData);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
@@ -178,6 +182,21 @@ public class MainApp extends Application {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        }
+    }
+
+    /**
+     * Initialize the folder.
+     */
+    private void createAddressBookIfNotExists() {
+        File file = new File(Paths.get(UserPrefs.ROOT_FOLDER).toAbsolutePath().toString());
+
+        boolean isDirCreated = file.mkdirs();
+
+        if (isDirCreated) {
+            logger.info("data folder is successfully created at " + file.getAbsolutePath());
+        } else {
+            logger.info("data folder already exists at " + file.getAbsolutePath());
         }
     }
 }
