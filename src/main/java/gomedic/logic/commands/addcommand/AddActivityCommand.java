@@ -70,7 +70,7 @@ public class AddActivityCommand extends Command {
         Activity toAdd;
 
         try {
-           toAdd = new Activity(
+            toAdd = new Activity(
                     new ActivityId(model.getNewActivityId()),
                     startTime,
                     endTime,
