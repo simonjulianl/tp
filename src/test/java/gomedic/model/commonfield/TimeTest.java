@@ -32,6 +32,7 @@ class TimeTest {
         assertThrows(IllegalArgumentException.class, () -> new Time("-1-12-2022 13:00"));
         assertThrows(IllegalArgumentException.class, () -> new Time("00-01-2022 13:00"));
         assertThrows(IllegalArgumentException.class, () -> new Time("ab-12-2015 13:00"));
+        assertThrows(IllegalArgumentException.class, () -> new Time("29-02-2022 13:00")); // invalid feb date
     }
 
     @Test
@@ -51,6 +52,7 @@ class TimeTest {
     @Test
     public void constructor_invalidMinute_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new Time("15/12/2022 13:61"));
+        assertThrows(IllegalArgumentException.class, () -> new Time("15/12/2022 12:61"));
         assertThrows(IllegalArgumentException.class, () -> new Time("15/12/2022 13:1"));
     }
 
