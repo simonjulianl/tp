@@ -99,6 +99,10 @@ the important notations that are used in that chapter.
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be
   ignored.<br>
   e.g. if the command specifies `help 123` or `help x/123`, it will be interpreted as `help`.
+  
+* Any whitespaces inserted before and after the parameter value will be removed. <br>
+  e.g. Let `\s` represent a whitespace. If parameter is specified as `p/\s\s98765432\s\s`, 
+  the value will be treated as `98765432`, without the leading and trailing whitespaces.
 
 </div>
 
@@ -169,7 +173,7 @@ The parameters are :
 Parameters    |  Explanation                                      | Constraints                                          |                
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
-`p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and contain at least 3 digits       |
+`p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and exactly 8 digits long|
 `g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others, all non capitalized letters will be capitalized, e.g. `m` input will be treated as `M`|
 `h/HEIGHT`    | height of the patient in centimeters              | must be integer between 1 and 300 inclusive          |
 `w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 1 and 700 inclusive          |
@@ -285,7 +289,7 @@ Parameters    |  Explanation                                      | Constraints 
 `i/PATIENT_ID`| the unique identifier of a patient (case-insensitive)               | must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
 `n/NAME`      | full name of the patient                          | must only contain alphanumeric characters and spaces, and it should not be blank|
 `a/AGE     `  | age of the patient                                | must be integer between 0 and 150 inclusive          |
-`p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and contain at least 3 digits|
+`p/PHONE_NUMBER`| phone number of the patient                     | must be **entirely numeric** and exactly 8 digits long|
 `g/GENDER`    | gender of the patient                             | must be `M/F/O` where `M` is for Male, `F` is for Female, and `O` is for Others, all non capitalized letters will be capitalized, e.g. `m` input will be treated as `M`|
 `h/HEIGHT`    | height of the patient in centimeters              | must be integer between 1 and 300 inclusive          |
 `w/WEIGHT`    | weight of the patient in kilograms                | must be integer between 1 and 700 inclusive          |
@@ -373,7 +377,7 @@ The parameters are:
 Parameters      |  Explanation                                      | Constraints                                          |                
 ----------------|---------------------------------------------------|----------------------------------------------------- |
 `n/NAME`        | the name of the doctor.                           | must only contain alphanumeric characters and spaces, and it should not be blank|
-`p/PHONE_NUMBER`| the phone number of the doctor.                   | must be **entirely numeric** and contain at least 3 digits                      |
+`p/PHONE_NUMBER`| the phone number of the doctor.                   | must be **entirely numeric** and exactly 8 digits long                          |
 `de/DEPARTMENT` | the department of the doctor.                     | must only contain alphanumeric characters and spaces, and it should not be blank|
 
 <a name="doctor_tutorial"></a>
@@ -478,7 +482,7 @@ Parameters      |  Explanation                                      | Constraint
 ----------------|---------------------------------------------------|----------------------------------------------------- |
 `i/DOCTOR_ID`   | the unique identifier of a doctor (case-insensitive). | Must be in the form of `DXXX` / `dXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview)                           |
 `n/NAME`        | the name of the doctor.                           | Must only contain alphanumeric characters and spaces, and it should not be blank|
-`p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **entirely numeric** and contain at least 3 digits                      |
+`p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **entirely numeric** and exactly 8 digits long                          |
 `de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters and spaces, and it should not be blank|
 
 **Example:**
