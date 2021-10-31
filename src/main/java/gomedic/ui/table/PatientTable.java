@@ -1,10 +1,13 @@
 package gomedic.ui.table;
 
-import java.util.logging.Logger;
-
-import gomedic.commons.core.LogsCenter;
+import gomedic.model.commonfield.Name;
+import gomedic.model.commonfield.Phone;
+import gomedic.model.person.patient.Age;
+import gomedic.model.person.patient.Gender;
 import gomedic.model.person.patient.Patient;
+import gomedic.model.person.patient.PatientId;
 import gomedic.ui.UiPart;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -17,25 +20,24 @@ import javafx.scene.layout.Region;
  */
 public class PatientTable extends UiPart<Region> {
     private static final String FXML = "PatientTable.fxml";
-    private final Logger logger = LogsCenter.getLogger(PatientTable.class);
 
     @FXML
     private TableView<Patient> patientTable;
 
     @FXML
-    private TableColumn<Patient, String> idField;
+    private TableColumn<Patient, PatientId> idField;
 
     @FXML
-    private TableColumn<Patient, String> nameField;
+    private TableColumn<Patient, Name> nameField;
 
     @FXML
-    private TableColumn<Patient, String> contactField;
+    private TableColumn<Patient, Phone> contactField;
 
     @FXML
-    private TableColumn<Patient, String> ageField;
+    private TableColumn<Patient, Age> ageField;
 
     @FXML
-    private TableColumn<Patient, String> genderField;
+    private TableColumn<Patient, Gender> genderField;
 
     /**
      * Creates a {@code PatientTable} with the given {@code ObservableList}.
@@ -48,5 +50,11 @@ public class PatientTable extends UiPart<Region> {
         // sort the id field in ascending order by default.
         idField.setSortType(TableColumn.SortType.ASCENDING);
         idField.setSortable(true);
+
+        patientList.addListener((ListChangeListener) change -> patientTable.refresh());
+
+        nameField.widthProperty().addListener((obs, oldVal, newVal) -> {
+            TableUtil.setWrapTextColumn(nameField, newVal);
+        });
     }
 }
