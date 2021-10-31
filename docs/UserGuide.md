@@ -188,7 +188,7 @@ the command box.
 ![tut-patient-2](images/patientug/tut_patient_2.png)
 
 &#8291;3. If there is any error, the command would turn red as indicated by **1** and the feedback would be given in the feedback box at **2**.
-In this case, the error is because we are putting invalid blood type. Fix the issue and press enter again!
+In this case, the error is because we are putting invalid gender. Fix the issue and press enter again!
 Now the command should work correctly!
 
 ![tut-patient-3](images/patientug/tut_patient_error.png)
@@ -288,7 +288,7 @@ Parameters    |  Explanation                                      | Constraints 
 ![tut-edit-patient-2](images/patientug/tut_edit_patient_2.png)
 
 &#8291;3. If there is any error, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the feedback box shown at **2**.
-In this case, the error is because we are putting invalid blood type. Fix the issue and press enter again!
+In this case, the error is because we are putting invalid gender. Fix the issue and press enter again!
 Fix the issue and the command should work correctly now!
 
 ![tut-edit-patient-error](images/patientug/tut_edit_patient_error.png)
