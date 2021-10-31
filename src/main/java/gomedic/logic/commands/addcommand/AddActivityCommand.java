@@ -67,12 +67,19 @@ public class AddActivityCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Activity toAdd = new Activity(
-                new ActivityId(model.getNewActivityId()),
-                startTime,
-                endTime,
-                title,
-                description);
+        Activity toAdd;
+
+        try {
+           toAdd = new Activity(
+                    new ActivityId(model.getNewActivityId()),
+                    startTime,
+                    endTime,
+                    title,
+                    description);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
+        }
+
 
         if (model.hasActivity(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
