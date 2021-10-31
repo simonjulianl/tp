@@ -13,7 +13,7 @@ import gomedic.commons.util.AppUtil;
 public class BloodType {
     public static final String MESSAGE_CONSTRAINTS =
             "BloodType should only contain A+, A-, B+, B-, AB+, AB-, O+, or O-, and it should not be blank. All non"
-                + " capital letterS will be capitalized";
+                + " capital letters will be capitalized";
 
     public final String bloodType;
 
