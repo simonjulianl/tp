@@ -1016,11 +1016,12 @@ in your command box again!
 # FAQ
 
 **Q**: I can't double-click on the `gomedic.jar` file to open it. What should I do?<br>
-**A**: Please check that you have Java `11` or above installed in your Computer by opening the terminal. You can do so by following these steps : 
-1. Enter the command `java --version`. It should show `java 11.x.xx` or `openjdk 11.x.xx` depending on the Java `11` distribution you are using.   
-2. Ensure that for Windows user, please do not open it using Windows Subsystem Linux (WSL), please use Windows PowerShell to run `gomedic.jar`
-3. For Mac users, you can follow the precautions stated [here](https://github.com/nus-cs2103-AY2122S1/forum/issues/353) to open your `jar` file.
-4. If the aforementioned steps do not help you, please contact our developers directly by raising a new issue [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/issues) !
+**A**: Please check that you have Java `11` or above installed in your Computer by opening the terminal. You can do so by entering the command `java --version`. It should show `java 11.x.xx` or `openjdk 11.x.xx` depending on the Java `11` distribution you are using.
+After which, please enter the command `java -jar gomedic.jar` in the folder where `gomedic.jar` is located at. Some precautions : 
+
+1. For Windows user, please do not open it using Windows Subsystem Linux (WSL), please use Windows PowerShell to run `gomedic.jar`
+2. For Mac users, you can follow the precautions stated [here](https://github.com/nus-cs2103-AY2122S1/forum/issues/353) to open your `jar` file.
+3. If the aforementioned steps do not help you, please contact our developers directly by raising a new issue [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/issues) !
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty `data` folder that it creates with the old `data` folder created by the old **GoMedic** application together with all the files within that `data` folder ! 
