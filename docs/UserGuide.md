@@ -360,6 +360,16 @@ Each doctor is **uniquely** identified by his or her `DOCTOR_ID` in the form `DX
 Therefore, **GoMedic** considers two doctors with the same details (same `NAME`, `PHONE_NUMBER` and `DEPARTMENT`), 
 as two distinct and different doctors, as long as their `DOCTOR_ID`s are different.
 
+<div markdown="block" class="alert alert-info">
+**:information_source: Reminder on Command Notation:**<br>
+
+* Some important notation in reading the commands
+    * `[flag/KEYWORD]` indicates optional parameters
+    * `flag/KEYWORD` indicates mandatory parameters
+</div>
+
+<div style="page-break-after: always;"></div>
+
 ### Adding a new doctor's details: `add t/doctor`
 
 Adds the details of a doctor into **GoMedic**.
@@ -1021,6 +1031,8 @@ After which, please enter the command `java -jar gomedic.jar` in the folder wher
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty `data` folder that it creates with the old `data` folder created by the old **GoMedic** application together with all the files within that `data` folder ! 
+
+<div style="page-break-after: always;"></div>
 
 # Command summary
 
