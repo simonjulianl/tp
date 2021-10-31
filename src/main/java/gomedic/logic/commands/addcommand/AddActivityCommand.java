@@ -42,7 +42,7 @@ public class AddActivityCommand extends Command {
     public static final String MESSAGE_DUPLICATE_ACTIVITY =
             "This Activity already exists in the address book, duplicate id";
     public static final String MESSAGE_CONFLICTING_ACTIVITY =
-            "There exists an activity that overlaps with this activity's timing of this activity.";
+            "There exists an activity that overlaps with this activity's timing.";
 
     private final Time startTime;
     private final Time endTime;
