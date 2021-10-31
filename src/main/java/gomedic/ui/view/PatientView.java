@@ -94,7 +94,8 @@ public class PatientView extends UiPart<Region> {
                         .filter(activity -> newVal.getId().equals(activity.getPatientId()))
                         .forEach(activity -> appointments
                                 .getChildren()
-                                .add(new Label(activity.getStartTime().toString())));
+                                .add(new Label(activity.getStartTime().toString() + " - "
+                                    + activity.getEndTime().toString())));
             } catch (Exception e) {
                 logger.severe("Unable to fetch associated appointments");
             }
