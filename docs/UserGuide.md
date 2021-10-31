@@ -28,7 +28,7 @@ formatting, etc.
 3. Copy the file to the folder you want to use as the _home folder_ for your GoMedic.
 
    1. Double-click the file to start the app. If it's not possible, please open the terminal and locate where the `gomedic.jar`.
-   Please Enter the command `java -jar gomedic.jar`
+   Please Enter the command `java -jar gomedic.jar`. If you still find difficulties in opening the `gomedic.jar` file, please follow the steps [here](#faq) !
    2. The GUI similar to the below should appear in a few seconds. Note how the app
       contains some sample data.<br>
       ![Ui-activity](images/Ui-activity.png)
