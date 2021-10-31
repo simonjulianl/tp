@@ -27,11 +27,13 @@ formatting, etc.
 
 3. Copy the file to the folder you want to use as the _home folder_ for your GoMedic.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app
-   contains some sample data.<br>
-   ![Ui-activity](images/Ui-activity.png)
+   1. Double-click the file to start the app. If it's not possible, please open the terminal and locate where the `gomedic.jar`.
+   Please Enter the command `java -jar gomedic.jar`
+   2. The GUI similar to the below should appear in a few seconds. Note how the app
+      contains some sample data.<br>
+      ![Ui-activity](images/Ui-activity.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
+4. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
    Some example commands you can try:
 
@@ -45,8 +47,8 @@ formatting, etc.
     * **`clear`** : Deletes all contacts including patients, doctors, and activities.
 
     * **`exit`** : Exits the app.
-6. **Address Book, GoMedic Address Book, and GoMedic** refers to the same term, which is just the application itself.
-7. Refer to the [Features](#features) below for details of each command.
+5. **Address Book, GoMedic Address Book, and GoMedic** refers to the same term, which is just the application itself.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -112,8 +114,9 @@ return some suggestions on the closest commands that you can choose from!
 
     To understand more how the suggestion works, please refer to [this](#suggestions) section.
 
-2. Should you enter an **valid** command but in its **invalid** format, meaning some parameters are missing.
+2. Should you enter a **valid** command (commands that **GoMedic** recognizes) but in its **invalid** format, meaning some parameters are missing.
 **GoMedic** would highlight the command in red and shows the correct usage in the feedback box. 
+
 3. Should you enter a **valid** command in a **valid** format, but there is a wrong parameter. 
 **GoMedic** would only flag the first invalid parameter as not to overwhelm you with the error messages. 
    * Invalid parameters can be caused by constraints' violation, such as inputting blood type X for a patient, where such blood type does not exist.   
@@ -968,7 +971,7 @@ Previous and next is relative to the current command shown in the command box!
 
 If there are no more commands after the current command in the command box, **GoMedic** would clear the command box for you! 
 
-Examples:
+**Examples:**
 
 &#8291;1. Open the app, and immediately type `list t/patient` into the command box. The data shown in your table
 might differ from the screenshots based on what data is currently stored in your **GoMedic**.
@@ -1008,9 +1011,15 @@ in your command box again!
 
 # FAQ
 
+**Q**: I can't double-click on the `gomedic.jar` file to open it. What should I do?<br>
+**A**: Please check that you have Java `11` or above installed in your Computer by opening the terminal. You can do so by following these steps : 
+1. Enter the command `java --version`. It should show `java 11.x.xx` or `openjdk 11.x.xx` depending on the Java `11` distribution you are using.   
+2. Ensure that for Windows user, please do not open it using Windows Subsystem Linux (WSL), please use Windows PowerShell to run `gomedic.jar`
+3. For Mac users, you can follow the precautions stated [here](https://github.com/nus-cs2103-AY2122S1/forum/issues/353) to open your `jar` file.
+4. If the aforementioned steps do not help you, please contact our developers directly by raising a new issue [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/issues) !
+
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous GoMedic home folder.
+**A**: Install the app in the other computer and overwrite the empty `data` folder that it creates with the old `data` folder created by the old **GoMedic** application together with all the files within that `data` folder ! 
 
 --------------------------------------------------------------------------------------------------------------------
 
