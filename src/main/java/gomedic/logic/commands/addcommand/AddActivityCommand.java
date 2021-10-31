@@ -42,7 +42,7 @@ public class AddActivityCommand extends Command {
     public static final String MESSAGE_DUPLICATE_ACTIVITY =
             "This Activity already exists in the address book, duplicate id";
     public static final String MESSAGE_CONFLICTING_ACTIVITY =
-            "There exists an activity that overlaps with this activity's timing of this activity.";
+            "There exists an activity that overlaps with this activity's timing.";
 
     private final Time startTime;
     private final Time endTime;
@@ -67,12 +67,19 @@ public class AddActivityCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Activity toAdd = new Activity(
-                new ActivityId(model.getNewActivityId()),
-                startTime,
-                endTime,
-                title,
-                description);
+        Activity toAdd;
+
+        try {
+            toAdd = new Activity(
+                    new ActivityId(model.getNewActivityId()),
+                    startTime,
+                    endTime,
+                    title,
+                    description);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
+        }
+
 
         if (model.hasActivity(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);

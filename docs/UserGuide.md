@@ -10,9 +10,13 @@ optimized features for Command Line Interface.
 GoMedic is bootstrapped using SE-EDU Address Book 3 and inherits some of its features such as `clear`, parameter
 formatting, etc.
 
+<div style="page-break-after: always;"></div>
+
+# Table of Contents
 * Table of Contents
 {:toc}
 
+<div style="page-break-after: always;"></div>
 --------------------------------------------------------------------------------------------------------------------
 
 # Quick start
@@ -33,7 +37,7 @@ formatting, etc.
 
     * **`list t/patient`** : Lists all patients.
 
-    * **`add t/patient n/John-Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart-failure m/diabetes`** : Adds a patient
+    * **`add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart-failure m/diabetes`** : Adds a patient
       named `John Doe` to GoMedic.
 
     * **`delete t/patient P001`** : Deletes the patient whose id is P001.
@@ -56,19 +60,24 @@ The user guide is sectioned such that each chapter has an
   * **Parameters** : Explanation about each field, together with its constraints
   * **Examples** : tutorial with pictures on how to use the commands. 
 
+<div markdown="span" class="alert alert-info">
 :bulb: **Tip:** You can always go back to the table of content page and just click on which feature you are currently interested at, as each feature has a very comprehensive tutorial !
+</div>
 
 To get the most out of this user guide, it would be best to understand the terminologies and notations that would often be used in this user guide. 
 Some important notations would be repeated in the **Overview** section of each chapter (such as **Activity Related Feature**) to remind you of those notations again. 
 
-So don't worry if you forget some [notations](#about-the-commands) along the way, or after you have not touched this User Guide for a while, you can always check this page or the **Overview** section to find 
+So don't worry if you forget some [notations](#about-the-commands) along the way, or after you have not touched this User Guide for a while, you can always check this chapter or the **Overview** section to find 
 the important notations that are used in that chapter. 
 
 ## How GoMedic Looks Like 
+
 ![gomedic-design](images/ui/segmentation.png)
-<div markdown="block" class="alert alert-info">
 
 ## About the Commands
+
+<div markdown="block" class="alert alert-info">
+
 **:information_source: Understanding The Notations:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
@@ -109,11 +118,13 @@ return some suggestions on the closest commands that you can choose from!
 **GoMedic** would only flag the first invalid parameter as not to overwhelm you with the error messages. 
    * Invalid parameters can be caused by constraints' violation, such as inputting blood type X for a patient, where such blood type does not exist.   
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-To fix the multiple parameters' errors in a command, you can fix them one by one based on the feedback that **GoMedic** give and use the [navigation](#navigating-past-commands) feature to get the previous command!
+<div markdown="span" class="alert alert-primary">
+:bulb: **Tip:** To fix the multiple parameters' errors in a command, you can fix them one by one based on the feedback that **GoMedic** give and use the [navigation](#navigating-past-commands) feature to get the previous command!
 </div>
 
 <div style="page-break-after: always;"></div>
+
+# GoMedic Features
 
 ## Patients Related Features
 
@@ -209,8 +220,10 @@ Parameters    |  Explanation                                      | Constraints 
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `PATIENT_ID`  | the Patient Id as shown by the Patient table  (case-insensitive)    | Must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
 
+<div markdown="span" class="alert alert-info">
 :bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
 or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
+</div>
 
 **Example:**
 
@@ -261,7 +274,9 @@ Edits a patient's details from the **GoMedic** application.
 * The `MEDICAL_CONDITIONS` will be replaced by the new `MEDICAL_CONDITIONS` supplied in the edit command.
 </div>
 
+<div markdown="span" class="alert alert-info">
 :bulb: **Tip:** You can update multiple fields at the same time !
+</div>
 
 The parameters are:
 
@@ -309,8 +324,10 @@ Parameters    |  Explanation                                      | Constraints 
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `PATIENT_ID`  | the Patient Id as shown by the Patient table (case-insensitive)     | Must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview) |
 
+<div markdown="span" class="alert alert-info">
 :bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#list-all-patients-list-patient)
 or search the specific patient using [`find t/patient` command](#finding-entries-find-optional_parameters).
+</div>
 
 **Example:**
 
@@ -397,8 +414,10 @@ Parameter     |  Explanation                                      | Constraint  
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `DOCTOR_ID`   | the Doctor Id as shown by the Doctor table (case-insensitive)       | Must be in the form of `DXXX` / `dXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
 
+<div markdown="span" class="alert alert-info">
 :bulb: **Tip:** Doctor ID can be obtained by listing all the doctors using [`list t/doctor` command](#list-all-doctors-list-tdoctor) 
 or searching for the specific doctor using [`find t/doctor` command](#finding-entries-find-optional_parameters).  
+</div>
 
 **Example:**
 
@@ -449,7 +468,9 @@ When editing an existing doctor, all parameters are optional except `DOCTOR_ID`!
 The `DOCTOR_ID` is assigned by **GoMedic** and cannot be modified at all once created.
 </div>
 
+<div markdown="span" class="alert alert-info">
 :bulb: **Tip:** You can update multiple fields at the same time!
+</div>
 
 The parameters are:
 
@@ -643,8 +664,10 @@ Parameter     |  Explanation                                      | Constraint  
 --------------|---------------------------------------------------|----------------------------------------------------- |
 `ACTIVITY_ID` | the Activity Id as shown by the Activity table (case-insensitive)  | Must be in the form of `AXXX` / `aXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview) |
 
+<div markdown="span" class="alert alert-info">
 :bulb: **Tip:** Activity ID can be obtained by listing all the activities using [`list t/acitivty` command](#list-all-activities-list-tactivity) 
 or searching for the specific activity using [`find t/activity` command](#finding-entries-find-optional_parameters).  
+</div>
 
 **Example:**
 
@@ -719,7 +742,9 @@ During editing an existing activity, all the parameters are optional except `ACT
 * The `ACTIVITY_ID` is also assigned by **GoMedic** and cannot be modified at all once created.
 </div>
 
+<div markdown="span" class="alert alert-info">
 :bulb: **Tip:** You can update multiple fields at the same time !
+</div>
 
 The parameters are: 
 
