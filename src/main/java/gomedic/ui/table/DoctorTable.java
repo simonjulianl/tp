@@ -1,10 +1,5 @@
 package gomedic.ui.table;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
-import gomedic.commons.core.LogsCenter;
 import gomedic.model.commonfield.Name;
 import gomedic.model.commonfield.Phone;
 import gomedic.model.person.doctor.Department;
