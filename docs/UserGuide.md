@@ -3,6 +3,8 @@ layout: page
 title: User Guide
 ---
 
+# Introduction
+
 GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to
 manage contacts and patient details**. We aim for GoMedic to be used by someone who can type fast and take advantage of the
 optimized features for Command Line Interface.
@@ -13,44 +15,11 @@ formatting, etc.
 <div style="page-break-after: always;"></div>
 
 # Table of Contents
+
 * Table of Contents
 {:toc}
 
 <div style="page-break-after: always;"></div>
---------------------------------------------------------------------------------------------------------------------
-
-# Quick start
-
-1. Ensure you have Java `11` or above installed in your Computer.
-
-2. Download the latest `gomedic.jar` from [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/releases).
-
-3. Copy the file to the folder you want to use as the _home folder_ for your GoMedic.
-
-   1. Double-click the file to start the app. If it's not possible, please open the terminal and locate where the `gomedic.jar`.
-   Please Enter the command `java -jar gomedic.jar`. If you still find difficulties in opening the `gomedic.jar` file, please follow the steps [here](#faq) !
-   2. The GUI similar to the below should appear in a few seconds. Note how the app
-      contains some sample data.<br>
-      ![Ui-activity](images/Ui-activity.png)
-
-4. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
-   open the help window.<br>
-   Some example commands you can try:
-
-    * **`list t/patient`** : Lists all patients.
-
-    * **`add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart-failure m/diabetes`** : Adds a patient
-      named `John Doe` to GoMedic.
-
-    * **`delete t/patient P001`** : Deletes the patient whose id is P001.
-
-    * **`clear`** : Deletes all contacts including patients, doctors, and activities.
-
-    * **`exit`** : Exits the app.
-5. **Address Book, GoMedic Address Book, and GoMedic** refers to the same term, which is just the application itself.
-6. Refer to the [Features](#features) below for details of each command.
-
---------------------------------------------------------------------------------------------------------------------
 
 # How To Use This Guide
 
@@ -72,12 +41,11 @@ Some important notations would be repeated in the **Overview** section of each c
 So don't worry if you forget some [notations](#about-the-commands) along the way, or after you have not touched this User Guide for a while, you can always check this chapter or the **Overview** section to find 
 the important notations that are used in that chapter. 
 
-## How GoMedic Looks Like 
+## How GoMedic Looks Like
 
 ![gomedic-design](images/ui/segmentation.png)
 
 ## About the Commands
-
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Understanding The Notations:**<br>
@@ -131,12 +99,44 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
+# Quick start
+
+1. Ensure you have Java `11` or above installed in your Computer.
+
+2. Download the latest `gomedic.jar` from [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/releases).
+
+3. Copy the file to the folder you want to use as the _home folder_ for your GoMedic.
+
+    * Double-click the file to start the app. If it's not possible, please open the terminal and locate where the `gomedic.jar`.
+      Please Enter the command `java -jar gomedic.jar`. If you still find difficulties in opening the `gomedic.jar` file, please follow the steps [here](#faq) !
+    * The GUI similar to the below should appear in a few seconds. Note how the app
+      contains some sample data.<br>
+      ![Ui-activity](images/Ui-activity.png)
+
+4. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
+   open the help window.<br>
+   Some example commands you can try:
+
+    * **`list t/patient`** : Lists all patients.
+
+    * **`add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart-failure m/diabetes`** : Adds a patient
+      named `John Doe` to GoMedic.
+
+    * **`delete t/patient P001`** : Deletes the patient whose id is P001.
+
+    * **`clear`** : Deletes all contacts including patients, doctors, and activities.
+
+    * **`exit`** : Exits the app.
+5. **Address Book, GoMedic Address Book, and GoMedic** refers to the same term, which is just the application itself.
+6. Refer to the [Features](#gomedic-features) below for details of each command.
+
+<div style="page-break-after: always;"></div>
+
 # GoMedic Features
 
 ## Patients Related Features
 
 ### Overview
-
 Patients related features allow you to store, edit, view, and list patients.
 
 Using patients, you can store your patients' details and track all of the medical conditions that your patients are
@@ -948,8 +948,6 @@ If your changes to the data file makes its format invalid, GoMedic will discard 
 If the format for the user profile is invalid, the preset user profile will be used instead.
 </div>
 
---------------------------------------------------------------------------------------------------------------------
-
 # Tips and Tricks
 
 ## Navigating Past Commands 
@@ -1011,8 +1009,6 @@ in your command box again!
 
 <div style="page-break-after: always;"></div>
 
---------------------------------------------------------------------------------------------------------------------
-
 # FAQ
 
 **Q**: I can't double-click on the `gomedic.jar` file to open it. What should I do?<br>
@@ -1026,9 +1022,8 @@ After which, please enter the command `java -jar gomedic.jar` in the folder wher
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty `data` folder that it creates with the old `data` folder created by the old **GoMedic** application together with all the files within that `data` folder ! 
 
---------------------------------------------------------------------------------------------------------------------
-
 # Command summary
+
 * `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#features) section.
 * `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
 
