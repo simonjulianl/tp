@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import gomedic.commons.util.AppUtil;
 
@@ -42,11 +43,17 @@ public class Time {
         DateTimeFormatter format;
 
         if (time.charAt(2) == '/') {
-            format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            format = DateTimeFormatter
+                    .ofPattern("dd/MM/yyyy HH:mm")
+                    .withResolverStyle(ResolverStyle.STRICT);
         } else if (time.charAt(2) == '-') {
-            format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            format = DateTimeFormatter
+                    .ofPattern("dd-MM-yyyy HH:mm")
+                    .withResolverStyle(ResolverStyle.STRICT);
         } else {
-            format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            format = DateTimeFormatter
+                    .ofPattern("yyyy-MM-dd HH:mm")
+                    .withResolverStyle(ResolverStyle.STRICT);
         }
 
         this.time = LocalDateTime.parse(time, format);
