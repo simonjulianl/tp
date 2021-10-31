@@ -1041,3 +1041,4 @@ Action        | Format                                            | Examples    
 **Exit**      | `exit`                                            |                                                      |
 **Help**      | `help`                                            |                                                      |
 
+For additional tips and tricks such as past commands navigation and table columns reordering, please refer to [this](#tips-and-tricks) section !
