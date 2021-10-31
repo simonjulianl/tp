@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-# Introduction
+# **Introduction**
 
 GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to
 manage contacts and patient details**. We aim for GoMedic to be used by someone who can type fast and take advantage of the
@@ -14,14 +14,14 @@ formatting, etc.
 
 <div style="page-break-after: always;"></div>
 
-# Table of Contents
+# **Table of Contents**
 
 * Table of Contents
 {:toc}
 
 <div style="page-break-after: always;"></div>
 
-# How To Use This Guide
+# **How To Use This Guide**
 
 This user guide provides information to assist you in using **GoMedic** based on which features you are most interested in. 
 The user guide is sectioned such that each chapter has an 
@@ -132,9 +132,9 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
-# GoMedic Features
+# **GoMedic Features**
 
-## Patients Related Features
+## **Patients Related Features**
 
 ### Overview
 Patients related features allow you to store, edit, view, and list patients.
@@ -348,7 +348,7 @@ or search the specific patient using [`find t/patient` command](#finding-entries
 
 <div style="page-break-after: always;"></div>
 
-## Doctors Related Features
+## **Doctors Related Features**
 
 ### Overview
 
@@ -519,7 +519,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-## Activities Related Features
+## **Activities Related Features**
 
 ### Overview 
 
@@ -958,7 +958,7 @@ If your changes to the data file makes its format invalid, GoMedic will discard 
 If the format for the user profile is invalid, the preset user profile will be used instead.
 </div>
 
-# Tips and Tricks
+# **Tips and Tricks**
 
 ## Navigating Past Commands 
 
@@ -1019,7 +1019,7 @@ in your command box again!
 
 <div style="page-break-after: always;"></div>
 
-# FAQ
+# **FAQ**
 
 **Q**: I can't double-click on the `gomedic.jar` file to open it. What should I do?<br>
 **A**: Please check that you have Java `11` or above installed in your Computer by opening the terminal. You can do so by entering the command `java --version`. It should show `java 11.x.xx` or `openjdk 11.x.xx` depending on the Java `11` distribution you are using.
@@ -1034,7 +1034,7 @@ After which, please enter the command `java -jar gomedic.jar` in the folder wher
 
 <div style="page-break-after: always;"></div>
 
-# Command summary
+# **Command summary**
 
 * `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#features) section.
 * `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
