@@ -4,8 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.logging.Logger;
 
+import gomedic.commons.core.LogsCenter;
 import gomedic.commons.util.AppUtil;
 
 /**
@@ -14,11 +17,15 @@ import gomedic.commons.util.AppUtil;
  */
 public class Time {
 
-    public static final String MESSAGE_CONSTRAINTS = "Time should follow one of the following format: \n"
+    public static final String MESSAGE_CONSTRAINTS = "Please check again that your time is valid ! \n"
+            + "Some common errors include invalid dates (e.g. 29th Feb on non-leap years) and months (13th month), "
+            + "invalid time such as 24:00 instead of 00:00 \n"
+            + "Time should also follow one of the following format: \n"
             + "1. dd/MM/yyyy HH:mm (e.g. 15/09/2022 13:00) \n"
             + "2. dd-MM-yyyy HH:mm (e.g. 15-09-2022 13:00) \n"
             + "3. yyyy-MM-dd-HH-mm (e.g. 2022-09-15 13:00) \n";
-
+    public static final String DEFAULT_SECOND = ":00";
+    private static final Logger logger = LogsCenter.getLogger(Time.class);
     public final LocalDateTime time;
 
     /**
@@ -31,7 +38,6 @@ public class Time {
         this.time = time;
     }
 
-    //@@author ramaven
     /**
      * Constructs a {@code Time}.
      *
@@ -40,118 +46,44 @@ public class Time {
     public Time(String time) {
         requireNonNull(time);
         AppUtil.checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
-        DateTimeFormatter format;
-
-        if (time.charAt(2) == '/') {
-            format = DateTimeFormatter
-                    .ofPattern("dd/MM/yyyy HH:mm")
-                    .withResolverStyle(ResolverStyle.STRICT);
-        } else if (time.charAt(2) == '-') {
-            format = DateTimeFormatter
-                    .ofPattern("dd-MM-yyyy HH:mm")
-                    .withResolverStyle(ResolverStyle.STRICT);
-        } else {
-            format = DateTimeFormatter
-                    .ofPattern("yyyy-MM-dd HH:mm")
-                    .withResolverStyle(ResolverStyle.STRICT);
-        }
-
-        this.time = LocalDateTime.parse(time, format);
+        DateTimeFormatter format = getDateTimeFormatter(time);
+        this.time = LocalDateTime.parse(time + DEFAULT_SECOND, format);
     }
 
     /**
      * Returns true if the time follows
      */
     public static boolean isValidTime(String time) {
+        time = time + DEFAULT_SECOND;
 
-        String[] dateTimeArr = time.split(" ");
-
-        if (dateTimeArr.length != 2) {
+        DateTimeFormatter format = getDateTimeFormatter(time);
+        try { // not good practice but no function to check is valid or not except by parsing
+            LocalDateTime.parse(time, format);
+            return true;
+        } catch (DateTimeParseException e) {
+            logger.warning(e.getMessage());
             return false;
         }
-
-        String datePart = dateTimeArr[0];
-        String timePart = dateTimeArr[1];
-
-        return isValidTimeStringPart(timePart) && isValidDateStringPart(datePart);
     }
 
-    private static boolean isValidTimeStringPart(String timePart) {
-        String[] timeArr;
-        if (timePart.length() != 5) {
-            return false;
-        }
-        if (timePart.charAt(2) == ':') {
-            timeArr = timePart.split(":");
+    private static DateTimeFormatter getDateTimeFormatter(String time) {
+        DateTimeFormatter format;
+
+        if (time.charAt(2) == '/') {
+            format = DateTimeFormatter
+                    .ofPattern("dd/MM/uuuu HH:mm:ss");
+        } else if (time.charAt(2) == '-') {
+            format = DateTimeFormatter
+                    .ofPattern("dd-MM-uuuu HH:mm:ss");
         } else {
-            return false;
+            format = DateTimeFormatter
+                    .ofPattern("uuuu-MM-dd HH:mm:ss");
         }
 
-        int hour;
-        int minute;
+        format = format.withResolverStyle(ResolverStyle.STRICT);
 
-        if (timeArr.length != 2) {
-            return false;
-        }
-
-        try {
-            hour = Integer.parseInt(timeArr[0]);
-            minute = Integer.parseInt(timeArr[1]);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
-        boolean isValidHour = hour >= 0 && hour < 24;
-        boolean isValidMinute = minute >= 0 && minute < 60;
-        return isValidHour && isValidMinute;
+        return format;
     }
-
-    private static Boolean isValidDateStringPart(String datePart) {
-        String[] dateArr;
-        if (datePart.length() != 10) {
-            return false;
-        }
-        if (datePart.charAt(2) == '/') {
-            dateArr = datePart.split("/");
-        } else if (datePart.charAt(2) == '-' || datePart.charAt(4) == '-') {
-            dateArr = datePart.split("-");
-        } else {
-            return false;
-        }
-
-        int day;
-        int month;
-        int year;
-
-        if (dateArr.length != 3) {
-            return false;
-        }
-
-        if (dateArr[0].length() == 2) {
-            try {
-                day = Integer.parseInt(dateArr[0]);
-                month = Integer.parseInt(dateArr[1]);
-                year = Integer.parseInt(dateArr[2]);
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        } else {
-            try {
-                day = Integer.parseInt(dateArr[2]);
-                month = Integer.parseInt(dateArr[1]);
-                year = Integer.parseInt(dateArr[0]);
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        }
-
-        boolean isValidDay = day > 0 && day <= 31;
-        boolean isValidMonth = month > 0 && month <= 12;
-        boolean isValidYear = year > 1900 && year < 2100;
-
-        return isValidDay && isValidMonth && isValidYear;
-    }
-    //@@author
 
     /**
      * @return String representation of full date time.

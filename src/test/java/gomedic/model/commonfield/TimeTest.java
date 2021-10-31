@@ -52,6 +52,7 @@ class TimeTest {
     @Test
     public void constructor_invalidMinute_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new Time("15/12/2022 13:61"));
+        assertThrows(IllegalArgumentException.class, () -> new Time("15/12/2022 12:61"));
         assertThrows(IllegalArgumentException.class, () -> new Time("15/12/2022 13:1"));
     }
 
