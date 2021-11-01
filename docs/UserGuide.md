@@ -3,6 +3,8 @@ layout: page
 title: User Guide
 ---
 
+# **Introduction**
+
 GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to
 manage contacts and patient details**. We aim for GoMedic to be used by someone who can type fast and take advantage of the
 optimized features for Command Line Interface.
@@ -12,47 +14,14 @@ formatting, etc.
 
 <div style="page-break-after: always;"></div>
 
-# Table of Contents
+# **Table of Contents**
+
 * Table of Contents
 {:toc}
 
 <div style="page-break-after: always;"></div>
---------------------------------------------------------------------------------------------------------------------
 
-# Quick start
-
-1. Ensure you have Java `11` or above installed in your Computer.
-
-2. Download the latest `gomedic.jar` from [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/releases).
-
-3. Copy the file to the folder you want to use as the _home folder_ for your GoMedic.
-
-   1. Double-click the file to start the app. If it's not possible, please open the terminal and locate where the `gomedic.jar`.
-   Please Enter the command `java -jar gomedic.jar`. If you still find difficulties in opening the `gomedic.jar` file, please follow the steps [here](#faq) !
-   2. The GUI similar to the below should appear in a few seconds. Note how the app
-      contains some sample data.<br>
-      ![Ui-activity](images/Ui-activity.png)
-
-4. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
-   open the help window.<br>
-   Some example commands you can try:
-
-    * **`list t/patient`** : Lists all patients.
-
-    * **`add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart-failure m/diabetes`** : Adds a patient
-      named `John Doe` to GoMedic.
-
-    * **`delete t/patient P001`** : Deletes the patient whose id is P001.
-
-    * **`clear`** : Deletes all contacts including patients, doctors, and activities.
-
-    * **`exit`** : Exits the app.
-5. **Address Book, GoMedic Address Book, and GoMedic** refers to the same term, which is just the application itself.
-6. Refer to the [Features](#features) below for details of each command.
-
---------------------------------------------------------------------------------------------------------------------
-
-# How To Use This Guide
+# **How To Use This Guide**
 
 This user guide provides information to assist you in using **GoMedic** based on which features you are most interested in. 
 The user guide is sectioned such that each chapter has an 
@@ -72,12 +41,11 @@ Some important notations would be repeated in the **Overview** section of each c
 So don't worry if you forget some [notations](#about-the-commands) along the way, or after you have not touched this User Guide for a while, you can always check this chapter or the **Overview** section to find 
 the important notations that are used in that chapter. 
 
-## How GoMedic Looks Like 
+## How GoMedic Looks Like
 
 ![gomedic-design](images/ui/segmentation.png)
 
 ## About the Commands
-
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Understanding The Notations:**<br>
@@ -131,12 +99,44 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
-# GoMedic Features
+# Quick start
 
-## Patients Related Features
+1. Ensure you have Java `11` or above installed in your Computer.
+
+2. Download the latest `gomedic.jar` from [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/releases).
+
+3. Copy the file to the folder you want to use as the _home folder_ for your GoMedic.
+
+    * Double-click the file to start the app. If it's not possible, please open the terminal and locate where the `gomedic.jar`.
+      Please Enter the command `java -jar gomedic.jar`. If you still find difficulties in opening the `gomedic.jar` file, please follow the steps [here](#faq) !
+    * The GUI similar to the below should appear in a few seconds. Note how the app
+      contains some sample data.<br>
+      ![Ui-activity](images/Ui-activity.png)
+
+4. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
+   open the help window.<br>
+   Some example commands you can try:
+
+    * **`list t/patient`** : Lists all patients.
+
+    * **`add t/patient n/John Doe a/30 g/M h/174 w/72 b/O p/12345678 m/heart-failure m/diabetes`** : Adds a patient
+      named `John Doe` to GoMedic.
+
+    * **`delete t/patient P001`** : Deletes the patient whose id is P001.
+
+    * **`clear`** : Deletes all contacts including patients, doctors, and activities.
+
+    * **`exit`** : Exits the app.
+5. **Address Book, GoMedic Address Book, and GoMedic** refers to the same term, which is just the application itself.
+6. Refer to the [Features](#gomedic-features) below for details of each command.
+
+<div style="page-break-after: always;"></div>
+
+# **GoMedic Features**
+
+## **Patients Related Features**
 
 ### Overview
-
 Patients related features allow you to store, edit, view, and list patients.
 
 Using patients, you can store your patients' details and track all of the medical conditions that your patients are
@@ -348,7 +348,7 @@ or search the specific patient using [`find t/patient` command](#finding-entries
 
 <div style="page-break-after: always;"></div>
 
-## Doctors Related Features
+## **Doctors Related Features**
 
 ### Overview
 
@@ -359,6 +359,16 @@ These could be details of your colleagues, or other acquaintances that are impor
 Each doctor is **uniquely** identified by his or her `DOCTOR_ID` in the form `DXXX`, where `XXX` is a 3-digit integer.
 Therefore, **GoMedic** considers two doctors with the same details (same `NAME`, `PHONE_NUMBER` and `DEPARTMENT`), 
 as two distinct and different doctors, as long as their `DOCTOR_ID`s are different.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Reminder on Command Notation:**<br>
+
+* Some important notation in reading the commands
+    * `[flag/KEYWORD]` indicates optional parameters
+    * `flag/KEYWORD` indicates mandatory parameters
+</div>
+
+<div style="page-break-after: always;"></div>
 
 ### Adding a new doctor's details: `add t/doctor`
 
@@ -509,7 +519,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-## Activities Related Features
+## **Activities Related Features**
 
 ### Overview 
 
@@ -948,9 +958,7 @@ If your changes to the data file makes its format invalid, GoMedic will discard 
 If the format for the user profile is invalid, the preset user profile will be used instead.
 </div>
 
---------------------------------------------------------------------------------------------------------------------
-
-# Tips and Tricks
+# **Tips and Tricks**
 
 ## Navigating Past Commands 
 
@@ -1011,23 +1019,23 @@ in your command box again!
 
 <div style="page-break-after: always;"></div>
 
---------------------------------------------------------------------------------------------------------------------
-
-# FAQ
+# **FAQ**
 
 **Q**: I can't double-click on the `gomedic.jar` file to open it. What should I do?<br>
-**A**: Please check that you have Java `11` or above installed in your Computer by opening the terminal. You can do so by following these steps : 
-1. Enter the command `java --version`. It should show `java 11.x.xx` or `openjdk 11.x.xx` depending on the Java `11` distribution you are using.   
-2. Ensure that for Windows user, please do not open it using Windows Subsystem Linux (WSL), please use Windows PowerShell to run `gomedic.jar`
-3. For Mac users, you can follow the precautions stated [here](https://github.com/nus-cs2103-AY2122S1/forum/issues/353) to open your `jar` file.
-4. If the aforementioned steps do not help you, please contact our developers directly by raising a new issue [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/issues) !
+**A**: Please check that you have Java `11` or above installed in your Computer by opening the terminal. You can do so by entering the command `java --version`. It should show `java 11.x.xx` or `openjdk 11.x.xx` depending on the Java `11` distribution you are using.
+After which, please enter the command `java -jar gomedic.jar` in the folder where `gomedic.jar` is located at. Some precautions : 
+
+1. For Windows user, please do not open it using Windows Subsystem Linux (WSL), please use Windows PowerShell to run `gomedic.jar`
+2. For Mac users, you can follow the precautions stated [here](https://github.com/nus-cs2103-AY2122S1/forum/issues/353) to open your `jar` file.
+3. If the aforementioned steps do not help you, please contact our developers directly by raising a new issue [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/issues) !
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty `data` folder that it creates with the old `data` folder created by the old **GoMedic** application together with all the files within that `data` folder ! 
 
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
-# Command summary
+# **Command summary**
+
 * `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#features) section.
 * `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
 
