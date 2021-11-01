@@ -6,7 +6,7 @@ title: GoMedic
 [![CI Status](https://github.com/AY2122S1-CS2103T-T15-1/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2122S1-CS2103T-T15-1/tp/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/gh/AY2122S1-CS2103T-T15-1/tp/branch/master/graph/badge.svg?token=PY49G4GN2U)](https://codecov.io/gh/AY2122S1-CS2103T-T15-1/tp)
 
-![Ui](images/Ui-activity.png)
+![Ui](images/logo.png)
 
 **GoMedic is a desktop application for managing your contact details.** While it has a GUI, most of the user
 interactions happen using a CLI (Command Line Interface).
