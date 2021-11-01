@@ -957,16 +957,9 @@ Format: `help`
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book related to the specified type. If there is no type that is specified, all the data would be cleared.
+Clears all entries from the address book and resets the user profile to its default.
 
 Format: `clear`
-
-Examples: 
-
-* `clear t/patient`: Clears all patient entries and the appointments associated with them
-* `clear t/doctor`: Clears all doctor entries
-* `clear t/activity`: Clears all activity and appointment entries
-* `clear`: Clears all entries in GoMedic, and resets the user's profile to the default GoMedic profile
 
 ### Exiting the program : `exit`
 
