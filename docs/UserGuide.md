@@ -346,6 +346,27 @@ or search the specific patient using [`find t/patient` command](#finding-entries
 
 ![tut-view-patient-2](images/patientug/tut_view_patient_2.png)
 
+### Clear all patient entries: `clear t/patient`
+
+Clears all patient entries from GoMedic.
+
+Format: `clear t/patient`
+
+**Example:**
+
+&#8291;1. Type the command `clear t/patient` into the command box.
+
+![tut-view-patient-1](images/patientug/tut_clear_patient_1.png)
+
+&#8291;2. Press `Enter` and all the patients will be deleted.
+
+![tut-view-patient-2](images/patientug/tut_clear_patient_2.png)
+
+**Note:**
+
+This will also delete all corresponding appointments since there are no more patients in GoMedic.
+
+
 <div style="page-break-after: always;"></div>
 
 ## **Doctors Related Features**
@@ -516,6 +537,22 @@ Fix the issue and the command should work correctly now!
 ![tut-doctor-edit-error](images/doctorug/tut_edit_doctor_error.png)
 
 To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
+
+### Clear all doctor entries: `clear t/doctor`
+
+Clears all doctor entries from GoMedic.
+
+Format: `clear t/doctor`
+
+**Example:**
+
+&#8291;1. Type the command `clear t/doctor` into the command box.
+
+![tut-view-doctor-1](images/doctorug/tut_clear_doctor_1.png)
+
+&#8291;2. Press `Enter` and all the doctors will be deleted.
+
+![tut-view-doctor-2](images/doctorug/tut_clear_doctor_2.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -792,6 +829,22 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
+### Clear all activity and appointment entries: `clear t/activities`
+
+Clears all activities and appointment entries from GoMedic.
+
+Format: `clear t/activities`
+
+**Example:**
+
+&#8291;1. Type the command `clear t/activity` into the command box.
+
+![tut-view-activity-1](images/activityug/tut_clear_activity_1.png)
+
+&#8291;2. Press `Enter` and all the appointments and activities will be deleted.
+
+![tut-view-activity-2](images/activityug/tut_clear_activity_2.png)
+
 ## Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`
 
 ### Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`
@@ -850,52 +903,55 @@ Examples:
 
 Generates a referral letter for a patient in PDF format.
 
-Format: `referral ti/TITLE di/DOCTOR_ID pi/PATIENT_ID [d/DESCRIPTION]`
+**Format**: `referral ti/TITLE di/DOCTOR_ID pi/PATIENT_ID [d/DESCRIPTION]`
 
 The parameters are:
 
-* `ti/TITLE` title of the referral document.
-* `di/DOCTOR_ID` id of the doctor to be referred to.
-* `pi/PATIENT_ID` id of the patient being referred.
-* `d/DESCRIPTION` description of the patient's condition and further details.
+Parameters      |  Explanation                                                    | Constraints                                                                     |                
+----------------|-----------------------------------------------------------------|---------------------------------------------------------------------------------|
+`ti/TITLE`      | the title of the referral document.                             | Must only contain alphanumeric characters and spaces, and it should not be blank|
+`di/DOCTOR_ID`  | id of the doctor to be referred to.                             | Must be in the form of `DXXX` / `dXXX` where `XXX` is 3-digit integer. For the full information, please refer to [this](#overview)|
+`pi/PATIENT_ID` | id of the patient being referred.                               | Must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
+`d/DESCRIPTION` | description of the patient's condition and further details.     | Must only contain alphanumeric characters and spaces, and it should not be blank|
 
-Note: 
+**Note:**
 
-* the patient and doctor must both be present in the GoMedic App as a valid entry or the referral will not be
-generated.
+the patient and doctor must both be present in the GoMedic App as a valid entry or the referral will not be generated.
 
 ### Customizing your own profile: `profile`
 
-Updates your profile on GoMedic.
+Updates your profile on **GoMedic**.
 
-Format: `profile n/NAME p/POSITION de/DEPARTMENT o/ORGANIZATION`
+**Format**: `profile n/NAME p/POSITION de/DEPARTMENT o/ORGANIZATION`
 
 The parameters are:
-* `n/NAME` the name of the user.
-* `p/POSITION` the position held by the user. (E.g. Senior Consultant)
-* `de/DEPARTMENT` the department that the user works in. (E.g. Department of Cardiology)
-* `o/ORGANIZATION` the organization that the user works in. (E.g. National University Hospital)
 
-Note:
-* All parameters must only contain alphanumeric characters and spaces, and it should not be blank. 
-Otherwise, it would be considered as an invalid entry, and the command will not be executed.
+Parameters      |  Explanation                                                    | Constraints                                                                     |                
+----------------|-----------------------------------------------------------------|---------------------------------------------------------------------------------|
+`n/NAME`        | the name of the doctor.                                         | Must only contain alphanumeric characters and spaces, and it should not be blank|
+`p/POSITION`    | the position held by the doctor. (E.g. Senior consultant)       | Must only contain alphanumeric characters and spaces, and it should not be blank|
+`de/DEPARTMENT` | the department of the doctor.                                   | Must only contain alphanumeric characters and spaces, and it should not be blank|
+`o/ORGANIZATION`| the organization that the doctor works in. (E.g. National University Hospital) | Must only contain alphanumeric characters and spaces, and it should not be blank|
 
 Example:
-* `profile n/Jon Snow p/Senior Consultant de/Department of Cardiology o/NUH`
-* `profile n/Joan Saow p/Consultant de/Department of Neurology o/TTSH`
 
+&#8291;1. Type the command `profile n/Jon Snow p/Senior Consultant de/Department of Cardiology o/NUH` into the command box.
+
+![tut-change-profile-1](images/profile/tut_profile_change_1.png)
+
+&#8291;2. Press `Enter` and your user profile will be updated.
+
+![tut-change-profile-2](images/profile/tut_profile_change_2.png)
 
 ### Viewing help : `help`
 
 Shows a message giving a brief explanation of each command term with formatting and the ability to copy the link to the user guide for 
 more information. 
 
-![help message](images/helpMessage.png)
-
 **Note:**
 
-This is just a basic guideline on how to use commands. Making use of error messages from invalid commands or following
-the link to the user guide would give you a better understanding .
+The in-app window just a basic guideline on how to use commands. Making use of error messages from invalid commands or following
+the link to the user guide would give you a better understanding.
 
 Format: `help`
 
