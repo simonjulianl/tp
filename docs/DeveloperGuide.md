@@ -9,9 +9,9 @@ title: Developer Guide
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
- * The project is bootstrapped from [SE-EDU Address Book 3]("https://se-education.org/addressbook-level3/)
- * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
-   original source as well}
+* Project bootstrapped from: [SE-EDU Address Book 3](https://se-education.org/addressbook-level3/)
+* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson)
+  , [JUnit5](https://github.com/junit-team/junit5), [iTextPdf](https://itextpdf.com/en)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -87,7 +87,7 @@ in [`Ui.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`
+The UI consists of a `MainWindow` that is made up of many Ui components e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`
 , `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures
 the commonalities between classes that represent parts of the visible GUI.
 
@@ -100,11 +100,24 @@ in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/
 The `UI` component,
 
 * executes user commands using the `Logic` component.
-* listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* listens for changes to `Model` activities, doctors and patients data so that the respective Ui table can be shown and can be updated with the modified data.
+* depends on some classes in the `Model` component, as it displays `Doctor`, `Profile`, `Patient` and `Activities` object residing in the `Model`.
 
 The original Figma design for the `UI` component can be found [here](https://www.figma.com/file/zqo6peKfu0Wxeay679eVq9/cs2103t-tp?node-id=0%3A1)
+
+To display the correct table (i.e. `ActivityTable`, `PatientTable`, or `DoctorTable`) or `PatientView` page to be shown in the `MainWindow`. 
+The `MainWindow` object also listens to the `ModelBeingShown` stored in the `Model` component. 
+
+The following *Sequence Diagram* illustrates how the `UI` component interacted with other components to show 
+the correct model to the user after the user enters `list t/patient` command.  
+
+![UiPatient](images/ui/UpdateModel.png)
+
+<div markdown="block" class="alert alert-info">
+:information_source: 
+**Note:** GoMedic implements Observer Pattern using `ObservableList` and `ObservableValue` provided by the `JavaFX` framework to update the Ui
+</div>
 
 ### Logic component
 
@@ -194,8 +207,6 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Suggestions feature
 
-#### Implementation
-
 The suggestions feature is facilitated by `Messages`. It is a class consisting of static immutable string messages for 
 various fixed error outputs for GoMedic. It implements the following operation:
 
@@ -228,25 +239,23 @@ For illustration purposes, suppose the user enters the command:
 GoMedic would be unable to find the doctor and the patient, and would show the feedback patient/doctor not found message to the user.
 </div>
 
-Once the user enter the command is entered:
-
-1. The `LogicManager` class would execute the input as `String`
-2. The `AddressBookParser` is responsible for calling the relevant parser (in this case, `ReferralCommandParser`) according to the command keyword (which is `referral`)
-3. The `ReferralCommandParser` would parse and check the parameters being supplied and eventually returning in to `LogicManager` 
+Once the user enter the command is entered, the following **Sequence Diagram** below shows how the components specified in the [architecture](#architecture) interact with each other creates the new `ReferralCommand` object
 
 ![ReferralCommandCreation](images/referral/ReferralCommandCreation.png)
 
 After the `LogicManager` receives the new `ReferralCommand` object, 
 
-1. The `LogicManager` would call the `execute` method of `ReferralCommand` and passes the `Model` 
-2. The `ReferralCommand` then would call the appropriate methods from the `Model` to obtain the `DoctorList` and `PatientList`
-3. Based on the illustration, `ReferralCommand` then would filter and check for the existence of patient whose id is `P001` and doctor whose id is `D001`.
-4. After the patient and doctor data are ready, the `Document` provided by the `iText` library would be created and then the specific `Doctor` and `Patient` identified by their ids 
-would be used to replace all the placeholders in the medical referral template. Also, the `Description` would be written onto the pdf file.  
-5. The `ReferralCommand` would call `Document`'s `close` method which will automatically write the pdf file into the `data/` folder.
-6. Finally, the `ReferralCommand` would then create `CommandResult` object and returns it to the `LogicManager` whose feedback would be displayed back to the user.
+1. The `ReferralCommand` then would call the appropriate methods from the `Model` to obtain the `DoctorList` and `PatientList`
+2. Based on the illustration, `ReferralCommand` then would filter and check for the existence of patient whose id is `P001` and doctor whose id is `D001`.
+
+Where the specific methods are shown in the sequence diagram shown below : 
 
 ![ReferralCommandCreation](images/referral/ReferralCommandExecution.png)
+
+When the data is ready, the `ReferralCommand` object would call the `iTextPdf` library *APIs* that enable it to create a new Pdf document as shown 
+in the sequence diagram below : 
+
+![ReferralCommandWrite](images/referral/ReferralCommandWriteFile.png)
 
 Finally, the pdf object is written into the `data/` folder whose filename is the same of that of the `title` (i.e. _title_.pdf). 
 For this illustration, the file then would be `Referral of Patient A.pdf`.
@@ -375,14 +384,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
     * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
+    
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -562,7 +564,7 @@ which patient it is scheduled with.
   
     Use Case ends.
 
-**Use Case: [UC4] - Searching for specific records based on a specific field**
+**Use Case: [UC5] - Searching for specific records based on a specific field**
 
 **MSS**
 1. User requests to search within either the Patient, Doctor, or Activity category, specifying a substring 
@@ -641,7 +643,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Download the jar file and copy into an empty folder
 
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be
+    1. Double-click the jar file. For Linux user, you might need to run `java -jar gomedic.jar` from the terminal where the `gomedic.jar` file is located. Expected: Shows the GUI with a set of sample contacts. The window size may not be
        optimum.
 
 1. Saving window preferences
@@ -650,46 +652,35 @@ testers are expected to do more *exploratory* testing.
 
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
+    
+### Deleting an activity
 
-1. _{ more test cases …​ }_
+1. Deleting an activity while all activities are being shown
 
-### Deleting a person
+    1. Prerequisites: List all activities using the `list t/activity` command. 
+       Ensure at least 1 activity with id `A001` is there, otherwise please use `add t/activity` command to add a new activity. 
+       Multiple activities will be displayed in a table sorted by its id.
 
-1. Deleting a person while all persons are being shown
+    2. Test case: `delete t/activity A001`<br>
+       Expected: Activity whose id `A001`. Details of the deleted contact shown in the feedback box. 
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    3. Test case: `delete t/activity A001`<br>
+       Expected: No activity is deleted. Error details shown in the feedback box. 
 
-    1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
-       Timestamp in the status bar is updated.
-
-    1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
+    4. Other incorrect delete commands to try: `delete t/activity`, `delete t/doctor`, `delete t/activity x`, `...` (where x is an invalid id)<br>
+       Expected: Similar to previous for each patient, doctor and activity model.
 
 ### Finding a patient, doctor or activity
 1. Searching for a person
     1. Prerequisite: List the patients, doctors, or activities based on which one you wish to see, using the `list` command.
-    eg. `list t/doctor` or `list t/patient` or `list t/activity`.
+    e.g. `list t/doctor` or `list t/patient` or `list t/activity`.
        
-    2. Test case: eg. `find t/patient n/Joe`
+    2. Test case: e.g. `find t/patient n/Joe`
         Expected: All patients whose names contain the substring "Joe" (case-insensitive) will be displayed.
        
-    3. Test case: eg. `find t/activity ti/Meeting`
+    3. Test case: e.g. `find t/activity ti/Meeting`
         Expected: All activities whose title or description contains the substring "Meeting" (case-insensitive) will be displayed. 
        
     4. Other incorrect find commands to try: `find t\patient Joe` 
         Expected: Error message as a flag is not specified prior to the keyword. 
-   
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+    
