@@ -14,6 +14,12 @@ optimized features for Command Line Interface.
 GoMedic is bootstrapped using SE-EDU Address Book 3 and inherits some of its features such as `clear`, parameter
 formatting, etc.
 
+<div markdown="block" class="alert alert-info">
+**:information_source: Best Way To Read This User Guide:**<br>
+It is best to open this User Guide using **e-pdf** reader as it allows you to click the header of each section that would 
+conveniently bring you to the [table of content](#table-of-contents)!
+</div>
+
 <div style="page-break-after: always;"></div>
 
 # **Table of Contents**
@@ -23,10 +29,10 @@ formatting, etc.
 
 <div style="page-break-after: always;"></div>
 
-# **1. How To Use This Guide**
+# [**1. How To Use This Guide**](#table-of-contents)
 
 This user guide provides information to assist you in using **GoMedic** based on which features you are most interested in. 
-The user guide is sectioned such that each chapter has an 
+The user guide is sectioned such that each chapter [has](#table-of-contents) an 
 * **Overview** : Explaining what the feature offers and some important reminders about the notations used in that particular chapter
 * **Features** : List of commands available within that section 
   * **Format** : list of fields that need to be supplied for that particular command
@@ -42,11 +48,11 @@ To get the most out of this user guide, it would be best to understand the termi
 So don't worry if you forget some [notations](#12-about-the-commands) along the way, or after you have not touched this User Guide for a while, you can always check this chapter or the **Overview** section to find 
 the important notations that are used in that chapter. 
 
-## 1.1 How GoMedic Looks Like
+## [1.1 How GoMedic Looks Like](#table-of-contents)
 
 ![gomedic-design](images/ui/segmentation.png)
 
-## 1.2 About the Commands
+## [1.2 About the Commands](#table-of-contents)
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Understanding The Notations:**<br>
@@ -79,7 +85,7 @@ the important notations that are used in that chapter.
 
 <div style="page-break-after: always;"></div>
 
-## 1.3. Error Messages
+## [1.3. Error Messages](#table-of-contents)
 
 1. Should you enter an **invalid** command that **GoMedic** cannot recognize, **GoMedic** would
 return some suggestions on the closest commands that you can choose from!
@@ -102,7 +108,7 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
-# **2. Quick start**
+# [**2. Quick start**](#table-of-contents)
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -135,11 +141,11 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
-# **3. GoMedic Features**
+# [**3. GoMedic Features**](#table-of-contents)
 
-## **3.1 Patients Related Features**
+## [**3.1 Patients Related Features**](#table-of-contents)
 
-### 3.1.1 Overview
+### [3.1.1 Overview](#table-of-contents)
 Patients related features allow you to store, edit, view, and list patients.
 
 Using patients, you can store your patients' details and track all the medical conditions that your patients are
@@ -159,7 +165,7 @@ and `MEDICAL_CONDITIONS` with different `PATIENT_ID` are considered distinct.
 
 <div style="page-break-after: always;"></div>
 
-### 3.1.2 Adding a new patient: `add t/patient`
+### [3.1.2 Adding a new patient: `add t/patient`](#table-of-contents)
 
 Adds a new patient into your **GoMedic** application.
 
@@ -220,7 +226,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.1.3 Deleting an existing patient: `delete t/patient`
+### [3.1.3 Deleting an existing patient: `delete t/patient`](#table-of-contents)
 
 Deletes a certain existing patient from **GoMedic**.
 
@@ -258,7 +264,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.1.4 List all patients: `list t/patient`
+### [3.1.4 List all patients: `list t/patient`](#table-of-contents)
 
 List all patients that is stored in **GoMedic**.
 
@@ -272,7 +278,7 @@ List all patients that is stored in **GoMedic**.
 
 <div style="page-break-after: always;"></div>
 
-### 3.1.5 Updating an existing patient's details: `edit t/patient`
+### [3.1.5 Updating an existing patient's details: `edit t/patient`](#table-of-contents)
 
 Edits a patient's details from the **GoMedic** application.
 
@@ -322,7 +328,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.1.6 Display full details of a patient: `view t/patient`
+### [3.1.6 Display full details of a patient: `view t/patient`](#table-of-contents)
 
 Displays the full details of a particular patient.
 
@@ -353,7 +359,7 @@ or search the specific patient using [`find t/patient` command](#finding-entries
 
 <div style="page-break-after: always;"></div>
 
-### 3.1.7 Clear all patient entries: `clear t/patient`
+### [3.1.7 Clear all patient entries: `clear t/patient`](#table-of-contents)
 
 Clears all patient entries from GoMedic.
 
@@ -371,9 +377,9 @@ This will also delete all corresponding appointments since there are no more pat
 
 <div style="page-break-after: always;"></div>
 
-## **3.2 Doctors Related Features**
+## [**3.2 Doctors Related Features**](#table-of-contents)
 
-### 3.2.1 Overview
+### [3.2.1 Overview](#table-of-contents)
 
 Doctor related features allow you to store, edit and list details of other doctors.
 
@@ -393,7 +399,7 @@ as two distinct and different doctors, as long as their `DOCTOR_ID`s are differe
 
 <div style="page-break-after: always;"></div>
 
-### 3.2.2 Adding a new doctor's details: `add t/doctor`
+### [3.2.2 Adding a new doctor's details: `add t/doctor`](#table-of-contents)
 
 Adds the details of a doctor into **GoMedic**.
 
@@ -442,7 +448,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.2.3 Deleting an existing doctor: `delete t/doctor`
+### [3.2.3 Deleting an existing doctor: `delete t/doctor`](#table-of-contents)
 
 Deletes an existing doctor from GoMedic.
 
@@ -485,7 +491,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.2.4 List all doctors: `list t/doctor`
+### [3.2.4 List all doctors: `list t/doctor`](#table-of-contents)
 
 List all doctors that are stored in **GoMedic**.
 
@@ -499,7 +505,7 @@ List all doctors that are stored in **GoMedic**.
 
 <div style="page-break-after: always;"></div>
 
-### 3.2.5 Updating an existing doctor's details: `edit t/doctor`
+### [3.2.5 Updating an existing doctor's details: `edit t/doctor`](#table-of-contents)
 
 Edits a doctor's details in **GoMedic**.
 
@@ -552,7 +558,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.2.6 Clear all doctor entries: `clear t/doctor`
+### [3.2.6 Clear all doctor entries: `clear t/doctor`](#table-of-contents)
 
 Clears all doctor entries from GoMedic.
 
@@ -566,9 +572,9 @@ Format: `clear t/doctor`
 
 <div style="page-break-after: always;"></div>
 
-## **3.3 Activities Related Features**
+## [**3.3 Activities Related Features**](#table-of-contents)
 
-### 3.3.1 Overview 
+### [3.3.1 Overview](#table-of-contents)
 
 Activities related features allow you to store, edit and list events and appointments with patients. 
 
@@ -607,7 +613,7 @@ Therefore, two activities with exactly same `TITLE` and `DESCRIPTION` with diffe
 
 <div style="page-break-after: always;"></div>
 
-### 3.3.2 Adding a new activity: `add t/activity`
+### [3.3.2 Adding a new activity: `add t/activity`](#table-of-contents)
 
 Adds a new activity into your **GoMedic** scheduler. 
 
@@ -671,7 +677,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.3.3 Adding a new appointment: `add t/appointment`
+### [3.3.3 Adding a new appointment: `add t/appointment`](#table-of-contents)
 
 Adds a new appointment into your GoMedic scheduler.
 
@@ -720,7 +726,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.3.4 Deleting an existing activity: `delete t/activity`
+### [3.3.4 Deleting an existing activity: `delete t/activity`](#table-of-contents)
 
 Delete a certain existing activity from **GoMedic**. 
 
@@ -760,7 +766,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.3.5 List all activities: `list t/activity`
+### [3.3.5 List all activities: `list t/activity`](#table-of-contents)
 
 List all activities that is stored in **GoMedic**.
 
@@ -801,7 +807,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.3.6 Updating an existing activity's details: `edit t/activity`
+### [3.3.6 Updating an existing activity's details: `edit t/activity`](#table-of-contents)
 
 Edits an activity's details from the **GoMedic** application.
 
@@ -853,7 +859,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### 3.3.7 Clear all activity and appointment entries: `clear t/activity`
+### [3.3.7 Clear all activity and appointment entries: `clear t/activity`](#table-of-contents)
 
 Clears all activities and appointment entries from GoMedic.
 
@@ -867,9 +873,9 @@ Format: `clear t/activity`
 
 <div style="page-break-after: always;"></div>
 
-## **3.4. Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`**
+## [**3.4. Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`**](#table-of-contents)
 
-### 3.4.1 Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`
+### [3.4.1 Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`](#table-of-contents)
 
 Searches for doctors whose specified field contains one or more of the specified keywords as a substring.
 E.g. `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
@@ -881,9 +887,7 @@ The possible parameters for FIELD are:
 * `p/PHONE_NUMBER`: Matches the phone number field
 * `de/DEPARTMENT`: Matches the department field
 
-
-### 3.4.2 Finding a patient through a keyword `find t/patient FIELD/[KEYWORDS]`
-
+### [3.4.2 Finding a patient through a keyword `find t/patient FIELD/[KEYWORDS]`](#table-of-contents)
 Searches for patients whose specified field contains one or more of the specified keywords as a substring.
 E.g. `find t/patient n/Hans Bo` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
 
@@ -899,7 +903,7 @@ The possible parameters for FIELD are:
 * `b/BLOOD_TYPE`: Matches the blood type field (`A/B/AB/O`)
 * `m/MEDICAL_CONDITION`: Matches the medical conditions field
 
-### 3.4.3 Finding an activity through a keyword `find t/activity FIELD/[KEYWORDS]`
+### [3.4.3 Finding an activity through a keyword `find t/activity FIELD/[KEYWORDS]`](#table-of-contents)
 
 Searches for activities whose specified field contains one or more of the specified keywords as a substring.
 E.g. `find t/activity ti/Hans Bo` will return activities whose titles are `Hans Gruber`, or `Bo Yang`.
@@ -921,9 +925,9 @@ Examples:
 
 <div style="page-break-after: always;"></div>
 
-## **3.5. General Utility Commands** 
+## [**3.5. General Utility Commands**](#table-of-contents)
 
-### 3.5.1 Generating a referral: `referral`
+### [3.5.1 Generating a referral: `referral`](#table-of-contents)
 
 Generates a referral letter for a patient in PDF format.
 
@@ -947,7 +951,7 @@ Parameters      |  Explanation                                                  
 
 <div style="page-break-after: always;"></div>
 
-### 3.5.2 Customizing your own profile: `profile`
+### [3.5.2 Customizing your own profile: `profile`](#table-of-contents)
 
 Updates your profile on **GoMedic**.
 
@@ -976,7 +980,7 @@ Parameters      |  Explanation                                                  
 
 <div style="page-break-after: always;"></div>
 
-### 3.5.3 Viewing help : `help`
+### [3.5.3 Viewing help : `help`](#table-of-contents)
 
 Shows a message giving a brief explanation of each command term with formatting and the ability to copy the link to the user guide for 
 more information. 
@@ -988,13 +992,13 @@ the link to the user guide would give you a better understanding.
 
 Format: `help`
 
-### 3.5.4 Clearing all entries : `clear`
+### [3.5.4 Clearing all entries : `clear`](#table-of-contents)
 
 Clears all entries from the address book and resets the user profile to its default.
 
 Format: `clear`
 
-### 3.5.5 Exiting the program : `exit`
+### [3.5.5 Exiting the program : `exit`](#table-of-contents)
 
 Exits the program.
 
@@ -1002,9 +1006,9 @@ Format: `exit`
 
 <div style="page-break-after: always;"></div>
 
-# **4. Tips and Tricks**
+# [**4. Tips and Tricks**](#table-of-contents)
 
-## 4.1 Navigating Past Commands 
+## [4.1 Navigating Past Commands](#table-of-contents)
 
 **GoMedic** is designed mainly for those who typed fast and prefer input the commands by typing them. 
 However, typing new commands over and over can be very frustrating even though you just want to fix one small error 
@@ -1027,6 +1031,8 @@ might differ from the screenshots based on what data is currently stored in your
 
 ![tut-navigate](images/navigate/navigation1.png)
 
+<div style="page-break-after: always;"></div>
+
 &#8291;2. Press `Enter` and you would get the Patient table listed!
 
 ![tut-navigate](images/navigate/navigation2.png)
@@ -1038,7 +1044,7 @@ in your command box again!
 
 <div style="page-break-after: always;"></div>
 
-## 4.2 Suggestions
+## [4.2 Suggestions](#table-of-contents)
 
 There are two types of erroneous inputs that we are expecting, one for single worded commands and one for two word commands.
 Behaviour of each erroneous command is assumed to follow the convention specified above.
@@ -1061,11 +1067,11 @@ There will be **up to 5** suggested commands for each erroneous input.
 
    * for such errors, only two word commands like `add t/patient` can be suggested.
 
-## 4.3 Saving the data
+## [4.3 Saving the data](#table-of-contents)
 
 GoMedic saves the data on the hard disk automatically after every command. There is no need to save manually. Currently, all the data are saved as a JSON file `[JAR file location]/data/addressbook.json`.
 
-## 4.4 Editing the data file
+## [4.4 Editing the data file](#table-of-contents)
 
 **GoMedic** allows advanced users to update the data stored at `[JAR file location]/data/addressbook.json` directly by editing that data file.
 
@@ -1074,7 +1080,7 @@ If your changes to the data file makes its format invalid, GoMedic will discard 
 If the format for the user profile is invalid, the preset user profile will be used instead.
 </div>
 
-## 4.5 Reordering Columns in The Display Table
+## [4.5 Reordering Columns in The Display Table](#table-of-contents)
 
 :bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
 
@@ -1094,15 +1100,17 @@ If the format for the user profile is invalid, the preset user profile will be u
 
 <div style="page-break-after: always;"></div>
 
-# **5. FAQ**
+# [**5. FAQ**](#table-of-contents)
 
 **Q**: I can't double-click on the `gomedic.jar` file to open it. What should I do?<br>
 **A**: Please check that you have Java `11` or above installed in your Computer by opening the terminal. You can do so by entering the command `java --version`. It should show `java 11.x.xx` or `openjdk 11.x.xx` depending on the Java `11` distribution you are using.
 After which, please enter the command `java -jar gomedic.jar` in the folder where `gomedic.jar` is located at. Some precautions : 
 
-1. For Windows user, please do not open it using Windows Subsystem Linux (WSL), please use Windows PowerShell to run `gomedic.jar`
-2. For Mac users, you can follow the precautions stated [here](https://github.com/nus-cs2103-AY2122S1/forum/issues/353) to open your `jar` file.
-3. If the aforementioned steps do not help you, please contact our developers directly by raising a new issue [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/issues) !
+2. For Windows user, please do not open it using Windows Subsystem Linux (WSL), please use Windows PowerShell to run `gomedic.jar`
+3. For Mac users, you can follow the precautions stated [here](https://github.com/nus-cs2103-AY2122S1/forum/issues/353) to open your `jar` file.
+4. If the aforementioned steps do not help you, please contact our developers directly by raising a new issue [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/issues) !
+
+--- 
 
 **Q**: What are `config.json`, `preferences.json` and `addressbook.log` stored in `[JAR file location]/data/addressbook.json` ? <br>
 **A**: `config.json` and `preferences.json` are programmable files that contains default settings that **GoMedic** uses such as the height and the width of the application, location to save the data, etc. Advanced users are welcome to edit it but 
@@ -1111,12 +1119,13 @@ please take note of these [precautions](#44-editing-the-data-file)!
 Meanwhile, `addressbook.log` is a text file containing messages for developers to fix some errors that the Users face. Should you want to raise a new issue about a new bug, you can always attach 
 all the log files too so that we can help you find the root cause of the error faster!
 
+--- 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty `data` folder that it creates with the old `data` folder created by the old **GoMedic** application together with all the files within that `data` folder ! 
 
 <div style="page-break-after: always;"></div>
 
-# **6. Command summary**
+# [**6. Command summary**](#table-of-contents)
 
 * `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#3-gomedic-features) section.
 * `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
