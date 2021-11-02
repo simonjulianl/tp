@@ -38,12 +38,7 @@ body {
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
-h1, h2, h3
-%vertical-rhythm {
-  margin-bottom: $spacing-unit / 10;
-}
-
-h4, h5, h6,
+h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
 %vertical-rhythm {
@@ -292,7 +287,7 @@ table {
     text-align: center;
   }
   .site-header:before {
-    content: "AB-3";
+    content: "GoMedic";
     font-size: 32px;
   }
 }
