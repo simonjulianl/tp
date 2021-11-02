@@ -38,7 +38,6 @@ The user guide is sectioned such that each chapter has an
 </div>
 
 To get the most out of this user guide, it would be best to understand the terminologies and notations that would often be used in this user guide. 
-Some important notations would be repeated in the **Overview** section of each chapter (such as **Activity Related Feature**) to remind you of those notations again. 
 
 So don't worry if you forget some [notations](#12-about-the-commands) along the way, or after you have not touched this User Guide for a while, you can always check this chapter or the **Overview** section to find 
 the important notations that are used in that chapter. 
@@ -203,6 +202,8 @@ the command box.
 
 ![tut-patient-1](images/patientug/tut_patient_1.png)
 
+<div style="page-break-after: always;"></div>
+
 &#8291;2. Press `Enter` and you should see the new entry being made in the Patient table! By default, the table would be sorted by ID.
 
 ![tut-patient-2](images/patientug/tut_patient_2.png)
@@ -239,6 +240,8 @@ or search the specific patient using [`find t/patient` command](#finding-entries
 &#8291;1. Type the command `delete t/patient P001` into the command box.
 
 ![tut-delete-patient-1](images/patientug/tut_delete_patient_1.png)
+
+<div style="page-break-after: always;"></div>
 
 &#8291;2. Press `Enter` and you will get confirmation that the patient is indeed deleted. Check that the patient identified by the deleted ID should not be there.
 
@@ -344,9 +347,13 @@ or search the specific patient using [`find t/patient` command](#finding-entries
 
 ![tut-view-patient-1](images/patientug/tut_view_patient_1.png)
 
+<div style="page-break-after: always;"></div>
+
 &#8291;2. Press `Enter` and the details of the patient will be shown in the screen.
 
 ![tut-view-patient-2](images/patientug/tut_view_patient_2.png)
+
+<div style="page-break-after: always;"></div>
 
 ### 3.1.7 Clear all patient entries: `clear t/patient`
 
@@ -401,8 +408,8 @@ Adds the details of a doctor into **GoMedic**.
 **GoMedic** creates a new doctor based on the smallest Doctor ID available. This example is shown [here](#doctor_tutorial),
 where a new doctor is added and assigned the ID **D004** instead of **D006**.
  
- **NOTE:**
-* A new doctor that is added may not be displayed as the last entry, as the table is sorted by ID. 
+**NOTE:**
+* A new added doctor may not be displayed as the last entry, as the table is sorted by ID. 
 * If there are any invalid fields, as specified [here](#doctor_constraint), the new doctor will not be added.
 
 The parameters are:
@@ -464,6 +471,8 @@ or searching for the specific doctor using [`find t/doctor` command](#finding-en
 
 ![tut-delete-doctor-1](images/doctorug/tut_delete_doctor_1.png)
 
+<div style="page-break-after: always;"></div>
+
 &#8291;2. Press `Enter` and you will get confirmation that the doctor is indeed deleted. 
 Check the doctor table. The doctor identified by the deleted ID should not be there. 
 
@@ -520,6 +529,8 @@ Parameters      |  Explanation                                      | Constraint
 `p/PHONE_NUMBER`| the phone number of the doctor.                   | Must be **entirely numeric** and exactly 8 digits long                          |
 `de/DEPARTMENT` | the department of the doctor.                     | Must only contain alphanumeric characters and spaces, and it should not be blank|
 
+<div style="page-break-after: always;"></div>
+
 **Example:**
 
 &#8291;1. Type the command `edit t/doctor i/D002 de/Radiology` into the command box. Ensure that the edited doctor, as identified by his or her `DOCTOR_ID`, exists! 
@@ -538,6 +549,8 @@ Fix the issue and the command should work correctly now!
 ![tut-doctor-edit-error](images/doctorug/tut_edit_doctor_error.png)
 
 To understand better how **GoMedic** classifies the error messages, please refer to [this](#13-error-messages) section.
+
+<div style="page-break-after: always;"></div>
 
 ### 3.2.6 Clear all doctor entries: `clear t/doctor`
 
@@ -637,6 +650,8 @@ Parameters    |  Explanation                                      | Constraints 
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 **Example:**
 
 &#8291;1. Type the command `add t/activity s/2022-09-15 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. X d/about a certain paper` into
@@ -647,6 +662,8 @@ the command box.
 &#8291;2. Press `Enter` and you should see the new entry being made in the Activity table! By default, the table would be sorted by ID.
 
 ![tut-activity-2](images/activityug/tut_activity_2.png)
+
+<div style="page-break-after: always;"></div>
 
 &#8291;3. If there is any error, the command would turn red as indicated by **1** and the feedback would be given in the feedback box at **2**.
 In this case, the error is because we are using invalid time format, which is in the form of `2022-09-15-14-00`. Fix the issue and press enter again!
@@ -681,6 +698,8 @@ Parameters    |  Explanation                                      | Constraints 
 
 The [activity constraints](#activity_extra_constraint) are still applicable here. 
 
+<div style="page-break-after: always;"></div>
+
 <a name="appointment_tutorial"></a>
 **Example:**
 
@@ -693,6 +712,8 @@ The [activity constraints](#activity_extra_constraint) are still applicable here
    the new entry is not displayed at the last entry!
 
 ![tut-appt-2](images/activityug/tut_appt_2.png)
+
+<div style="page-break-after: always;"></div>
 
 &#8291;3. If there is any error, the command would turn red as shown by **1**. Also, if the patient does not exist as shown by **2**, you need to create the patient using `add t/patient` command. Fix the issue 
 and press `Enter` again, the command should work correctly now!
@@ -761,6 +782,8 @@ Parameters    |  Explanation                                                    
 `s/SORT_FLAG`  | Options to sort the activity table by a certain column (case-insensitive)                 | - **START** : sort by start time <br/> - **ID** : sort by ID
 `p/PERIOD_FLAG`| Options to show the activities within the specified time frame (case-insensitive)           | - **ALL** : show all activities <br/> - **TODAY** : show today's activities <br/> - **WEEK** : show all activities within the next week  <br/> - **MONTH** : show all activities within the next month <br/> - **YEAR** : show all activities within the next year
 
+<div style="page-break-after: always;"></div>
+
 **Example:**
 
 &#8291;1. Type the command `list t/activity p/today` into the command box. For example, the today's date is 28 October 2021. Note that the flag is case-insensitive!
@@ -770,6 +793,8 @@ Parameters    |  Explanation                                                    
 &#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that as shown by **2**, the activity table only shows today's activities.
 
 ![tut-list-activity-2](images/activityug/tut_activitylist_2.png)
+
+<div style="page-break-after: always;"></div>
 
 &#8291;3. If there is any error, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the
    feedback box shown at **2**. Please check that the flags available are only those specified in constraints [above](#335-list-all-activities-list-tactivity)! Fix the issue and the command should work correctly now!
@@ -787,13 +812,11 @@ Edits an activity's details from the **GoMedic** application.
 **Format**: `edit t/activity i/ACTIVITY_ID [OPTIONAL PARAMETERS]...`
 
 During editing an existing activity, all the parameters are optional except `ACTIVITY_ID`! However, 
-* If there are no parameters being supplied at all besides the `ACTIVITY_ID`, **GoMedic** would return an error. 
+* If there are no parameters being supplied except `ACTIVITY_ID`, **GoMedic** would return an error. 
 * **GoMedic** would check for any conflicting activity when the `START_TIME` or the `END_TIME` is modified. 
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
-
 * The `PATIENT_ID` of an appointment cannot be modified! You need to delete and create a new appointment to modify the `PATIENT_ID`
-
 * The `ACTIVITY_ID` is also assigned by **GoMedic** and cannot be modified at all once created.
 </div>
 
@@ -810,6 +833,8 @@ Parameters    |  Explanation                                      | Constraints 
 `e/END_TIME`  | the ending time of the activity.                  | Should be a valid datetime in a valid format specified [here](#331-overview)                           |
 `ti/TITLE`    | the title of the activity.                        | maximum of **60** characters                         |
 `d/DESCRIPTION`| the description of the activity.                 | maximum of **500** characters                        |
+
+<div style="page-break-after: always;"></div>
 
 **Example:**
 
@@ -838,13 +863,11 @@ Format: `clear t/activity`
 
 **Example:**
 
-&#8291;1. Type the command `clear t/activity` into the command box.
-
-![tut-view-activity-1](images/activityug/tut_clear_activity_1.png)
-
-&#8291;2. Press `Enter` and all the appointments and activities will be deleted.
+&#8291;1. Type the command `clear t/activity` into the command box and press `Enter` and all the appointments and activities will be deleted.
 
 ![tut-view-activity-2](images/activityug/tut_clear_activity_2.png)
+
+<div style="page-break-after: always;"></div>
 
 ## **3.4. Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`**
 
@@ -898,6 +921,8 @@ Examples:
 * `find t/doctor de/neuro`
 * `find t/activity ti/meeting tomorrow`
 
+<div style="page-break-after: always;"></div>
+
 ## **3.5. General Utility Commands** 
 
 ### 3.5.1 Generating a referral: `referral`
@@ -921,6 +946,8 @@ Parameters      |  Explanation                                                  
 * the title of the pdf will also be the title given by the user in the input parameter.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### 3.5.2 Customizing your own profile: `profile`
 
@@ -946,6 +973,8 @@ Example:
 &#8291;2. Press `Enter` and your user profile will be updated.
 
 ![tut-change-profile-2](images/profile/tut_profile_change_2.png)
+
+<div style="page-break-after: always;"></div>
 
 ### 3.5.3 Viewing help : `help`
 
@@ -979,17 +1008,10 @@ Format: `exit`
 However, typing new commands over and over can be very frustrating even though you just want to fix one small error 
 in the previous commands. 
 
-**GoMedic** has you covered by having commands navigation feature which would allow you to navigate through all the commands
-that you have typed before!
-
-:bulb: **Tip:** You can navigate and check your previous commands by pressing the up or down arrow keys!
-
-GoMedic would store all the commands, whether its valid or invalid that you have typed from when you open the application! 
+:bulb: **Tip:** You can navigate to your previous commands by pressing the up or down arrow keys!
 
 Therefore, instead of typing a new command entirely, you can press the up or down arrow key to get the commands that you have typed, 
 and modify them accordingly!
-
-Previous and next is relative to the current command shown in the command box!
 
 * The **up** arrow key allows you to go back to the previous command typed if any
 * The **down** arrow key allows you to go forward to the next command typed if any 
@@ -1061,6 +1083,8 @@ If the format for the user profile is invalid, the preset user profile will be u
 &#8291;2. Drag the header into the location of other columns as indicated as **1**, the column would be inserted at the line indicated by **2**.
 
 ![tut-reorder2](images/activityug/tut_reorder_col2.png)
+
+<div style="page-break-after: always;"></div>
 
 &#8291;3. Release the left click, and the columns should be reordered now!
 
