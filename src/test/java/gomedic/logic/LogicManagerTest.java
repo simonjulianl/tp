@@ -161,7 +161,7 @@ public class LogicManagerTest {
         Doctor expectedDoctor = new DoctorBuilder(TypicalPersons.MAIN_DOCTOR).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addDoctor(expectedDoctor);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE;
         assertCommandFailure(addDoctorCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
@@ -188,7 +188,7 @@ public class LogicManagerTest {
         Patient expectedPatient = new PatientBuilder(TypicalPersons.MAIN_PATIENT).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPatient(expectedPatient);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE;
         assertCommandFailure(addPatientCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
@@ -211,7 +211,7 @@ public class LogicManagerTest {
         Activity expectedActivity = new ActivityBuilder().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addActivity(expectedActivity);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE;
         assertCommandFailure(addActivityCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
