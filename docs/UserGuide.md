@@ -940,8 +940,11 @@ Parameters      |  Explanation                                                  
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Note:**
 
-* the patient and doctor must both be present in the GoMedic App as a valid entry or the referral will not be generated.
-* the title of the pdf will also be the title given by the user in the input parameter.
+<ul>
+    <li> The patient and doctor must both be present in the GoMedic App as a valid entry or the referral will not be generated. </li>
+    <li> The title of the pdf will also be the title given by the user in the input parameter.</li>
+</ul>
+
 
 </div>
 
@@ -1006,7 +1009,7 @@ Format: `exit`
 
 ## 4.1 Navigating Past Commands 
 
-**GoMedic** is designed mainly for those who typed fast and prefer input the commands by typing them. 
+**GoMedic** is designed mainly for those who type fast and prefer inputting commands by typing them. 
 However, typing new commands over and over can be very frustrating even though you just want to fix one small error 
 in the previous commands. 
 
@@ -1049,13 +1052,13 @@ Behaviour of each erroneous command is assumed to follow the convention specifie
 
 There will be **up to 5** suggested commands for each erroneous input.
 
-1. **For errors that follow the format `{mispelt command}`**
+1. **For errors that follow the format `{misspelt command}`**
 
    * errors such as `exi` will return `exit`,`edit t/patient`,`edit t/doctor`,`edit t/activity` ranked using a word similarity metric.
 
    * for such errors, single word commands like `help` or two word commands like `add t/patient` may be suggested.
 
-2. **For errors that follow the format `{command} {mispelt type}`, `{mispelt command} {type}` or `{mispelt command} {mispelt type}`:**
+2. **For errors that follow the format `{command} {misspelt type}`, `{misspelt command} {type}` or `{misspelt command} {misspelt type}`:**
 
    * errors such as `adl t/patit` will return `add t/patient`, `add t/activity` ranked using a word similarity metric.
 
