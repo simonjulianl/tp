@@ -47,7 +47,6 @@ ul, ol, dl, figure,
 }
 
 hr {
-  margin-top: $spacing-unit / 5;
   margin-bottom: $spacing-unit / 5;
 }
 
@@ -172,7 +171,7 @@ code {
 }
 
 pre {
-//   padding: 8px 12px;
+  padding: 8px 12px;
   overflow-x: auto;
 
   > code {

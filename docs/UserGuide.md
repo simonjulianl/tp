@@ -23,7 +23,7 @@ formatting, etc.
 
 <div style="page-break-after: always;"></div>
 
-# 1. **How To Use This Guide**
+# **1. How To Use This Guide**
 
 This user guide provides information to assist you in using **GoMedic** based on which features you are most interested in. 
 The user guide is sectioned such that each chapter has an 
@@ -101,7 +101,7 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
-# 2. **Quick start**
+# **2. Quick start**
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -134,9 +134,9 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
-# 3. **GoMedic Features**
+# **3. GoMedic Features**
 
-## 3.1 **Patients Related Features**
+## **3.1 Patients Related Features**
 
 ### 3.1.1 Overview
 Patients related features allow you to store, edit, view, and list patients.
@@ -370,7 +370,7 @@ This will also delete all corresponding appointments since there are no more pat
 
 <div style="page-break-after: always;"></div>
 
-## 3.2 **Doctors Related Features**
+## **3.2 Doctors Related Features**
 
 ### 3.2.1 Overview
 
@@ -557,7 +557,7 @@ Format: `clear t/doctor`
 
 <div style="page-break-after: always;"></div>
 
-## 3.3 **Activities Related Features**
+## **3.3 Activities Related Features**
 
 ### 3.3.1 Overview 
 
@@ -846,7 +846,7 @@ Format: `clear t/activity`
 
 ![tut-view-activity-2](images/activityug/tut_clear_activity_2.png)
 
-## 3.4. **Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`**
+## **3.4. Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`**
 
 ### 3.4.1 Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`
 
@@ -898,7 +898,7 @@ Examples:
 * `find t/doctor de/neuro`
 * `find t/activity ti/meeting tomorrow`
 
-## 3.5. **General Utility Commands** 
+## **3.5. General Utility Commands** 
 
 ### 3.5.1 Generating a referral: `referral`
 
@@ -971,7 +971,7 @@ Exits the program.
 
 Format: `exit`
 
-# 4. **Tips and Tricks**
+# **4. Tips and Tricks**
 
 ## 4.1 Navigating Past Commands 
 
@@ -1068,7 +1068,7 @@ If the format for the user profile is invalid, the preset user profile will be u
 
 <div style="page-break-after: always;"></div>
 
-# 5. **FAQ**
+# **5. FAQ**
 
 **Q**: I can't double-click on the `gomedic.jar` file to open it. What should I do?<br>
 **A**: Please check that you have Java `11` or above installed in your Computer by opening the terminal. You can do so by entering the command `java --version`. It should show `java 11.x.xx` or `openjdk 11.x.xx` depending on the Java `11` distribution you are using.
@@ -1090,7 +1090,7 @@ all the log files too so that we can help you find the root cause of the error f
 
 <div style="page-break-after: always;"></div>
 
-# 6. **Command summary**
+# **6. Command summary**
 
 * `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#3-gomedic-features) section.
 * `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
