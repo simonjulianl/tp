@@ -358,11 +358,11 @@ Format: `clear t/patient`
 
 &#8291;1. Type the command `clear t/patient` into the command box.
 
-![tut-view-patient-1](images/patientug/tut_clear_patient_1.png)
+![tut-clear-patient-1](images/patientug/tut_clear_patient_1.png)
 
 &#8291;2. Press `Enter` and all the patients will be deleted.
 
-![tut-view-patient-2](images/patientug/tut_clear_patient_2.png)
+![tut-clear-patient-2](images/patientug/tut_clear_patient_2.png)
 
 <div markdown="block" class="alert alert-info"> :exclamation: **Warning**:
 This will also delete all corresponding appointments since there are no more patients in GoMedic.
