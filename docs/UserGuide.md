@@ -101,7 +101,7 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
-# Quick start
+# **Quick start**
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -846,7 +846,7 @@ Examples:
 * `find t/doctor de/neuro`
 * `find t/activity ti/meeting tomorrow`
 
-## General Utility Commands 
+## **General Utility Commands** 
 
 ### Generating a referral: `referral`
 
