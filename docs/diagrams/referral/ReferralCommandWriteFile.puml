@@ -1,0 +1,40 @@
+@startuml
+!include style.puml
+mainframe **sd** Create And Write Referral Pdf
+
+box Logic LOGIC_COLOR_T1
+participant "r:ReferralCommand" as ReferralCommand LOGIC_COLOR
+end box
+
+participant ":Document" as Document MODEL_COLOR_T3
+
+activate ReferralCommand
+ReferralCommand -> ReferralCommand : createPdf(doctor, patient)
+activate ReferralCommand
+create Document
+ReferralCommand -> Document
+activate Document
+return
+
+ReferralCommand -> Document: writeData(doctor, patient)
+
+note left of Document
+  writeData low-level
+  details are omitted
+end note
+
+activate Document
+return
+
+ReferralCommand -> Document : close()
+activate Document
+Document -> Document : Write Pdf
+activate Document
+deactivate Document
+
+'Show destructor'
+ReferralCommand -[hidden]-> Document
+destroy Document
+return
+return
+@enduml

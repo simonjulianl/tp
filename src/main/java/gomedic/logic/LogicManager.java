@@ -25,7 +25,9 @@ import javafx.collections.ObservableList;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String FILE_OPS_ERROR_MESSAGE =
+            "Could not save data to file, please check your file permission "
+                    + "for the folder where gomedic.jar is located at";
 
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -53,7 +55,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE);
         }
 
         return commandResult;

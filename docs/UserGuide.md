@@ -5,6 +5,8 @@ title: User Guide
 
 # **Introduction**
 
+![logo](images/logo.png)
+
 GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to
 manage contacts and patient details**. We aim for GoMedic to be used by someone who can type fast and take advantage of the
 optimized features for Command Line Interface.
@@ -844,7 +846,7 @@ Format: `clear t/activity`
 
 ![tut-view-activity-2](images/activityug/tut_clear_activity_2.png)
 
-## Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`
+## **Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`**
 
 ### Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`
 
@@ -969,46 +971,6 @@ Exits the program.
 
 Format: `exit`
 
-### Suggestions
-
-There are two types of erroneous inputs that we are expecting, one for single worded commands and one for two word commands.
-Behaviour of each erroneous command is assumed to follow the convention specified above.
-
-* Any mention of `{command}` refers to one of these values `add`, `delete`, `list`, `edit`, `clear`, `find`, `view`, `help`,
-  `profile`, `referral`, `help`, `exit`
-* `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
-
-There will be up to 5 suggested commands for each erroneous input.
-
-#### For errors that follow the format `{mispelt command}`:
-
-* errors such as `exi` will return `exit`,`edit t/patient`,`edit t/doctor`,`edit t/activity` ranked using a word similarity metric.
-
-* for such errors, single word commands like `help` or two word commands like `add t/patient` may be suggested.
-
-#### For errors that follow the format `{command} {mispelt type}`, `{mispelt command} {type}` or `{mispelt command} {mispelt type}`:
-
-* errors such as `adl t/patit` will return `add t/patient`, `add t/activity` ranked using a word similarity metric.
-
-* for such errors, only two word commands like `add t/patient` can be suggested.
-
-### Saving the data
-
-GoMedic saves the data on the hard disk automatically after every command. There is no need to save manually.
-
-### Editing the data file
-
-Currently, all the data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome
-to update data directly by editing that data file.
-
-In the subsequent releases, the patient data can be found at `[JAR file location]/data/patients.json`, doctors data
-at `[JAR file location]/data/doctors.json`, and finally all activities at `[JAR file location]/data/activities.json`
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, GoMedic will discard all data and start with an empty data file at the next run.
-If the format for the user profile is invalid, the preset user profile will be used instead.
-</div>
-
 # **Tips and Tricks**
 
 ## Navigating Past Commands 
@@ -1052,6 +1014,42 @@ in your command box again!
 
 <div style="page-break-after: always;"></div>
 
+## Suggestions
+
+There are two types of erroneous inputs that we are expecting, one for single worded commands and one for two word commands.
+Behaviour of each erroneous command is assumed to follow the convention specified above.
+
+* Any mention of `{command}` refers to one of these values `add`, `delete`, `list`, `edit`, `clear`, `find`, `view`, `help`,
+  `profile`, `referral`, `help`, `exit`
+* `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
+
+There will be **up to 5** suggested commands for each erroneous input.
+
+1. **For errors that follow the format `{mispelt command}`**
+
+   * errors such as `exi` will return `exit`,`edit t/patient`,`edit t/doctor`,`edit t/activity` ranked using a word similarity metric.
+
+   * for such errors, single word commands like `help` or two word commands like `add t/patient` may be suggested.
+
+2. **For errors that follow the format `{command} {mispelt type}`, `{mispelt command} {type}` or `{mispelt command} {mispelt type}`:**
+
+   * errors such as `adl t/patit` will return `add t/patient`, `add t/activity` ranked using a word similarity metric.
+
+   * for such errors, only two word commands like `add t/patient` can be suggested.
+
+## Saving the data
+
+GoMedic saves the data on the hard disk automatically after every command. There is no need to save manually. Currently, all the data are saved as a JSON file `[JAR file location]/data/addressbook.json`.
+
+## Editing the data file
+
+**GoMedic** allows advanced users to update the data stored at `[JAR file location]/data/addressbook.json` directly by editing that data file.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If your changes to the data file makes its format invalid, GoMedic will discard all data and start with an empty data file at the next run.
+If the format for the user profile is invalid, the preset user profile will be used instead.
+</div>
+
 ## Reordering Columns in The Display Table
 
 :bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
@@ -1079,6 +1077,13 @@ After which, please enter the command `java -jar gomedic.jar` in the folder wher
 1. For Windows user, please do not open it using Windows Subsystem Linux (WSL), please use Windows PowerShell to run `gomedic.jar`
 2. For Mac users, you can follow the precautions stated [here](https://github.com/nus-cs2103-AY2122S1/forum/issues/353) to open your `jar` file.
 3. If the aforementioned steps do not help you, please contact our developers directly by raising a new issue [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/issues) !
+
+**Q**: What are `config.json`, `preferences.json` and `addressbook.log` stored in `[JAR file location]/data/addressbook.json` ? <br>
+**A**: `config.json` and `preferences.json` are programmable files that contains default settings that **GoMedic** uses such as the height and the width of the application, location to save the data, etc. Advanced users are welcome to edit it but 
+please take note of these [precautions](#editing-the-data-file)! 
+
+Meanwhile, `addressbook.log` is a text file containing messages for developers to fix some errors that the Users face. Should you want to raise a new issue about a new bug, you can always attach 
+all the log files too so that we can help you find the root cause of the error faster!
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty `data` folder that it creates with the old `data` folder created by the old **GoMedic** application together with all the files within that `data` folder ! 
