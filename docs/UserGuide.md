@@ -362,10 +362,9 @@ Format: `clear t/patient`
 
 ![tut-view-patient-2](images/patientug/tut_clear_patient_2.png)
 
-**Note:**
-
+<div markdown="block" class="alert alert-info"> :exclamation: **Warning**:
 This will also delete all corresponding appointments since there are no more patients in GoMedic.
-
+</div>
 
 <div style="page-break-after: always;"></div>
 
@@ -829,11 +828,11 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### Clear all activity and appointment entries: `clear t/activities`
+### Clear all activity and appointment entries: `clear t/activity`
 
 Clears all activities and appointment entries from GoMedic.
 
-Format: `clear t/activities`
+Format: `clear t/activity`
 
 **Example:**
 
@@ -914,9 +913,12 @@ Parameters      |  Explanation                                                  
 `pi/PATIENT_ID` | id of the patient being referred.                               | Must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#overview)|
 `d/DESCRIPTION` | description of the patient's condition and further details.     | Must only contain alphanumeric characters and spaces, and it should not be blank|
 
-**Note:**
+<div markdown="span" class="alert alert-warning">:exclamation: **Note:**
 
-the patient and doctor must both be present in the GoMedic App as a valid entry or the referral will not be generated.
+* the patient and doctor must both be present in the GoMedic App as a valid entry or the referral will not be generated.
+* the title of the pdf will also be the title given by the user in the input parameter.
+
+</div>
 
 ### Customizing your own profile: `profile`
 
