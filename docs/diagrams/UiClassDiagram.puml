@@ -52,7 +52,7 @@ MainWindow -left-> Logic
 ModelListPanel --> "0..1" PatientView
 PatientView -[hidden]right- XYZTable
 ModelListPanel --> "0..1" XYZTable
-note right of XYZTable: XYZCommand =\n  ActivityTable, \nPatientTable, \n and DoctorTable
+note right of XYZTable: XYZTable =\n  ActivityTable, \nPatientTable, \n and DoctorTable
 
 XYZTable ..> Model : observes \n XYZ >
 PatientView ..> Model : observes \n  Patient >
