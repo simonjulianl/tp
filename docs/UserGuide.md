@@ -23,7 +23,7 @@ formatting, etc.
 
 <div style="page-break-after: always;"></div>
 
-# **How To Use This Guide**
+# 1. **How To Use This Guide**
 
 This user guide provides information to assist you in using **GoMedic** based on which features you are most interested in. 
 The user guide is sectioned such that each chapter has an 
@@ -43,11 +43,11 @@ Some important notations would be repeated in the **Overview** section of each c
 So don't worry if you forget some [notations](#about-the-commands) along the way, or after you have not touched this User Guide for a while, you can always check this chapter or the **Overview** section to find 
 the important notations that are used in that chapter. 
 
-## How GoMedic Looks Like
+## 1.1 How GoMedic Looks Like
 
 ![gomedic-design](images/ui/segmentation.png)
 
-## About the Commands
+## 1.2 About the Commands
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Understanding The Notations:**<br>
@@ -78,7 +78,7 @@ the important notations that are used in that chapter.
 
 </div>
 
-## Error Messages
+## 1.3. Error Messages
 
 1. Should you enter an **invalid** command that **GoMedic** cannot recognize, **GoMedic** would
 return some suggestions on the closest commands that you can choose from!
@@ -101,7 +101,7 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
-# **Quick start**
+# 2. **Quick start**
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -134,11 +134,11 @@ return some suggestions on the closest commands that you can choose from!
 
 <div style="page-break-after: always;"></div>
 
-# **GoMedic Features**
+# 3. **GoMedic Features**
 
-## **Patients Related Features**
+## 3.1 **Patients Related Features**
 
-### Overview
+### 3.1.1 Overview
 Patients related features allow you to store, edit, view, and list patients.
 
 Using patients, you can store your patients' details and track all of the medical conditions that your patients are
@@ -158,7 +158,7 @@ and `MEDICAL_CONDITIONS` with different `PATIENT_ID` are considered distinct.
 
 <div style="page-break-after: always;"></div>
 
-### Adding a new patient: `add t/patient`
+### 3.1.2 Adding a new patient: `add t/patient`
 
 Adds a new patient into your **GoMedic** application.
 
@@ -217,7 +217,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### Deleting an existing patient: `delete t/patient`
+### 3.1.3 Deleting an existing patient: `delete t/patient`
 
 Deletes a certain existing patient from **GoMedic**.
 
@@ -253,7 +253,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### List all patients: `list t/patient`
+### 3.1.4 List all patients: `list t/patient`
 
 List all patients that is stored in **GoMedic**.
 
@@ -271,7 +271,7 @@ List all patients that is stored in **GoMedic**.
 
 <div style="page-break-after: always;"></div>
 
-### Updating an existing patient's details: `edit t/patient`
+### 3.1.5 Updating an existing patient's details: `edit t/patient`
 
 Edits a patient's details from the **GoMedic** application.
 
@@ -321,7 +321,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### Display full details of a patient: `view t/patient`
+### 3.1.6 Display full details of a patient: `view t/patient`
 
 Displays the full details of a particular patient.
 
@@ -348,7 +348,7 @@ or search the specific patient using [`find t/patient` command](#finding-entries
 
 ![tut-view-patient-2](images/patientug/tut_view_patient_2.png)
 
-### Clear all patient entries: `clear t/patient`
+### 3.1.7 Clear all patient entries: `clear t/patient`
 
 Clears all patient entries from GoMedic.
 
@@ -370,9 +370,9 @@ This will also delete all corresponding appointments since there are no more pat
 
 <div style="page-break-after: always;"></div>
 
-## **Doctors Related Features**
+## 3.2 **Doctors Related Features**
 
-### Overview
+### 3.2.1 Overview
 
 Doctor related features allow you to store, edit and list details of other doctors.
 
@@ -392,7 +392,7 @@ as two distinct and different doctors, as long as their `DOCTOR_ID`s are differe
 
 <div style="page-break-after: always;"></div>
 
-### Adding a new doctor's details: `add t/doctor`
+### 3.2.2 Adding a new doctor's details: `add t/doctor`
 
 Adds the details of a doctor into **GoMedic**.
 
@@ -437,7 +437,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### Deleting an existing doctor: `delete t/doctor`
+### 3.2.3 Deleting an existing doctor: `delete t/doctor`
 
 Deletes an existing doctor from GoMedic.
 
@@ -478,7 +478,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### List all doctors: `list t/doctor`
+### 3.2.4 List all doctors: `list t/doctor`
 
 List all doctors that are stored in **GoMedic**.
 
@@ -492,7 +492,7 @@ List all doctors that are stored in **GoMedic**.
 
 <div style="page-break-after: always;"></div>
 
-### Updating an existing doctor's details: `edit t/doctor`
+### 3.2.5 Updating an existing doctor's details: `edit t/doctor`
 
 Edits a doctor's details in **GoMedic**.
 
@@ -539,7 +539,7 @@ Fix the issue and the command should work correctly now!
 
 To understand better how **GoMedic** classifies the error messages, please refer to [this](#error-messages) section.
 
-### Clear all doctor entries: `clear t/doctor`
+### 3.2.6 Clear all doctor entries: `clear t/doctor`
 
 Clears all doctor entries from GoMedic.
 
@@ -557,9 +557,9 @@ Format: `clear t/doctor`
 
 <div style="page-break-after: always;"></div>
 
-## **Activities Related Features**
+## 3.3 **Activities Related Features**
 
-### Overview 
+### 3.3.1 Overview 
 
 Activities related features allow you to store, edit and list events and appointments with patients. 
 
@@ -598,7 +598,7 @@ Therefore, two activities with exactly same `TITLE` and `DESCRIPTION` with diffe
 
 <div style="page-break-after: always;"></div>
 
-### Adding a new activity: `add t/activity`
+### 3.3.2 Adding a new activity: `add t/activity`
 
 Adds a new activity into your **GoMedic** scheduler. 
 
@@ -658,7 +658,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### Adding a new appointment: `add t/appointment`
+### 3.3.3 Adding a new appointment: `add t/appointment`
 
 Adds a new appointment into your GoMedic scheduler.
 
@@ -703,7 +703,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### Deleting an existing activity: `delete t/activity`
+### 3.3.4 Deleting an existing activity: `delete t/activity`
 
 Delete a certain existing activity from **GoMedic**. 
 
@@ -743,7 +743,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### List all activities: `list t/activity`
+### 3.3.5 List all activities: `list t/activity`
 
 List all activities that is stored in **GoMedic**.
 
@@ -780,7 +780,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### Updating an existing activity's details: `edit t/activity`
+### 3.3.6 Updating an existing activity's details: `edit t/activity`
 
 Edits an activity's details from the **GoMedic** application.
 
@@ -830,7 +830,7 @@ To understand better how **GoMedic** classifies the error messages, please refer
 
 <div style="page-break-after: always;"></div>
 
-### Clear all activity and appointment entries: `clear t/activity`
+### 3.3.7 Clear all activity and appointment entries: `clear t/activity`
 
 Clears all activities and appointment entries from GoMedic.
 
@@ -846,9 +846,9 @@ Format: `clear t/activity`
 
 ![tut-view-activity-2](images/activityug/tut_clear_activity_2.png)
 
-## **Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`**
+## 4. **Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`**
 
-### Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`
+### 4.1 Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`
 
 Searches for doctors whose specified field contains one or more of the specified keywords as a substring.
 E.g. `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
@@ -861,7 +861,7 @@ The possible parameters for FIELD are:
 * `de/DEPARTMENT`: Matches the department field
 
 
-### Finding a patient through a keyword `find t/patient FIELD/[KEYWORDS]`
+### 4.2 Finding a patient through a keyword `find t/patient FIELD/[KEYWORDS]`
 
 Searches for patients whose specified field contains one or more of the specified keywords as a substring.
 E.g. `find t/patient n/Hans Bo` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
@@ -878,7 +878,7 @@ The possible parameters for FIELD are:
 * `b/BLOOD_TYPE`: Matches the blood type field (`A/B/AB/O`)
 * `m/MEDICAL_CONDITION`: Matches the medical conditions field
 
-### Finding an activity through a keyword `find t/activity FIELD/[KEYWORDS]`
+### 4.3 Finding an activity through a keyword `find t/activity FIELD/[KEYWORDS]`
 
 Searches for activities whose specified field contains one or more of the specified keywords as a substring.
 E.g. `find t/activity ti/Hans Bo` will return activities whose titles are `Hans Gruber`, or `Bo Yang`.
@@ -898,9 +898,9 @@ Examples:
 * `find t/doctor de/neuro`
 * `find t/activity ti/meeting tomorrow`
 
-## **General Utility Commands** 
+## 5. **General Utility Commands** 
 
-### Generating a referral: `referral`
+### 5.1 Generating a referral: `referral`
 
 Generates a referral letter for a patient in PDF format.
 
@@ -922,7 +922,7 @@ Parameters      |  Explanation                                                  
 
 </div>
 
-### Customizing your own profile: `profile`
+### 5.2 Customizing your own profile: `profile`
 
 Updates your profile on **GoMedic**.
 
@@ -947,7 +947,7 @@ Example:
 
 ![tut-change-profile-2](images/profile/tut_profile_change_2.png)
 
-### Viewing help : `help`
+### 5.3 Viewing help : `help`
 
 Shows a message giving a brief explanation of each command term with formatting and the ability to copy the link to the user guide for 
 more information. 
@@ -959,21 +959,21 @@ the link to the user guide would give you a better understanding.
 
 Format: `help`
 
-### Clearing all entries : `clear`
+### 5.4 Clearing all entries : `clear`
 
 Clears all entries from the address book and resets the user profile to its default.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+### 5.5 Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-# **Tips and Tricks**
+# 6. **Tips and Tricks**
 
-## Navigating Past Commands 
+## 6.1 Navigating Past Commands 
 
 **GoMedic** is designed mainly for those who typed fast and prefer input the commands by typing them. 
 However, typing new commands over and over can be very frustrating even though you just want to fix one small error 
@@ -1014,7 +1014,7 @@ in your command box again!
 
 <div style="page-break-after: always;"></div>
 
-## Suggestions
+## 6.2 Suggestions
 
 There are two types of erroneous inputs that we are expecting, one for single worded commands and one for two word commands.
 Behaviour of each erroneous command is assumed to follow the convention specified above.
@@ -1037,11 +1037,11 @@ There will be **up to 5** suggested commands for each erroneous input.
 
    * for such errors, only two word commands like `add t/patient` can be suggested.
 
-## Saving the data
+## 6.3 Saving the data
 
 GoMedic saves the data on the hard disk automatically after every command. There is no need to save manually. Currently, all the data are saved as a JSON file `[JAR file location]/data/addressbook.json`.
 
-## Editing the data file
+## 6.4 Editing the data file
 
 **GoMedic** allows advanced users to update the data stored at `[JAR file location]/data/addressbook.json` directly by editing that data file.
 
@@ -1050,7 +1050,7 @@ If your changes to the data file makes its format invalid, GoMedic will discard 
 If the format for the user profile is invalid, the preset user profile will be used instead.
 </div>
 
-## Reordering Columns in The Display Table
+## 6.5 Reordering Columns in The Display Table
 
 :bulb: **Tip:** You can reorder the column to suit your preference by dragging the title as shown by the following picture
 
@@ -1068,7 +1068,7 @@ If the format for the user profile is invalid, the preset user profile will be u
 
 <div style="page-break-after: always;"></div>
 
-# **FAQ**
+# 7. **FAQ**
 
 **Q**: I can't double-click on the `gomedic.jar` file to open it. What should I do?<br>
 **A**: Please check that you have Java `11` or above installed in your Computer by opening the terminal. You can do so by entering the command `java --version`. It should show `java 11.x.xx` or `openjdk 11.x.xx` depending on the Java `11` distribution you are using.
@@ -1090,7 +1090,7 @@ all the log files too so that we can help you find the root cause of the error f
 
 <div style="page-break-after: always;"></div>
 
-# **Command summary**
+# 8. **Command summary**
 
 * `{PARAMETERS}` indicates the mandatory and optional parameters as specified in the [Features](#features) section.
 * `{type}` indicates one of these three values `t/activity`,`t/patient`, `t/doctor` and `{type}_id` means `ACTIVITY_ID` for `{type} = t/activity`
