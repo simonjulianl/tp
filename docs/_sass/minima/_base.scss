@@ -10,7 +10,6 @@ p, blockquote, pre, hr,
 dl, dd, ol, ul, figure {
   margin: 0;
   padding: 0;
-
 }
 
 
@@ -47,8 +46,8 @@ ul, ol, dl, figure,
 }
 
 hr {
-  margin-top: $spacing-unit;
-  margin-bottom: $spacing-unit;
+  margin-top: $spacing-unit / 2;
+  margin-bottom: $spacing-unit / 2;
 }
 
 /**
@@ -288,7 +287,7 @@ table {
     text-align: center;
   }
   .site-header:before {
-    content: "AB-3";
+    content: "GoMedic";
     font-size: 32px;
   }
 }

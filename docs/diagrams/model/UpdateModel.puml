@@ -1,0 +1,48 @@
+@startuml
+!include style.puml
+skinparam BoxPadding 30
+
+Actor User as user USER_COLOR
+box Ui UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR_T3
+participant ":MainWindow" as MainWindow UI_COLOR_T3
+end box
+
+box Model MODEL_COLOR_T3
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+user -[USER_COLOR]> CommandBox : "list t/patient"
+activate CommandBox
+
+note right
+   ... indicates list t/patient
+end note
+
+CommandBox -[UI_COLOR]> MainWindow : execute("...")
+activate MainWindow
+
+MainWindow -[UI_COLOR]> Logic : execute("...")
+activate Logic
+
+Logic -[LOGIC_COLOR]> Model : update model flag
+
+activate Model
+Model -[MODEL_COLOR]> MainWindow : notify
+activate MainWindow
+
+MainWindow -[MODEL_COLOR]> MainWindow : update table
+activate MainWindow
+return
+
+return
+return
+
+return command feedback
+return
+return display patient table \n and command feedback
+@enduml
