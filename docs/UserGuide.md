@@ -77,6 +77,8 @@ the important notations that are used in that chapter.
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ## 1.3. Error Messages
 
 1. Should you enter an **invalid** command that **GoMedic** cannot recognize, **GoMedic** would
@@ -264,11 +266,7 @@ List all patients that is stored in **GoMedic**.
 
 **Example:**
 
-&#8291;1. Type the command `list t/patient` into the command box.
-
-![tut-list-patient-1](images/patientug/tut_patientlist_1.png)
-
-&#8291;2. Press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that the patient table is shown by **2**.
+&#8291;1. Type the command `list t/patient` into the command box and press `Enter` and the success confirmation should be shown by the feedback box as shown by **1**. Realize that the patient table is shown by **2**.
 
 ![tut-list-patient-2](images/patientug/tut_patientlist_2.png)
 
@@ -363,11 +361,7 @@ Format: `clear t/patient`
 
 **Example:**
 
-&#8291;1. Type the command `clear t/patient` into the command box.
-
-![tut-clear-patient-1](images/patientug/tut_clear_patient_1.png)
-
-&#8291;2. Press `Enter` and all the patients will be deleted.
+&#8291;1. Type the command `clear t/patient` into the command box and press `Enter` and all the patients will be deleted.
 
 ![tut-clear-patient-2](images/patientug/tut_clear_patient_2.png)
 
@@ -422,6 +416,8 @@ Parameters      |  Explanation                                      | Constraint
 `p/PHONE_NUMBER`| the phone number of the doctor.                   | must be **entirely numeric** and exactly 8 digits long                          |
 `de/DEPARTMENT` | the department of the doctor.                     | must only contain alphanumeric characters and spaces, and it should not be blank|
 
+<div style="page-break-after: always;"></div>
+
 <a name="doctor_tutorial"></a>
 **Example:**
 
@@ -433,6 +429,8 @@ Parameters      |  Explanation                                      | Constraint
 Note that the table is sorted by ID. Hence, in this example, the new entry will not be displayed as the last entry!
 
 ![tut-doctor-2](images/doctorug/tut_doctor_2.png)
+
+<div style="page-break-after: always;"></div>
 
 &#8291;3. If there are any errors, the command would turn red as shown by **1**. 
 In the example below, the user has forgotten to include the `Department` of the doctor. 
@@ -542,6 +540,8 @@ Realize that as shown by **2**, doctor `D002`, Bernice, has her department updat
 
 ![tut-doctor-edit-2](images/doctorug/tut_edit_doctor_2.png)
 
+<div style="page-break-after: always;"></div>
+
 &#8291;3. If there are any errors, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the
 feedback box shown at **2**. In this case, the error is that the `NAME` of the edited doctor is not alphanumeric.
 Fix the issue and the command should work correctly now!
@@ -560,11 +560,7 @@ Format: `clear t/doctor`
 
 **Example:**
 
-&#8291;1. Type the command `clear t/doctor` into the command box.
-
-![tut-view-doctor-1](images/doctorug/tut_clear_doctor_1.png)
-
-&#8291;2. Press `Enter` and all the doctors will be deleted.
+&#8291;1. Type the command `clear t/doctor` into the command box and press `Enter` and all the doctors will be deleted.
 
 ![tut-view-doctor-2](images/doctorug/tut_clear_doctor_2.png)
 
@@ -846,6 +842,8 @@ Parameters    |  Explanation                                      | Constraints 
 
 ![tut-edit-2](images/activityug/tut_edit_2.png)
 
+<div style="page-break-after: always;"></div>
+
 &#8291;3. If there is any error, the command would turn red as shown by **1**. Also, the feedback about the error is shown by the
 feedback box shown at **2**. In this case, the error is that `START_TIME` of the edited activity exceeds its `END_TIME`. Fix the issue and the command should work correctly now!
 
@@ -964,7 +962,9 @@ Parameters      |  Explanation                                                  
 `de/DEPARTMENT` | the department of the doctor.                                   | Must only contain alphanumeric characters and spaces, and it should not be blank|
 `o/ORGANIZATION`| the organization that the doctor works in. (E.g. National University Hospital) | Must only contain alphanumeric characters and spaces, and it should not be blank|
 
-Example:
+<div style="page-break-after: always;"></div>
+
+**Example:**
 
 &#8291;1. Type the command `profile n/Jon Snow p/Senior Consultant de/Department of Cardiology o/NUH` into the command box.
 
@@ -999,6 +999,8 @@ Format: `clear`
 Exits the program.
 
 Format: `exit`
+
+<div style="page-break-after: always;"></div>
 
 # **4. Tips and Tricks**
 
