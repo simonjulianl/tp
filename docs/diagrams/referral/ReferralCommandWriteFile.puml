@@ -33,8 +33,8 @@ activate Document
 deactivate Document
 
 'Show destructor'
+return
 ReferralCommand -[hidden]-> Document
 destroy Document
-return
 return
 @enduml
