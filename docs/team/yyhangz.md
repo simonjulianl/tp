@@ -73,5 +73,3 @@ Given below are some of my notable contributions to the project.
     * Improved code quality and reusability of some classes that are shared and jointly used by several team members. 
       (E.g. [PR #140](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/140), [PR #141](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/141))
     * Reported bugs and suggestions for other teams during [PE-D](https://github.com/yyhangz/ped). 
-
-    
