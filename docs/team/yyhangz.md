@@ -36,7 +36,7 @@ Given below are some of my notable contributions to the project.
       my teammate, Simon.
     * Notable PRs: [PR #167](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/167)
 
-* **Ui Enhancement**: Create UI component that displays the details of `Doctor`s stored in GoMedic in a tabular form.
+* **Ui Enhancement**: Implement UI component that displays the details of `Doctor`s stored in GoMedic in a tabular form.
     * What it does: Creates a tabular view of the `Doctor`s that users add into GoMedic.
     * Credits: This command heavily uses [**JavaFX**](https://docs.oracle.com/javafx/2/). The format for this
      tabular view of `Doctor` closely follows the format and implementation done by my teammate, Simon, 
