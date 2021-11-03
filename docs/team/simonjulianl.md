@@ -1,16 +1,13 @@
 ---
 layout: page
-title: Simon Julian Lauw's Project Portfolio Page
+title: Simon Julian's Project Portfolio Page
 ---
 
 ### Project: GoMedic
 
 GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to
 manage contacts and patient details**. We aim for GoMedic to be used by someone who can type fast and take advantage of the
-optimized features for Command Line Interface.
-
-GoMedic is bootstrapped using SE-EDU Address Book 3 and inherits some of its features such as `clear`, parameter
-formatting, etc.
+optimized features for Command Line Interface. 
 
 Given below are some of my notable contributions to the project.
 
