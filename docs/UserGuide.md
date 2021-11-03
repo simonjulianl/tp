@@ -938,13 +938,10 @@ Parameters      |  Explanation                                                  
 `pi/PATIENT_ID` | id of the patient being referred.                               | Must be in the form of `PXXX` / `pXXX` where `XXX` is 3-digit integer. For full info, please refer to [this](#311-overview)|
 `d/DESCRIPTION` | description of the patient's condition and further details.     | Must only contain alphanumeric characters and spaces, and it should not be blank|
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Note:**
+<div markdown="block" class="alert alert-warning">:exclamation: **Note:**
 
-<ul>
-    <li> The patient and doctor must both be present in the GoMedic App as a valid entry or the referral will not be generated. </li>
-    <li> The title of the pdf will also be the title given by the user in the input parameter.</li>
-</ul>
-
+* The patient and doctor must both be present in the GoMedic App as a valid entry or the referral will not be generated.
+* The title of the pdf will also be the title given by the user in the input parameter.
 
 </div>
 
