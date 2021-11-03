@@ -1,8 +1,6 @@
 @startuml
 !include style.puml
 
-mainframe **sd** Profile Command Execution
-
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant "p:ProfileCommand" as ProfileCommand LOGIC_COLOR
