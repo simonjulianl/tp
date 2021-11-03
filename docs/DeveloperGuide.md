@@ -184,7 +184,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main/java/gomedic/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+![Storage Component Class Diagram](images/StorageClassDiagram.png)
 
 The `Storage` component,
 
