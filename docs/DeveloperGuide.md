@@ -245,7 +245,7 @@ Once the user enter the command is entered, the following **Sequence Diagram** b
 
 After the `LogicManager` receives the new `ReferralCommand` object, 
 
-1. The `ReferralCommand` then would call the appropriate methods from the `Model` to obtain the `DoctorList` and `PatientList`
+1. The `ReferralCommand` then would call the appropriate methods from the `Model` to obtain the `UserProfile`, DoctorList` and `PatientList`
 2. Based on the illustration, `ReferralCommand` then would filter and check for the existence of patient whose id is `P001` and doctor whose id is `D001`.
 
 Where the specific methods are shown in the sequence diagram shown below : 

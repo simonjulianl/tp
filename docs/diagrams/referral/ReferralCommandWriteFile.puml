@@ -9,14 +9,14 @@ end box
 participant ":Document" as Document MODEL_COLOR_T3
 
 activate ReferralCommand
-ReferralCommand -> ReferralCommand : createPdf(doctor, patient)
+ReferralCommand -> ReferralCommand : createPdf(user profile, doctor, patient)
 activate ReferralCommand
 create Document
 ReferralCommand -> Document
 activate Document
 return
 
-ReferralCommand -> Document: writeData(doctor, patient)
+ReferralCommand -> Document: writeData(user profile, doctor, patient)
 
 note left of Document
   writeData low-level
