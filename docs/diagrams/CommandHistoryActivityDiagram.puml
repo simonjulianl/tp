@@ -1,0 +1,19 @@
+@startuml
+start
+:User presses a key;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([up or down arrow key
+was pressed])
+    if () then ([up arrow key])
+        :retrieve valid previous command;
+    else ([down arrow key])
+        :retrieve valid next command;
+    endif
+:set text box to retrieved command;
+else ([else])
+endif
+stop
+@enduml

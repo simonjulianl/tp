@@ -27,4 +27,5 @@ else input tokens length is 2
     return approvedTargets
 end
 return reply
+return <<Exception>>\nParseException(reply)
 @enduml

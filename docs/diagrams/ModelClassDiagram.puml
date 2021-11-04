@@ -3,11 +3,21 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
+skinparam ClassAttributeFontColor #FFFFFF
+skinparam classAttributeIconSize 0
 
 Package Model <<Rectangle>>{
+
+class "{abstract}\nPerson" as Person {
+    -name: Name
+    -phone: Phone
+    -id: Id
+}
+
 Interface ReadOnlyAddressBook <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
 Interface Model <<Interface>>
+
 Class AddressBook
 Class ReadOnlyAddressBook
 Class Model
@@ -15,16 +25,40 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-
 Class UniquePersonList
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class Tag
+Class UniqueActivityList
+Class ObservableUserProfile
+
+Class Activity {
+    -description: Description
+    -title: Title
+    -startTime: Time
+    -endTime: Time
+    -activityId: ActivityId
+}
+Class Patient {
+    -height: Height
+    -weight: Weight
+    -age: Age
+    -gender: Gender
+    -bloodType: BloodType
+}
+Class Doctor {
+    -department: Department
+}
+Class UserProfile {
+    -organization: Organization
+    -position: Position
+    -department: Department
+}
 
 }
+
+show Patient members
+show Person members
+show Activity members
+show Doctor members
+show UserProfile members
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
@@ -34,21 +68,27 @@ AddressBook .up.|> ReadOnlyAddressBook
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
 Model .left.> ReadOnlyAddressBook
-ModelManager -left-> "1" AddressBook
+ModelManager -right-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+AddressBook *-left-> "1" UniqueActivityList
+AddressBook *-down-> "1" ObservableUserProfile
+AddressBook *--> "2" UniquePersonList
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+ObservableUserProfile --> "1" UserProfile
 
-ModelManager -->"~* filtered" Person
+UniquePersonList --> "*" Patient
+UniquePersonList --> "*" Doctor
+
+Patient -left-|> Person
+Doctor --|> Person
+
+Patient - Activity
+
+ModelManager -->"*" Patient
+ModelManager -->"*" Doctor
+ModelManager -left->"*" Activity
+
+UniqueActivityList -right-> "*" Activity
 @enduml
