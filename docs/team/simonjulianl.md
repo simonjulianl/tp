@@ -59,7 +59,7 @@ Given below are some of my notable contributions to the project.
       * Wrote about [referral feature](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#generating-medical-referral-feature).
 
 * **Review/Mentoring contributions**:
-  * Review 79 out of ~86 PRs created (excluding mine already). Mostly because I frequent GitHub most often and just ensure code consistency. The List of PRs reviewed and their comments can be found [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3A%40me).
+  * Review ~82 out of ~90 PRs created (excluding mine already). Mostly because I frequent GitHub most often and just ensure code consistency. The List of PRs reviewed and their comments can be found [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3A%40me).
 
 * **Community**:
     * Contributed to [forum discussions](https://nus-cs2103-ay2122s1.github.io/dashboards/contents/forum-activities.html), especially during iP days (examples: [1](https://github.com/nus-cs2103-AY2122S1/forum/issues/20#issuecomment-899572782) and [2](https://github.com/nus-cs2103-AY2122S1/forum/issues/179#issuecomment-912944865)). 

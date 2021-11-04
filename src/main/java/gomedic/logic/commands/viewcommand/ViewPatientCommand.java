@@ -4,8 +4,6 @@ import static gomedic.logic.parser.CliSyntax.PREFIX_TYPE_PATIENT;
 import static gomedic.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import gomedic.commons.core.Messages;
 import gomedic.logic.commands.Command;
 import gomedic.logic.commands.CommandResult;
@@ -36,15 +34,8 @@ public class ViewPatientCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Patient> lastShownList = model.getFilteredPatientList();
 
-        Patient patientToView = lastShownList
-            .stream()
-            .filter(patient -> patient
-                .getId()
-                .toString().equals(targetId.toString()))
-            .findFirst()
-            .orElse(null);
+        Patient patientToView = getSpecifiedPatient(model);
 
         if (patientToView == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_ID);
@@ -54,6 +45,14 @@ public class ViewPatientCommand extends Command {
         model.setModelBeingShown(ModelItem.VIEW_PATIENT);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_VIEW_PATIENT_SUCCESS, patientToView));
+    }
+
+    private Patient getSpecifiedPatient(Model model) {
+        return model.getFilteredPatientList()
+            .stream()
+            .filter(patient -> patient.getId().equals(targetId))
+            .findFirst()
+            .orElse(null);
     }
 
     @Override
