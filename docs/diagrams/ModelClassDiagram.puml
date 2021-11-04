@@ -3,9 +3,15 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
+skinparam ClassAttributeFontColor #FFFFFF
+skinparam classAttributeIconSize 0
 
 Package Model <<Rectangle>>{
-Abstract Class Person
+
+class "{abstract}\nPerson" as Person {
+    -name: Name
+    -phone: Phone
+}
 
 Interface ReadOnlyAddressBook <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
@@ -18,15 +24,44 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
+Class Id
+Class ActivityId
+Class DoctorId
+Class PatientId
 
 Class UniquePersonList
 Class UniqueActivityList
 Class ObservableUserProfile
-Class Activity
-Class Patient
-Class Doctor
-Class UserProfile
+
+Class Activity {
+    -description: Description
+    -title: Title
+    -startTime: Time
+    -endTime: Time
 }
+Class Patient {
+    -height: Height
+    -weight: Weight
+    -age: Age
+    -gender: Gender
+    -bloodType: BloodType
+}
+Class Doctor {
+    -department: Department
+}
+Class UserProfile {
+    -organization: Organization
+    -position: Position
+    -department: Department
+}
+
+}
+
+show Patient members
+show Person members
+show Activity members
+show Doctor members
+show UserProfile members
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
@@ -41,20 +76,28 @@ ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *-left-> "1" UniqueActivityList
-AddressBook *-left-> "1" ObservableUserProfile
+AddressBook *-down-> "1" ObservableUserProfile
 AddressBook *--> "1" UniquePersonList
 
 ObservableUserProfile --> "1" UserProfile
 
-UniquePersonList --> "~* all" Patient
-UniquePersonList --> "~* all" Doctor
+UniquePersonList --> "*" Patient
+UniquePersonList --> "*" Doctor
 
-Patient -up-|> Person
+Patient -left-|> Person
+Patient *-left-> PatientId
 Doctor --|> Person
+Doctor *-left-> DoctorId
+Activity *--> ActivityId
 
-ModelManager -->"~* filtered" Patient
-ModelManager -->"~* filtered" Doctor
-ModelManager -left->"~* filtered" Activity
+Person -up-> Id
+PatientId --|> Id
+DoctorId --|> Id
+ActivityId --|> Id
 
-UniqueActivityList -right-> "~* all" Activity
+ModelManager -->"*" Patient
+ModelManager -->"*" Doctor
+ModelManager -left->"*" Activity
+
+UniqueActivityList -right-> "*" Activity
 @enduml
