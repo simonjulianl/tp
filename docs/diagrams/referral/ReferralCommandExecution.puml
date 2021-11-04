@@ -16,6 +16,8 @@ activate LogicManager
 LogicManager -> ReferralCommand :execute(":Model")
 activate ReferralCommand
 
+
+
 ReferralCommand -> ReferralCommand : getSpecifiedDoctor()
 activate ReferralCommand
 
@@ -33,6 +35,10 @@ activate Model
 return patientList
 
 return patient
+
+ReferralCommand -> Model : getUserProfile()
+activate Model
+return userProfile
 
 ref over ReferralCommand : Create And Write Referral Pdf
 

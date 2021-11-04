@@ -15,10 +15,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[homepage](https://simonjulianl.github.io)]
 [[github](https://github.com/simonjulianl)]
-[[portfolio](team/simonjulianlauw.md)]
+[[portfolio](team/simonjulianl.md)]
 
 * Role: Team Lead
-* Responsibilities: Deliverables and deadlines
+* Responsibilities: Deliverables and Deadlines
 
 ## Radian Krisno
 
@@ -34,7 +34,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/yyhangz.png" width="200px">
 
-[[github](http://github.com/yyhangz)] [[portfolio](team/yapyuhang.md)]
+[[github](http://github.com/yyhangz)] [[portfolio](team/yyhangz.md)]
 
 * Role: Developer
 * Responsibilities: Code quality

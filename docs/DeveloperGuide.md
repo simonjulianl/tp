@@ -189,16 +189,33 @@ objects can be filtered by its internal id or by its starting time.
 
 **API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main/java/gomedic/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+![Storage Component Class Diagram](images/StorageClassDiagram.png)
 
-The `Storage` component,
+The `Storage` component handles the storing and loading of the data that GoMedic requires in order to function. 
+These include user-created data, such as the patients, activities, doctors, and the user profile that is stored in GoMedic, 
+as well as data related to the preferences and settings in GoMedic.
 
-* can save both address book data and user preference data in json format, and read them back into corresponding
+The `Storage` component makes use of the `Jackson` library to parse the data from GoMedic into a `JSON` format, and vice-versa.
+
+* To load data from the user's hard disk, it parses the data stored in human-readable `json` files that reside in the `[JAR file location]/data/` directory. 
+This directory is automatically created by GoMedic if it doesn't already exist (usually occurs during the first launch).
+* To store data from GoMedic into these files, it parses important attributes of these data (e.g. for a doctor, important information 
+would include the doctor's name, phone number and department) into a pre-defined `JSON` format. For doctors, this is defined 
+in [`JsonAdaptedDoctor.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main/java/gomedic/storage/JsonAdaptedDoctor.java).
+
+
+In general, the role of the `Storage` component is to:
+* Save both user-created data (which is abstracted as the **AddressBook**) and user preference data in json format, and read them back into corresponding
   objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only
-  the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects
-  that belong to the `Model`)
+* Make use of its inheritance from both `AddressBookStorage` and `UserPrefStorage` to play the role either one, depending on
+  context, and the necessary functions required of it. 
+
+**Note:** To implement the `Storage` architecture, dependencies on some classes in the `Model` component, 
+such as `Patient`, `Doctor`, `Activity` and `UserProfile` are required.
+This is because the `Storage` component's job is to save/retrieve objects that belong to the `Model`, hence it would need
+to access objects from these classes in order to acquire the necessary attributes from these objects to be stored. However,
+note that we do not show these dependencies in the diagram above, in order to preserve the high-level design representation of
+the `Storage` architecture, and to reduce unnecessary information overload.
 
 ### Common classes
 
@@ -276,7 +293,7 @@ Once the user enter the command is entered, the following **Sequence Diagram** b
 
 After the `LogicManager` receives the new `ReferralCommand` object, 
 
-1. The `ReferralCommand` then would call the appropriate methods from the `Model` to obtain the `DoctorList` and `PatientList`
+1. The `ReferralCommand` then would call the appropriate methods from the `Model` to obtain the `UserProfile`, DoctorList` and `PatientList`
 2. Based on the illustration, `ReferralCommand` then would filter and check for the existence of patient whose id is `P001` and doctor whose id is `D001`.
 
 Where the specific methods are shown in the sequence diagram shown below : 
