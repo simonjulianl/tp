@@ -95,6 +95,8 @@ PatientId --|> Id
 DoctorId --|> Id
 ActivityId --|> Id
 
+Patient - Activity
+
 ModelManager -->"*" Patient
 ModelManager -->"*" Doctor
 ModelManager -left->"*" Activity
