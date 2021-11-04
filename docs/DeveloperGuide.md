@@ -184,7 +184,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main/java/gomedic/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+![Storage Component Class Diagram](images/StorageClassDiagram.png)
 
 The `Storage` component handles the storing and loading of the data that GoMedic requires in order to function. 
 These include user-created data, such as the patients, activities, doctors, and the user profile that is stored in GoMedic, 
