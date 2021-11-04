@@ -26,6 +26,13 @@ optimized features for Command Line Interface.
 
 --------------------------------------------------------------------------------------------------------------------
 
+## **About the Diagrams**
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for of all diagrams in this developer guide 
+should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
@@ -150,9 +157,6 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 `execute("delete t/patient P001")` API call.
 
 ![Interactions Inside the Logic Component for the `delete t/patient P001` Command](images/DeleteSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeletePatientParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</div>
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -330,17 +334,6 @@ Given below is the sequence diagram when a user provides an example of a valid `
 
 ![ViewPatientCommand](images/ViewSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `ViewPatientParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</div>
-
-As seen in the diagram above, when `view` command is made by the user, following steps happened inside the logic:
-1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
-2. This results in `ViewPatientCommand` which will be executed by the `LogicManager`.
-3. Then, `ViewPatientCommand` will call its own `getSpecifiedPatient()` that triggers the call of `Model#getFilteredPatientList()`
-to get all patients in GoMedic and return the specific patientToView.
-4. Next, `ViewPatientCommand` will call `Model#viewPatient(patientToView)` to set the details to be similar to the specified patient to be viewed.
-5. The `ViewPatientCommand` will create a `CommandResult` and return it to `LogicManager`.
-
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -393,10 +386,6 @@ than attempting to perform the undo.
 The following sequence diagram shows how the undo operation works:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
 
 The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once
 to the right, pointing to the previously undone state, and restores the address book to that state.
