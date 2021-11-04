@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+package Model <<Rectangle>> {
+Abstract Class Id
+
+Class Doctor
+Class Patient
+Class Activity
+Class UserProfile
+
+Class Name
+Class Phone
+Class Tag
+
+Class ActivityId
+Class Description
+Class Title
+Class Time
+
+Class Department
+Class DoctorId
+
+Class Age
+Class BloodType
+Class Gender
+Class Height
+Class PatientId
+Class Weight
+
+Class Organization
+Class Department
+Class Position
+}
+
+Class HiddenOutside #FFFFFF
+Class HiddenOutside2 #FFFFFF
+Class HiddenOutside3 #FFFFFF
+Class HiddenOutside4 #FFFFFF
+
+HiddenOutside --> Doctor
+HiddenOutside --> Doctor
+HiddenOutside2 --> UserProfile
+HiddenOutside3 -right-> Activity
+HiddenOutside3 -right-> Activity
+HiddenOutside4 --> Patient
+HiddenOutside4 --> Patient
+
+PatientId --|> Id
+DoctorId --|> Id
+ActivityId -right-|> Id
+
+Patient *-up-> Age
+Patient *-up-> BloodType
+Patient *-up-> Gender
+Patient *--> Height
+Patient *--> Weight
+Patient *--> PatientId
+Patient *--> Phone
+Patient *--> Name
+Patient *-right-> "*" Tag
+
+Doctor *--> Name
+Doctor *--> Phone
+Doctor *--> DoctorId
+Doctor *--> Department
+
+Activity *--> ActivityId
+Activity *--> "2" Time
+Activity *-up-> Title
+Activity *-up-> Description
+Activity - Patient
+UserProfile *-up-> Name
+UserProfile *--> Organization
+UserProfile *--> Position
+UserProfile *--> Department
+
+@enduml

@@ -160,25 +160,30 @@ How the parsing works:
 
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main/java/gomedic/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
-
+![ModelClassDiagram](images/ModelClassDiagram.png)
+![EntryModelClassDiagram](images/EntryModelClassDiagram.png)
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which
-  is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to
-  this list so that the UI automatically updates when the data in the list change.
+* stores address book data, which consists of `Doctor`, `Patient`, `Activity` objects and one `UserProfile` object.
+
+* `Doctor` and `Patient` Objects are each contained within their own `UniquePersonList<Doctor>` or 
+`UniquePersonList<Patient>` object respectively while `Activity` objects are contained within a `UniqueActivityList` object.
+
+* stores the currently 'selected' `Doctor` or `Patient` objects (e.g., results of a search query) as a separate _filtered_ list which
+is exposed to outsiders as an unmodifiable `ObservableList<Doctor>` or `ObservableList<Patient>`.
+
+* stores the currently 'selected' `Activity` objects (e.g., results of a search query) as a separate _filtered_ list which
+is exposed to outsiders as an unmodifiable `ObservableList<Activity>`. `Activity`
+objects can be filtered by its internal id or by its starting time.
+
+*  `ObservableList<T>` objects are objects that can be 'observed'. e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as
   a `ReadOnlyUserPref` objects.
+
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they
   should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
 
 ### Storage component
 
@@ -205,10 +210,19 @@ Classes used by multiple components are in the `gomedic.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Command History feature
+
+Command history feature helps the user keep track of all commands inputted in the current session and allows navigation
+back and forth between all the commands entered in the instance so far.
+
+Given below is an activity diagram showing the event flow when the user executes a key press:
+
+![CommandHistoryActivityDiagram](images/CommandHistoryActivityDiagram.png)
+
 ### Suggestions feature
 
 The suggestions feature is facilitated by `Messages`. It is a class consisting of static immutable string messages for 
-various fixed error outputs for GoMedic. It implements the following operation:
+various fixed error outputs for GoMedic. It also implements the following operations:
 
 * `Messages#getSuggestions(String command)` — Returns suggested commands within GoMedic based on the incorrect command
 input.
@@ -216,6 +230,23 @@ input.
 Given below is a sequence diagram when a user provides an erroneous input, "adl t/patent".
 
 ![SuggestionsSequenceDiagram](images/SuggestionsSequenceDiagram.png)
+
+After GoMedic parses the invalid command,
+
+1. Each erroneous command is split into its type, which is the first word of the command, and the target, which is the 
+rest of the command, if it exists.
+2. The method in the `Messages` class does the appropriate function call(s) suitable for the nature of the erroneous command input
+given by the alternate paths in the diagram. 
+3. The outputs of the function calls are then compiled and then returned to the `AddressBookParser` to be thrown as an
+exception with `reply` as the error message to the user.
+
+**Note:**
+
+* `generateTypeSuggestions` and `generateTargetSuggestions` are private methods only accessed from within getSuggestions and nowhere else.
+
+* The suggestions are generated according to how close the erroneous commands are to the existing commands using the
+Levenshtein Distance metric and then ranked. The final output is an intersection of the suggestions generated from the 
+two suggestion functions mentioned above.
 
 ### Generating Medical Referral Feature 
 
