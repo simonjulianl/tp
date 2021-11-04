@@ -176,7 +176,6 @@ How the parsing works:
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-T15-1/tp/tree/master/src/main/java/gomedic/model/Model.java)
 
 ![ModelClassDiagram](images/ModelClassDiagram.png)
-![EntryModelClassDiagram](images/EntryModelClassDiagram.png)
 
 The `Model` component,
 
