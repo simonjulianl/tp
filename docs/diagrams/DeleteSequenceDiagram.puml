@@ -13,10 +13,13 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete t/patient P001")
+[-> LogicManager : execute("...")
+note right
+  ... indicates delete t/patient P001
+end note
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete t/patient P001")
+LogicManager -> AddressBookParser : parseCommand("...")
 activate AddressBookParser
 
 create DeletePatientParser

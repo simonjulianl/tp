@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ViewPatientParser" as ViewPatientParser LOGIC_COLOR
+participant "d:ViewPatientCommand" as ViewPatientCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("...")
+note right
+  ... indicates view t/patient P001
+end note
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("...")
+activate AddressBookParser
+
+create ViewPatientParser
+AddressBookParser -> ViewPatientParser
+activate ViewPatientParser
+
+ViewPatientParser --> AddressBookParser
+deactivate ViewPatientParser
+
+AddressBookParser -> ViewPatientParser : parse("P001")
+activate ViewPatientParser
+
+create ViewPatientCommand
+ViewPatientParser -> ViewPatientCommand
+activate ViewPatientCommand
+
+ViewPatientCommand --> ViewPatientParser : d
+deactivate ViewPatientCommand
+
+ViewPatientParser --> AddressBookParser : d
+deactivate ViewPatientParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ViewPatientParser -[hidden]-> AddressBookParser
+destroy ViewPatientParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> ViewPatientCommand : execute()
+activate ViewPatientCommand
+
+ViewPatientCommand -> ViewPatientCommand : getSpecifiedPatient()
+activate ViewPatientCommand
+
+ViewPatientCommand -> Model : getFilteredPatientList()
+activate Model
+return patientList
+
+return patientToView
+
+ViewPatientCommand -> Model : viewPatient(patientToView)
+activate Model
+
+Model --> ViewPatientCommand
+deactivate Model
+
+create CommandResult
+ViewPatientCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ViewPatientCommand
+deactivate CommandResult
+
+ViewPatientCommand --> LogicManager : result
+deactivate ViewPatientCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

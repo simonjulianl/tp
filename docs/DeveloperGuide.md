@@ -3,6 +3,17 @@ layout: page
 title: Developer Guide
 ---
 
+## **Introduction**
+
+![logo](images/logo.png)
+
+GoMedic is a **cross-platform desktop application written in Java and designed for doctors and medical residents to
+manage contacts and patient details**. We aim for GoMedic to be used by someone who can type fast and take advantage of the
+optimized features for Command Line Interface.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Table of Contents**
 * Table of Contents
 {:toc}
 
@@ -140,7 +151,7 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 
 ![Interactions Inside the Logic Component for the `delete t/patient P001` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeletePatientParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
@@ -150,10 +161,10 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 How the parsing works:
 
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a
-  placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse
-  the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as
+  placeholder for the specific command name e.g., `AddPatientParser`) which uses the other classes shown above to parse
+  the user command and create a `XYZCommand` object (e.g., `AddPatientCommand`) which the `AddressBookParser` returns back as
   a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser`
+* All `XYZCommandParser` classes (e.g., `AddPatientParser`, `DeletePatientParser`, ...) inherit from the `Parser`
   interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -308,6 +319,27 @@ As seen in the diagram above, after the `LogicManager` receives the `ProfileComm
 6. Finally, `LogicManager` calls `Storage#saveAddressBook(addressBook)` to update the new user profile in the storage and returns
 the `CommandResult` to be displayed to the user.
 
+### View feature
+This feature allows user to view patient's details as PatientTable does not show complete details of the patients.
+
+This feature can be accessed using the `view` command, which currently only support the viewing of patient which follows
+the following format `view t/patient PATIENT_ID` where `PATIENT_ID` is a valid id of a patient.
+
+Given below is the sequence diagram when a user provides an example of a valid `view` command
+(`view t/patient P001`) to see the complete details of the patient.
+
+![ViewPatientCommand](images/ViewSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `ViewPatientParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+As seen in the diagram above, when `view` command is made by the user, following steps happened inside the logic:
+1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
+2. This results in `ViewPatientCommand` which will be executed by the `LogicManager`.
+3. Then, `ViewPatientCommand` will call its own `getSpecifiedPatient()` that triggers the call of `Model#getFilteredPatientList()`
+to get all patients in GoMedic and return the specific patientToView.
+4. Next, `ViewPatientCommand` will call `Model#viewPatient(patientToView)` to set the details to be similar to the specified patient to be viewed.
+5. The `ViewPatientCommand` will create a `CommandResult` and return it to `LogicManager`.
 
 ### \[Proposed\] Undo/redo feature
 
@@ -497,6 +529,12 @@ The following activity diagram summarizes what happens when a user executes a ne
     * 1a1. GoMedic shows a feedback to the user about the missing data.
 
       Use Case ends.
+    
+* 2a. Wrong patient details (not following the given constraints)
+    
+    * 2a1. GoMedic shows a feedback to the user about the violation.
+        
+      Use Case ends.
 
 **Use Case: [UC2] - Delete an existing patient record**
 
@@ -589,6 +627,45 @@ entries corresponding to the user's input.
 * 1b GoMedic displays an error when user input is in incorrect format.
     Return.
 
+**Use Case: [UC6] - View an existing patient record**
+
+**MSS**
+
+1. User requests to list all patients.
+2. GoMedic shows a list of patients.
+3. User requests to view a specific patient in the list.
+4. GoMedic shows the person details
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. GoMedic shows a feedback to the user about invalid index.
+
+      Use case ends.
+
+**Use Case: [UC7] - Clear all doctors records in GoMedic**
+
+**MSS**
+
+1. User requests to list all doctors.
+2. GoMedic shows a list of doctors.
+3. User requests to clear all records of the doctors.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+    
 *{More to be added}*
 
 ### Non-Functional Requirements
