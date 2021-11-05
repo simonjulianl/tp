@@ -96,6 +96,20 @@ public class SampleDataUtil {
                         new Time(LocalDateTime.now().plusDays(5).minusHours(3)),
                         new Title("Follow up with Simon"),
                         new Description("Check his condition after doing CS2103T.")
+                ),
+                new Activity(new ActivityId(6),
+                        new PatientId(4),
+                        new Time(LocalDateTime.now().plusDays(10).minusHours(5)),
+                        new Time(LocalDateTime.now().plusDays(10).minusHours(3)),
+                        new Title("Radian Health Checkup"),
+                        new Description("Check his headache condition again.")
+                ),
+                new Activity(new ActivityId(7),
+                        new PatientId(5),
+                        new Time(LocalDateTime.now().plusDays(14).minusHours(10)),
+                        new Time(LocalDateTime.now().plusDays(14).minusHours(8)),
+                        new Title("Rano checkup"),
+                        new Description("Check his schizophrenia condition, often forget things.")
                 )
         };
     }
@@ -138,6 +152,28 @@ public class SampleDataUtil {
                         new Height("160"),
                         new Weight("90"),
                         getTagSet("Stomach Ulcer")
+                ),
+                new Patient(
+                        new Name("Radian"),
+                        new Phone("93413436"),
+                        new PatientId(4),
+                        new Age("15"),
+                        new BloodType("AB+"),
+                        new Gender("M"),
+                        new Height("190"),
+                        new Weight("75"),
+                        getTagSet("Headache")
+                ),
+                new Patient(
+                        new Name("Rano Krisno"),
+                        new Phone("91239876"),
+                        new PatientId(5),
+                        new Age("80"),
+                        new BloodType("A+"),
+                        new Gender("M"),
+                        new Height("170"),
+                        new Weight("50"),
+                        getTagSet("Schizophrenia")
                 )
         };
     }
