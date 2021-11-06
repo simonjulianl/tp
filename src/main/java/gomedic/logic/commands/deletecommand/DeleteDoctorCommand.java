@@ -49,7 +49,7 @@ public class DeleteDoctorCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_DOCTOR_ID);
         }
         model.deleteDoctor(doctorToDelete);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, doctorToDelete));
     }
 

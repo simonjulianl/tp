@@ -41,7 +41,7 @@ public class ViewPatientCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_ID);
         }
 
-        model.viewPatient(patientToView);
+        model.setViewPatient(patientToView);
         model.setModelBeingShown(ModelItem.VIEW_PATIENT);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_VIEW_PATIENT_SUCCESS, patientToView));

@@ -514,7 +514,7 @@ public class CommandTestUtil {
         }
 
         @Override
-        public void viewPatient(Patient target) {
+        public void setViewPatient(Patient target) {
             // noop
         }
     }

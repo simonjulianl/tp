@@ -23,6 +23,7 @@ optimized features for Command Line Interface.
 * Project bootstrapped from: [SE-EDU Address Book 3](https://se-education.org/addressbook-level3/)
 * Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson)
   , [JUnit5](https://github.com/junit-team/junit5), [iTextPdf](https://itextpdf.com/en)
+* The feature `TableView` mainly inspired by [this `TableView` article](http://tutorials.jenkov.com/javafx/tableview.html).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -689,7 +690,31 @@ testers are expected to do more *exploratory* testing.
 
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-    
+
+### Adding an activity
+
+1. Add a new activity by supplying all necessary parameters. Do the test cases sequentially to ensure correct id number is created.
+
+    1. Prerequisites: Ensure you activities data are empty by using `clear t/activity` command and check it again using `list t/activity` command. The table should show "no activities to be displayed".
+
+    2. Test case: `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Activity 1 d/Discussing the future of CS2103T-T15 Group!`<br>
+       Expected: New activity whose id `A001` is created, confirmation is shown in feedback box, and the activity table is shown.
+
+    3. Test case: `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Activity 2`<br>
+       Expected: Conflicting activity error is shown.
+
+    4. Test case: `add t/activity s/15/09/2023 14:00 e/15/09/2023 15:00 ti/Activity 3`<br>
+       Expected: New activity whose id `A002` is created with empty description. 
+   
+    5. Test case: `add t/activity s/15-09-2024 14:00 e/15-09-2024 15:00 ti/Activity 4`<br>
+       Expected: New activity whose id `A003` is created with empty description despite different datetime format supplied.
+
+    6. Test case: `add t/activity s/15-09-2025 15:00 e/15-09-2025 14:00 ti/Activity 5`<br>
+       Expected: Error message start time must be strictly less than end time is shown in the feedback box.
+   
+    7. Other incorrect `add t/activity` commands to try: `add t/activities`, invalid parameters, `...` <br>
+       Expected: Error message shown in the feedback box.
+   
 ### Deleting an activity
 
 1. Deleting an activity while all activities are being shown
@@ -704,8 +729,8 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `delete t/activity A001`<br>
        Expected: No activity is deleted. Error details shown in the feedback box. 
 
-    4. Other incorrect delete commands to try: `delete t/activity`, `delete t/doctor`, `delete t/activity x`, `...` (where x is an invalid id)<br>
-       Expected: Similar to previous for each patient, doctor and activity model.
+    4. Other incorrect delete activity commands to try: `delete t/activity`, `delete t/activities`, `delete t/activity x` (where x is an invalid id), `...` <br>
+       Expected: Error message shown in the feedback box.
 
 ### Finding a patient, doctor or activity
 1. Searching for a doctor or a patient
@@ -721,3 +746,8 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect find commands to try: `find t\patient Joe` 
         Expected: Error message as a flag is not specified prior to the keyword. 
 
+## **Appendix: Effort**
+1. To implement the responsive table view, we need to mainly refer to  [this `TableView` article](http://tutorials.jenkov.com/javafx/tableview.html). 
+I need to learn about `tableCellFactory` also to change the height dynamically based on the length of the data inside the cell.
+2. The implementation of `CRUD` methods of `Activity`, `Doctor` and `Patient` mainly refers from AB3 Person and their commands. However, we create all our fields ourselves and test them. For `Time` field, it is mainly a wrapper over `LocalDateTime` class provided by Java. 
+3. We overhaul the entire `Ui` based on the Figma, therefore we also create a new side window, and modifies the `CSS` moderately. We also discard the `personView` and `personCard` as they are no longer used. 

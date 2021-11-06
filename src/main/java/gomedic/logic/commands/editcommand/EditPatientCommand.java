@@ -127,7 +127,7 @@ public class EditPatientCommand extends Command {
         Patient editedPatient = createEditedPatient(patientToEdit, editPatientDescriptor);
 
         model.setPatient(patientToEdit, editedPatient);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
         model.setModelBeingShown(ModelItem.PATIENT);
         return new CommandResult(String.format(MESSAGE_EDIT_PATIENT_SUCCESS, editedPatient));
