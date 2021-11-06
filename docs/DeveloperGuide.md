@@ -639,7 +639,7 @@ entries corresponding to the user's input.
   
     Use Case ends.
 
-* 1b. An incorrect detail, that does not conform to the constraints imposed by GoMedic, is supplied by the user
+* 1b. An incorrect detail, that does not conform to the constraints imposed by GoMedic, is supplied by the user.
 
     * 1b1. GoMedic shows a feedback to the user about the detail of the constraint that is violated. 
 
@@ -745,3 +745,31 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect find commands to try: `find t\patient Joe` 
         Expected: Error message as a flag is not specified prior to the keyword. 
 
+## Listing all activities
+
+### Listing all patients
+
+### Listing all doctors
+
+### Editing the details of a doctor
+
+### Changing the user profile
+
+1. Changing the user profile shown on the left side window       
+    
+    1. Test case: `profile n/Jon Snow p/Consultant de/Department of Cardiology o/National University Hospital`
+        Expected: The feedback box displays the confirmation of the change of user profile, 
+        and GoMedic updates the left side window with the corresponding information.
+       
+    2. Test case: `profile n/Bernice Yu p/Associate Professor de/Department of Radiology`
+        Expected: The feedback box displays an error message stating that an invalid command format has been detected. 
+        This corresponds to the fact that the user has not supplied his/her `ORGANIZATION` in the command. 
+       
+    3. Test case: `profile n/Bernice Yu p/Associate. Professor de/Department of Radiology o/Tan Tock Seng Hospital`
+        Expected: The feedback box displays an error message stating that the `POSITION` parameter should only contain alphanumeric characters and spaces. 
+        This corresponds to the fact that the user included an illegal character `.` in the `POSITION` parameter of the command. 
+
+    4. Other incorrect `profile` commands to try: Commands that resemble the command in test case 1, but include 
+        the illegal character `.` in its `NAME`, `DEPARTMENT` or `ORGANIZATION` parameters.
+        Expected: The feedback box displays an error message stating that the constraints for those parameters have been 
+        violated, similar to that in test case 3.
