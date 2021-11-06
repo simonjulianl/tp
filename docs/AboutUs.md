@@ -52,7 +52,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/ramaven.png" width="200px">
 
 [[github](http://github.com/ramaven)]
-[[portfolio](team/ramavenkatesh.md)]
+[[portfolio](team/ramaven.md)]
 
 * Role: Developer
 * Responsibilities: UI
