@@ -411,9 +411,10 @@ After the `LogicManager` receives the new `ViewPatientCommand` object,
 
 * manage patients contacts faster than a typical mouse/GUI driven app
 * able to manage other doctors' details
-* able to store sheer amount of patient details and retrieve them very fast
-* able to compare patient medical histories very fast
-* able to remind user of upcoming activities and appointments
+* able to store large amount of patients' medical data
+* able to retrieve the detailed information of a patient very quickly
+* able to find certain particular patients, activities, or doctors
+* able to display upcoming activities and appointments to the user
 * easy to use and would give suggestion on the closest command whenever typo is made
 
 ### User stories
@@ -625,6 +626,29 @@ entries corresponding to the user's input.
 * 2a. The list is empty.
 
   Use case ends.
+  
+**Use Case: [UC8] - Changing the user's profile**
+
+**MSS**
+
+1. User requests to change his/her profile on GoMedic
+2. GoMedic shows confirmation that the user's profile has been updated, and displays the new profile
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The details supplied by the user is incomplete.
+
+  * 1a1. GoMedic shows a feedback to the user about the necessary details that need to be supplied.
+  
+    Use Case ends.
+
+* 1b. An incorrect detail, that does not conform to the constraints imposed by GoMedic, is supplied by the user.
+
+    * 1b1. GoMedic shows a feedback to the user about the detail of the constraint that is violated. 
+
+      Use case ends.
     
 *{More to be added}*
 
@@ -733,7 +757,7 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `delete t/activity A001`<br>
        Expected: No activity is deleted. Error details shown in the feedback box. 
 
-    4. Other incorrect delete activity commands to try: `delete t/activity`, `delete t/activities`, `delete t/activity x` (where x is an invalid id), `...` <br>
+    4. Other incorrect `delete t/activity` commands to try: `delete t/activity`, `delete t/activities`, `delete t/activity x` (where x is an invalid id), `...` <br>
        Expected: Error message shown in the feedback box.
 
 ### Editing an activity
@@ -756,8 +780,116 @@ testers are expected to do more *exploratory* testing.
    `edit t/activity i/A001 s/15/09/2022 14:00 e/15/09/2022 15:00`<br>
        Expected: Error message shows the activity's timing is conflicting with another activity.
 
-    6. Other incorrect delete activity commands to try: `edit t/activity i/a001 pi/p001` (cannot change patient id), `delete t/activities`, `edit t/activity` (no parameters), `...` <br>
+    6. Other incorrect `edit t/activity` commands to try: `edit t/activity i/a001 pi/p001` (cannot change patient id), `edit t/activities`, `edit t/activity` (no parameters), `...` <br>
       Expected: Error message shown in the feedback box.
+
+### Listing all activities
+
+1. Listing activities in GoMedic
+
+    1. **Prerequisites**: Clear all existing activities in GoMedic using `clear t/activity` command. 
+       Add 2 new activities by running `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/team meeting d/CS2103t group discussion` and 
+       `add t/activity s/14/09/2022 11:00 e/14/09/2022 12:00 ti/Lunch with CEO d/Lunch to discuss promotion` in order. 
+       Conduct the following tests in sequential order. 
+
+    2. Test case: `list t/activity`<br>
+       Expected: GoMedic shows a table with 2 activities, one with id `A001` and another with id `A002`.
+
+    3. Test case: `list t/activity s/START`<br>
+       Expected: GoMedic shows both activities, but the activity with id `A002` is shown before the activity with id `A001`.
+
+    4. Test case: `list t/activity s/START p/ALL`<br>
+       Expected: GoMedic shows both activities, but the activity with id `A002` is shown before the activity with id `A001`.
+
+    5. Test case: `list t/activity p/HEHE`<br>
+       Expected: The feedback box displays an error message about the parameter supplied.
+    
+    6. Other valid `list t/activity` commands to try: First, add an activity whose date for the `START_TIME` and `END_TIME` 
+       corresponds to date that the user tests the `list t/activity` command. Then, run `list t/activity s/ID p/TODAY`. <br>
+       Expected: GoMedic shows a table of activities that includes the activity mentioned above.
+     
+    7. Other invalid `list t/activity` commands to try: `list t/activites`, `list t/activity s/HOHO` (invalid parameter supplied), `...` <br>
+       Expected: Feedback box displays error message indicating an invalid command / parameter constraints violations.
+
+
+### Listing all patients
+
+1. Listing patients in GoMedic
+
+    1. **Prerequisites**: Clear all existing patients in GoMedic using `clear t/patient` command. 
+       Add 2 new patients by running `add t/patient n/John Smith p/98765432 a/45 b/AB+ g/M h/175 w/70 m/heart failure m/diabetes` and 
+       `add t/patient n/Joan Lim p/12345678 a/30 b/A- g/F h/165 w/45 m/high blood pressure` in order. 
+       Conduct the following tests in sequential order. 
+
+    2. Test case: `list t/patient`<br>
+       Expected: GoMedic shows a table with 2 patients, one with id `P001` and another with id `P002`.
+
+    3. Test case: `list t/patient extra parameters supplied here`<br>
+       Expected: GoMedic shows a table with 2 patients, one with id `P001` and another with id `P002`, as it ignores the 
+       extra parameters supplied.
+     
+    4. Other invalid `list t/patient` commands to try: `list t/patients` <br>
+       Expected: Feedback box displays error message indicating an invalid command.
+
+### Listing all doctors
+
+1. Listing doctors in GoMedic
+
+    1. **Prerequisites**: Clear all existing doctors in GoMedic using `clear t/doctor` command. 
+       Add 2 new doctors by running `add t/doctor n/John Smith p/98765432 de/Cardiology` and 
+       `add t/doctor n/Tom Hill p/12345678 de/Radiology` in order. 
+       Conduct the following tests in sequential order. 
+
+    2. Test case: `list t/doctor`<br>
+       Expected: GoMedic shows a table with 2 doctors, one with id `D001` and another with id `D002`.
+
+    3. Test case: `list t/doctor extra parameters supplied here`<br>
+       Expected: GoMedic shows a table with 2 doctors, one with id `D001` and another with id `D002`, as it ignores the 
+       extra parameters supplied.
+     
+    4. Other invalid `list t/doctor` commands to try: `list t/doctors` <br>
+       Expected: Feedback box displays error message indicating an invalid command.
+
+### Editing a doctor
+
+1. Editing an existing doctor
+
+    1. **Prerequisites**: Clear all existing doctors in GoMedic using `clear t/doctor` command. 
+   Add a new doctor using `add t/doctor` command. Ensure that a doctor with id `D001` exists by executing `list t/doctor`. 
+   Conduct the following tests in sequential order. 
+
+    2. Test case: `edit t/doctor i/D001 n/Jon Snow`<br>
+       Expected: Doctor whose id is `D001` has his/her name changed to "Jon Snow".
+
+    3. Test case: `edit t/doctor i/D001 n/Jon Low p/98765432`<br>
+       Expected: Doctor whose id is `D001` has his/her name changed to "Jon Low", and phone number changed to "98765432".
+
+    4. Test case: `edit t/doctor i/D001 n/Jon Low p/9191`<br>
+       Expected: Feedback box displays constraint violation error message, indicating that the phone number has to be entirely numeric and exactly 8 digits.
+
+    6. Other incorrect `edit t/doctor` commands to try: `edit t/doctor` (no parameters supplied), `edit t/doctor n/` (no value supplied for `NAME` parameter), `...` <br>
+      Expected: Feedback box displays error message indicating an invalid command / invalid command format / parameter constraints violations.
+
+### Changing the user profile
+
+1. Changing the user profile shown on the left side window       
+    
+    1. Test case: `profile n/Jon Snow p/Consultant de/Department of Cardiology o/National University Hospital`
+        Expected: The feedback box displays the confirmation of the change of user profile, 
+        and GoMedic updates the left side window with the corresponding information.
+       
+    2. Test case: `profile n/Bernice Yu p/Associate Professor de/Department of Radiology`
+        Expected: The feedback box displays an error message stating that an invalid command format has been detected. 
+        This corresponds to the fact that the user has not supplied his/her `ORGANIZATION` in the command. 
+       
+    3. Test case: `profile n/Bernice Yu p/Associate. Professor de/Department of Radiology o/Tan Tock Seng Hospital`
+        Expected: The feedback box displays an error message stating that the `POSITION` parameter should only contain alphanumeric characters and spaces. 
+        This corresponds to the fact that the user included an illegal character `.` in the `POSITION` parameter of the command. 
+
+    4. Other incorrect `profile` commands to try: Commands that resemble the command in test case 1, but include 
+        the illegal character `.` in its `NAME`, `DEPARTMENT` or `ORGANIZATION` parameters.
+        Expected: The feedback box displays an error message stating that the constraints for those parameters have been 
+        violated, similar to that in test case 3.
 
 ### Creating A Referral
 
@@ -772,7 +904,7 @@ testers are expected to do more *exploratory* testing.
        Expected: A new referral called `Referral.pdf` is created in the `data` folder. The file should look like the following image but the date should be the date where you run the referral command.<br>
     ![referral](images/referral.png)
 
-    3. Other incorrect delete activity commands to try: `referral ti/test di/d002 pi/p003` (non-existent doctor and patient id), `...` <br>
+    3. Other incorrect `referral` commands to try: `referral ti/test di/d002 pi/p003` (non-existent doctor and patient id), `...` <br>
         Expected: Error message shown in the feedback box.
 
 ## **Appendix: Effort**
