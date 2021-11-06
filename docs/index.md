@@ -23,3 +23,4 @@ interactions happen using a CLI (Command Line Interface).
 * Project bootstrapped from: [SE-EDU Address Book 3](https://se-education.org/addressbook-level3/)
 * Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson)
   , [JUnit5](https://github.com/junit-team/junit5), [iTextPdf](https://itextpdf.com/en)
+* The feature `TableView` mainly inspired by [this `TableView` article](http://tutorials.jenkov.com/javafx/tableview.html).
