@@ -470,9 +470,10 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * manage patients contacts faster than a typical mouse/GUI driven app
 * able to manage other doctors' details
-* able to store sheer amount of patient details and retrieve them very fast
-* able to compare patient medical histories very fast
-* able to remind user of upcoming activities and appointments
+* able to store large amount of patients' medical data
+* able to retrieve the detailed information of a patient very quickly
+* able to find certain particular patients, activities, or doctors
+* able to display upcoming activities and appointments to the user
 * easy to use and would give suggestion on the closest command whenever typo is made
 
 ### User stories
@@ -684,6 +685,29 @@ entries corresponding to the user's input.
 * 2a. The list is empty.
 
   Use case ends.
+  
+**Use Case: [UC8] - Changing the user's profile**
+
+**MSS**
+
+1. User requests to change his/her profile on GoMedic
+2. GoMedic shows confirmation that the user's profile has been updated, and displays the new profile
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The details supplied by the user is incomplete.
+
+  * 1a1. GoMedic shows a feedback to the user about the necessary details that need to be supplied.
+  
+    Use Case ends.
+
+* 1b. An incorrect detail, that does not conform to the constraints imposed by GoMedic, is supplied by the user
+
+    * 1b1. GoMedic shows a feedback to the user about the detail of the constraint that is violated. 
+
+      Use case ends.
     
 *{More to be added}*
 
