@@ -5,12 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":ViewPatientParser" as ViewPatientParser LOGIC_COLOR
-participant "d:ViewPatientCommand" as ViewPatientCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
-end box
-
-box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant "v:ViewPatientCommand" as ViewPatientCommand LOGIC_COLOR
 end box
 
 [-> LogicManager : execute("...")
@@ -36,46 +31,18 @@ create ViewPatientCommand
 ViewPatientParser -> ViewPatientCommand
 activate ViewPatientCommand
 
-ViewPatientCommand --> ViewPatientParser : d
+ViewPatientCommand --> ViewPatientParser : v
 deactivate ViewPatientCommand
 
-ViewPatientParser --> AddressBookParser : d
+ViewPatientParser --> AddressBookParser : v
 deactivate ViewPatientParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 ViewPatientParser -[hidden]-> AddressBookParser
 destroy ViewPatientParser
 
-AddressBookParser --> LogicManager : d
+AddressBookParser --> LogicManager : v
 deactivate AddressBookParser
 
-LogicManager -> ViewPatientCommand : execute()
-activate ViewPatientCommand
+ref over LogicManager, ViewPatientCommand : View Patient Command Execution
 
-ViewPatientCommand -> ViewPatientCommand : getSpecifiedPatient()
-activate ViewPatientCommand
-
-ViewPatientCommand -> Model : getFilteredPatientList()
-activate Model
-return patientList
-
-return patientToView
-
-ViewPatientCommand -> Model : viewPatient(patientToView)
-activate Model
-
-Model --> ViewPatientCommand
-deactivate Model
-
-create CommandResult
-ViewPatientCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> ViewPatientCommand
-deactivate CommandResult
-
-ViewPatientCommand --> LogicManager : result
-deactivate ViewPatientCommand
-
-[<--LogicManager
-deactivate LogicManager
 @enduml

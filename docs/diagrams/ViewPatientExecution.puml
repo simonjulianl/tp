@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+mainframe **sd** View Patient Command Execution
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "v:ViewPatientCommand" as ViewPatientCommand LOGIC_COLOR
+participant "c:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+activate LogicManager
+LogicManager -> ViewPatientCommand :execute()
+activate ViewPatientCommand
+
+ViewPatientCommand -> ViewPatientCommand : getSpecifiedPatient()
+activate ViewPatientCommand
+
+ViewPatientCommand -> Model : getFilteredPatientList()
+activate Model
+return patientList
+
+return patientToView
+
+ViewPatientCommand -> Model : viewPatient(patientToView)
+activate Model
+
+Model --> ViewPatientCommand
+deactivate Model
+
+create CommandResult
+ViewPatientCommand -> CommandResult
+activate CommandResult
+return c
+
+return result
+
+'Show destructor'
+LogicManager -[hidden]-> ViewPatientCommand:
+destroy ViewPatientCommand
+[<--LogicManager:
+
+deactivate LogicManager
+@enduml
