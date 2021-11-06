@@ -52,7 +52,7 @@ public class DeletePatientCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_ID);
         }
         model.deletePatient(patientToDelete);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         model.setModelBeingShown(ModelItem.PATIENT);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
         model.deletePatientAssociatedAppointments(patientToDelete);

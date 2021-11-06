@@ -122,7 +122,7 @@ public class EditActivityCommand extends Command {
         }
 
         model.setActivity(activityToEdit, editedActivity);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         model.updateFilteredActivitiesList(PREDICATE_SHOW_ALL_ITEMS);
         if (!(model.getModelBeingShown().getValue().equals(ModelItem.ACTIVITY_ID.ordinal())
                 || model.getModelBeingShown().getValue().equals(ModelItem.ACTIVITY_START_TIME.ordinal()))) {

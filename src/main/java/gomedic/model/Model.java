@@ -187,7 +187,7 @@ public interface Model {
      *
      * @param target Target patient with the correct details.
      */
-    void viewPatient(Patient target);
+    void setViewPatient(Patient target);
 
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();

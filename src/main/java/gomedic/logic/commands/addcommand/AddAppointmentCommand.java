@@ -105,7 +105,7 @@ public class AddAppointmentCommand extends Command {
         }
 
         model.addActivity(toAdd);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         model.setModelBeingShown(ModelItem.ACTIVITY_ID);
         model.updateFilteredActivitiesList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

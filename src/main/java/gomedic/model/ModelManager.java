@@ -263,7 +263,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void viewPatient(Patient target) {
+    public void setViewPatient(Patient target) {
         internalPatientToView.setValue(target);
     }
 

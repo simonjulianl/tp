@@ -108,7 +108,7 @@ public class AddPatientCommand extends Command {
         }
 
         model.addPatient(toAdd);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         model.setModelBeingShown(ModelItem.PATIENT);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

@@ -36,7 +36,7 @@ public class ClearPatientCommand extends Command {
         newAddressBook.setDoctors(oldAddressBook.getDoctorListSortedById());
         model.setAddressBook(newAddressBook);
         model.setModelBeingShown(ModelItem.PATIENT);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
