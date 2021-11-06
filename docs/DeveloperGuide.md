@@ -762,7 +762,7 @@ testers are expected to do more *exploratory* testing.
 
 2. Add a new patient by supplying all necessary parameters. Do the test cases sequentially to ensure correct id number is created.
 
-    1. **Prerequisite**s: Ensure you patients data are empty by using `clear t/patient` command and check it again using `list t/patient` command. The table should show "no patients to be displayed".
+    1. **Prerequisite**: Ensure you patients data are empty by using `clear t/patient` command and check it again using `list t/patient` command. The table should show "no patients to be displayed".
 
     2. Test case: `add t/patient n/John Smith p/98765432 a/45 b/AB+ g/M h/175 w/70 m/heart failure m/diabetes`<br>
        Expected: New patient whose id `P001` is created, confirmation is shown in feedback box, and the patient table is shown.
@@ -798,7 +798,7 @@ testers are expected to do more *exploratory* testing.
 
 2. Deleting a patient while all patients are being shown
 
-    1. **Prerequisite**s: List all patients using the `list t/patient` command.
+    1. **Prerequisite**: List all patients using the `list t/patient` command.
        Ensure at least 1 patient with id `P001` is there, otherwise please use `add t/patient` command to add a new patient.
        Multiple patients will be displayed in a table sorted by its id.
 
@@ -808,7 +808,7 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `delete t/patient P001`<br>
        Expected: No patient is deleted. Error details shown in the feedback box.
 
-    4. **Prerequisite**s: Clear the entire GoMedic using `clear` command.
+    4. **Prerequisite**: Clear the entire GoMedic using `clear` command.
        Add 1 new patient by running `add t/patient n/John Smith p/98765432 a/45 b/AB+ g/M h/175 w/70 m/heart failure m/diabetes` and
        1 new appointment by running `add t/appointment i/P001 s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Appointment with P001 d/Follow-up from tuesday's appointment.`
 
