@@ -23,6 +23,7 @@ optimized features for Command Line Interface.
 * Project bootstrapped from: [SE-EDU Address Book 3](https://se-education.org/addressbook-level3/)
 * Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson)
   , [JUnit5](https://github.com/junit-team/junit5), [iTextPdf](https://itextpdf.com/en)
+* The feature `TableView` mainly inspired by [this `TableView` article](http://tutorials.jenkov.com/javafx/tableview.html).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -297,6 +298,10 @@ description which can be added using `d/Description` flag.
 _This feature uses **iText Java Pdf writer library** to generate the medical referral document._  
 
 **Workflow**
+
+In general, the following *Activity Diagram* summarizes the workflow of this command :
+
+![workflow](images/referral/ReferralCommandWorkflow.png)
 
 For illustration purposes, suppose the user enters the command:
 
@@ -713,12 +718,36 @@ testers are expected to do more *exploratory* testing.
 
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-    
+
+### Adding an activity
+
+1. Add a new activity by supplying all necessary parameters. Do the test cases sequentially to ensure correct id number is created.
+
+    1. **Prerequisites**: Ensure you activities data are empty by using `clear t/activity` command and check it again using `list t/activity` command. The table should show "no activities to be displayed".
+
+    2. Test case: `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Activity 1 d/Discussing the future of CS2103T-T15 Group!`<br>
+       Expected: New activity whose id `A001` is created, confirmation is shown in feedback box, and the activity table is shown.
+
+    3. Test case: `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Activity 2`<br>
+       Expected: Conflicting activity error is shown.
+
+    4. Test case: `add t/activity s/15/09/2023 14:00 e/15/09/2023 15:00 ti/Activity 3`<br>
+       Expected: New activity whose id `A002` is created with empty description. 
+   
+    5. Test case: `add t/activity s/15-09-2024 14:00 e/15-09-2024 15:00 ti/Activity 4`<br>
+       Expected: New activity whose id `A003` is created with empty description despite different datetime format supplied.
+
+    6. Test case: `add t/activity s/15-09-2025 15:00 e/15-09-2025 14:00 ti/Activity 5`<br>
+       Expected: Error message start time must be strictly less than end time is shown in the feedback box.
+   
+    7. Other incorrect `add t/activity` commands to try: `add t/activities`, invalid parameters, `...` <br>
+       Expected: Error message shown in the feedback box.
+   
 ### Deleting an activity
 
 1. Deleting an activity while all activities are being shown
 
-    1. Prerequisites: List all activities using the `list t/activity` command. 
+    1. **Prerequisites**: List all activities using the `list t/activity` command. 
        Ensure at least 1 activity with id `A001` is there, otherwise please use `add t/activity` command to add a new activity. 
        Multiple activities will be displayed in a table sorted by its id.
 
@@ -728,22 +757,31 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `delete t/activity A001`<br>
        Expected: No activity is deleted. Error details shown in the feedback box. 
 
-    4. Other incorrect delete commands to try: `delete t/activity`, `delete t/doctor`, `delete t/activity x`, `...` (where x is an invalid id)<br>
-       Expected: Similar to previous for each patient, doctor and activity model.
+    4. Other incorrect delete activity commands to try: `delete t/activity`, `delete t/activities`, `delete t/activity x` (where x is an invalid id), `...` <br>
+       Expected: Error message shown in the feedback box.
 
-### Finding a patient, doctor or activity
-1. Searching for a doctor or a patient
-    1. Prerequisite: List the patients, doctors, or activities based on which one you wish to see, using the `list` command.
-    e.g. `list t/doctor` or `list t/patient` or `list t/activity`.
-       
-    2. Test case: e.g. `find t/patient n/Joe`
-        Expected: All patients whose names contain the substring "Joe" (case-insensitive) will be displayed.
-       
-    3. Test case: e.g. `find t/activity ti/Meeting`
-        Expected: All activities whose title or description contains the substring "Meeting" (case-insensitive) will be displayed. 
-       
-    4. Other incorrect find commands to try: `find t\patient Joe` 
-        Expected: Error message as a flag is not specified prior to the keyword. 
+### Editing an activity
+
+1. Editing an existing activity
+
+    1. **Prerequisites**: Clear the entire activity using `clear t/activity` command. 
+   Add a new activity using `add t/activity` command to ensure at least 1 activity with id `A001` is there. Check that it exists using `list t/activity`. Please do the test sequentially. 
+
+    2. Test case: `edit t/activity i/A001 ti/Another new title`<br>
+       Expected: Activity whose id `A001` has its title changed to "Another new title"
+
+    3. Test case: `edit t/activity i/A001 s/17/10/2021 14:00 e/17/10/2021 15:00`<br>
+       Expected: Activity whose id `A001` has its start time changed to "17-10-2021 14:00" and end time to "17-10-2021 15:00"
+
+    4. Test case: `edit t/activity i/A001 s/17/10/2021 18:00 e/17/10/2021 15:00`<br>
+       Expected: Error message shows start time must be before end time. 
+
+    5. Test case: Add another activity using `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Meeting with Mr. Y` and then run 
+   `edit t/activity i/A001 s/15/09/2022 14:00 e/15/09/2022 15:00`<br>
+       Expected: Error message shows the activity's timing is conflicting with another activity.
+
+    6. Other incorrect delete activity commands to try: `edit t/activity i/a001 pi/p001` (cannot change patient id), `delete t/activities`, `edit t/activity` (no parameters), `...` <br>
+      Expected: Error message shown in the feedback box.
 
 ## Listing all activities
 
@@ -773,3 +811,42 @@ testers are expected to do more *exploratory* testing.
         the illegal character `.` in its `NAME`, `DEPARTMENT` or `ORGANIZATION` parameters.
         Expected: The feedback box displays an error message stating that the constraints for those parameters have been 
         violated, similar to that in test case 3.
+
+### Creating A Referral
+
+1. Creating a referral using the template available. 
+
+    1. **Prerequisites**: Check that you have `[JAR Location]/data` folder, it should be created after you run **GoMedic** for the first time. 
+   Clear the entire patient and activity using `clear t/patient` and `clear t/doctor` respectively. Run the following commands to add 1 patient and doctor using
+   `add t/patient n/John Doe p/98765432 a/45 b/AB+ g/M h/175 w/70 m/heart failure m/diabetes` and `add t/doctor n/John Smith p/98765432 de/Cardiology` respectively.<br> Check that patient whose id `P001` and doctor whose id `D001` exists
+   using `list t/patient` and `list t/doctor` respectively. Also use this default profile by inputting this command `profile n/John Smith p/Senior Resident de/Cardiology o/NUH`.
+   
+    2. Test case: `referral ti/Referral di/D001 pi/P001 d/It looks like there may be a small tear in his aorta.`<br>
+       Expected: A new referral called `Referral.pdf` is created in the `data` folder. The file should look like the following image but the date should be the date where you run the referral command.<br>
+    ![referral](images/referral.png)
+
+    3. Other incorrect delete activity commands to try: `referral ti/test di/d002 pi/p003` (non-existent doctor and patient id), `...` <br>
+        Expected: Error message shown in the feedback box.
+
+## **Appendix: Effort**
+
+**Overview**
+
+Overall, this project is a moderately challenging application. Most of the features here are `CRUD` features, but a lot of efforts need to be put to replicate `CRUD` for an extra model in the application. While the original AB3 only deals with 
+one entity type which is `Person`, we modify the `Person` to be a generic class and add three models called `Activity`, `Patient` and `Doctor`. 
+
+Our app is more complex in a sense we need to deal
+with three entities at once and manage the interactions between them such as creating appointments, viewing patients, creating referral, etc. Also, we need to maintain the information of which 
+model is being displayed and switching the "page" of these three models depending on the commands called. Hence, a lot of `ObservableValue<T>` from `JavaFX` library is used to so that the `Ui` can monitor
+the model of interest currently.
+
+Not only that, there is an extra model called `UserProfile` to personalize the application as it will display the user identity in te sidebar, and the `UserProfile` is also used for creating a referral. 
+
+**Some noteworthy efforts:**
+
+1. To implement the responsive table view, we need to mainly refer to  [this `TableView` article](http://tutorials.jenkov.com/javafx/tableview.html). 
+We need to learn about `tableCellFactory` also to change the height dynamically based on the length of the data inside the cell.
+2. The implementation of `CRUD` methods of `Activity`, `Doctor` and `Patient` mainly refers from AB3 `Person` and their commands. However, we create all our fields ourselves and test them. For `Time` field, it is mainly a wrapper over `LocalDateTime` class provided by Java. 
+3. We overhaul the entire `Ui` based on the Figma, therefore we also create a new side window, and modifies the `CSS` moderately. We also discard the `personView` and `personCard` as they are no longer used. 
+
+*{...more to be added}*

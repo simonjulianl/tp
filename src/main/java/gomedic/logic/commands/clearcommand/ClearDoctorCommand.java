@@ -27,7 +27,7 @@ public class ClearDoctorCommand extends Command {
         newAddressBook.setActivities(oldAddressBook.getActivityListSortedById());
         newAddressBook.setPatients(oldAddressBook.getPatientListSortedById());
         model.setAddressBook(newAddressBook);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

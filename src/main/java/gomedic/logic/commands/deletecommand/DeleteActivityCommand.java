@@ -50,7 +50,7 @@ public class DeleteActivityCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_ID);
         }
         model.deleteActivity(activityToDelete);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         return new CommandResult(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete));
     }
 
