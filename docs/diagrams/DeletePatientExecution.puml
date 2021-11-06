@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+mainframe **sd** Delete Patient Command Execution
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "d:DeletePatientCommand" as DeletePatientCommand LOGIC_COLOR
+participant "c:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+activate LogicManager
+LogicManager -> DeletePatientCommand :execute()
+activate DeletePatientCommand
+
+DeletePatientCommand -> Model : deletePatient(P001)
+activate Model
+return
+
+create CommandResult
+DeletePatientCommand -> CommandResult
+activate CommandResult
+return c
+
+return result
+
+'Show destructor'
+LogicManager -[hidden]-> DeletePatientCommand:
+destroy DeletePatientCommand
+[<--LogicManager:
+
+deactivate LogicManager
+@enduml

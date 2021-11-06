@@ -154,9 +154,15 @@ How the `Logic` component works:
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the
-`execute("delete t/patient P001")` API call.
+`execute("delete t/patient P001")` API call. `Logic` component will parse the command and create the respective `Command`
+object. In this case, `DeletePatientCommand` object is created.
 
-![Interactions Inside the Logic Component for the `delete t/patient P001` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `delete t/patient P001` Command Creation](images/DeletePatientCreation.png)
+
+After the `LogicManager` receives the new `DeletePatientCommand` object,
+1. The `DeletePatientCommand` would call the appropriate method from the `Model` to delete the specified `Patient`.
+
+![Interactions Inside the Logic Component for the `delete t/patient P001` Command Execution](images/DeletePatientExecution.png)
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -362,7 +368,17 @@ the following format `view t/patient PATIENT_ID` where `PATIENT_ID` is a valid i
 Given below is the sequence diagram when a user provides an example of a valid `view` command
 (`view t/patient P001`) to see the complete details of the patient.
 
-![ViewPatientCommand](images/ViewSequenceDiagram.png)
+Once the user enters the command, the following **Sequence Diagram** below shows how the `Logic` component will create
+a new `ViewPatientCommand` object.
+
+![ViewPatientCommandCreation](images/ViewPatientCreation.png)
+
+After the `LogicManager` receives the new `ViewPatientCommand` object,
+1. The `ViewPatientCommand` would call the appropriate method from the `Model` to obtain the `Patient`'s specific details
+   to be viewed.
+2. Only then a `CommandResult` object will be returned.
+
+![ViewPatientCommandExecution](images/ViewPatientExecution.png)
 
 ### \[Proposed\] Undo/redo feature
 
@@ -669,7 +685,7 @@ entries corresponding to the user's input.
 
       Use case ends.
 
-**Use Case: [UC7] - Clear all doctors records in GoMedic**
+**Use Case: [UC7] - Clear all doctor records in GoMedic**
 
 **MSS**
 
