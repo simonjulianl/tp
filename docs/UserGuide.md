@@ -273,7 +273,7 @@ List all patients that are stored in **GoMedic**.
 
 **Example:**
 
-&#8291;1. Type the command `list t/patient` into the command box and press `Enter`. the success confirmation should be shown by the feedback box as shown by **1**. 
+&#8291;1. Type the command `list t/patient` into the command box and press `Enter`. The success confirmation should be shown by the feedback box as shown by **1**. 
 GoMedic will display the Patient Table, as seen by **2**.
 
 ![tut-list-patient-2](images/patientug/tut_patientlist_2.png)
