@@ -73,5 +73,4 @@ Given below are some of my notable contributions to the project.
     * Review ~34 out of ~120 PRs created. The List of PRs reviewed and their comments can be found [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/pulls?q=is%3Apr+reviewed-by%3Aradiankrisno).
 
 * **Community**:
-    * Reported bugs and suggestions for other teams during [PE-D](https://github.com/radiankrisno/ped). 
-    
+    * Reported bugs and suggestions for other teams during [PE-D](https://github.com/radiankrisno/ped).
