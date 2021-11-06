@@ -52,7 +52,7 @@ Given below are some of my notable contributions to the project.
         * Wrote the [Tips and Tricks](https://ay2122s1-cs2103t-t15-1.github.io/tp/UserGuide.html#4-tips-and-tricks) except for Suggestion which is written by Seng Leng.
         * Tweak the [Quick Start](https://ay2122s1-cs2103t-t15-1.github.io/tp/UserGuide.html#table-of-contents) to ensure it is consistent with the latest version.
     * Developer Guide:
-      * Tweak the manual testing for deleting an [activity](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#deleting-an-activity)
+      * Wrote the manual testing instructions for [activities related features](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#deleting-an-activity)
       * Clean up and move the [Product Scope](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#product-scope), [User Stories](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#user-stories) from the internal notes.
       * Wrote [Use Case 1 and Use Case 2](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#use-cases), [Non-functional requirements](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#non-functional-requirements), and [Glossary](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#glossary).
       * Rewrote the entire [Ui Component](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#ui-component).

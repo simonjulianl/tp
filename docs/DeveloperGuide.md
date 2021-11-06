@@ -776,7 +776,24 @@ testers are expected to do more *exploratory* testing.
         Expected: Error message shown in the feedback box.
 
 ## **Appendix: Effort**
+
+**Overview**
+
+Overall, this project is a moderately challenging application. Most of the features here are `CRUD` features, but a lot of efforts need to be put to replicate `CRUD` for an extra model in the application. While the original AB3 only deals with 
+one entity type which is `Person`, we modify the `Person` to be a generic class and add three models called `Activity`, `Patient` and `Doctor`. 
+
+Our app is more complex in a sense we need to deal
+with three entities at once and manage the interactions between them such as creating appointments, viewing patients, creating referral, etc. Also, we need to maintain the information of which 
+model is being displayed and switching the "page" of these three models depending on the commands called. Hence, a lot of `ObservableValue<T>` from `JavaFX` library is used to so that the `Ui` can monitor
+the model of interest currently.
+
+Not only that, there is an extra model called `UserProfile` to personalize the application as it will display the user identity in te sidebar, and the `UserProfile` is also used for creating a referral. 
+
+**Some noteworthy efforts:**
+
 1. To implement the responsive table view, we need to mainly refer to  [this `TableView` article](http://tutorials.jenkov.com/javafx/tableview.html). 
-I need to learn about `tableCellFactory` also to change the height dynamically based on the length of the data inside the cell.
-2. The implementation of `CRUD` methods of `Activity`, `Doctor` and `Patient` mainly refers from AB3 Person and their commands. However, we create all our fields ourselves and test them. For `Time` field, it is mainly a wrapper over `LocalDateTime` class provided by Java. 
+We need to learn about `tableCellFactory` also to change the height dynamically based on the length of the data inside the cell.
+2. The implementation of `CRUD` methods of `Activity`, `Doctor` and `Patient` mainly refers from AB3 `Person` and their commands. However, we create all our fields ourselves and test them. For `Time` field, it is mainly a wrapper over `LocalDateTime` class provided by Java. 
 3. We overhaul the entire `Ui` based on the Figma, therefore we also create a new side window, and modifies the `CSS` moderately. We also discard the `personView` and `personCard` as they are no longer used. 
+
+*{...more to be added}*
