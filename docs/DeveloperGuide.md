@@ -638,6 +638,8 @@ entries corresponding to the user's input.
 1. User wants to get the previous command he typed.
 2. GoMedic shows the previous command the user typed.
 
+   Use case ends.
+
 **Extensions**
 
 * 2a. There is no previous command.
