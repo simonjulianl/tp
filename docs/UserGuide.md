@@ -1139,7 +1139,7 @@ Action        | Format                                            | Examples    
 **Delete**    | `delete {type} {type}_ID`                         | `delete t/patient P003`                              |
 **Edit**      | `edit {type} i/{type}_ID ...`                     | `edit t/patient i/P123 n/John Doe a/30 g/M`          |
 **Find**      | `find {type} ...`                                 | `find ta/important ti/tutorial`                      |
-**View**      | `view t/patient i/PATIENT_ID`                     | `view t/patient i/P003`                              |
+**View**      | `view t/patient PATIENT_ID`                       | `view t/patient P003`                              |
 **Referral**  | `referral {PARAMETERS}`                           | `referral ti/Referral of Patient A di/D001 pi/P001`  |
 **Profile**   | `profile {PARAMETERS}`                            | `profile n/Jon Snow p/Senior Consultant de/Department of Cardiology o/NUH`|
 **Clear**     | `clear` or `clear {type}`                         | `clear t/activity`                                   |
