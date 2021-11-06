@@ -368,9 +368,6 @@ the following format `view t/patient PATIENT_ID` where `PATIENT_ID` is a valid i
 Given below is the sequence diagram when a user provides an example of a valid `view` command
 (`view t/patient P001`) to see the complete details of the patient.
 
-Once the user enters the command, the following **Sequence Diagram** below shows how the `Logic` component will create
-a new `ViewPatientCommand` object.
-
 ![ViewPatientCommandCreation](images/ViewPatientCreation.png)
 
 After the `LogicManager` receives the new `ViewPatientCommand` object,
