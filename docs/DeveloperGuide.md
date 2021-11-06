@@ -765,11 +765,11 @@ testers are expected to do more *exploratory* testing.
 
     1. **Prerequisites**: Check that you have `[JAR Location]/data` folder, it should be created after you run **GoMedic** for the first time. 
    Clear the entire patient and activity using `clear t/patient` and `clear t/doctor` respectively. Run the following commands to add 1 patient and doctor using
-   `add t/patient n/John Doe p/98765432 a/45 b/AB+ g/M h/175 w/70 m/heart failure m/diabetes` and `add t/doctor n/John Smith p/98765432 de/Cardiology` respectively. Check that patient whose id `P001` and doctor whose id `D001` exists
+   `add t/patient n/John Doe p/98765432 a/45 b/AB+ g/M h/175 w/70 m/heart failure m/diabetes` and `add t/doctor n/John Smith p/98765432 de/Cardiology` respectively.<br> Check that patient whose id `P001` and doctor whose id `D001` exists
    using `list t/patient` and `list t/doctor` respectively. Also use this default profile by inputting this command `profile n/John Smith p/Senior Resident de/Cardiology o/NUH`.
    
     2. Test case: `referral ti/Referral di/D001 pi/P001 d/It looks like there may be a small tear in his aorta.`<br>
-       Expected: A new referral called `Referral.pdf` is created in the `data` folder. The file should look like the following image but the date should be the date where you run the referral command.
+       Expected: A new referral called `Referral.pdf` is created in the `data` folder. The file should look like the following image but the date should be the date where you run the referral command.<br>
     ![referral](images/referral.png)
 
     3. Other incorrect delete activity commands to try: `referral ti/test di/d002 pi/p003` (non-existent doctor and patient id), `...` <br>
