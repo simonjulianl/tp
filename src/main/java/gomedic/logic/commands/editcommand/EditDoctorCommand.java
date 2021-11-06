@@ -97,7 +97,7 @@ public class EditDoctorCommand extends Command {
         Doctor editedDoctor = createEditedDoctor(doctorToEdit, editDoctorDescriptor);
 
         model.setDoctor(doctorToEdit, editedDoctor);
-        model.viewPatient(null);
+        model.setViewPatient(null);
         model.updateFilteredDoctorList(PREDICATE_SHOW_ALL_ITEMS);
         model.setModelBeingShown(ModelItem.DOCTOR);
         return new CommandResult(String.format(MESSAGE_EDIT_DOCTOR_SUCCESS, editedDoctor));

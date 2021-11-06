@@ -24,7 +24,7 @@ return patientList
 
 return patientToView
 
-ViewPatientCommand -> Model : viewPatient(patientToView)
+ViewPatientCommand -> Model : setViewPatient(patientToView)
 activate Model
 
 Model --> ViewPatientCommand

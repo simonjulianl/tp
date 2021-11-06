@@ -20,7 +20,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
-        model.viewPatient(null);
+        model.setViewPatient(null);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

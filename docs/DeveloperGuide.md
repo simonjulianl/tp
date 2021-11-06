@@ -23,6 +23,7 @@ optimized features for Command Line Interface.
 * Project bootstrapped from: [SE-EDU Address Book 3](https://se-education.org/addressbook-level3/)
 * Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson)
   , [JUnit5](https://github.com/junit-team/junit5), [iTextPdf](https://itextpdf.com/en)
+* The feature `TableView` mainly inspired by [this `TableView` article](http://tutorials.jenkov.com/javafx/tableview.html).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -384,83 +385,6 @@ After the `LogicManager` receives the new `ViewPatientCommand` object,
 
 ![ViewPatientCommandExecution](images/ViewPatientExecution.png)
 
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo
-history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the
-following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()`
-and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
-initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command
-calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes
-to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book
-state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`
-, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing
-the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer`
-once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once
-to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such
-as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`.
-Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not
-pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be
-purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern
-desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -788,7 +712,31 @@ testers are expected to do more *exploratory* testing.
 
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-    
+
+### Adding an activity
+
+1. Add a new activity by supplying all necessary parameters. Do the test cases sequentially to ensure correct id number is created.
+
+    1. Prerequisites: Ensure you activities data are empty by using `clear t/activity` command and check it again using `list t/activity` command. The table should show "no activities to be displayed".
+
+    2. Test case: `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Activity 1 d/Discussing the future of CS2103T-T15 Group!`<br>
+       Expected: New activity whose id `A001` is created, confirmation is shown in feedback box, and the activity table is shown.
+
+    3. Test case: `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/Activity 2`<br>
+       Expected: Conflicting activity error is shown.
+
+    4. Test case: `add t/activity s/15/09/2023 14:00 e/15/09/2023 15:00 ti/Activity 3`<br>
+       Expected: New activity whose id `A002` is created with empty description. 
+   
+    5. Test case: `add t/activity s/15-09-2024 14:00 e/15-09-2024 15:00 ti/Activity 4`<br>
+       Expected: New activity whose id `A003` is created with empty description despite different datetime format supplied.
+
+    6. Test case: `add t/activity s/15-09-2025 15:00 e/15-09-2025 14:00 ti/Activity 5`<br>
+       Expected: Error message start time must be strictly less than end time is shown in the feedback box.
+   
+    7. Other incorrect `add t/activity` commands to try: `add t/activities`, invalid parameters, `...` <br>
+       Expected: Error message shown in the feedback box.
+   
 ### Deleting an activity
 
 1. Deleting an activity while all activities are being shown
@@ -803,8 +751,8 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `delete t/activity A001`<br>
        Expected: No activity is deleted. Error details shown in the feedback box. 
 
-    4. Other incorrect delete commands to try: `delete t/activity`, `delete t/doctor`, `delete t/activity x`, `...` (where x is an invalid id)<br>
-       Expected: Similar to previous for each patient, doctor and activity model.
+    4. Other incorrect delete activity commands to try: `delete t/activity`, `delete t/activities`, `delete t/activity x` (where x is an invalid id), `...` <br>
+       Expected: Error message shown in the feedback box.
 
 ### Finding a patient, doctor or activity
 1. Searching for a doctor or a patient
@@ -820,3 +768,8 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect find commands to try: `find t\patient Joe` 
         Expected: Error message as a flag is not specified prior to the keyword. 
 
+## **Appendix: Effort**
+1. To implement the responsive table view, we need to mainly refer to  [this `TableView` article](http://tutorials.jenkov.com/javafx/tableview.html). 
+I need to learn about `tableCellFactory` also to change the height dynamically based on the length of the data inside the cell.
+2. The implementation of `CRUD` methods of `Activity`, `Doctor` and `Patient` mainly refers from AB3 Person and their commands. However, we create all our fields ourselves and test them. For `Time` field, it is mainly a wrapper over `LocalDateTime` class provided by Java. 
+3. We overhaul the entire `Ui` based on the Figma, therefore we also create a new side window, and modifies the `CSS` moderately. We also discard the `personView` and `personCard` as they are no longer used. 
