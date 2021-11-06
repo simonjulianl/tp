@@ -365,10 +365,17 @@ This feature allows user to view patient's details as PatientTable does not show
 This feature can be accessed using the `view` command, which currently only support the viewing of patient which follows
 the following format `view t/patient PATIENT_ID` where `PATIENT_ID` is a valid id of a patient.
 
-Given below is the sequence diagram when a user provides an example of a valid `view` command
-(`view t/patient P001`) to see the complete details of the patient.
+Given below is an activity diagram showing the event flow when the user wants to view a patient's details:
 
-![ViewPatientCommandCreation](images/ViewPatientCreation.png)
+![ViewPatientActivityDiagram](images/ViewPatientActivityDiagram.png)
+
+Given below is the sequence diagram when a user provides an example of a valid `view` command (`view t/patient P001`) to
+see the details of patient with id P001.
+
+<div markdown="span" class="alert alert-info">:information_source:
+**Note:** The example below does not include the details of the creation of a `ViewPatientCommand` object, as the
+implementation is similar to that of the example covered in the `ReferralCommand` above.
+</div>
 
 After the `LogicManager` receives the new `ViewPatientCommand` object,
 1. The `ViewPatientCommand` would call the appropriate method from the `Model` to obtain the `Patient`'s specific details
@@ -695,6 +702,21 @@ entries corresponding to the user's input.
 **Extensions**
 
 * 2a. The list is empty.
+
+  Use case ends.
+
+**Use Case: [UC8] - Navigate to the past command**
+
+**MSS**
+
+1. User wants to get the previous command he typed.
+2. GoMedic shows the previous command the user typed.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. There is no previous command.
 
   Use case ends.
     
