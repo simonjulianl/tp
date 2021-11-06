@@ -1,0 +1,15 @@
+@startuml
+start
+:User input Referral Command;
+:Parse Command;
+
+if () then ([invalid format])
+else ([valid format])
+    :Get Doctor, Patient, \n and Profile;
+if () then ([all data present])
+    :Write Pdf;
+else ([any data missing])
+endif
+endif
+stop
+@enduml
