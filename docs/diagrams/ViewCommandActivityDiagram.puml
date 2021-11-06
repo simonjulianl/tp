@@ -1,0 +1,14 @@
+@startuml
+start
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+:Decide on one patient to be viewed;
+:User enters the command to view a patient specified by id;
+    if () then ([patient id is valid])
+        :Set UI to show the specified patient's details;
+    else ([else])
+        :Show error message in the feedback box;
+    endif
+stop
+@enduml
