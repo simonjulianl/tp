@@ -877,55 +877,82 @@ Format: `clear t/activity`
 
 <div style="page-break-after: always;"></div>
 
-## [**3.4. Finding entries: `find t/CATEGORY FIELD/[KEYWORDS]`**](#table-of-contents)
+## [**3.4. Finding entries:**](#table-of-contents)
 
-### [3.4.1 Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`](#table-of-contents)
+### [3.4.1 Overview](#table-of-contents)
+The find feature allows you to search for entries based on user input by matching
+the input string with the user-specified fields.
+
+The model that is being searched must be specified too - doctor, patient or activity.
+
+For all find functions, the Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
+  condition as “Diabetes”)
+
+The constraints of the field are not checked with the user input. For example, if the user enters
+```find t/doctor p/hello```, GoMedic will not throw an error saying that phone number must be
+8 digits only. GoMedic will simply display that there are no matching entries where the phone number
+field in a doctor contains ```hello```. 
+
+### [3.4.2 Finding a doctor through a keyword `find t/doctor`](#table-of-contents)
 
 Searches for doctors whose specified field contains one or more of the specified keywords as a substring.
-E.g. `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
 
-Format: `find t/doctor FIELD/[KEYWORDS]`
+**Format**: `find t/doctor FIELD/[KEYWORDS]`
+
+**GoMedic** will display the matching doctors.  
 
 The possible parameters for FIELD are:
-* `n/NAME`: Matches the name field
-* `p/PHONE_NUMBER`: Matches the phone number field
-* `de/DEPARTMENT`: Matches the department field
 
-### [3.4.2 Finding a patient through a keyword `find t/patient FIELD/[KEYWORDS]`](#table-of-contents)
+Parameters    |  Explanation                                      |               
+--------------|---------------------------------------------------|
+`n/NAME`      | Matches the full name of the doctor                |
+`p/PHONE_NUMBER`| Matches the phone number of the doctor            | 
+`de/DEPARTMENT` | Matches the department of the doctor           |
+
+**Example:**
+* E.g. `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
+
+
+### [3.4.3 Finding a patient through a keyword `find t/patient`](#table-of-contents)
 Searches for patients whose specified field contains one or more of the specified keywords as a substring.
-E.g. `find t/patient n/Hans Bo` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
 
-Format: `find t/patient FIELD/[KEYWORDS]`
+**Format**: `find t/patient FIELD/[KEYWORDS]`
+
+**GoMedic** will display the matching patients.
 
 The possible parameters for FIELD are:
-* `n/NAME`: Matches the name field
-* `p/PHONE_NUMBER`: Matches the phone number field
-* `a/AGE`: Matches the age field
-* `g/GENDER`: Matches the gender field (`M/F/O`)
-* `h/HEIGHT`: Matches the height field 
-* `w/WEIGHT`: Matches the weight field
-* `b/BLOOD_TYPE`: Matches the blood type field (`A/B/AB/O`)
-* `m/MEDICAL_CONDITION`: Matches the medical conditions field
 
-### [3.4.3 Finding an activity through a keyword `find t/activity FIELD/[KEYWORDS]`](#table-of-contents)
+Parameters    |  Explanation                                      |               
+--------------|---------------------------------------------------|
+`n/NAME`      | Matches the full name of the patient              |
+`p/PHONE_NUMBER`| Matches the phone number of the patient         | 
+`a/AGE`         | Matches the age field                           |
+`g/GENDER`    | Matches the gender of the patient                 | 
+`h/HEIGHT`    | Matches the height of the patient in centimeters  | 
+`w/WEIGHT`    | Matches the weight of the patient in kilograms    | 
+`b/BLOOD_TYPE`| Matches the blood type of the patient             | 
+`m/MEDICAL_CONDITION`| Matches the medical conditions of the patient | 
+
+**Example:**
+* ```find t/patient n/Hans Bo``` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
+
+### [3.4.4 Finding an activity through a keyword `find t/activity`](#table-of-contents)
 
 Searches for activities whose specified field contains one or more of the specified keywords as a substring.
-E.g. `find t/activity ti/Hans Bo` will return activities whose titles are `Hans Gruber`, or `Bo Yang`.
 
-Format: `find t/activity FIELD/[KEYWORDS]`
+**Format**: `find t/activity FIELD/[KEYWORDS]`
+
+**GoMedic** will display the matching activities.
 
 The possible parameters for FIELD are:
-* `ti/TITLE`: Matches the title field or description field
 
-Note for all finds:
-* Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
-  condition as “Diabetes”)
-  
-Examples:
+Parameters    |  Explanation                                      |               
+--------------|---------------------------------------------------|
+`ti/TITLE`     | Matches the title field or description           |                            
 
-* `find t/patient h/12`
-* `find t/doctor de/neuro`
-* `find t/activity ti/meeting tomorrow`
+**Example:**
+* `find t/activity ti/Hans Bo` will return activities whose titles are `Hans Gruber`, or `Bo Yang`.
+
 
 <div style="page-break-after: always;"></div>
 
