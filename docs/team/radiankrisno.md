@@ -16,12 +16,13 @@ Given below are some of my notable contributions to the project.
 
 * **New Feature**: Implement the `Patient` model
     * What it does: Allows the user to save the details of his patients.
-    * Justification: This feature is one of the core features of GoMedic, allowing the user to store important details of
+    * Justification: This feature is the core feature of GoMedic, allowing the user to store important details of
       patients within GoMedic. These include the name, contact number, age, blood type, gender, height, weight, and medical conditions of the patient. With this information,
       the user is also able to make use of the patient's detail in GoMedic to quickly generate a referral letter to him or her,
       through the `Referral` command (which is done by my teammate, Simon).
     * Highlights: Along with the `Patient` model, I also add commands that support the usual `CRUD` methods for patients including
-      `add`, `edit`, `delete`, and `list`.
+      `add`, `edit`, `delete`, and `list`. The `Patient` model is also incorporated in the `Appointment` model which represents an appointment
+      of the user with the patient (which is done by my teammate, Seng Leng).
     * Notable PRs: [PR #111](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/111), [PR #115](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/115),
       [PR #124](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/124), [PR #125](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/125),
       [PR #128](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/128), [PR #133](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/133),
@@ -65,9 +66,7 @@ Given below are some of my notable contributions to the project.
         * Wrote the section about the implementation of the [view feature](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#view-feature).
         * Wrote [Introduction](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#introduction)
         * Wrote [Use Case 6, 7, and 8](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#use-cases)
-        * Wrote the manual testing instructions for [patients related features](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#viewing-a-patient)
-        * Wrote the manual testing instructions for [clear features](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#clearing-records-in-gomedic)
-        * Reformat manual testing [groupings](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#appendix-instructions-for-manual-testing)
+        * Wrote the manual testing instructions for [patients related features](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#viewing-a-patient), [clear features](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#clearing-records-in-gomedic), and reformat manual testing [groupings](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#appendix-instructions-for-manual-testing)
 
 * **Review/Mentoring contributions**:
     * Review ~34 out of ~120 PRs created. The List of PRs reviewed and their comments can be found [here](https://github.com/AY2122S1-CS2103T-T15-1/tp/pulls?q=is%3Apr+reviewed-by%3Aradiankrisno).
