@@ -241,7 +241,7 @@ Parameters    |  Explanation                                      | Constraints 
 
 <div markdown="span" class="alert alert-info">
 :bulb: **Tip:** Patient ID can be obtained by listing all the patients using [`list t/patient` command](#314-list-all-patients-list-patient)
-or search the specific patient using [`find t/patient` command](#34-finding-entries-find-tcategory-fieldkeywords).
+or search the specific patient using [`find t/patient` command](#344-finding-a-patient-through-a-keyword-find-tpatient).
 </div>
 
 **Example:**
@@ -344,7 +344,7 @@ Parameters    |  Explanation                                      | Constraints 
 
 <div markdown="span" class="alert alert-info">
 :bulb: **Tip:** `PATIENT_ID` can be obtained by listing all the patients using [`list t/patient` command](#314-list-all-patients-list-patient)
-or searching for the specific patient using [`find t/patient` command](#34-finding-entries-find-tcategory-fieldkeywords).
+or searching for the specific patient using [`find t/patient` command](#342-finding-a-doctor-through-a-keyword-find-tdoctor).
 </div>
 
 **Example:**
@@ -469,7 +469,7 @@ Parameter     |  Explanation                                      | Constraint  
 
 <div markdown="span" class="alert alert-info">
 :bulb: **Tip:** Doctor ID can be obtained by listing all the doctors using [`list t/doctor` command](#324-list-all-doctors-list-tdoctor) 
-or searching for the specific doctor using [`find t/doctor` command](#34-finding-entries-find-tcategory-fieldkeywords).  
+or searching for the specific doctor using [`find t/doctor` command](#342-finding-a-doctor-through-a-keyword-find-tdoctor).  
 </div>
 
 **Example:**
@@ -748,7 +748,7 @@ Parameter     |  Explanation                                      | Constraint  
 
 <div markdown="span" class="alert alert-info">
 :bulb: **Tip:** `ACTIVITY_ID` can be obtained by listing all the activities using [`list t/activity` command](#335-list-all-activities-list-tactivity) 
-or searching for the specific activity using [`find t/activity` command](#34-finding-entries-find-tcategory-fieldkeywords).  
+or searching for the specific activity using [`find t/activity` command](#343-finding-an-activity-through-a-keyword-find-tactivity).  
 </div>
 
 **Example:**
@@ -912,8 +912,26 @@ Parameters    |  Explanation                                      |
 **Example:**
 * `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
 
+### [3.4.3 Finding an activity through a keyword `find t/activity`](#table-of-contents)
 
-### [3.4.3 Finding a patient through a keyword `find t/patient`](#table-of-contents)
+Searches for activities whose specified field contains one or more of the specified keywords as a substring.
+
+**Format**: `find t/activity FIELD/[KEYWORDS]`
+
+**GoMedic** will display the matching activities.
+
+The possible parameters for FIELD are:
+
+Parameters    |  Explanation                                      |               
+--------------|---------------------------------------------------|
+`ti/TITLE`     | Matches the title field or description           |                            
+
+**Example:**
+* `find t/activity ti/Hans Bo` will return activities whose titles are `Hans Gruber`, or `Bo Yang`.
+
+<div style="page-break-after: always;"></div>
+
+### [3.4.4 Finding a patient through a keyword `find t/patient`](#table-of-contents)
 Searches for patients whose specified field contains one or more of the specified keywords as a substring.
 
 **Format**: `find t/patient FIELD/[KEYWORDS]`
@@ -935,24 +953,6 @@ Parameters    |  Explanation                                      |
 
 **Example:**
 * ```find t/patient n/Hans Bo``` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
-
-### [3.4.4 Finding an activity through a keyword `find t/activity`](#table-of-contents)
-
-Searches for activities whose specified field contains one or more of the specified keywords as a substring.
-
-**Format**: `find t/activity FIELD/[KEYWORDS]`
-
-**GoMedic** will display the matching activities.
-
-The possible parameters for FIELD are:
-
-Parameters    |  Explanation                                      |               
---------------|---------------------------------------------------|
-`ti/TITLE`     | Matches the title field or description           |                            
-
-**Example:**
-* `find t/activity ti/Hans Bo` will return activities whose titles are `Hans Gruber`, or `Bo Yang`.
-
 
 <div style="page-break-after: always;"></div>
 
