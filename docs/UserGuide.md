@@ -910,7 +910,21 @@ Parameters    |  Explanation                                      |
 `de/DEPARTMENT` | Matches the department of the doctor           |
 
 **Example:**
-* `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
+&#8291;1. Clear the entire doctor table using `clear t/doctor` and type the command `find t/doctor n/Hans Bo`. Since there are no doctors yet
+(or whenever none of the doctors match the queries), the following page will be shown. 
+
+![findEmpty](images/find/findEmpty.png)
+
+&#8291;2. Now add 2 new doctors using `add t/doctor n/Hans Bo p/98765432 de/Cardiology` and `add t/doctor n/Yang Bo p/99991234 de/Dermatology`. 
+Ensure they are added by using `list t/doctor` command. To find the doctor whose name contains "Hans", simply type the command `find t/doctor n/Hans` again. 
+**GoMedic** would show number of matching records as shown in **1** and display them in the table as shown in **2**.
+
+![findSuccess](images/find/findSuccess.png)
+
+&#8291;3. If there is any invalid parameters supplied, for e.g. more than 2 fields are supplied,
+**GoMedic** will make the commands turn red as shown in **1** and would display the feedback as shown in **2**. 
+
+![findFail](images/find/findFail.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -935,7 +949,23 @@ Parameters    |  Explanation                                      |
 `m/MEDICAL_CONDITION`| Matches the medical conditions of the patient | 
 
 **Example:**
-* ```find t/patient n/Hans Bo``` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
+
+&#8291;1. Clear the entire patient table using `clear t/patient` and type the command `find t/patient n/Hans Bo`. Since there are no patients yet
+(or whenever none of the patients match the queries), the following page will be shown.
+
+![findEmpty](images/find/findPatientEmpty.png)
+
+&#8291;2. Now add 2 new patients using `add t/patient n/John Smith p/98765432 a/45 b/AB+ g/M h/175 w/70 m/heart failure m/diabetes` and `add t/patient n/John Doe p/98765432 a/30 b/O+ g/M h/160 w/90 m/diabetes`.
+Ensure they are added by using `list t/patient` command. To find the patient whose blood type is O+, simply type the command `find t/patient b/O+` again.
+**GoMedic** would show number of matching records as shown in **1** and display them in the table as shown in **2**. You can use [`view t/patient`](#316-display-full-details-of-a-patient-view-tpatienttable-of-contents)
+to verify the result.
+
+![findSuccess](images/find/findPatientSuccess.png)
+
+&#8291;3. If there is any invalid parameters supplied, for e.g. more than 2 fields are supplied,
+**GoMedic** will make the commands turn red as shown in **1** and would display the feedback as shown in **2**.
+
+![findFail](images/find/findPatientFail.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -954,7 +984,22 @@ Parameters    |  Explanation                                      |
 `ti/TITLE`     | Matches the title field or description           |                            
 
 **Example:**
-* `find t/activity ti/Hans Bo` will return activities whose titles are `Hans Gruber`, or `Bo Yang`.
+
+&#8291;1. Clear the entire activity table using `clear t/activity` and type the command `find t/activity ti/Hans Bo`. Since there are no activities yet
+(or whenever none of the activities match the queries), the following page will be shown.
+
+![findEmpty](images/find/findActivityEmpty.png)
+
+&#8291;2. Now add 2 new activities using `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/team meeting d/CS2103t group discussion` and
+`add t/activity s/14/09/2022 11:00 e/14/09/2022 12:00 ti/Lunch with CEO d/Lunch to discuss promotion`. To find the activity for team meeting, simply type
+`find t/activity ti/team meeting`. **GoMedic** would show number of matching records as shown in **1** and display them in the table as shown in **2**. 
+
+![findSuccess](images/find/findActivitySuccess.png)
+
+&#8291;3. If there is any invalid parameters supplied, for e.g. more than 2 fields are supplied,
+**GoMedic** will make the commands turn red as shown in **1** and would display the feedback as shown in **2**.
+
+![findFail](images/find/findActivityFail.png)
 
 <div style="page-break-after: always;"></div>
 
