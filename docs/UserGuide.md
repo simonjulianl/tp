@@ -344,7 +344,7 @@ Parameters    |  Explanation                                      | Constraints 
 
 <div markdown="span" class="alert alert-info">
 :bulb: **Tip:** `PATIENT_ID` can be obtained by listing all the patients using [`list t/patient` command](#314-list-all-patients-list-patient)
-or searching for the specific patient using [`find t/patient` command](#342-finding-a-doctor-through-a-keyword-find-tdoctor).
+or searching for the specific patient using [`find t/patient` command](#343-finding-a-patient-through-a-keyword-find-tpatient).
 </div>
 
 **Example:**
