@@ -9,9 +9,6 @@ GoMedic is a **cross-platform desktop application written in Java and designed f
 manage contacts and patient details**. We aim for GoMedic to be used by someone who can type fast and take advantage of the
 optimized features for Command Line Interface.
 
-GoMedic is bootstrapped using SE-EDU Address Book 3 and inherits some of its features such as `clear`, parameter
-formatting, etc.
-
 Given below are some of my notable contributions to the project.
 
 * **New Feature**: Implement the `Patient` model
@@ -34,18 +31,18 @@ Given below are some of my notable contributions to the project.
     * What it does: Allows the user to clear only records of patients, doctors, or activities in GoMedic.
     * Justification: This feature is really helpful as sometimes you only want to discard information about patients, doctors, or activities.
       This feature is also very helpful during manual testing.
-    * Highlights: Clear activities handle all of the expected causations, e.g. when you clear all patients, all appointments related to the patients will be removed as well.
+    * Highlights: `clear` command handles all the expected causation, e.g. when you clear all patients, all appointments related to the patients will be removed as well.
     * Notable PRs: [PR #138](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/138)
 
 * **Ui Feature**: Implement the `view` command to see patient's details.
     * What it does: Allows the user to view a patient's details in GoMedic as the tabular form patient table only shows patient's id, name, contact, age, and gender.
     * Justification: This feature allows user to see important details of a patient like list of medical conditions the patient is suffering from and all of that specific
-      patient appointments with the user.
+      patient's appointments with the user.
     * Highlights: I created a new `Ui` for the patient view along with all the logic.
     * Notable PRs: [PR #163](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/163)
 
 * **Ui Enhancement**: Implement UI component that displays the list of `Patient` stored in GoMedic in a tabular form, showing only some details.
-    * What it does: Creates a tabular view of the `Patient`s that users add into GoMedic.
+    * What it does: Creates a tabular view of the `Patient` that users add into GoMedic.
     * Credits: This command heavily uses [**JavaFX**](https://docs.oracle.com/javafx/2/). The format for this
       tabular view of `Patient` closely follows the format and implementation done by my teammate, Simon,
       who referenced this [blog](http://tutorials.jenkov.com/javafx/tableview.html) when creating his `TableView` for `Activity` .
@@ -58,8 +55,8 @@ Given below are some of my notable contributions to the project.
     
 * **Notable Documentation**:
     * User Guide:
-        * Wrote the [patient related features](https://ay2122s1-cs2103t-t15-1.github.io/tp/UserGuide.html#31-patients-related-features) section.
-        * Contribute in writing the [doctor related features](https://ay2122s1-cs2103t-t15-1.github.io/tp/UserGuide.html#32-doctors-related-features) section.
+        * Wrote the [patients related features](https://ay2122s1-cs2103t-t15-1.github.io/tp/UserGuide.html#31-patients-related-features) section.
+        * Contribute in writing the [doctors related features](https://ay2122s1-cs2103t-t15-1.github.io/tp/UserGuide.html#32-doctors-related-features) section.
     * Developer Guide:
         * Revamped the [Logic Component](https://ay2122s1-cs2103t-t15-1.github.io/tp/DeveloperGuide.html#logic-component)
           segment of the original AB3 DG. This included updating the Class Diagram, as well as adding more details about the implementation of the `Logic` class in general.
