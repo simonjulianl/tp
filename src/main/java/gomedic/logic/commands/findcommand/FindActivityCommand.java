@@ -22,7 +22,7 @@ public class FindActivityCommand extends Command {
 
     public static final String COMMAND_WORD = "find" + " " + PREFIX_TYPE_ACTIVITY;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all activities whose specified"
-            + "fields contain any of "
+            + " fields contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: t/activity ti/KEYWORDS \n"
             + "Example: " + COMMAND_WORD + " ti/meeting tom on tuesday";

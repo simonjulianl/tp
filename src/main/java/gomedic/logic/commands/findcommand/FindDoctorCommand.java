@@ -27,7 +27,7 @@ public class FindDoctorCommand extends Command {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: t/doctor [FIELD]/KEYWORDS ...\n"
             + "Example: " + COMMAND_WORD + " n/alice lee"
-            + "Options for FIELD: n, p, de";
+            + "\nOptions for FIELD: n, p, de";
 
     private final Predicate<Doctor> predicate;
 
