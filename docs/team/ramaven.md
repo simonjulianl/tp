@@ -39,7 +39,7 @@ Given below are my notable contributions to the project.
     * What it does: Enables the app to follow the mockup more closely by changing from the 
       original dark grey theme of AB3 to a light theme with hues of blue and turquoise
     * Notable PRs: [PR #120](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/120)
-    * Credits: This heavily uses JavaFx. 
+    * Credits: This heavily uses JavaFx's CSS feature. 
     
 * **Enhancement to existing feature**: Develop more robust ```find``` command
   * What it does: Allows user to search for entries based on their category (Doctor, Patient, or Activity),
@@ -51,7 +51,7 @@ Given below are my notable contributions to the project.
   * Notable PRs: [PR #160](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/160)
   * Credits: SE-EDU AB3 for creating the project template
     
-* **New feature**: Develop datetime parser
+* **New feature**: Develop initial skeleton of datetime parser
     * What it does: Takes the input time string from the user and parses it
       to create a Time object
     * Justification: This is needed as we our ```Activity``` class has start times and end times
@@ -61,7 +61,8 @@ Given below are my notable contributions to the project.
 * **Project Management**: 
   * Opened issues that sought to fix bugs
     * Examples: [Issue #184](https://github.com/AY2122S1-CS2103T-T15-1/tp/issues/184)
-  * Reviewed and approved some team members' PRs for merging. 
+  * Reviewed and approved PR of team member for merging. 
+    * Example: [PR #112](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/112)
     
 * **Community**: 
    * Reported bugs and suggestions for other teams during [PE-D](https://github.com/ramaven/ped). 
