@@ -877,7 +877,7 @@ Format: `clear t/activity`
 
 <div style="page-break-after: always;"></div>
 
-## [**3.4. Finding entries:**](#table-of-contents)
+## [**3.4. Finding entries**](#table-of-contents)
 
 ### [3.4.1 Overview](#table-of-contents)
 The find feature allows you to search for entries based on user input by matching
@@ -910,7 +910,7 @@ Parameters    |  Explanation                                      |
 `de/DEPARTMENT` | Matches the department of the doctor           |
 
 **Example:**
-* E.g. `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
+* `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
 
 
 ### [3.4.3 Finding a patient through a keyword `find t/patient`](#table-of-contents)
