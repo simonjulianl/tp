@@ -888,6 +888,11 @@ The model that is being searched must be specified too - doctor, patient or acti
 For all find functions, the Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
   condition as “Diabetes”)
 
+The constraints of the field are not checked with the user input. For example, if the user enters
+```find t/doctor p/hello```, GoMedic will not throw an error saying that phone number must be
+8 digits only. GoMedic will simply display that there are no matching entries where the phone number
+field in a doctor contains ```hello```. 
+
 ### [3.4.2 Finding a doctor through a keyword `find t/doctor`](#table-of-contents)
 
 Searches for doctors whose specified field contains one or more of the specified keywords as a substring.
