@@ -888,7 +888,7 @@ The model that is being searched must be specified too - doctor, patient or acti
 For all find functions, the Keyword is case-insensitive for convenience (“dia” will match diabetic patients even if the user stored the patient's
   condition as “Diabetes”)
 
-### [3.4.2 Finding a doctor through a keyword `find t/doctor FIELD/[KEYWORDS]`](#table-of-contents)
+### [3.4.2 Finding a doctor through a keyword `find t/doctor`](#table-of-contents)
 
 Searches for doctors whose specified field contains one or more of the specified keywords as a substring.
 
@@ -908,7 +908,7 @@ Parameters    |  Explanation                                      |
 * E.g. `find t/doctor n/Hans Bo` will return doctors whose names are `Hans Gruber`, or `Bo Yang`.
 
 
-### [3.4.3 Finding a patient through a keyword `find t/patient FIELD/[KEYWORDS]`](#table-of-contents)
+### [3.4.3 Finding a patient through a keyword `find t/patient`](#table-of-contents)
 Searches for patients whose specified field contains one or more of the specified keywords as a substring.
 
 **Format**: `find t/patient FIELD/[KEYWORDS]`
@@ -931,7 +931,7 @@ Parameters    |  Explanation                                      |
 **Example:**
 * ```find t/patient n/Hans Bo``` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
 
-### [3.4.4 Finding an activity through a keyword `find t/activity FIELD/[KEYWORDS]`](#table-of-contents)
+### [3.4.4 Finding an activity through a keyword `find t/activity`](#table-of-contents)
 
 Searches for activities whose specified field contains one or more of the specified keywords as a substring.
 
