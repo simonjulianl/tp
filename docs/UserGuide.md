@@ -954,7 +954,23 @@ Parameters    |  Explanation                                      |
 <div style="page-break-after: always;"></div>
 
 **Example:**
-* ```find t/patient n/Hans Bo``` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
+
+&#8291;1. Clear the entire patient table using `clear t/patient` and type the command `find t/patient n/Hans Bo`. Since there are no patients yet
+(or whenever none of the patients match the queries), the following page will be shown.
+
+![findEmpty](images/find/findPatientEmpty.png)
+
+&#8291;2. Now add 2 new patients using `add t/patient n/John Smith p/98765432 a/45 b/AB+ g/M h/175 w/70 m/heart failure m/diabetes` and `add t/patient n/John Doe p/98765432 a/30 b/O+ g/M h/160 w/90 m/diabetes`.
+Ensure they are added by using `list t/patient` command. To find the patient whose blood type is O+, simply type the command `find t/patient b/O+` again.
+**GoMedic** would show number of matching records as shown in **1** and display them in the table as shown in **2**. You can use [`view t/patient`](#316-display-full-details-of-a-patient-view-tpatienttable-of-contents)
+to verify the result.
+
+![findSuccess](images/find/findPatientSuccess.png)
+
+&#8291;3. If there is any invalid parameters supplied, for e.g. more than 2 fields are supplied,
+**GoMedic** will make the commands turn red as shown in **1** and would display the feedback as shown in **2**.
+
+![findFail](images/find/findPatientFail.png)
 
 <div style="page-break-after: always;"></div>
 
