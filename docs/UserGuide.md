@@ -937,6 +937,8 @@ Parameters    |  Explanation                                      |
 **Example:**
 * ```find t/patient n/Hans Bo``` will return patients whose names are `Hans Gruber`, or `Bo Yang`.
 
+<div style="page-break-after: always;"></div>
+
 ### [3.4.4 Finding an activity through a keyword `find t/activity`](#table-of-contents)
 
 Searches for activities whose specified field contains one or more of the specified keywords as a substring.
