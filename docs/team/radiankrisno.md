@@ -31,7 +31,7 @@ Given below are some of my notable contributions to the project.
     * What it does: Allows the user to clear only records of patients, doctors, or activities in GoMedic.
     * Justification: This feature is really helpful as sometimes you only want to discard information about patients, doctors, or activities.
       This feature is also very helpful during manual testing.
-    * Highlights: `clear` command handles all the expected causation, e.g. when you clear all patients, all appointments related to the patients will be removed as well.
+    * Highlights: `clear` command handles all the expected causation, e.g. when you clear all patients, all appointments related to the patients will be removed as well (which is done by my teammate, Seng Leng).
     * Notable PRs: [PR #138](https://github.com/AY2122S1-CS2103T-T15-1/tp/pull/138)
 
 * **Ui Feature**: Implement the `view` command to see patient's details.
