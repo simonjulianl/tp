@@ -507,8 +507,8 @@ After the `LogicManager` receives the new `ViewPatientCommand` object,
 
 1. User requests to list all patients.
 2. GoMedic shows a list of patients.
-3. User requests to delete a specific person in the list.
-4. GoMedic deletes the person.
+3. User requests to delete a specific patient in the list.
+4. GoMedic deletes the patient.
 
    Use case ends.
 
