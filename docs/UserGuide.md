@@ -909,7 +909,10 @@ Parameters    |  Explanation                                      |
 `p/PHONE_NUMBER`| Matches the phone number of the doctor            | 
 `de/DEPARTMENT` | Matches the department of the doctor           |
 
+<div style="page-break-after: always;"></div>
+
 **Example:**
+
 &#8291;1. Clear the entire doctor table using `clear t/doctor` and type the command `find t/doctor n/Hans Bo`. Since there are no doctors yet
 (or whenever none of the doctors match the queries), the following page will be shown. 
 
@@ -947,6 +950,8 @@ Parameters    |  Explanation                                      |
 `w/WEIGHT`    | Matches the weight of the patient in kilograms    | 
 `b/BLOOD_TYPE`| Matches the blood type of the patient             | 
 `m/MEDICAL_CONDITION`| Matches the medical conditions of the patient | 
+
+<div style="page-break-after: always;"></div>
 
 **Example:**
 
@@ -989,6 +994,8 @@ Parameters    |  Explanation                                      |
 (or whenever none of the activities match the queries), the following page will be shown.
 
 ![findEmpty](images/find/findActivityEmpty.png)
+
+<div style="page-break-after: always;"></div>
 
 &#8291;2. Now add 2 new activities using `add t/activity s/15/09/2022 14:00 e/15/09/2022 15:00 ti/team meeting d/CS2103t group discussion` and
 `add t/activity s/14/09/2022 11:00 e/14/09/2022 12:00 ti/Lunch with CEO d/Lunch to discuss promotion`. To find the activity for team meeting, simply type
